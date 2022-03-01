@@ -1,0 +1,13 @@
+node_modules
+
+/.cache
+/build
+/public/build
+.env
+/app/tailwind.css
+/jsonDocs
+.DS_Store
+/dist
+.mf
+/meta.json
+/stats.html

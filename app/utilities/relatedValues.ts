@@ -1,0 +1,88 @@
+import { inferType } from "@jsonhero/json-infer-types";
+import { JSONHeroPath } from "@jsonhero/path";
+import { groupBy, sortBy } from "lodash-es";
+
+export type RelatedValuesGroup = {
+  value: string;
+  paths: Array<string>;
+};
+
+export function calculateRelatedValuesGroups(
+  path: string,
+  json: unknown
+): Array<RelatedValuesGroup> {
+  const relatedPaths = getRelatedPathsAtPath(path, json);
+
+  const groupedByValue = groupBy(relatedPaths, (path) => {
+    const heroPath = new JSONHeroPath(path);
+
+    const value = heroPath.first(json);
+
+    if (typeof value === "undefined") {
+      return "undefined";
+    } else if (value == null) {
+      return "null";
+    } else {
+      return value.toString();
+    }
+  });
+
+  const unsortedResult = Object.entries(groupedByValue).map(
+    ([value, paths]) => {
+      return {
+        value,
+        paths: sortBy(paths),
+      };
+    }
+  );
+
+  return sortBy(unsortedResult, (group) => -group.paths.length);
+}
+
+export function getRelatedPathsAtPath(
+  path: string,
+  json: unknown,
+  relatedPaths: Set<string> = new Set<string>()
+): Array<string> {
+  const initialPath = new JSONHeroPath(path);
+  const pathDepth = initialPath.components.length;
+
+  for (let index = 0; index < pathDepth; index++) {
+    const pathToComponent = new JSONHeroPath(
+      initialPath.components.slice(0, index + 1)
+    );
+
+    const value = pathToComponent.first(json);
+
+    if (typeof value === "undefined") {
+      continue;
+    }
+
+    const inferredType = inferType(value);
+
+    if (inferredType.name !== "array") continue;
+
+    for (
+      let childIndex = 0;
+      childIndex < inferredType.value.length;
+      childIndex++
+    ) {
+      const relatedPath = initialPath.replaceComponent(
+        index + 1,
+        `${childIndex}`
+      );
+
+      if (relatedPaths.has(relatedPath.toString())) continue;
+
+      const parentValue = relatedPath.parent?.first(json);
+
+      if (!parentValue) continue;
+
+      relatedPaths.add(relatedPath.toString());
+
+      getRelatedPathsAtPath(relatedPath.toString(), json, relatedPaths);
+    }
+  }
+
+  return Array.from(relatedPaths);
+}

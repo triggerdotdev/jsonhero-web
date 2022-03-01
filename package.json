@@ -1,0 +1,104 @@
+{
+  "private": true,
+  "name": "@jsonhero/json-hero",
+  "description": "",
+  "license": "",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run build:css && remix build",
+    "build:css": "tailwindcss -i ./styles/tailwind.css -o ./app/tailwind.css --minify",
+    "build:worker": "esbuild --define:process.env.NODE_ENV='\"production\"' --minify --bundle --sourcemap --outdir=dist ./worker",
+    "build:worker:analyze": "esbuild --define:process.env.NODE_ENV='\"production\"' --minify --bundle --sourcemap --metafile=meta.json --outdir=dist ./worker",
+    "build:visualize": "npm run clean && npm run build && npm run build:worker:analyze && esbuild-visualizer --metadata ./meta.json --exclude *.png",
+    "dev:worker": "esbuild --define:process.env.NODE_ENV='\"development\"' --bundle --sourcemap --outdir=dist ./worker",
+    "start:worker": "miniflare --env .env --build-command \"npm run dev:worker\" --watch",
+    "dev": "concurrently \"npm run dev:css\" \"remix watch\"",
+    "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./app/tailwind.css --watch",
+    "postinstall": "remix setup cloudflare-workers",
+    "start": "concurrently \"npm run dev\" \"npm run start:worker\"",
+    "deploy": "npm run build && wrangler publish",
+    "deploy:production": "npm run build && wrangler publish --env production",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "build:types": "tsc",
+    "build:types:watch": "tsc --watch"
+  },
+  "dependencies": {
+    "@codemirror/lang-json": "^0.19.1",
+    "@codemirror/rangeset": "^0.19.6",
+    "@heroicons/react": "^1.0.5",
+    "@js-temporal/polyfill": "^0.3.0",
+    "@jsonhero/json-infer-types": "^1.2.x",
+    "@jsonhero/json-schema-fns": "^0.0.1",
+    "@jsonhero/path": "^1.0.17",
+    "@jsonhero/schema-infer": "^0.1.x",
+    "@radix-ui/react-popover": "^0.1.5",
+    "@radix-ui/react-tabs": "^0.1.5",
+    "@remix-run/cloudflare-workers": "^1.1.3",
+    "@remix-run/react": "^1.1.3",
+    "@remix-run/serve": "^1.1.3",
+    "@uiw/react-codemirror": "^4.3.3",
+    "clsx": "^1.1.1",
+    "color": "^4.2.1",
+    "fathom-client": "^3.4.1",
+    "framer-motion": "^6.2.4",
+    "json-source-map": "^0.6.1",
+    "jwt-decode": "^3.1.2",
+    "lodash-es": "^4.17.21",
+    "nanoid": "^3.2.0",
+    "peekalink": "^1.0.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-dropzone": "^11.4.2",
+    "react-hotkeys-hook": "^3.4.4",
+    "remix": "^1.1.3",
+    "tailwindcss-radix": "^1.6.0",
+    "tiny-invariant": "^1.2.0",
+    "ts-pattern": "^3.3.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^2.2.2",
+    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
+    "@remix-run/dev": "^1.1.3",
+    "@tailwindcss/forms": "^0.4.0",
+    "@types/color": "^3.0.3",
+    "@types/jest": "^27.4.0",
+    "@types/lodash-es": "^4.17.6",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "concurrently": "^7.0.0",
+    "esbuild-visualizer": "^0.3.1",
+    "jest": "^27.4.7",
+    "miniflare": "2.0.0-next.3",
+    "patch-package": "^6.4.7",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^3.0.22",
+    "ts-jest": "^27.1.3",
+    "typescript": "^4.1.2"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "moduleNameMapper": {
+      "^~/(.*)$": "<rootDir>/app/$1",
+      "^lodash-es$": "lodash"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.json"
+      }
+    }
+  },
+  "sideEffects": false,
+  "main": "dist/worker.js"
+}

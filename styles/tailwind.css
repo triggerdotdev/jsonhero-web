@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&display=swap");
+@font-face {
+  font-family: "MonoLisa";
+  src: url("/fonts/MonoLisa/woff2/MonoLisa-Regular.woff2") format("woff2"),
+    url("/fonts/MonoLisa/woff/MonoLisa-Regular.woff") format("woff");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  }
+}
