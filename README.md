@@ -1,3 +1,7 @@
+<p align="center">
+<img width="300" src="https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/JsonHeroLogo.png"/>
+</p>
+
 # JSONHero
 
 ## Development
