@@ -1,8 +1,8 @@
 {
   "private": true,
-  "name": "@jsonhero/json-hero",
-  "description": "",
-  "license": "",
+  "name": "@jsonhero/jsonhero-web",
+  "description": "A beautiful JSON viewer for the web",
+  "license": "apache-2.0",
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run build:css && remix build",
