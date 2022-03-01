@@ -4,24 +4,53 @@
 
 # JSONHero
 
-## Development
+JSON Hero is a beautiful JSON viewer for the web. Stop reading thousand-line JSON documents in your editor
 
-From your terminal:
+- View JSON any way you'd like: Column View, Tree View, Editor View, and more.
+- Automatically infers the contents of strings and provides useful previews
+- Creates an inferred JSON Schema that could be used to validate your JSON
+- Quickly scan related values to check for edge cases
 
-```sh
-npm start
+![JSON Hero Screenshot](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/main.png)
+
+## Features
+
+### Column View
+
+Inspired by macOS Finder, Column View is a new way to browse a JSON document.
+
+![JSON Hero Column View](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-columnview.gif)
+
+It has all the features you'd expect: Keyboard navigation, Path bar, history.
+
+It also has a nifty feature that allows you to "hold" a descendent selected and travel up through the hierarchy, and then move between siblings and view the different values found at that path. It's hard to describe, but here is an animation to help demonstrate:
+
+![Column View - Traverse with Context](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-traversewithcontext.gif)
+
+As you can see, holding the `Option` (or `Alt` key on Windows) while moving to a parent keeps the part of the document selected and shows it in context of it's surrounding JSON. Then you can traverse between items in an array and compare the values of the selection across deep hierarchy cahnges.
+
+## Bugs and Feature Requests
+
+TBD
+
+## Contributing
+
+TBD
+
+## Developing
+
+To run locally, first clone the repo and install the dependencies:
+
+```bash
+git clone https://github.com/jsonhero-io/jsonhero-web.git
+cd jsonhero-web
+npm install
 ```
 
-This will build JSONHero in development mode and start the local miniflare server. Should now be available at [http://localhost:8787](http://localhost:8787)
+Then, create a file at the root of the repo called `.env` and set the `SESSION_SECRET` value:
 
-## Deploy
-
-Use [wrangler](https://developers.cloudflare.com/workers/cli-wrangler) to build and deploy your application to Cloudflare Workers. If you don't have it yet, follow [the installation guide](https://developers.cloudflare.com/workers/cli-wrangler/install-update) to get it setup. Be sure to [authenticate the CLI](https://developers.cloudflare.com/workers/cli-wrangler/authentication) as well.
-
-If you don't already have an account, then [create a cloudflare account here](https://dash.cloudflare.com/sign-up) and after verifying your email address with Cloudflare, go to your dashboard and set up your free custom Cloudflare Workers subdomain.
-
-Once that's done, you should be able to deploy your app:
-
-```sh
-npm run deploy
 ```
+SESSION_SECRET=abc123
+```
+
+Now, run `npm start` and open your browser to `http://localhost:8787`
