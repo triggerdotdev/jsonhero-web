@@ -40,10 +40,14 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     });
   }
 
+  if (!PEEKALINK_API_KEY) {
+    return json({ error: "No preview available for this URL" });
+  }
+
   const response = await fetch("https://api.peekalink.io/", {
     method: "POST",
     headers: {
-      "X-API-Key": "516ec4cd-6ebd-43ce-bc6d-b0b927d79188",
+      "X-API-Key": PEEKALINK_API_KEY,
       "content-type": "application/json",
     },
     body: JSON.stringify({ link: decoded }),

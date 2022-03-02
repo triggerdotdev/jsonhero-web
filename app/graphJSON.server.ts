@@ -1,4 +1,8 @@
 export async function sendEvent(event: Record<string, any>): Promise<void> {
+  if (!GRAPH_JSON_API_KEY || !GRAPH_JSON_COLLECTION) {
+    return;
+  }
+
   const payload = {
     api_key: GRAPH_JSON_API_KEY,
     collection: GRAPH_JSON_COLLECTION,
