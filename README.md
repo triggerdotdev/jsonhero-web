@@ -15,7 +15,7 @@ JSON Hero is a beautiful JSON viewer for the web. Stop reading thousand-line JSO
 
 ## Features
 
-### Column View
+### Column view
 
 Inspired by macOS Finder, Column View is a new way to browse a JSON document.
 
@@ -29,13 +29,25 @@ It also has a nifty feature that allows you to "hold" a descendent selected and 
 
 As you can see, holding the `Option` (or `Alt` key on Windows) while moving to a parent keeps the part of the document selected and shows it in context of it's surrounding JSON. Then you can traverse between items in an array and compare the values of the selection across deep hierarchy cahnges.
 
+### Editor view
+
+View your entire JSON document in an editor, but keep the nice previews and related values you get from the sidebar as you move around the document:
+
+![Editor view](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-editorview.gif)
+
+### Tree view
+
+> Coming soon
+
+### Terminal
+
+> Coming soon
+
 ## Bugs and Feature Requests
 
-TBD
+Have a bug or a feature request? Feel free to [open a new issue](/issues).
 
-## Contributing
-
-TBD
+You can also join our [Discord channel](https://discord.gg/ZQq6Had5nP) to hang out and discuss anything you'd like.
 
 ## Developing
 
