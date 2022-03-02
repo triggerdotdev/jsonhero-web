@@ -3,6 +3,20 @@ name: CI
 on:
   push:
     branches: [main]
+    paths:
+      - ".github/workflows/main.yml"
+      - "app/**/*.ts"
+      - "app/**/*.tsx"
+      - "public/*"
+      - "styles/*"
+      - "worker/*"
+      - "package.json"
+      - "package-lock.json"
+      - "remix.config.js"
+      - "tsconfig.json"
+      - "wrangler.toml"
+      - "remix.env.d.ts"
+      - "tailwind.config.js"
 
   workflow_dispatch:
 
