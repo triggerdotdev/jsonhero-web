@@ -44,6 +44,29 @@ export let action: ActionFunction = async ({ request, context }) => {
   return redirect(`/j/${doc.id}`);
 };
 
-export let loader: LoaderFunction = () => {
-  return redirect("/");
+export let loader: LoaderFunction = async ({ request, context }) => {
+  const url = new URL(request.url);
+  const jsonUrl = url.searchParams.get("jsonUrl");
+
+  if (!jsonUrl) {
+    return redirect("/");
+  }
+
+  const jsonURL = new URL(jsonUrl);
+
+  invariant(jsonURL, "jsonUrl must be a valid URL");
+
+  const doc = await createFromUrl(jsonURL, jsonURL.href);
+
+  context.waitUntil(
+    sendEvent({
+      type: "create",
+      from: "url",
+      hostname: jsonURL.hostname,
+      id: doc.id,
+      source: url.searchParams.get("utm_source") ?? url.hostname,
+    })
+  );
+
+  return redirect(`/j/${doc.id}`);
 };

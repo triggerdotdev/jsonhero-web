@@ -26,8 +26,14 @@ export declare type PreviewHtml = {
   details?: YouTubeLinkDetails | TwitterLinkDetails;
 };
 
-export declare type PreviewInfo = PreviewImage | PreviewHtml;
-export type PreviewResult = PreviewInfo | { error: string };
+export declare type PreviewJson = {
+  url: string;
+  contentType: "json";
+  json: unknown;
+};
+
+export declare type PreviewInfo = PreviewImage | PreviewHtml | PreviewJson;
+export declare type PreviewResult = PreviewInfo | { error: string };
 
 declare type YouTubeLinkDetails = {
   type: "youtube";

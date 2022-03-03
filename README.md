@@ -35,6 +35,32 @@ View your entire JSON document in an editor, but keep the nice previews and rela
 
 ![Editor view](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-editorview.gif)
 
+### Content Previews
+
+JSON Hero automatically infers the content of strings and provides useful previews and properties of the value you've selected. It's "Show Don't Tell" for JSON:
+
+#### Image URLs
+
+![Preview colors](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-preview-imageurls.png)
+
+#### Website URLs
+
+![Preview websites](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-preview-websiteurls.png)
+
+#### Tweet URLS
+
+![Preview tweets](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-preview-tweeturls.png)
+
+#### JSON URLs
+
+![Preview JSON](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-preview-tweeturls.png)
+
+####
+
+#### Colors
+
+![Preview colors](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-preview-colors.png)
+
 ### Tree view
 
 > Coming soon

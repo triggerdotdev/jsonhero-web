@@ -19,6 +19,7 @@ import { SideBar } from "~/components/SideBar";
 import { JsonColumnViewProvider } from "~/hooks/useJsonColumnView";
 import { JsonSchemaProvider } from "~/hooks/useJsonSchema";
 import { JsonView } from "~/components/JsonView";
+import safeFetch from "~/utilities/safeFetch";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -34,7 +35,16 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const path = getPathFromRequest(request);
 
   if (doc.type == "url") {
-    const jsonResponse = await fetch(doc.url);
+    console.log(`Fetching ${doc.url}...`);
+
+    const jsonResponse = await safeFetch(doc.url);
+
+    if (!jsonResponse.ok) {
+      throw new Response(jsonResponse.statusText, {
+        status: jsonResponse.status,
+      });
+    }
+
     const json = await jsonResponse.json();
 
     return {

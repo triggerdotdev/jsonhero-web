@@ -8,7 +8,6 @@ import { CodeViewer } from "~/components/CodeViewer";
 import { PreviewBox } from "../PreviewBox";
 import { PreviewDate } from "./PreviewDate";
 import { PreviewImageUri } from "./PreviewImageUri";
-import { PreviewJsonUri } from "./PreviewJsonUri";
 import { PreviewUri } from "./PreviewUri";
 
 export function PreviewString({ info }: { info: JSONStringType }) {
@@ -31,8 +30,6 @@ export function PreviewString({ info }: { info: JSONStringType }) {
             contentType={info.format.contentType}
           />
         );
-      } else if (info.format.contentType === "application/json") {
-        return <PreviewJsonUri url={info.value} />;
       } else {
         return <PreviewUri value={info.value} type={info} />;
       }
