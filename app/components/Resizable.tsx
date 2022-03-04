@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 type ResizableProps = {
   children: React.ReactNode;
@@ -16,20 +16,17 @@ export default function Resizable({
   maximumSize,
 }: ResizableProps) {
   const [dimension, setDimension] = useState(initialSize);
-  const [previousDragPosition, setPreviousDragPosition] = useState<{
-    x: number;
-    y: number;
-  } | null>(null);
+  const previousDragPosition = useRef<{ x: number; y: number } | null>(null);
 
   const handleDragStart = (e: React.MouseEvent<HTMLDivElement>): void => {
-    setPreviousDragPosition({
+    previousDragPosition.current = {
       x: e.clientX,
       y: e.clientY,
-    });
+    };
   };
 
   const handleDrag = (e: MouseEvent) => {
-    if (previousDragPosition === null) {
+    if (previousDragPosition.current == null) {
       return;
     }
 
@@ -37,9 +34,9 @@ export default function Resizable({
 
     let offset = 0;
     if (isHorizontal) {
-      offset = e.clientX - previousDragPosition.x;
+      offset = e.clientX - previousDragPosition.current.x;
     } else {
-      offset = e.clientY - previousDragPosition.y;
+      offset = e.clientY - previousDragPosition.current.y;
     }
     let newValue = dimension - offset;
     if (minimumSize != null) {
@@ -49,14 +46,14 @@ export default function Resizable({
       newValue = Math.min(maximumSize, newValue);
     }
     setDimension(newValue);
-    setPreviousDragPosition({
+    previousDragPosition.current = {
       x: e.clientX,
       y: e.clientY,
-    });
+    };
   };
 
   const handleDragEnd = () => {
-    setPreviousDragPosition(null);
+    previousDragPosition.current = null;
   };
 
   useEffect(() => {
