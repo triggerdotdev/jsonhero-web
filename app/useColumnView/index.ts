@@ -7,6 +7,7 @@ import React, {
   useMemo,
   useReducer,
 } from "react";
+import { useMemoCompare } from "~/hooks/useMemoCompare";
 
 export type IconComponent = (
   props: React.SVGProps<SVGSVGElement>
@@ -184,9 +185,18 @@ export function useColumnView({
   const selectedPath = getPathToNode(nodeTable, selectedNodeId);
   const highlightedPath = getPathToNode(nodeTable, highlightedNodeId);
 
-  const columns = useMemo(
-    () => generateColumns(nodeTable, selectedPath, columnCache.current),
-    [nodeTable, selectedPath]
+  const columns = useMemoCompare(
+    generateColumns(nodeTable, selectedPath, columnCache.current),
+    (previous, next) => {
+      if (!previous || !next) return false;
+      if (previous.length !== next.length) return false;
+      const isEqual =
+        previous.map(({ id }) => id).join("") ===
+        next.map(({ id }) => id).join("");
+
+      console.log(`useColumnView generateColumns the same? ${isEqual}`);
+      return isEqual;
+    }
   );
   const selectedNodes = selectedPath.map((id) => nodeTable[id].node);
 
