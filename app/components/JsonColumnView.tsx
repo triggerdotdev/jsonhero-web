@@ -49,22 +49,23 @@ function ColumnsWrapper({ columns }: { columns: ColumnDefinition[] }) {
     return (
       <>
         {columns.map((column) => {
-          return (
-            <Column
-              id={column.id}
-              title={column.title}
-              key={column.id}
-              icon={column.icon}
-            >
-              {column.items.map((item) => (
-                <ColumnItem key={item.id} item={item} />
-              ))}
-            </Column>
-          );
+          return <ColumnWrapper key={column.id} column={column} />;
         })}
       </>
     );
   }, [columns]);
+}
+
+function ColumnWrapper({ column }: { column: ColumnDefinition }) {
+  return useMemo(() => {
+    return (
+      <Column id={column.id} title={column.title} icon={column.icon}>
+        {column.items.map((item) => (
+          <ColumnItem key={item.id} item={item} />
+        ))}
+      </Column>
+    );
+  }, [column]);
 }
 
 function KeyboardShortcuts() {
