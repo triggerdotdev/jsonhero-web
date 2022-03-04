@@ -10,6 +10,7 @@ import {
   useJsonColumnViewState,
 } from "../hooks/useJsonColumnView";
 import { useHotkeys } from "react-hotkeys-hook";
+import { memo } from "react";
 
 export function PathBar() {
   const { selectedNodes, highlightedNodeId } = useJsonColumnViewState();
@@ -37,34 +38,13 @@ export function PathBarLink({
     <div className="flex flex-shrink-0 flex-grow-0 overflow-x-hidden">
       {selectedNodes.map((node, index) => {
         return (
-          <div
-            className="flex items-center min-w-0"
-            style={{ flexShrink: 1 }}
-            key={node.id}
-          >
-            <div
-              className={`flex items-center hover:cursor-pointer min-w-0 transition ${
-                highlightedNodeId === node.id
-                  ? "text-slate-700 bg-slate-300 px-2 py-[3px] rounded-sm dark:text-white dark:bg-slate-700"
-                  : "hover:bg-slate-300 px-2 py-[3px] rounded-sm transition dark:hover:bg-white dark:hover:bg-opacity-[5%]"
-              }`}
-              style={{ flexShrink: 1 }}
-              onClick={() => goToNodeId(node.id)}
-            >
-              <div className="w-4 flex-shrink-[0.5] flex-grow-0 flex-col justify-items-center whitespace-nowrap overflow-x-hidden transition dark:text-slate-400">
-                {node.icon && <node.icon className="h-3 w-3" />}
-              </div>
-              <Body className="flex-shrink flex-grow-0 whitespace-nowrap overflow-x-hidden text-ellipsis transition dark:text-slate-400">
-                {node.title}
-              </Body>
-            </div>
-
-            {index == selectedNodes.length - 1 ? (
-              <></>
-            ) : (
-              <ChevronRightIcon className="flex-grow-0 flex-shrink-[0.5] w-4 h-4 text-slate-400 whitespace-nowrap overflow-x-hidden" />
-            )}
-          </div>
+          <PathBarItem
+            key={index}
+            node={node}
+            highlightedNodeId={highlightedNodeId}
+            goToNodeId={goToNodeId}
+            isLast={index == selectedNodes.length - 1}
+          />
         );
       })}
     </div>
@@ -110,3 +90,59 @@ export function PathHistoryControls() {
     </div>
   );
 }
+
+function PathBarElement({
+  node,
+  highlightedNodeId,
+  goToNodeId,
+  isLast,
+}: {
+  node: ColumnViewNode;
+  highlightedNodeId: string | undefined;
+  goToNodeId: (id: string) => void;
+  isLast: boolean;
+}) {
+  return (
+    <div
+      className="flex items-center min-w-0"
+      style={{
+        flexShrink: 1,
+      }}
+    >
+      <div
+        className={`flex items-center hover:cursor-pointer min-w-0 transition ${
+          highlightedNodeId === node.id
+            ? "text-slate-700 bg-slate-300 px-2 py-[3px] rounded-sm dark:text-white dark:bg-slate-700"
+            : "hover:bg-slate-300 px-2 py-[3px] rounded-sm transition dark:hover:bg-white dark:hover:bg-opacity-[5%]"
+        }`}
+        style={{
+          flexShrink: 1,
+        }}
+        onClick={() => goToNodeId(node.id)}
+      >
+        <div className="w-4 flex-shrink-[0.5] flex-grow-0 flex-col justify-items-center whitespace-nowrap overflow-x-hidden transition dark:text-slate-400">
+          {node.icon && <node.icon className="h-3 w-3" />}
+        </div>
+        <Body className="flex-shrink flex-grow-0 whitespace-nowrap overflow-x-hidden text-ellipsis transition dark:text-slate-400">
+          {node.title}
+        </Body>
+      </div>
+
+      {isLast ? (
+        <></>
+      ) : (
+        <ChevronRightIcon className="flex-grow-0 flex-shrink-[0.5] w-4 h-4 text-slate-400 whitespace-nowrap overflow-x-hidden" />
+      )}
+    </div>
+  );
+}
+
+const PathBarItem = memo(PathBarElement, (oldProps, newProps) => {
+  if (oldProps.node.id !== newProps.node.id) return false;
+  if (oldProps.highlightedNodeId !== newProps.highlightedNodeId) {
+    const wasHighlighted = oldProps.highlightedNodeId == oldProps.node.id;
+    const nowHighlighted = newProps.highlightedNodeId == newProps.node.id;
+    if (wasHighlighted !== nowHighlighted) return false;
+  }
+  return true;
+});
