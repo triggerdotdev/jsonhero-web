@@ -20,6 +20,7 @@ module.exports = {
       height: {
         viewerHeight: "calc(100vh - 146px)",
         inspectorHeight: "calc(100vh - 70px)",
+        jsonViewerHeight: "calc(100vh - 106px)",
       },
       fontFamily: {
         sans: ["Source Sans Pro", "sans-serif"],
