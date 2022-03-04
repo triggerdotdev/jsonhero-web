@@ -51,6 +51,7 @@
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.4.2",
     "react-hotkeys-hook": "^3.4.4",
+    "react-virtual": "^2.10.4",
     "remix": "^1.2.3",
     "tailwindcss-radix": "^1.6.0",
     "tiny-invariant": "^1.2.0",

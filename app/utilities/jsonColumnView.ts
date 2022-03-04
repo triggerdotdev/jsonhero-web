@@ -117,7 +117,7 @@ export function generateNodesToPath(
   return nodes;
 }
 
-function iconForType(type: JSONValueType): IconComponent {
+export function iconForType(type: JSONValueType): IconComponent {
   switch (type.name) {
     case "object": {
       return CubeIcon;
