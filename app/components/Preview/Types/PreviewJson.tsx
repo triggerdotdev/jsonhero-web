@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { CodeViewer } from "~/components/CodeViewer";
-import { CopyText } from "~/components/CopyText";
+import { CopyTextButton } from "~/components/CopyTextButton";
 import { OpenInNewWindow } from "~/components/OpenInWindow";
 import { Body } from "~/components/Primitives/Body";
 import { PreviewBox } from "../PreviewBox";
 import { PreviewJson } from "./preview.types";
 
 export function PreviewJson({ preview }: { preview: PreviewJson }) {
+  const [hovering, setHovering] = useState(false);
   const jsonHeroUrl = new URL(
     `/actions/createFromUrl?jsonUrl=${encodeURIComponent(preview.url)}`,
     window.location.origin
@@ -17,21 +19,29 @@ export function PreviewJson({ preview }: { preview: PreviewJson }) {
 
   return (
     <PreviewBox className="relative">
-      <div className="absolute flex justify-end pt-1 pr-1 z-10 h-full w-full opacity-0 hover:opacity-100 transition">
-        <CopyText
-          value={code}
-          className="bg-slate-700 h-fit mr-1 px-2 rounded-sm"
+      <div
+        className="w-full h-full"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+      >
+        <CodeViewer code={code} />
+        <div
+          className={`absolute top-0 flex justify-end pt-1 pr-1 w-full transition ${
+            hovering ? "opacity-100" : "opacity-0"
+          }`}
         >
-          <Body>Copy</Body>
-        </CopyText>
-        <OpenInNewWindow
-          url={jsonHeroUrl.href}
-          className="bg-slate-700 h-fit px-2 rounded-sm"
-        >
-          <Body>Open in tab</Body>
-        </OpenInNewWindow>
+          <CopyTextButton
+            value={code}
+            className="bg-slate-700 h-fit mr-1 px-2 rounded-sm transition hover:bg-slate-600"
+          ></CopyTextButton>
+          <OpenInNewWindow
+            url={jsonHeroUrl.href}
+            className="bg-slate-700 h-fit px-2 rounded-sm transition hover:bg-slate-600"
+          >
+            <Body>Open in tab</Body>
+          </OpenInNewWindow>
+        </div>
       </div>
-      <CodeViewer code={code} />
     </PreviewBox>
   );
 }
