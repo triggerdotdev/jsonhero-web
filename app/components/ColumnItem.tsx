@@ -1,32 +1,37 @@
 import { ChevronRightIcon } from "@heroicons/react/outline";
 import { Mono } from "./Primitives/Mono";
-import { RefObject, useEffect, useMemo, useRef } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { ColumnViewNode } from "~/useColumnView";
-import {
-  useJsonColumnViewAPI,
-  useJsonColumnViewState,
-} from "../hooks/useJsonColumnView";
-import { useJson } from "../hooks/useJson";
 import { colorForItemAtPath } from "~/utilities/colors";
 import { Body } from "./Primitives/Body";
 
-export function ColumnItem({ item }: { item: ColumnViewNode }) {
-  const { title, subtitle, children, id } = item;
-  const [json] = useJson();
-  const { selectedPath, highlightedPath } = useJsonColumnViewState();
-  const { goToNodeId } = useJsonColumnViewAPI();
+export type ColumnItemProps = {
+  item: ColumnViewNode;
+  json: unknown;
+  selectedPath: string[];
+  highlightedPath: string[];
+  selectedItem: (id: string) => void;
+};
+
+function ColumnItemElement({
+  item,
+  json,
+  selectedPath,
+  highlightedPath,
+  selectedItem,
+}: ColumnItemProps) {
   const htmlElement = useRef<HTMLDivElement>(null);
 
-  const showArrow = children.length > 0;
+  const showArrow = item.children.length > 0;
 
   const isHighlighted = useMemo(() => {
     if (highlightedPath.length === 0) return false;
-    return highlightedPath[highlightedPath.length - 1] === id;
-  }, [highlightedPath, id]);
+    return highlightedPath[highlightedPath.length - 1] === item.id;
+  }, [highlightedPath, item.id]);
 
   const isSelected = useMemo(() => {
-    return selectedPath.includes(id);
-  }, [selectedPath, id]);
+    return selectedPath.includes(item.id);
+  }, [selectedPath, item.id]);
 
   const stateStyle = useMemo<string>(() => {
     if (isHighlighted) {
@@ -41,8 +46,8 @@ export function ColumnItem({ item }: { item: ColumnViewNode }) {
   }, [isSelected, isHighlighted]);
 
   const iconColor = useMemo<string>(
-    () => colorForItemAtPath(id, json),
-    [id, json]
+    () => colorForItemAtPath(item.id, json),
+    [item.id, json]
   );
 
   useEffect(() => {
@@ -51,47 +56,14 @@ export function ColumnItem({ item }: { item: ColumnViewNode }) {
     }
   }, [isSelected, isHighlighted]);
 
-  const memoComponent = useMemo(() => {
-    return (
-      <ColumnItemInner
-        stateStyle={stateStyle}
-        onClick={() => goToNodeId(id)}
-        item={item}
-        iconColor={iconColor}
-        showArrow={showArrow}
-        divRef={htmlElement}
-      />
-    );
-  }, [goToNodeId, item, isSelected, isHighlighted]);
-
-  return memoComponent;
-}
-
-type ColumnItemInnerProps = {
-  stateStyle: string;
-  onClick: () => void;
-  item: ColumnViewNode;
-  iconColor: string;
-  showArrow: boolean;
-  divRef: RefObject<HTMLDivElement>;
-};
-
-function ColumnItemInner({
-  stateStyle,
-  onClick,
-  item,
-  iconColor,
-  showArrow,
-  divRef,
-}: ColumnItemInnerProps) {
   return (
     <div
       className={`flex h-9 items-center justify-items-stretch mx-1 px-1 py-1 my-1 rounded-sm ${stateStyle}`}
-      onClick={() => onClick()}
-      ref={divRef}
+      onClick={() => selectedItem(item.id)}
+      ref={htmlElement}
     >
       <div className="w-4 flex-none flex-col justify-items-center">
-        {/* {item.icon && <item.icon className={`${iconColor} h-5 w-5`} />} */}
+        {item.icon && <item.icon className={`${iconColor} h-5 w-5`} />}
       </div>
 
       <div className="flex flex-grow flex-shrink items-baseline justify-between truncate">
@@ -103,9 +75,58 @@ function ColumnItemInner({
         )}
       </div>
 
-      {/* {showArrow && (
+      {showArrow && (
         <ChevronRightIcon className="flex-none w-4 h-4 text-gray-400" />
-      )} */}
+      )}
     </div>
   );
+}
+
+export const ColumnItem = memo(
+  ColumnItemElement,
+  (previousProps, nextProps) => {
+    if (previousProps.item.id !== nextProps.item.id) return false;
+    if (
+      hasPathChanged(previousProps.highlightedPath, nextProps.highlightedPath)
+    ) {
+      const wasHighlighted = isHighlighted(
+        previousProps.item.id,
+        previousProps.highlightedPath
+      );
+      const nowHighlighted = isHighlighted(
+        nextProps.item.id,
+        nextProps.highlightedPath
+      );
+      if (wasHighlighted !== nowHighlighted) return false;
+    }
+
+    if (hasPathChanged(previousProps.selectedPath, nextProps.selectedPath)) {
+      const wasSelected = isSelected(
+        previousProps.item.id,
+        previousProps.selectedPath
+      );
+      const nowSelected = isSelected(nextProps.item.id, nextProps.selectedPath);
+      if (wasSelected !== nowSelected) return false;
+    }
+
+    return true;
+  }
+);
+
+function hasPathChanged(oldPath: string[], newPath: string[]): boolean {
+  if (oldPath.length !== newPath.length) return true;
+
+  const oldPathString = oldPath.join("");
+  const newPathString = newPath.join("");
+  const hasSelectionChanged = oldPathString !== newPathString;
+  return hasSelectionChanged;
+}
+
+function isHighlighted(id: string, highlightedPath: string[]): boolean {
+  if (highlightedPath.length === 0) return false;
+  return highlightedPath[highlightedPath.length - 1] === id;
+}
+
+function isSelected(id: string, selectedPath: string[]): boolean {
+  return selectedPath.includes(id);
 }

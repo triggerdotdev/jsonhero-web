@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { Column } from "./Column";
 import { ColumnItem } from "./ColumnItem";
 import { ScrollingColumnView } from "./ScrollingColumnView";
@@ -10,7 +10,7 @@ import { useJson } from "~/hooks/useJson";
 import { JSONHeroPath } from "@jsonhero/path";
 import { inferType } from "@jsonhero/json-infer-types";
 import { useHotkeys } from "react-hotkeys-hook";
-import { ColumnDefinition } from "~/useColumnView";
+import { Columns } from "./Columns";
 
 export function JsonColumnView() {
   const { getColumnViewProps, columns, highlightedPath, selectedPath } =
@@ -25,8 +25,12 @@ export function JsonColumnView() {
     const value = heroPath.first(json);
     const item = inferType(value);
 
-    let isObject = item.name === "array" || item.name === "object";
-    return !isObject;
+    if (item.name === "array" && item.value.length === 0) return true;
+    if (item.name === "object" && Object.keys(item.value).length === 0)
+      return true;
+
+    const isContainer = item.name === "array" || item.name === "object";
+    return !isContainer;
   }, [columns, selectedPath]);
 
   return (
@@ -34,38 +38,11 @@ export function JsonColumnView() {
       <KeyboardShortcuts />
       <div {...getColumnViewProps()}>
         <ScrollingColumnView selectedPath={highlightedPath}>
-          <ColumnsWrapper columns={columns} />
-          {addBlankColumn && (
-            <div className="w-80 h-viewerHeight no-scrollbar flex-none"></div>
-          )}
+          <Columns columns={columns} />
         </ScrollingColumnView>
       </div>
     </>
   );
-}
-
-function ColumnsWrapper({ columns }: { columns: ColumnDefinition[] }) {
-  return useMemo(() => {
-    return (
-      <>
-        {columns.map((column) => {
-          return <ColumnWrapper key={column.id} column={column} />;
-        })}
-      </>
-    );
-  }, [columns]);
-}
-
-function ColumnWrapper({ column }: { column: ColumnDefinition }) {
-  return useMemo(() => {
-    return (
-      <Column id={column.id} title={column.title} icon={column.icon}>
-        {column.items.map((item) => (
-          <ColumnItem key={item.id} item={item} />
-        ))}
-      </Column>
-    );
-  }, [column]);
 }
 
 function KeyboardShortcuts() {
