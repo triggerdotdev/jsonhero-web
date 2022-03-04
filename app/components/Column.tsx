@@ -2,6 +2,7 @@ import { Title } from "./Primitives/Title";
 import { colorForItemAtPath } from "~/utilities/colors";
 import { IconComponent } from "~/useColumnView";
 import { useJson } from "../hooks/useJson";
+import { useMemo } from "react";
 
 export type ColumnProps = {
   id: string;
@@ -13,7 +14,7 @@ export type ColumnProps = {
 export function Column(column: ColumnProps) {
   const { id, title, children } = column;
   const [json] = useJson();
-  const iconColor = colorForItemAtPath(id, json);
+  const iconColor = useMemo(() => colorForItemAtPath(id, json), [id, json]);
   return (
     <div
       className={
