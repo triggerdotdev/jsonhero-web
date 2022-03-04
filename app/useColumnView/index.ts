@@ -194,7 +194,6 @@ export function useColumnView({
         previous.map(({ id }) => id).join("") ===
         next.map(({ id }) => id).join("");
 
-      console.log(`useColumnView generateColumns the same? ${isEqual}`);
       return isEqual;
     }
   );
