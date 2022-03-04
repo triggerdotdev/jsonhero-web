@@ -14,7 +14,7 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
   const { goToNodeId } = useJsonColumnViewAPI();
 
   return (
-    <>
+    <div className="columns flex flex-grow overflow-x-auto no-scrollbar focus:outline-none">
       {columns.map((column) => {
         return (
           <Column
@@ -37,7 +37,7 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
           </Column>
         );
       })}
-    </>
+    </div>
   );
 }
 export const Columns = memo(ColumnsElement);

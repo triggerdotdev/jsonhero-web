@@ -37,9 +37,7 @@ export function JsonColumnView() {
     <>
       <KeyboardShortcuts />
       <div {...getColumnViewProps()}>
-        <ScrollingColumnView selectedPath={highlightedPath}>
-          <Columns columns={columns} />
-        </ScrollingColumnView>
+        <Columns columns={columns} />
       </div>
     </>
   );
