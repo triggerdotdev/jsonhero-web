@@ -10,6 +10,7 @@ import { useJson } from "~/hooks/useJson";
 import { JSONHeroPath } from "@jsonhero/path";
 import { inferType } from "@jsonhero/json-infer-types";
 import { useHotkeys } from "react-hotkeys-hook";
+import { ColumnDefinition } from "~/useColumnView";
 
 export function JsonColumnView() {
   const { getColumnViewProps, columns, highlightedPath, selectedPath } =
@@ -33,20 +34,7 @@ export function JsonColumnView() {
       <KeyboardShortcuts />
       <div {...getColumnViewProps()}>
         <ScrollingColumnView selectedPath={highlightedPath}>
-          {columns.map((column) => {
-            return (
-              <Column
-                id={column.id}
-                title={column.title}
-                key={column.id}
-                icon={column.icon}
-              >
-                {column.items.map((item) => (
-                  <ColumnItem key={item.id} item={item} />
-                ))}
-              </Column>
-            );
-          })}
+          <ColumnsWrapper columns={columns} />
           {addBlankColumn && (
             <div className="w-80 h-viewerHeight no-scrollbar flex-none"></div>
           )}
@@ -54,6 +42,29 @@ export function JsonColumnView() {
       </div>
     </>
   );
+}
+
+function ColumnsWrapper({ columns }: { columns: ColumnDefinition[] }) {
+  return useMemo(() => {
+    return (
+      <>
+        {columns.map((column) => {
+          return (
+            <Column
+              id={column.id}
+              title={column.title}
+              key={column.id}
+              icon={column.icon}
+            >
+              {column.items.map((item) => (
+                <ColumnItem key={item.id} item={item} />
+              ))}
+            </Column>
+          );
+        })}
+      </>
+    );
+  }, [columns]);
 }
 
 function KeyboardShortcuts() {
