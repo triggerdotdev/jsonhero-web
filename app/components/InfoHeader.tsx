@@ -49,7 +49,7 @@ export function InfoHeader() {
       <div>
         {isSelectedLeafNode && (
           <CopyText
-            className="after:w-5 after:h-5 after:top-0.5 after:right-0.5"
+            className="after:w-5 after:h-5 after:top-0.5 after:right-0.5 rounded-sm hover:cursor-pointer transition ease-out after:transition hover:bg-slate-100 hover:dark:bg-slate-700 active:bg-slate-200 after:active:bg-slate-200 dark:active:bg-opacity-70 dark:after:active:bg-opacity-70 after:absolute after:opacity-0 hover:after:opacity-100 after:content-[''] after:bg-[url('/svgs/CopyIcon.svg')] active:after:bg-[url('/svgs/TickIcon.svg')] after:bg-slate-100 after:dark:bg-slate-700 after:bg-no-repeat"
             value={formatRawValue(selectedInfo)}
           >
             <LargeMono className="text-slate-800 mb-1 overflow-ellipsis break-words dark:text-slate-300">
