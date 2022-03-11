@@ -14,8 +14,6 @@ import { useRef, useEffect, useMemo, useState } from "react";
 import { getPreviewSetup } from "~/utilities/codeMirrorSetup";
 import { lightTheme, darkTheme } from "~/utilities/codeMirrorTheme";
 import { CopyTextButton } from "./CopyTextButton";
-import { OpenInNewWindow } from "./OpenInWindow";
-import { Body } from "./Primitives/Body";
 import { useTheme } from "./ThemeProvider";
 
 export type JsonPreviewProps = {
