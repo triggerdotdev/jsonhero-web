@@ -71,7 +71,7 @@ export function Share() {
 
   return (
     <div className="bg-indigo-700 text-white rounded-sm shadow-md w-[340px] p-3 transition">
-      <Body className="text-sm mb-2 text-slate-500 transition dark:text-slate-300">
+      <Body className="text-sm mb-2 text-slate-300">
         Anyone with this link can view this json file.
       </Body>
       <div className="flex">
@@ -86,7 +86,7 @@ export function Share() {
         </div>
       </div>
       <div className="form-check form-check-inline mt-2">
-        <label className="flex items-center text-sm form-check-label text-slate-800 select-none hover:cursor-pointer transition dark:text-white">
+        <label className="flex items-center text-sm form-check-label text-slate-300 select-none hover:cursor-pointer transition">
           <input
             className="form-check-input appearance-none h-4 w-4 border border-slate-300 rounded-sm bg-white checked:bg-indigo-700 checked:border-indigo-700 focus:outline-none duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 hover:cursor-pointer transition dark:border-slate-300 dark:bg-slate-200 dark:checked:bg-lime-500 dark:checked:border-lime-500"
             type="checkbox"
