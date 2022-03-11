@@ -22,7 +22,9 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
             id={column.id}
             title={column.title}
             icon={column.icon}
-            highlightedPath={highlightedPath}
+            hasHighlightedElement={
+              highlightedPath[highlightedPath.length - 2] === column.id
+            }
           >
             {column.items.map((item) => (
               <ColumnItem

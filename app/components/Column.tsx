@@ -8,7 +8,7 @@ export type ColumnProps = {
   id: string;
   title: string;
   icon?: IconComponent;
-  highlightedPath: string[];
+  hasHighlightedElement: boolean;
   children: React.ReactNode;
 };
 
@@ -34,28 +34,4 @@ function ColumnElement(column: ColumnProps) {
   );
 }
 
-export const Column = memo(ColumnElement, (oldProps, newProps) => {
-  if (oldProps.id !== newProps.id) return false;
-  if (oldProps.title !== newProps.title) return false;
-  if (oldProps.icon !== newProps.icon) return false;
-  if (oldProps.highlightedPath.length !== newProps.highlightedPath.length)
-    return false;
-
-  //re-render if the highlighted element changed and was or is now in this column
-  const oldHighlightedElement =
-    oldProps.highlightedPath[oldProps.highlightedPath.length - 1];
-  const newHighlightedElement =
-    newProps.highlightedPath[newProps.highlightedPath.length - 1];
-  if (oldHighlightedElement !== newHighlightedElement) {
-    const oldHighlightedColumn =
-      oldProps.highlightedPath[oldProps.highlightedPath.length - 2];
-    const newHighlightedColumn =
-      newProps.highlightedPath[newProps.highlightedPath.length - 2];
-    const wasHighlighted = oldHighlightedColumn === oldProps.id;
-    const nowHighlighted = newHighlightedColumn === newProps.id;
-
-    if (wasHighlighted || nowHighlighted) return false;
-  }
-
-  return true;
-});
+export const Column = memo(ColumnElement);
