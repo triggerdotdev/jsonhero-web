@@ -1,20 +1,19 @@
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/outline";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import {
   useJsonColumnViewAPI,
   useJsonColumnViewState,
 } from "~/hooks/useJsonColumnView";
-import { JsonTreeViewNode, useJsonTree } from "~/hooks/useJsonTree";
+import { JsonTreeViewNode, useJsonTreeViewContext } from "~/hooks/useJsonTree";
 import { VirtualNode } from "~/hooks/useVirtualTree";
 import { Body } from "./Primitives/Body";
 import { Mono } from "./Primitives/Mono";
 
 export function JsonTreeView() {
-  const parentRef = useRef<HTMLDivElement>(null);
   const { selectedNodeId } = useJsonColumnViewState();
   const { goToNodeId } = useJsonColumnViewAPI();
 
-  const { tree } = useJsonTree({ parentRef, overscan: 10 });
+  const { tree, parentRef } = useJsonTreeViewContext();
 
   useEffect(() => {
     if (selectedNodeId) {

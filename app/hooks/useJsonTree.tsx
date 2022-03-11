@@ -1,25 +1,53 @@
 import { useJson } from "./useJson";
-import { useJsonColumnViewState } from "./useJsonColumnView";
 import { inferType, JSONValueType } from "@jsonhero/json-infer-types";
 import { JSONHeroPath } from "@jsonhero/path";
 import { IconComponent } from "~/useColumnView";
 import { formatValue } from "~/utilities/formatter";
 import { iconForType } from "~/utilities/jsonColumnView";
-import { useCallback, useEffect, useMemo } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useMemo,
+  useRef,
+} from "react";
 import { useVirtualTree, UseVirtualTreeInstance } from "./useVirtualTree";
+import invariant from "tiny-invariant";
 
 const initialRect = { width: 800, height: 600 };
 
 export type JsonTreeOptions = {
-  parentRef: React.RefObject<HTMLElement>;
   overscan?: number;
 };
 
 export type UseJsonTreeInstance = {
   tree: UseVirtualTreeInstance<JsonTreeViewNode>;
+  parentRef: React.RefObject<HTMLDivElement>;
 };
 
+export type JsonTreeViewType = UseJsonTreeInstance;
+
+const JsonTreeViewContext = createContext<JsonTreeViewType>(
+  {} as JsonTreeViewType
+);
+
+export function JsonTreeViewProvider({
+  children,
+  ...options
+}: { children: ReactNode } & JsonTreeOptions) {
+  const instance = useJsonTree(options);
+
+  return (
+    <JsonTreeViewContext.Provider value={instance}>
+      {children}
+    </JsonTreeViewContext.Provider>
+  );
+}
+
 export function useJsonTree(options: JsonTreeOptions): UseJsonTreeInstance {
+  const parentRef = useRef<HTMLDivElement>(null);
+
   const [json] = useJson();
   const jsonNodes = useMemo(() => {
     return generateTreeViewNodes(json);
@@ -27,13 +55,24 @@ export function useJsonTree(options: JsonTreeOptions): UseJsonTreeInstance {
 
   const tree = useVirtualTree({
     nodes: jsonNodes,
-    parentRef: options.parentRef,
+    parentRef,
     estimateSize: useCallback((index) => 32, []),
     initialRect,
     overscan: options.overscan,
   });
 
-  return { tree };
+  return { tree, parentRef };
+}
+
+export function useJsonTreeViewContext(): JsonTreeViewType {
+  const context = useContext(JsonTreeViewContext);
+
+  invariant(
+    context,
+    "useJsonTreeViewContext must be used within a JsonTreeViewContext.Provider"
+  );
+
+  return context;
 }
 
 export type JsonTreeViewNode = {

@@ -154,12 +154,13 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
     dispatch({ type: "TOGGLE_NODE", id });
   }, []);
 
+  // TODO: have this work with collapsed nodes
   const scrollToNode = useCallback(
     (id: string) => {
       const itemIndex = state.items.findIndex((item) => item.id === id);
 
       if (itemIndex !== -1) {
-        rowVirtualizer.scrollToIndex(itemIndex);
+        rowVirtualizer.scrollToIndex(itemIndex, { align: "auto" });
       }
     },
     [state.items, rowVirtualizer]
