@@ -58,6 +58,9 @@ export function getRelatedPathsAtPath(
       continue;
     }
 
+    //optimisation: we only want to call inferType on non-array types
+    if (typeof value !== "object" || !Array.isArray(value)) continue;
+
     const inferredType = inferType(value);
 
     if (inferredType.name !== "array") continue;
