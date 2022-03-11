@@ -8,30 +8,21 @@ import { Body } from "./Primitives/Body";
 export type ColumnItemProps = {
   item: ColumnViewNode;
   json: unknown;
-  selectedPath: string[];
-  highlightedPath: string[];
+  isSelected: boolean;
+  isHighlighted: boolean;
   selectedItem: (id: string) => void;
 };
 
 function ColumnItemElement({
   item,
   json,
-  selectedPath,
-  highlightedPath,
+  isSelected,
+  isHighlighted,
   selectedItem,
 }: ColumnItemProps) {
   const htmlElement = useRef<HTMLDivElement>(null);
 
   const showArrow = item.children.length > 0;
-
-  const isHighlighted = useMemo(() => {
-    if (highlightedPath.length === 0) return false;
-    return highlightedPath[highlightedPath.length - 1] === item.id;
-  }, [highlightedPath, item.id]);
-
-  const isSelected = useMemo(() => {
-    return selectedPath.includes(item.id);
-  }, [selectedPath, item.id]);
 
   const stateStyle = useMemo<string>(() => {
     if (isHighlighted) {
@@ -82,51 +73,4 @@ function ColumnItemElement({
   );
 }
 
-export const ColumnItem = memo(
-  ColumnItemElement,
-  (previousProps, nextProps) => {
-    if (previousProps.item.id !== nextProps.item.id) return false;
-    if (
-      hasPathChanged(previousProps.highlightedPath, nextProps.highlightedPath)
-    ) {
-      const wasHighlighted = isHighlighted(
-        previousProps.item.id,
-        previousProps.highlightedPath
-      );
-      const nowHighlighted = isHighlighted(
-        nextProps.item.id,
-        nextProps.highlightedPath
-      );
-      if (wasHighlighted !== nowHighlighted) return false;
-    }
-
-    if (hasPathChanged(previousProps.selectedPath, nextProps.selectedPath)) {
-      const wasSelected = isSelected(
-        previousProps.item.id,
-        previousProps.selectedPath
-      );
-      const nowSelected = isSelected(nextProps.item.id, nextProps.selectedPath);
-      if (wasSelected !== nowSelected) return false;
-    }
-
-    return true;
-  }
-);
-
-function hasPathChanged(oldPath: string[], newPath: string[]): boolean {
-  if (oldPath.length !== newPath.length) return true;
-
-  const oldPathString = oldPath.join("");
-  const newPathString = newPath.join("");
-  const hasSelectionChanged = oldPathString !== newPathString;
-  return hasSelectionChanged;
-}
-
-function isHighlighted(id: string, highlightedPath: string[]): boolean {
-  if (highlightedPath.length === 0) return false;
-  return highlightedPath[highlightedPath.length - 1] === id;
-}
-
-function isSelected(id: string, selectedPath: string[]): boolean {
-  return selectedPath.includes(id);
-}
+export const ColumnItem = memo(ColumnItemElement);

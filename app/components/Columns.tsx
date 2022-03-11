@@ -29,8 +29,10 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
                 key={item.id}
                 item={item}
                 json={json}
-                selectedPath={selectedPath}
-                highlightedPath={highlightedPath}
+                isSelected={selectedPath.includes(item.id)}
+                isHighlighted={
+                  highlightedPath[highlightedPath.length - 1] === item.id
+                }
                 selectedItem={goToNodeId}
               />
             ))}
