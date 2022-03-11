@@ -1,41 +1,26 @@
-import { ChevronDownIcon } from "@heroicons/react/outline";
-import { JSONHeroPath } from "@jsonhero/path";
-import { useCallback, useEffect, useMemo, useRef } from "react";
-import { useVirtual } from "react-virtual";
-import { useJson } from "~/hooks/useJson";
+import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/outline";
+import { useEffect, useRef } from "react";
 import {
   useJsonColumnViewAPI,
   useJsonColumnViewState,
 } from "~/hooks/useJsonColumnView";
-import { generateTreeViewNodes, TreeViewNode } from "~/utilities/jsonTreeView";
+import { JsonTreeViewNode, useJsonTree } from "~/hooks/useJsonTree";
+import { VirtualNode } from "~/hooks/useVirtualTree";
 import { Body } from "./Primitives/Body";
 import { Mono } from "./Primitives/Mono";
 
-const initialRect = { width: 800, height: 600 };
-
 export function JsonTreeView() {
-  const [json] = useJson();
-  const { selectedNodeId } = useJsonColumnViewState();
-
-  const treeNodes = useMemo(() => {
-    return generateTreeViewNodes(json);
-  }, [json]);
-
   const parentRef = useRef<HTMLDivElement>(null);
+  const { selectedNodeId } = useJsonColumnViewState();
+  const { goToNodeId } = useJsonColumnViewAPI();
 
-  const rowVirtualizer = useVirtual({
-    size: treeNodes.length,
-    overscan: 10,
-    parentRef,
-    estimateSize: useCallback(() => 32, []),
-    initialRect,
-  });
+  const { tree } = useJsonTree({ parentRef, overscan: 10 });
 
   useEffect(() => {
     if (selectedNodeId) {
-      rowVirtualizer.scrollToIndex(findNodeIndex(selectedNodeId, treeNodes));
+      tree.scrollToNode(selectedNodeId);
     }
-  }, [selectedNodeId, treeNodes]);
+  }, [selectedNodeId]);
 
   return (
     <div
@@ -49,88 +34,105 @@ export function JsonTreeView() {
     >
       <div
         className="w-full relative"
-        style={{ height: `${rowVirtualizer.totalSize}px` }}
+        style={{ height: `${tree.totalSize}px` }}
+        {...tree.getTreeProps()}
       >
-        {rowVirtualizer.virtualItems.map((virtualRow) => (
-          <div
-            key={virtualRow.index}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: `${virtualRow.size}px`,
-              transform: `translateY(${virtualRow.start}px)`,
-            }}
-          >
-            <TreeViewItem
-              node={treeNodes[virtualRow.index]}
-              index={virtualRow.index}
-              selectedNodeId={selectedNodeId}
-            />
-          </div>
+        {tree.nodes.map((virtualNode) => (
+          <TreeViewNode
+            virtualNode={virtualNode}
+            key={virtualNode.node.id}
+            onToggle={() => tree.toggleNode(virtualNode.node.id)}
+            onClick={() => goToNodeId(virtualNode.node.id)}
+            selectedNodeId={selectedNodeId}
+          />
         ))}
       </div>
     </div>
   );
 }
 
-function TreeViewItem({
-  node,
-  index,
+function TreeViewNode({
+  virtualNode,
+  onClick,
+  onToggle,
   selectedNodeId,
 }: {
-  node: TreeViewNode;
-  index: number;
+  virtualNode: VirtualNode<JsonTreeViewNode>;
   selectedNodeId?: string;
+  onClick?: (node: JsonTreeViewNode) => void;
+  onToggle?: (node: JsonTreeViewNode) => void;
 }) {
-  const indentClassName = computeTreeNodePaddingClass(node);
+  const { node, virtualItem, depth } = virtualNode;
 
-  const { goToNodeId } = useJsonColumnViewAPI();
+  const indentClassName = computeTreeNodePaddingClass(depth);
 
-  const isSelected = node.id === selectedNodeId;
-
-  const handleClick = useCallback(
-    () => goToNodeId(node.id),
-    [goToNodeId, node.id]
-  );
+  const isSelected = selectedNodeId === node.id;
 
   return (
     <div
-      className={`h-full flex select-none ${
-        isSelected
-          ? "dark:bg-indigo-700"
-          : index % 2
-          ? "dark:bg-slate-800"
-          : "dark:bg-slate-700"
-      }`}
-      onClick={handleClick}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: `${virtualNode.size}px`,
+        transform: `translateY(${virtualNode.start}px)`,
+      }}
+      key={virtualNode.node.id}
+      {...virtualNode.getItemProps()}
+      onClick={(e) => {
+        if (onClick) {
+          e.stopPropagation();
+          onClick(virtualNode.node);
+        }
+      }}
     >
-      <div className={`${indentClassName} w-2/5 items-center flex`}>
-        {node.collapsable && <ChevronDownIcon className="w-3 h-3 mr-2" />}
+      <div
+        className={`h-full flex select-none ${
+          isSelected
+            ? "dark:bg-indigo-700"
+            : virtualItem.index % 2
+            ? "dark:bg-slate-800"
+            : "dark:bg-slate-700"
+        }`}
+      >
+        <div className={`${indentClassName} w-2/5 items-center flex`}>
+          {node.children && node.children.length > 0 && (
+            <span
+              onClick={(e) => {
+                if (onToggle) {
+                  e.stopPropagation();
+                  onToggle(node);
+                }
+              }}
+            >
+              {virtualNode.isCollapsed ? (
+                <ChevronRightIcon className="w-3 h-3 mr-2" />
+              ) : (
+                <ChevronDownIcon className="w-3 h-3 mr-2" />
+              )}
+            </span>
+          )}
 
-        <Body>{node.longTitle ?? node.name}</Body>
-      </div>
+          <Body>{node.longTitle ?? node.name}</Body>
+        </div>
 
-      <div className="flex w-3/5 items-center">
-        <span className="mr-2">
-          {node.icon && <node.icon className={`h-5 w-5`} />}
-        </span>
-        {node.subtitle && (
-          <Mono className="truncate text-gray-400 pr-1 transition dark:text-gray-500">
-            {node.subtitle}
-          </Mono>
-        )}
+        <div className="flex w-3/5 items-center">
+          <span className="mr-2">
+            {node.icon && <node.icon className={`h-5 w-5`} />}
+          </span>
+          {node.subtitle && (
+            <Mono className="truncate text-gray-400 pr-1 transition dark:text-gray-500">
+              {node.subtitle}
+            </Mono>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-function computeTreeNodePaddingClass(node: TreeViewNode) {
-  const path = new JSONHeroPath(node.id);
-
-  const depth = path.components.length - 1;
-
+function computeTreeNodePaddingClass(depth: number) {
   switch (depth) {
     case 0:
       return "pl-[4px]";
@@ -157,10 +159,4 @@ function computeTreeNodePaddingClass(node: TreeViewNode) {
     default:
       return "pl-[264px]";
   }
-}
-function findNodeIndex(
-  selectedNodeId: string,
-  nodes: Array<TreeViewNode>
-): number {
-  return nodes.findIndex((node) => node.id === selectedNodeId);
 }
