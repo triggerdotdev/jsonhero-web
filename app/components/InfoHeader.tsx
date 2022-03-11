@@ -1,6 +1,6 @@
 import { inferType } from "@jsonhero/json-infer-types";
 import { JSONHeroPath } from "@jsonhero/path";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useJson } from "~/hooks/useJson";
 import { useJsonColumnViewState } from "~/hooks/useJsonColumnView";
 import { concatenated, getHierarchicalTypes } from "~/utilities/dataType";
@@ -10,7 +10,7 @@ import { Body } from "./Primitives/Body";
 import { LargeMono } from "./Primitives/LargeMono";
 import { Title } from "./Primitives/Title";
 import { ValueIcon, ValueIconSize } from "./ValueIcon";
-import { CopyText } from "./CopyText";
+import { CopyTextButton } from "./CopyTextButton";
 
 export type InfoHeaderProps = {
   relatedPaths: string[];
@@ -40,6 +40,8 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
     return isNullable(relatedPaths, json);
   }, [relatedPaths, json]);
 
+  const [hovering, setHovering] = useState(false);
+
   return (
     <div className="mb-4 pb-4">
       <div className="flex items-center">
@@ -50,17 +52,30 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
           <ValueIcon type={selectedInfo} size={ValueIconSize.Medium} />
         </div>
       </div>
-      <div>
+      <div
+        className="relative w-full h-full"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+      >
         {isSelectedLeafNode && (
-          <CopyText
-            className="after:w-5 after:h-5 after:top-0.5 after:right-0.5 rounded-sm hover:cursor-pointer transition ease-out after:transition hover:bg-slate-100 hover:dark:bg-slate-700 active:bg-slate-200 after:active:bg-slate-200 dark:active:bg-opacity-70 dark:after:active:bg-opacity-70 after:absolute after:opacity-0 hover:after:opacity-100 after:content-[''] after:bg-[url('/svgs/CopyIcon.svg')] active:after:bg-[url('/svgs/TickIcon.svg')] after:bg-slate-100 after:dark:bg-slate-700 after:bg-no-repeat"
-            value={formatRawValue(selectedInfo)}
+          <LargeMono
+            className={`z-10 text-slate-800 mb-1 overflow-ellipsis break-words transition rounded-sm dark:text-slate-300 ${
+              hovering ? "bg-slate-500 dark:bg-slate-700" : "bg-transparent"
+            }`}
           >
-            <LargeMono className="text-slate-800 mb-1 overflow-ellipsis break-words dark:text-slate-300">
-              {formatRawValue(selectedInfo)}
-            </LargeMono>
-          </CopyText>
+            {formatRawValue(selectedInfo)}
+          </LargeMono>
         )}
+        <div
+          className={`absolute top-1 right-0 flex justify-end h-full w-full transition ${
+            hovering ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <CopyTextButton
+            className="bg-slate-200 hover:bg-slate-300 h-fit mr-1 px-2 py-0.5 rounded-sm transition hover:cursor-pointer dark:text-white dark:bg-slate-600 dark:hover:bg-slate-500"
+            value={formatRawValue(selectedInfo)}
+          ></CopyTextButton>
+        </div>
       </div>
       <div className="flex text-gray-400">
         <Body className="flex-1">
@@ -82,7 +97,7 @@ function EmptyState() {
       </div>
       <div>
         <div>
-          <Title className="text-indigo-600 overflow-ellipsis break-words">
+          <Title className="text-slate-800 mb-1 overflow-ellipsis break-words dark:text-slate-300">
             null
           </Title>
         </div>
