@@ -21,7 +21,7 @@ export function CopyText({
   }, [value]);
 
   return (
-    <div onClick={onClick} className={`${className} relative`}>
+    <div onClick={onClick} className={`${className}`}>
       {children}
     </div>
   );

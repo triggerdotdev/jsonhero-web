@@ -20,7 +20,7 @@ export function PreviewJson({ preview }: { preview: PreviewJson }) {
   return (
     <PreviewBox className="relative">
       <div
-        className="w-full h-full"
+        className="relative w-full h-full"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >
@@ -32,11 +32,11 @@ export function PreviewJson({ preview }: { preview: PreviewJson }) {
         >
           <CopyTextButton
             value={code}
-            className="bg-slate-700 h-fit mr-1 px-2 rounded-sm transition hover:bg-slate-600"
+            className="bg-slate-200 hover:bg-slate-300 h-fit mr-1 px-2 py-0.5 rounded-sm transition dark:text-white dark:bg-slate-700 dark:hover:bg-slate-600"
           ></CopyTextButton>
           <OpenInNewWindow
             url={jsonHeroUrl.href}
-            className="bg-slate-700 h-fit px-2 rounded-sm transition hover:bg-slate-600"
+            className="bg-slate-200 hover:bg-slate-300 h-fit px-2 py-0.5 rounded-sm transition dark:text-white dark:bg-slate-700 dark:hover:bg-slate-600"
           >
             <Body>Open in tab</Body>
           </OpenInNewWindow>

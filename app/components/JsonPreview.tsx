@@ -10,9 +10,12 @@ import {
   TransactionSpec,
 } from "@uiw/react-codemirror";
 import jsonMap from "json-source-map";
-import { useRef, useEffect, useMemo } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 import { getPreviewSetup } from "~/utilities/codeMirrorSetup";
 import { lightTheme, darkTheme } from "~/utilities/codeMirrorTheme";
+import { CopyTextButton } from "./CopyTextButton";
+import { OpenInNewWindow } from "./OpenInWindow";
+import { Body } from "./Primitives/Body";
 import { useTheme } from "./ThemeProvider";
 
 export type JsonPreviewProps = {
@@ -89,9 +92,25 @@ export function JsonPreview({ json, highlightPath }: JsonPreviewProps) {
     view.dispatch(transactionSpec);
   }, [view, highlighting, jsonMapped, highlightPath]);
 
+  const [hovering, setHovering] = useState(false);
+
   return (
-    <div>
+    <div
+      className="relative w-full h-full"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+    >
       <div ref={editor} />
+      <div
+        className={`absolute top-1 right-0 flex justify-end w-full transition ${
+          hovering ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <CopyTextButton
+          value={jsonMapped.json}
+          className="bg-slate-200 hover:bg-slate-300 h-fit mr-1 px-2 py-0.5 rounded-sm transition hover:cursor-pointer dark:text-white dark:bg-slate-700 dark:hover:bg-slate-600"
+        ></CopyTextButton>
+      </div>
     </div>
   );
 }
