@@ -8,11 +8,12 @@ import { useMemo } from "react";
 import { useJson } from "~/hooks/useJson";
 import { getRelatedPathsAtPath } from "~/utilities/relatedValues";
 import { useJsonColumnViewState } from "~/hooks/useJsonColumnView";
+import { useRelatedPaths } from "~/hooks/useRelatedPaths";
 
 export function InfoPanel() {
   const selectedInfo = useSelectedInfo();
-  const [json] = useJson();
   const { selectedNodeId } = useJsonColumnViewState();
+  const relatedPaths = useRelatedPaths();
 
   if (!selectedInfo) {
     return <></>;
@@ -20,11 +21,6 @@ export function InfoPanel() {
 
   const isSelectedLeafNode =
     selectedInfo.name !== "object" && selectedInfo.name !== "array";
-
-  const relatedPaths = useMemo(() => {
-    if (!selectedNodeId) return [];
-    return getRelatedPathsAtPath(selectedNodeId, json);
-  }, [selectedNodeId, json]);
 
   return (
     <>
