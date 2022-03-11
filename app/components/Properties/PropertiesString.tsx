@@ -49,7 +49,7 @@ function PropertiesJwt({
 
   for (const [key, value] of Object.entries(decodedPayload)) {
     properties.push({
-      key,
+      key: key,
       value,
     });
   }
@@ -61,7 +61,7 @@ function PropertiesJwt({
 
   for (const [key, value] of Object.entries(decodedHeader)) {
     properties.push({
-      key,
+      key: key,
       value,
     });
   }

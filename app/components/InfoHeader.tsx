@@ -60,7 +60,7 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
         {isSelectedLeafNode && (
           <LargeMono
             className={`z-10 text-slate-800 mb-1 overflow-ellipsis break-words transition rounded-sm dark:text-slate-300 ${
-              hovering ? "bg-slate-500 dark:bg-slate-700" : "bg-transparent"
+              hovering ? "bg-slate-100 dark:bg-slate-700" : "bg-transparent"
             }`}
           >
             {formatRawValue(selectedInfo)}

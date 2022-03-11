@@ -1,5 +1,5 @@
-import { FunctionComponent } from "react";
-import { CopyText } from "./CopyText";
+import { FunctionComponent, useState } from "react";
+import { CopyTextButton } from "./CopyTextButton";
 import { Title } from "./Primitives/Title";
 
 export type DataTableProps = {
@@ -12,6 +12,42 @@ export type DataTableRow = {
   icon?: JSX.Element;
 };
 
+type DataRowProps = {
+  title: string;
+  value: string;
+  icon?: JSX.Element;
+};
+
+const DataRow: FunctionComponent<DataRowProps> = ({ title, value, icon }) => {
+  const [hovering, setHovering] = useState(false);
+  return (
+    <tr className="divide-solid divide-x transition dark:divide-slate-700">
+      <td className="flex items-baseline py-2 pr-3 text-base dark:text-slate-400">
+        <div className="flex-1 ml-1">{title}</div>
+      </td>
+      <td
+        onMouseOver={() => setHovering(true)}
+        onMouseOut={() => setHovering(false)}
+        className={`relative w-full h-full pl-2 py-2 text-base text-slate-800 transition dark:text-slate-300 break-all ${
+          hovering ? "bg-slate-100 dark:bg-slate-700" : "bg-transparent"
+        }`}
+      >
+        {value}
+        <div
+          className={`absolute top-0 right-0 flex justify-end h-full w-full transition ${
+            hovering ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <CopyTextButton
+            className="bg-slate-200 hover:bg-slate-300 h-fit mt-1 mr-1 px-2 py-0.5 rounded-sm transition hover:cursor-pointer dark:text-white dark:bg-slate-600 dark:hover:bg-slate-500"
+            value={value}
+          ></CopyTextButton>
+        </div>
+      </td>
+    </tr>
+  );
+};
+
 export const DataTable: FunctionComponent<DataTableProps> = ({ rows }) => {
   return (
     <div>
@@ -22,22 +58,12 @@ export const DataTable: FunctionComponent<DataTableProps> = ({ rows }) => {
         <tbody className="divide-solid divide-y divide-slate-300 w-full transition dark:divide-slate-700">
           {rows.map((row) => {
             return (
-              <tr
+              <DataRow
                 key={row.key}
-                className="divide-solid divide-x transition dark:divide-slate-700"
-              >
-                <td className="flex items-baseline py-2 pr-3 text-base dark:text-slate-400">
-                  <div className="flex-1 ml-1">{row.key}</div>
-                </td>
-                <td className="text-base text-slate-800 transition dark:text-slate-300 break-all">
-                  <CopyText
-                    className="p-1 pl-2 m-0.5 mr-0 after:w-4 after:h-4 after:top-1.5 after:right-1 rounded-sm hover:cursor-pointer transition ease-out after:transition hover:bg-slate-100 hover:dark:bg-slate-700 active:bg-slate-200 after:active:bg-slate-200 dark:active:bg-opacity-70 dark:after:active:bg-opacity-70 after:absolute after:opacity-0 hover:after:opacity-100 after:content-[''] after:bg-[url('/svgs/CopyIcon.svg')] active:after:bg-[url('/svgs/TickIcon.svg')] after:bg-slate-100 after:dark:bg-slate-700 after:bg-no-repeat"
-                    value={row.value}
-                  >
-                    {row.value}
-                  </CopyText>
-                </td>
-              </tr>
+                title={row.key}
+                value={row.value}
+                icon={row.icon}
+              />
             );
           })}
         </tbody>
