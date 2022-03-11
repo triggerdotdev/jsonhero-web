@@ -1,9 +1,6 @@
 import { JSONHeroPath } from "@jsonhero/path";
-import { getRelatedPathsAtPath } from "./relatedValues";
 
-export function isNullable(path: string, json: unknown): boolean {
-  const relatedPaths = getRelatedPathsAtPath(path, json);
-
+export function isNullable(relatedPaths: string[], json: unknown): boolean {
   return relatedPaths.some((path) => {
     const heroPath = new JSONHeroPath(path);
 

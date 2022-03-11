@@ -7,12 +7,16 @@ import { generateNodesToPath } from "~/utilities/jsonColumnView";
 import { useJsonColumnViewState } from "../hooks/useJsonColumnView";
 import {
   RelatedValuesGroup,
-  calculateRelatedValuesGroups,
+  groupRelatedValues,
 } from "~/utilities/relatedValues";
 import { PathPreview } from "./PathPreview";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/outline";
 
-export function RelatedValues() {
+export type RelatedValuesProps = {
+  relatedPaths: string[];
+};
+
+export function RelatedValues({ relatedPaths }: RelatedValuesProps) {
   const [json] = useJson();
   const { selectedNodeId } = useJsonColumnViewState();
   const [openId, setOpenId] = useState<string | null>(null);
@@ -21,8 +25,8 @@ export function RelatedValues() {
     if (!selectedNodeId) {
       return [];
     }
-    return calculateRelatedValuesGroups(selectedNodeId, json);
-  }, [json, selectedNodeId]);
+    return groupRelatedValues(relatedPaths, json);
+  }, [json, relatedPaths]);
 
   const toggleOpen = (id: string) => {
     if (openId === id) {

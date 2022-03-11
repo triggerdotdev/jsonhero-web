@@ -12,7 +12,13 @@ export function calculateRelatedValuesGroups(
   json: unknown
 ): Array<RelatedValuesGroup> {
   const relatedPaths = getRelatedPathsAtPath(path, json);
+  return groupRelatedValues(relatedPaths, json);
+}
 
+export function groupRelatedValues(
+  relatedPaths: Array<string>,
+  json: unknown
+): Array<RelatedValuesGroup> {
   const groupedByValue = groupBy(relatedPaths, (path) => {
     const heroPath = new JSONHeroPath(path);
 

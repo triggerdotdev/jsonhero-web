@@ -12,7 +12,11 @@ import { Title } from "./Primitives/Title";
 import { ValueIcon, ValueIconSize } from "./ValueIcon";
 import { CopyText } from "./CopyText";
 
-export function InfoHeader() {
+export type InfoHeaderProps = {
+  relatedPaths: string[];
+};
+
+export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
   const { selectedNodeId, highlightedNodeId, selectedNodes } =
     useJsonColumnViewState();
 
@@ -33,8 +37,8 @@ export function InfoHeader() {
     selectedInfo.name !== "object" && selectedInfo.name !== "array";
 
   const canBeNull = useMemo(() => {
-    return isNullable(selectedNodeId, json);
-  }, [selectedNodeId, json]);
+    return isNullable(relatedPaths, json);
+  }, [relatedPaths, json]);
 
   return (
     <div className="mb-4 pb-4">
