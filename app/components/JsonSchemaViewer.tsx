@@ -1,5 +1,5 @@
 import { JSONHeroPath } from "@jsonhero/path";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useJsonSchema } from "~/hooks/useJsonSchema";
 import { CodeViewer } from "./CodeViewer";
 import { CopyTextButton } from "./CopyTextButton";
@@ -9,7 +9,7 @@ export function JsonSchemaViewer({ path }: { path: string }) {
   const schemaPath = schemaPathFromPath(path);
   const schemaJson = schemaPath.first(schema);
   const [hovering, setHovering] = useState(false);
-  const code = JSON.stringify(schemaJson, null, 2);
+  const code = useMemo(() => JSON.stringify(schemaJson, null, 2), [schemaJson]);
 
   return (
     <div
