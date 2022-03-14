@@ -200,9 +200,7 @@ export function useColumnView({
   const selectedNodes = selectedPath.map((id) => nodeTable[id].node);
 
   const getColumnViewProps = useCallback(() => {
-    return {
-      tabIndex: -1,
-    };
+    return {};
   }, []);
 
   const canGoBack = historyCurrentIndex > 0;
