@@ -4,7 +4,7 @@ import { useJson } from "./useJson";
 import { useJsonColumnViewState } from "./useJsonColumnView";
 
 export function useRelatedPaths(): string[] {
-  const cache = useRef<RelatedPathCache>({});
+  const cache = useRef(new Map<string, Array<string>>());
   const { selectedNodeId } = useJsonColumnViewState();
   const [json] = useJson();
 
@@ -12,7 +12,7 @@ export function useRelatedPaths(): string[] {
     if (!selectedNodeId) return [];
 
     //check cache
-    const cachedPaths = cache.current[selectedNodeId];
+    const cachedPaths = cache.current.get(selectedNodeId);
     if (cachedPaths) {
       return cachedPaths;
     }
@@ -23,13 +23,9 @@ export function useRelatedPaths(): string[] {
     //cache
     for (let index = 0; index < paths.length; index++) {
       const path = paths[index];
-      cache.current[path] = paths;
+      cache.current.set(path, paths);
     }
 
     return paths;
   }, [selectedNodeId, json]);
 }
-
-type RelatedPathCache = {
-  [index: string]: Array<string>;
-};
