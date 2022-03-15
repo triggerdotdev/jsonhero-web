@@ -160,7 +160,7 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
       const itemIndex = state.items.findIndex((item) => item.id === id);
 
       if (itemIndex !== -1) {
-        rowVirtualizer.scrollToIndex(itemIndex, { align: "auto" });
+        rowVirtualizer.scrollToIndex(itemIndex, { align: "center" });
       }
     },
     [state.items, rowVirtualizer]

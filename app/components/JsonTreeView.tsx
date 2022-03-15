@@ -1,5 +1,5 @@
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/outline";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   useJsonColumnViewAPI,
   useJsonColumnViewState,
@@ -15,11 +15,14 @@ export function JsonTreeView() {
 
   const { tree, parentRef } = useJsonTreeViewContext();
 
+  const scrolledToNodeRef = useRef(false);
+
   useEffect(() => {
-    if (selectedNodeId) {
+    if (!scrolledToNodeRef.current && selectedNodeId) {
       tree.scrollToNode(selectedNodeId);
+      scrolledToNodeRef.current = true;
     }
-  }, [selectedNodeId]);
+  }, [selectedNodeId, scrolledToNodeRef]);
 
   return (
     <div
