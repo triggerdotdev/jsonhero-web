@@ -34,7 +34,7 @@ export type UseVirtualTreeInstance<T> = {
   nodes: VirtualNode<T>[];
   focusedNodeId: string | null;
   totalSize: number;
-  toggleNode: (id: string) => void;
+  toggleNode: (id: string, source?: KeyboardEvent | MouseEvent) => void;
   focusNode: (id: string) => void;
   focusFirst: () => void;
   scrollToNode: (id: string) => void;
@@ -60,6 +60,7 @@ type TreeState<T extends { id: string; children?: T[] }> = {
 type ToggleNodeAction = {
   type: "TOGGLE_NODE";
   id: string;
+  source?: KeyboardEvent | MouseEvent;
 };
 
 type FocusNodeAction = {
@@ -138,6 +139,56 @@ function collapseNode<T extends { id: string; children?: T[] }>(
     focusedNodeId: id,
   };
 }
+function toggleAllChildren<T extends { id: string; children?: T[] }>(
+  state: TreeState<T>,
+  id: string
+): TreeState<T> {
+  const item = state.items.find(({ id: nodeId }) => nodeId === id);
+
+  if (!item) {
+    return state;
+  }
+
+  if (!item.node.children || item.node.children.length === 0) {
+    return state;
+  }
+
+  const allCollapsed = item.node.children.every(
+    (child) => state.collapsedState[child.id]
+  );
+
+  if (allCollapsed) {
+    const collapsedState = item.node.children.reduce(
+      (acc, child) => ({
+        ...acc,
+        [child.id]: false,
+      }),
+      state.collapsedState
+    );
+
+    return {
+      ...state,
+      collapsedState,
+      items: createNodeItems(state.nodes, 0, collapsedState),
+      focusedNodeId: id,
+    };
+  }
+
+  const collapsedState = item.node.children.reduce(
+    (acc, child) => ({
+      ...acc,
+      [child.id]: true,
+    }),
+    state.collapsedState
+  );
+
+  return {
+    ...state,
+    collapsedState,
+    items: createNodeItems(state.nodes, 0, collapsedState),
+    focusedNodeId: id,
+  };
+}
 
 export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
   options: UseVirtualTreeOptions<T, R>
@@ -151,7 +202,14 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
           if (isCollapsed) {
             return expandNode<T>(state, action.id);
           } else {
-            return collapseNode<T>(state, action.id);
+            if (
+              action.source &&
+              (action.source.shiftKey || action.source.altKey)
+            ) {
+              return toggleAllChildren<T>(state, action.id);
+            } else {
+              return collapseNode<T>(state, action.id);
+            }
           }
         }
         case "FOCUS_NODE": {
@@ -229,6 +287,12 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
           if (action.isCollapsed) {
             return expandNode<T>(state, action.id);
           }
+          if (
+            action.source &&
+            (action.source.shiftKey || action.source.altKey)
+          ) {
+            return toggleAllChildren<T>(state, action.id);
+          }
 
           const nodeIndex = state.items.findIndex(
             (item) => item.id === action.id
@@ -251,7 +315,14 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
         }
         case "MOVE_LEFT": {
           if (action.hasChildren && !action.isCollapsed) {
-            return collapseNode<T>(state, action.id);
+            if (
+              action.source &&
+              (action.source.shiftKey || action.source.altKey)
+            ) {
+              return toggleAllChildren<T>(state, action.id);
+            } else {
+              return collapseNode<T>(state, action.id);
+            }
           }
 
           if (!action.hasChildren || action.isCollapsed) {
@@ -392,8 +463,8 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
   });
 
   const toggleNode = useCallback(
-    (id: string) => {
-      dispatch({ type: "TOGGLE_NODE", id });
+    (id: string, source?: KeyboardEvent | MouseEvent) => {
+      dispatch({ type: "TOGGLE_NODE", id, source });
     },
     [dispatch]
   );

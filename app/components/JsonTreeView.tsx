@@ -81,7 +81,7 @@ export function JsonTreeView() {
           <TreeViewNode
             virtualNode={virtualNode}
             key={virtualNode.node.id}
-            onToggle={() => tree.toggleNode(virtualNode.node.id)}
+            onToggle={(node, e) => tree.toggleNode(node.id, e)}
             selectedNodeId={selectedNodeId}
           />
         ))}
@@ -97,7 +97,7 @@ function TreeViewNode({
 }: {
   virtualNode: VirtualNode<JsonTreeViewNode>;
   selectedNodeId?: string;
-  onToggle?: (node: JsonTreeViewNode) => void;
+  onToggle?: (node: JsonTreeViewNode, e: MouseEvent) => void;
 }) {
   const { tree } = useJsonTreeViewContext();
 
@@ -145,7 +145,7 @@ function TreeViewNode({
               onClick={(e) => {
                 if (onToggle) {
                   e.preventDefault();
-                  onToggle(node);
+                  onToggle(node, e.nativeEvent);
                 }
               }}
             >
