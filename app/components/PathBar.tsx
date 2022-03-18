@@ -49,7 +49,7 @@ export function PathBarLink({
                   : "hover:bg-slate-300 px-2 py-[3px] rounded-sm transition dark:hover:bg-white dark:hover:bg-opacity-[5%]"
               }`}
               style={{ flexShrink: 1 }}
-              onClick={() => goToNodeId(node.id)}
+              onClick={() => goToNodeId(node.id, "pathBar")}
             >
               <div className="w-4 flex-shrink-[0.5] flex-grow-0 flex-col justify-items-center whitespace-nowrap overflow-x-hidden transition dark:text-slate-400">
                 {node.icon && <node.icon className="h-3 w-3" />}

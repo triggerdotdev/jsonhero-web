@@ -54,7 +54,7 @@ export function ColumnItem({ item }: { item: ColumnViewNode }) {
   return (
     <div
       className={`flex h-9 items-center justify-items-stretch mx-1 px-1 py-1 my-1 rounded-sm ${stateStyle}`}
-      onClick={() => goToNodeId(id)}
+      onClick={() => goToNodeId(id, "columnView")}
       ref={htmlElement}
     >
       <div className="w-4 flex-none flex-col justify-items-center">

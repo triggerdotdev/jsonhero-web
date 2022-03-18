@@ -39,6 +39,7 @@ export type ColumnViewInstanceState = {
   columns: Array<ColumnDefinition>;
   getColumnViewProps: () => ColumnViewProps;
   selectedNodeId?: string;
+  selectedNodeSource?: string;
   selectedPath: string[];
   highlightedNodeId?: string;
   highlightedPath: string[];
@@ -54,7 +55,7 @@ export type ColumnViewAPIOptions = {
 export type ColumnViewAPI = {
   goBack: () => void;
   goForward: () => void;
-  goToNodeId: (nodeId: string) => void;
+  goToNodeId: (nodeId: string, source: string) => void;
   goToParent: (options?: ColumnViewAPIOptions) => void;
   goToChildren: () => void;
   goToNextSibling: () => void;
@@ -157,8 +158,8 @@ export function useColumnView({
       goForward: () => {
         dispatch(goForwardAction());
       },
-      goToNodeId: (nodeId: string) => {
-        dispatch(goToNodeIdAction(nodeId));
+      goToNodeId: (nodeId: string, source: string) => {
+        dispatch(goToNodeIdAction(nodeId, source));
       },
       goToParent: (options?: ColumnViewAPIOptions) => {
         dispatch(goToParentAction(options));
@@ -176,10 +177,15 @@ export function useColumnView({
         dispatch(resetSelectionAction());
       },
     };
-  }, []);
+  }, [dispatch]);
 
-  const { selectedNodeId, highlightedNodeId, history, historyCurrentIndex } =
-    state;
+  const {
+    selectedNodeId,
+    highlightedNodeId,
+    selectedNodeSource,
+    history,
+    historyCurrentIndex,
+  } = state;
 
   const selectedPath = getPathToNode(nodeTable, selectedNodeId);
   const highlightedPath = getPathToNode(nodeTable, highlightedNodeId);
@@ -202,6 +208,7 @@ export function useColumnView({
   return {
     state: {
       selectedNodeId,
+      selectedNodeSource,
       selectedPath,
       selectedNodes,
       highlightedNodeId,
@@ -218,6 +225,7 @@ export function useColumnView({
 export type ColumnViewState = {
   selectedNodeId?: string;
   highlightedNodeId?: string;
+  selectedNodeSource?: string;
   history: Array<Omit<ColumnViewState, "history" | "historyCurrentIndex">>;
   historyCurrentIndex: number;
   nodeTable: NodeTable;
@@ -227,6 +235,7 @@ export type ColumnViewState = {
 export type SetSelectedNodeIdAction = {
   type: "SET_SELECTED_NODE_ID";
   id: string;
+  source: string;
 };
 
 export type MoveSelectedNodeAction = {
@@ -269,10 +278,14 @@ function resetSelectionAction(): ResetSelectionNodeAction {
   };
 }
 
-function goToNodeIdAction(nodeId: string): SetSelectedNodeIdAction {
+function goToNodeIdAction(
+  nodeId: string,
+  source: string
+): SetSelectedNodeIdAction {
   return {
     type: "SET_SELECTED_NODE_ID",
     id: nodeId,
+    source,
   };
 }
 
@@ -332,6 +345,7 @@ function columnViewReducer(
         ...state,
         selectedNodeId: action.id,
         highlightedNodeId: action.id,
+        selectedNodeSource: action.source,
       };
     case "MOVE_DOWN": {
       if (state.highlightedNodeId === state.rootNodeId) {

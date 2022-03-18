@@ -81,7 +81,8 @@ export function PathPreview({
           : "disabled"
       }`}
       onClick={() =>
-        isEnabled && goToNodeId(components[components.length - 1].id)
+        isEnabled &&
+        goToNodeId(components[components.length - 1].id, "relatedValues")
       }
     >
       <div

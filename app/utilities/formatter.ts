@@ -31,15 +31,19 @@ export function formatValue(type: JSONValueType): string | undefined {
     case "array": {
       if (type.value.length == 0) {
         return formatRawValue(type);
+      } else if (type.value.length === 1) {
+        return `1 item`;
       } else {
-        return undefined;
+        return `${type.value.length} items`;
       }
     }
     case "object": {
       if (Object.keys(type.value).length == 0) {
         return formatRawValue(type);
+      } else if (Object.keys(type.value).length === 1) {
+        return `1 field`;
       } else {
-        return undefined;
+        return `${Object.keys(type.value).length} fields`;
       }
     }
     case "bool": {

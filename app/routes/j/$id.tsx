@@ -114,7 +114,7 @@ export default function JsonDocumentRoute() {
       <JsonProvider initialJson={loaderData.json}>
         <JsonSchemaProvider>
           <JsonColumnViewProvider>
-            <JsonTreeViewProvider overscan={10}>
+            <JsonTreeViewProvider overscan={25}>
               <div>
                 <div className="h-screen flex flex-col">
                   <Header />

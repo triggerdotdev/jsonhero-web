@@ -72,7 +72,7 @@ export function JsonEditor() {
 
       const path = JSONHeroPath.fromPointer(pointer);
 
-      goToNodeId(path.toString());
+      goToNodeId(path.toString(), "editor");
     },
     [goToNodeId]
   );

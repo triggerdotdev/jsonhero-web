@@ -10,11 +10,12 @@ import { Body } from "./Primitives/Body";
 import { Mono } from "./Primitives/Mono";
 
 export function JsonTreeView() {
-  const { selectedNodeId } = useJsonColumnViewState();
+  const { selectedNodeId, selectedNodeSource } = useJsonColumnViewState();
   const { goToNodeId } = useJsonColumnViewAPI();
 
   const { tree, parentRef } = useJsonTreeViewContext();
 
+  // Scroll to the selected node when this component is first rendered.
   const scrolledToNodeRef = useRef(false);
 
   useEffect(() => {
@@ -23,6 +24,43 @@ export function JsonTreeView() {
       scrolledToNodeRef.current = true;
     }
   }, [selectedNodeId, scrolledToNodeRef]);
+
+  // This focuses and scrolls to the selected node when the selectedNodeId
+  // is set from a source other than this tree (e.g. the search bar, path bar, related values).
+  useEffect(() => {
+    if (
+      tree.focusedNodeId &&
+      selectedNodeId &&
+      tree.focusedNodeId !== selectedNodeId
+    ) {
+      if (selectedNodeSource !== "tree") {
+        if (selectedNodeId === "$") {
+          tree.focusFirst();
+        } else {
+          tree.focusNode(selectedNodeId);
+          tree.scrollToNode(selectedNodeId);
+        }
+      }
+    }
+  }, [tree.focusedNodeId, goToNodeId, selectedNodeId, selectedNodeSource]);
+
+  // This is what syncs the tree view's focused node to the column view selected node
+  const previousFocusedNodeId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!previousFocusedNodeId.current) {
+      previousFocusedNodeId.current = tree.focusedNodeId;
+      return;
+    }
+
+    if (
+      tree.focusedNodeId &&
+      previousFocusedNodeId.current !== tree.focusedNodeId
+    ) {
+      previousFocusedNodeId.current = tree.focusedNodeId;
+      goToNodeId(tree.focusedNodeId, "tree");
+    }
+  }, [previousFocusedNodeId, tree.focusedNodeId, tree.focusNode, goToNodeId]);
 
   return (
     <div
@@ -44,7 +82,6 @@ export function JsonTreeView() {
             virtualNode={virtualNode}
             key={virtualNode.node.id}
             onToggle={() => tree.toggleNode(virtualNode.node.id)}
-            onClick={() => goToNodeId(virtualNode.node.id)}
             selectedNodeId={selectedNodeId}
           />
         ))}
@@ -55,20 +92,29 @@ export function JsonTreeView() {
 
 function TreeViewNode({
   virtualNode,
-  onClick,
   onToggle,
   selectedNodeId,
 }: {
   virtualNode: VirtualNode<JsonTreeViewNode>;
   selectedNodeId?: string;
-  onClick?: (node: JsonTreeViewNode) => void;
   onToggle?: (node: JsonTreeViewNode) => void;
 }) {
+  const { tree } = useJsonTreeViewContext();
+
   const { node, virtualItem, depth } = virtualNode;
 
   const indentClassName = computeTreeNodePaddingClass(depth);
 
   const isSelected = selectedNodeId === node.id;
+  const isFocused = tree.focusedNodeId === node.id;
+
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (elementRef.current && isFocused) {
+      elementRef.current.focus();
+    }
+  }, [elementRef, isFocused]);
 
   return (
     <div
@@ -82,12 +128,7 @@ function TreeViewNode({
       }}
       key={virtualNode.node.id}
       {...virtualNode.getItemProps()}
-      onClick={(e) => {
-        if (onClick) {
-          e.stopPropagation();
-          onClick(virtualNode.node);
-        }
-      }}
+      ref={elementRef}
     >
       <div
         className={`h-full flex select-none ${
@@ -103,7 +144,7 @@ function TreeViewNode({
             <span
               onClick={(e) => {
                 if (onToggle) {
-                  e.stopPropagation();
+                  e.preventDefault();
                   onToggle(node);
                 }
               }}

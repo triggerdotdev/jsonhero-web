@@ -59,8 +59,6 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.2",
-    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
-    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@remix-run/dev": "^1.2.3",
     "@tailwindcss/forms": "^0.4.0",
     "@types/color": "^3.0.3",
