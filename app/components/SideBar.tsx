@@ -16,24 +16,36 @@ export function SideBar() {
         <SidebarLink to={`/j/${doc.id}`} hotKey="cmd+1">
           <ToolTip arrow="left">
             <Body>Column view</Body>
-            <ShortcutIcon>⌘</ShortcutIcon>
-            <ShortcutIcon>1</ShortcutIcon>
+            <ShortcutIcon className="w-[26px] h-[26px] ml-1 text-slate-700 bg-slate-200 dark:text-slate-300 dark:bg-slate-800">
+              ⌘
+            </ShortcutIcon>
+            <ShortcutIcon className="w-[26px] h-[26px] ml-1 text-slate-700 bg-slate-200 dark:text-slate-300 dark:bg-slate-800">
+              1
+            </ShortcutIcon>
           </ToolTip>
           <TemplateIcon className="p-2 w-full h-full" />
         </SidebarLink>
         <SidebarLink to={`/j/${doc.id}/editor`} hotKey="cmd+2">
           <ToolTip arrow="left">
             <Body>JSON view</Body>
-            <ShortcutIcon>⌘</ShortcutIcon>
-            <ShortcutIcon>2</ShortcutIcon>
+            <ShortcutIcon className="w-[26px] h-[26px] ml-1 text-slate-700 bg-slate-200 dark:text-slate-300 dark:bg-slate-800">
+              ⌘
+            </ShortcutIcon>
+            <ShortcutIcon className="w-[26px] h-[26px] ml-1 text-slate-700 bg-slate-200 dark:text-slate-300 dark:bg-slate-800">
+              2
+            </ShortcutIcon>
           </ToolTip>
           <CodeIcon className="p-2 w-full h-full" />
         </SidebarLink>
         <SidebarLink to={`/j/${doc.id}/tree`} hotKey="cmd+3">
           <ToolTip arrow="left">
             <Body>Tree view</Body>
-            <ShortcutIcon>⌘</ShortcutIcon>
-            <ShortcutIcon>3</ShortcutIcon>
+            <ShortcutIcon className="w-[26px] h-[26px] ml-1 text-slate-700 bg-slate-200 dark:text-slate-300 dark:bg-slate-800">
+              ⌘
+            </ShortcutIcon>
+            <ShortcutIcon className="w-[26px] h-[26px] ml-1 text-slate-700 bg-slate-200 dark:text-slate-300 dark:bg-slate-800">
+              3
+            </ShortcutIcon>
           </ToolTip>
           <TreeIcon className="p-2 w-full h-full" />
         </SidebarLink>
@@ -42,8 +54,12 @@ export function SideBar() {
         <SidebarLink to={`/j/${doc.id}/terminal`} hotKey="cmd+4">
           <ToolTip arrow="left">
             <Body>Terminal</Body>
-            <ShortcutIcon>⌘</ShortcutIcon>
-            <ShortcutIcon>4</ShortcutIcon>
+            <ShortcutIcon className="w-[26px] h-[26px] ml-1 text-slate-700 bg-slate-200 dark:text-slate-300 dark:bg-slate-800">
+              ⌘
+            </ShortcutIcon>
+            <ShortcutIcon className="w-[26px] h-[26px] ml-1 text-slate-700 bg-slate-200 dark:text-slate-300 dark:bg-slate-800">
+              4
+            </ShortcutIcon>
           </ToolTip>
           <TerminalIcon className="p-2 w-full h-full" />
         </SidebarLink>
