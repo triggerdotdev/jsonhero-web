@@ -33,13 +33,13 @@ export function JsonTreeView() {
       selectedNodeId &&
       tree.focusedNodeId !== selectedNodeId
     ) {
+      if (selectedNodeId === "$") {
+        return;
+      }
+
       if (selectedNodeSource !== "tree") {
-        if (selectedNodeId === "$") {
-          tree.focusFirst();
-        } else {
-          tree.focusNode(selectedNodeId);
-          tree.scrollToNode(selectedNodeId);
-        }
+        tree.focusNode(selectedNodeId);
+        tree.scrollToNode(selectedNodeId);
       }
     }
   }, [tree.focusedNodeId, goToNodeId, selectedNodeId, selectedNodeSource]);
@@ -48,19 +48,29 @@ export function JsonTreeView() {
   const previousFocusedNodeId = useRef<string | null>(null);
 
   useEffect(() => {
+    let updated = false;
+
     if (!previousFocusedNodeId.current) {
       previousFocusedNodeId.current = tree.focusedNodeId;
-      return;
+      updated = true;
     }
 
     if (
       tree.focusedNodeId &&
-      previousFocusedNodeId.current !== tree.focusedNodeId
+      (updated || previousFocusedNodeId.current !== tree.focusedNodeId)
     ) {
       previousFocusedNodeId.current = tree.focusedNodeId;
       goToNodeId(tree.focusedNodeId, "tree");
     }
   }, [previousFocusedNodeId, tree.focusedNodeId, tree.focusNode, goToNodeId]);
+
+  const treeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (treeRef.current) {
+      treeRef.current.focus({ preventScroll: true });
+    }
+  }, [treeRef.current]);
 
   return (
     <div
@@ -76,6 +86,7 @@ export function JsonTreeView() {
         className="w-full relative"
         style={{ height: `${tree.totalSize}px` }}
         {...tree.getTreeProps()}
+        ref={treeRef}
       >
         {tree.nodes.map((virtualNode) => (
           <TreeViewNode
@@ -99,22 +110,11 @@ function TreeViewNode({
   selectedNodeId?: string;
   onToggle?: (node: JsonTreeViewNode, e: MouseEvent) => void;
 }) {
-  const { tree } = useJsonTreeViewContext();
-
   const { node, virtualItem, depth } = virtualNode;
 
   const indentClassName = computeTreeNodePaddingClass(depth);
 
   const isSelected = selectedNodeId === node.id;
-  const isFocused = tree.focusedNodeId === node.id;
-
-  const elementRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (elementRef.current && isFocused) {
-      elementRef.current.focus();
-    }
-  }, [elementRef, isFocused]);
 
   return (
     <div
@@ -129,7 +129,6 @@ function TreeViewNode({
       }}
       key={virtualNode.node.id}
       {...virtualNode.getItemProps()}
-      ref={elementRef}
     >
       <div
         className={`h-full flex m-2 rounded-sm select-none ${

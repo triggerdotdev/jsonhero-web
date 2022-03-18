@@ -1,5 +1,5 @@
 import pick from "lodash-es/pick";
-import {
+import React, {
   useReducer,
   Reducer,
   useCallback,
@@ -37,6 +37,7 @@ export type UseVirtualTreeInstance<T> = {
   toggleNode: (id: string, source?: KeyboardEvent | MouseEvent) => void;
   focusNode: (id: string) => void;
   focusFirst: () => void;
+  blur: () => void;
   scrollToNode: (id: string) => void;
   getTreeProps: () => React.HTMLAttributes<HTMLElement>;
 };
@@ -76,16 +77,11 @@ type MoveNodeAction = {
 type MoveRightAction = {
   type: "MOVE_RIGHT";
   source: KeyboardEvent | MouseEvent;
-  id: string;
-  isCollapsed: boolean;
 };
 
 type MoveLeftAction = {
   type: "MOVE_LEFT";
   source: KeyboardEvent | MouseEvent;
-  id: string;
-  isCollapsed: boolean;
-  hasChildren: boolean;
 };
 
 type FocusFirstAction = {
@@ -97,6 +93,15 @@ type RestoreStateAction = {
   restoredState: { collapsedState: Record<string, boolean> };
 };
 
+type ExpandAllOnPathAction = {
+  type: "EXPAND_ALL_ON_PATH";
+  path: string[];
+};
+
+type BlurAction = {
+  type: "BLUR";
+};
+
 type TreeAction =
   | ToggleNodeAction
   | MoveNodeAction
@@ -104,7 +109,9 @@ type TreeAction =
   | FocusFirstAction
   | MoveRightAction
   | MoveLeftAction
-  | RestoreStateAction;
+  | RestoreStateAction
+  | ExpandAllOnPathAction
+  | BlurAction;
 
 function expandNode<T extends { id: string; children?: T[] }>(
   state: TreeState<T>,
@@ -196,6 +203,12 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
   const reducer = useCallback<Reducer<TreeState<T>, TreeAction>>(
     (state, action) => {
       switch (action.type) {
+        case "BLUR": {
+          return {
+            ...state,
+            focusedNodeId: null,
+          };
+        }
         case "TOGGLE_NODE": {
           const isCollapsed = state.collapsedState[action.id];
 
@@ -213,6 +226,33 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
           }
         }
         case "FOCUS_NODE": {
+          const itemIndex = state.items.findIndex(({ id }) => id === action.id);
+
+          if (itemIndex === -1) {
+            const node = findNodeInTreeById(state.nodes, action.id);
+
+            if (!node) {
+              return state;
+            }
+
+            const path = calculatePathToNode(state.nodes, node) ?? [];
+
+            const collapsedState = path.reduce(
+              (acc, id) => ({
+                ...acc,
+                [id]: false,
+              }),
+              state.collapsedState
+            );
+
+            return {
+              ...state,
+              collapsedState,
+              items: createNodeItems(state.nodes, 0, collapsedState),
+              focusedNodeId: action.id,
+            };
+          }
+
           return {
             ...state,
             focusedNodeId: action.id,
@@ -244,6 +284,19 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
           };
         }
         case "MOVE_DOWN": {
+          if (!state.focusedNodeId) {
+            const nextItem = state.items[0];
+
+            if (!nextItem) {
+              return state;
+            }
+
+            return {
+              ...state,
+              focusedNodeId: nextItem.id,
+            };
+          }
+
           const focusedNodeIdIndex = state.items.findIndex(
             (item) => item.id === state.focusedNodeId
           );
@@ -284,18 +337,25 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
           };
         }
         case "MOVE_RIGHT": {
-          if (action.isCollapsed) {
-            return expandNode<T>(state, action.id);
+          if (!state.focusedNodeId) {
+            return state;
           }
+
+          const isCollapsed = state.collapsedState[state.focusedNodeId];
+
+          if (isCollapsed) {
+            return expandNode<T>(state, state.focusedNodeId);
+          }
+
           if (
             action.source &&
             (action.source.shiftKey || action.source.altKey)
           ) {
-            return toggleAllChildren<T>(state, action.id);
+            return toggleAllChildren<T>(state, state.focusedNodeId);
           }
 
           const nodeIndex = state.items.findIndex(
-            (item) => item.id === action.id
+            (item) => item.id === state.focusedNodeId
           );
 
           if (nodeIndex === -1) {
@@ -314,23 +374,41 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
           };
         }
         case "MOVE_LEFT": {
-          if (action.hasChildren && !action.isCollapsed) {
+          if (!state.focusedNodeId) {
+            return state;
+          }
+
+          const item = state.items.find(
+            (item) => item.id === state.focusedNodeId
+          );
+
+          if (!item) {
+            return state;
+          }
+
+          const hasChildren =
+            item.node.children && item.node.children.length > 0;
+          const isCollapsed = state.collapsedState[state.focusedNodeId];
+
+          if (hasChildren && !isCollapsed) {
             if (
               action.source &&
               (action.source.shiftKey || action.source.altKey)
             ) {
-              return toggleAllChildren<T>(state, action.id);
+              return toggleAllChildren<T>(state, state.focusedNodeId);
             } else {
-              return collapseNode<T>(state, action.id);
+              return collapseNode<T>(state, state.focusedNodeId);
             }
           }
 
-          if (!action.hasChildren || action.isCollapsed) {
+          if (!hasChildren || isCollapsed) {
             // Try to go to the parent node
             const parentNodeIndex = state.items.findIndex(
               (item) =>
                 item.node.children &&
-                item.node.children.map((child) => child.id).includes(action.id)
+                item.node.children
+                  .map((child) => child.id)
+                  .includes(state.focusedNodeId!)
             );
 
             if (parentNodeIndex === -1) {
@@ -375,7 +453,7 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
         nodes,
         items: createNodeItems(nodes),
         collapsedState: {},
-        focusedNodeId: nodes.length > 0 ? nodes[0].id : null,
+        focusedNodeId: null,
       };
     },
     [options.persistState, options.id]
@@ -481,6 +559,8 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
     [dispatch]
   );
 
+  const blur = useCallback(() => dispatch({ type: "BLUR" }), [dispatch]);
+
   // TODO: have this work with collapsed nodes
   const scrollToNode = useCallback(
     (id: string) => {
@@ -490,15 +570,14 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
         rowVirtualizer.scrollToIndex(itemIndex, { align: "auto" });
       }
     },
-    [state.items, rowVirtualizer.scrollToIndex]
+    [state.items, rowVirtualizer.scrollToIndex, dispatch]
   );
 
   useEffect(() => {
     if (state.focusedNodeId) {
       scrollToNode(state.focusedNodeId);
-      focusNode(state.focusedNodeId);
     }
-  }, [state.focusedNodeId, scrollToNode, focusNode]);
+  }, [state.focusedNodeId, scrollToNode]);
 
   return {
     nodes: allVirtualNodes,
@@ -506,13 +585,9 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
     toggleNode,
     focusNode,
     focusFirst,
+    blur,
     focusedNodeId: state.focusedNodeId,
-    getTreeProps: useCallback(
-      () => ({
-        role: "tree",
-      }),
-      []
-    ),
+    getTreeProps: useCallback(createTreeProps(dispatch), [dispatch]),
     scrollToNode,
   };
 }
@@ -542,6 +617,65 @@ function createNodeItems<T extends { id: string; children?: T[] }>(
   });
 }
 
+function createTreeProps<T extends { id: string; children?: T[] }>(
+  dispatch: Dispatch<TreeAction>
+): () => React.HTMLAttributes<HTMLElement> {
+  return () => ({
+    role: "tree",
+    tabIndex: -1,
+    onKeyDown: (e) => {
+      if (e.defaultPrevented) {
+        return; // Do nothing if the event was already processed
+      }
+
+      switch (e.key) {
+        case "Home": {
+          dispatch({ type: "MOVE_TO_TOP", source: e.nativeEvent });
+          e.preventDefault();
+          break;
+        }
+        case "End": {
+          dispatch({ type: "MOVE_TO_BOTTOM", source: e.nativeEvent });
+          e.preventDefault();
+          break;
+        }
+        case "Down":
+        case "ArrowDown": {
+          dispatch({ type: "MOVE_DOWN", source: e.nativeEvent });
+          e.preventDefault();
+          break;
+        }
+        case "Up":
+        case "ArrowUp": {
+          dispatch({ type: "MOVE_UP", source: e.nativeEvent });
+          e.preventDefault();
+          break;
+        }
+        case "Left":
+        case "ArrowLeft": {
+          dispatch({
+            type: "MOVE_LEFT",
+            source: e.nativeEvent,
+          });
+          e.preventDefault();
+
+          break;
+        }
+        case "Right":
+        case "ArrowRight": {
+          dispatch({
+            type: "MOVE_RIGHT",
+            source: e.nativeEvent,
+          });
+          e.preventDefault();
+
+          break;
+        }
+      }
+    },
+  });
+}
+
 function createItemProps<T extends { id: string; children?: T[] }>(
   item: TreeNodeItem<T>,
   virtualItem: VirtualItem,
@@ -566,66 +700,56 @@ function createItemProps<T extends { id: string; children?: T[] }>(
         dispatch({ type: "FOCUS_NODE", id: node.id });
       }
     },
-    onKeyDown: (e) => {
-      if (e.defaultPrevented) {
-        return; // Do nothing if the event was already processed
-      }
-
-      if (node.id === state.focusedNodeId) {
-        switch (e.key) {
-          case "Home": {
-            dispatch({ type: "MOVE_TO_TOP", source: e.nativeEvent });
-            e.preventDefault();
-            break;
-          }
-          case "End": {
-            dispatch({ type: "MOVE_TO_BOTTOM", source: e.nativeEvent });
-            e.preventDefault();
-            break;
-          }
-          case "Down":
-          case "ArrowDown": {
-            dispatch({ type: "MOVE_DOWN", source: e.nativeEvent });
-            e.preventDefault();
-            break;
-          }
-          case "Up":
-          case "ArrowUp": {
-            dispatch({ type: "MOVE_UP", source: e.nativeEvent });
-            e.preventDefault();
-            break;
-          }
-          case "Left":
-          case "ArrowLeft": {
-            dispatch({
-              type: "MOVE_LEFT",
-              id: node.id,
-              isCollapsed,
-              hasChildren:
-                typeof node.children !== "undefined" &&
-                node.children.length > 0,
-              source: e.nativeEvent,
-            });
-            e.preventDefault();
-
-            break;
-          }
-          case "Right":
-          case "ArrowRight": {
-            if (node.children && node.children.length > 0) {
-              dispatch({
-                type: "MOVE_RIGHT",
-                id: node.id,
-                isCollapsed,
-                source: e.nativeEvent,
-              });
-              e.preventDefault();
-            }
-
-            break;
-          }
-        }
-      }
-    },
   });
+}
+
+// Finds the node in the list of nodes or recursively in the children
+function findNodeInTreeById<T extends { id: string; children?: T[] }>(
+  nodes: T[],
+  id: string
+): T | undefined {
+  const node = nodes.find((node) => node.id === id);
+
+  if (node) {
+    return node;
+  }
+
+  for (const node of nodes) {
+    const foundNode = findNodeInTreeById(node.children || [], id);
+
+    if (foundNode) {
+      return foundNode;
+    }
+  }
+
+  return;
+}
+
+function calculatePathToNode<T extends { id: string; children?: T[] }>(
+  nodes: T[],
+  searchNode: T,
+  path: string[] = []
+): string[] | undefined {
+  const nodeIndex = nodes.findIndex((node) => node.id === searchNode.id);
+
+  if (nodeIndex !== -1) {
+    return [...path, searchNode.id];
+  }
+
+  for (const node of nodes) {
+    if (!node.children) {
+      continue;
+    }
+
+    const foundPath = calculatePathToNode(node.children || [], searchNode, [
+      ...path,
+      node.id,
+    ]);
+
+    if (foundPath && foundPath.length > path.length) {
+      return foundPath;
+    }
+  }
+
+  return;
 }
