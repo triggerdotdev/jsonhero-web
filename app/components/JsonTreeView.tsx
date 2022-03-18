@@ -83,7 +83,7 @@ export function JsonTreeView() {
       }}
     >
       <div
-        className="w-full relative"
+        className="relative w-full outline-none"
         style={{ height: `${tree.totalSize}px` }}
         {...tree.getTreeProps()}
         ref={treeRef}
@@ -119,7 +119,6 @@ function TreeViewNode({
   return (
     <div
       style={{
-        outline: "none",
         position: "absolute",
         top: 0,
         left: 0,
