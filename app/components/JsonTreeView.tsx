@@ -119,6 +119,7 @@ function TreeViewNode({
   return (
     <div
       style={{
+        outline: "none",
         position: "absolute",
         top: 0,
         left: 0,
