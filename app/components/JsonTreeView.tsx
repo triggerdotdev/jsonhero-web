@@ -139,7 +139,7 @@ function TreeViewNode({
             : "bg-slate-200 bg-opacity-90 dark:bg-slate-800 dark:bg-opacity-30"
         }`}
       >
-        <div className={`${indentClassName} w-1/4 items-center flex`}>
+        <div className={`${indentClassName} w-2/6 items-center flex`}>
           {node.children && node.children.length > 0 && (
             <span
               onClick={(e) => {
@@ -170,7 +170,7 @@ function TreeViewNode({
           )}
 
           <Body
-            className={`${
+            className={`truncate whitespace-nowrap pr-2 ${
               isSelected
                 ? "text-slate-100"
                 : "text-slate-700 dark:text-slate-200"
@@ -180,7 +180,7 @@ function TreeViewNode({
           </Body>
         </div>
 
-        <div className="flex w-3/4 items-center">
+        <div className="flex w-4/6 items-center">
           <span className="mr-2">
             {node.icon && (
               <node.icon
