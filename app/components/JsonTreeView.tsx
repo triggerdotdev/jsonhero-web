@@ -131,7 +131,7 @@ function TreeViewNode({
       {...virtualNode.getItemProps()}
     >
       <div
-        className={`h-full flex m-2 rounded-sm select-none ${
+        className={`h-full flex m-2 pl-5 rounded-sm select-none ${
           isSelected
             ? "bg-indigo-700"
             : virtualItem.index % 2
@@ -151,7 +151,7 @@ function TreeViewNode({
             >
               {virtualNode.isCollapsed ? (
                 <ChevronRightIcon
-                  className={`w-4 h-4 mr-2 ${
+                  className={`w-4 h-4 mr-1 -ml-5 ${
                     isSelected
                       ? "text-slate-100"
                       : "text-slate-600 dark:text-slate-100"
@@ -159,7 +159,7 @@ function TreeViewNode({
                 />
               ) : (
                 <ChevronDownIcon
-                  className={`w-4 h-4 mr-2 ${
+                  className={`w-4 h-4 mr-1 -ml-5 ${
                     isSelected
                       ? "text-slate-100"
                       : "text-slate-600 dark:text-slate-100"
@@ -187,7 +187,7 @@ function TreeViewNode({
                 className={`h-5 w-5 ${
                   isSelected
                     ? "text-slate-100"
-                    : "text-slate-600 dark:text-slate-500"
+                    : "text-slate-400 dark:text-slate-500"
                 }`}
               />
             )}
@@ -214,26 +214,26 @@ function computeTreeNodePaddingClass(depth: number) {
     case 0:
       return "pl-[4px]";
     case 1:
-      return "pl-[24px]";
+      return "pl-[calc(12px_+_4px)]";
     case 2:
-      return "pl-[48px]";
+      return "pl-[calc(12px_*_2_+_4px)]";
     case 3:
-      return "pl-[72px]";
+      return "pl-[calc(12px_*_3_+_4px)]";
     case 4:
-      return "pl-[96px]";
+      return "pl-[calc(12px_*_4_+_4px)]";
     case 5:
-      return "pl-[120px]";
+      return "pl-[calc(12px_*_5_+_4px)]";
     case 6:
-      return "pl-[144px]";
+      return "pl-[calc(12px_*_6_+_4px)]";
     case 7:
-      return "pl-[168px]";
+      return "pl-[calc(12px_*_7_+_4px)]";
     case 8:
-      return "pl-[192px]";
+      return "pl-[calc(12px_*_8_+_4px)]";
     case 9:
-      return "pl-[216px]";
+      return "pl-[calc(12px_*_9_+_4px)]";
     case 10:
-      return "pl-[240px]";
+      return "pl-[calc(12px_*_10_+_4px)]";
     default:
-      return "pl-[264px]";
+      return "pl-[calc(12px_*_11_+_4px)]";
   }
 }
