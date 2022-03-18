@@ -45,15 +45,15 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
   return (
     <div className="mb-4 pb-4">
       <div className="flex items-center">
-        <Title className="flex-1 mr-2 text-slate-700 transition dark:text-slate-400">
+        <Title className="flex-1 mr-2 text-slate-700 transition dark:text-slate-200">
           {selectedName ?? "nothing"}
         </Title>
         <div>
-          <ValueIcon type={selectedInfo} size={ValueIconSize.Medium} />
+          <ValueIcon monochrome type={selectedInfo} size={ValueIconSize.Medium} />
         </div>
       </div>
       <div
-        className="relative w-full h-full"
+        className="relative w-full h-full" 
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >

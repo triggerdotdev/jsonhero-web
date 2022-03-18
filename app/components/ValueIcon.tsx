@@ -43,7 +43,7 @@ export const ValueIcon: FunctionComponent<ValueIconProps> = ({
   size = ValueIconSize.Small,
   monochrome = false,
 }) => {
-  let classes = monochrome ? `text-gray-600` : colorForTypeName(type.name);
+  let classes = monochrome ? `text-slate-300` : colorForTypeName(type.name);
   switch (size) {
     case ValueIconSize.Small:
       classes += " h-4 w-4";

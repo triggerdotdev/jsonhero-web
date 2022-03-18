@@ -122,10 +122,10 @@ export function generateNodesToPath(
 function iconForType(type: JSONValueType): IconComponent {
   switch (type.name) {
     case "object": {
-      return ObjectIcon;
+      return CubeIcon;
     }
     case "array": {
-      return ArrayIcon;
+      return CollectionIcon;
     }
     case "null": {
       return EyeOffIcon;

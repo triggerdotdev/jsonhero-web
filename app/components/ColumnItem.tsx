@@ -30,7 +30,7 @@ function ColumnItemElement({
     }
 
     if (isSelected) {
-      return "bg-slate-200 hover:bg-slate-300 transition duration-75 ease-out dark:bg-white dark:bg-opacity-[5%] dark:hover:bg-white dark:hover:bg-opacity-[10%] dark:text-slate-400";
+      return "bg-slate-200 hover:bg-slate-300 transition duration-75 ease-out dark:bg-white dark:bg-opacity-[5%] dark:hover:bg-white dark:hover:bg-opacity-[10%] dark:text-slate-200";
     }
 
     return "hover:bg-slate-100 transition duration-75 ease-out dark:hover:bg-white dark:hover:bg-opacity-[5%] dark:text-slate-400";
@@ -54,7 +54,7 @@ function ColumnItemElement({
       ref={htmlElement}
     >
       <div className="w-4 flex-none flex-col justify-items-center">
-      {item.icon && <item.icon className={`h-5 w-5 ${isSelected && isHighlighted ? iconColor : "text-slate-500"}`} />}
+      {item.icon && <item.icon className={`h-5 w-5 ${isSelected && isHighlighted ? "text-slate-900 dark:text-slate-300" : "text-slate-500"}`} />}
 
       </div>
 

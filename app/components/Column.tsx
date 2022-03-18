@@ -24,7 +24,7 @@ function ColumnElement(column: ColumnProps) {
       }
     >
       <div className="flex items-center text-slate-800 bg-slate-50 mb-[3px] p-2 pb-0 transition dark:bg-slate-900 dark:text-slate-300">
-        {column.icon && <column.icon className={`${iconColor} h-6 w-6 mr-1`} />}
+        {column.icon && <column.icon className="h-6 w-6 mr-1" />}
         <Title className="">{title}</Title>
       </div>
       <div className="overflow-y-auto h-viewerHeight no-scrollbar">
