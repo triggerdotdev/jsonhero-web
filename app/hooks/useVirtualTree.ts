@@ -1,4 +1,12 @@
-import { useReducer, Reducer, useCallback, Dispatch, useEffect } from "react";
+import pick from "lodash-es/pick";
+import {
+  useReducer,
+  Reducer,
+  useCallback,
+  Dispatch,
+  useEffect,
+  useRef,
+} from "react";
 import { useVirtual, VirtualItem } from "react-virtual";
 
 type UseVirtualOptions<R> = Parameters<typeof useVirtual>[0];
@@ -7,6 +15,8 @@ export type UseVirtualTreeOptions<
   T extends { id: string; children?: T[] },
   R
 > = {
+  id: string;
+  persistState?: boolean;
   nodes: T[];
 } & Omit<UseVirtualOptions<R>, "size">;
 
@@ -81,13 +91,19 @@ type FocusFirstAction = {
   type: "FOCUS_FIRST";
 };
 
+type RestoreStateAction = {
+  type: "RESTORE_STATE";
+  restoredState: { collapsedState: Record<string, boolean> };
+};
+
 type TreeAction =
   | ToggleNodeAction
   | MoveNodeAction
   | FocusNodeAction
   | FocusFirstAction
   | MoveRightAction
-  | MoveLeftAction;
+  | MoveLeftAction
+  | RestoreStateAction;
 
 function expandNode<T extends { id: string; children?: T[] }>(
   state: TreeState<T>,
@@ -257,6 +273,23 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
               focusedNodeId: nextItem.id,
             };
           }
+
+          return state;
+        }
+        case "RESTORE_STATE": {
+          const nextState = {
+            ...state,
+            ...action.restoredState,
+          };
+
+          return {
+            ...nextState,
+            items: createNodeItems(
+              nextState.nodes,
+              0,
+              nextState.collapsedState
+            ),
+          };
         }
         default:
           return state;
@@ -265,14 +298,17 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
     []
   );
 
-  const initializer = useCallback(({ nodes }: { nodes: T[] }) => {
-    return {
-      nodes,
-      items: createNodeItems(nodes),
-      collapsedState: {},
-      focusedNodeId: nodes.length > 0 ? nodes[0].id : null,
-    };
-  }, []);
+  const initializer = useCallback(
+    ({ nodes }: { nodes: T[] }) => {
+      return {
+        nodes,
+        items: createNodeItems(nodes),
+        collapsedState: {},
+        focusedNodeId: nodes.length > 0 ? nodes[0].id : null,
+      };
+    },
+    [options.persistState, options.id]
+  );
 
   const [state, dispatch] = useReducer<
     Reducer<TreeState<T>, TreeAction>,
@@ -284,6 +320,53 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
     },
     initializer
   );
+
+  const isStateRestored = useRef<boolean>(false);
+
+  // This is setting the state
+  useEffect(() => {
+    if (!isStateRestored.current) {
+      return;
+    }
+
+    if (options.persistState) {
+      localStorage.setItem(
+        `${options.id}-virtual-tree-state`,
+        JSON.stringify(pick(state, "collapsedState"))
+      );
+    }
+  }, [
+    state.collapsedState,
+    options.id,
+    options.persistState,
+    isStateRestored.current,
+  ]);
+
+  // This is restoring the state
+  useEffect(() => {
+    if (!options.persistState) {
+      return;
+    }
+
+    if (isStateRestored.current) {
+      return;
+    }
+
+    isStateRestored.current = true;
+
+    const savedState = localStorage.getItem(`${options.id}-virtual-tree-state`);
+
+    if (savedState) {
+      const restoredState = JSON.parse(savedState) as {
+        collapsedState: Record<string, boolean>;
+      };
+
+      dispatch({
+        type: "RESTORE_STATE",
+        restoredState,
+      });
+    }
+  }, [options.persistState, options.id, dispatch, isStateRestored.current]);
 
   const rowVirtualizer = useVirtual({
     size: state.items.length,

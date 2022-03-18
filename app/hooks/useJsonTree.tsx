@@ -14,6 +14,7 @@ import {
 } from "react";
 import { useVirtualTree, UseVirtualTreeInstance } from "./useVirtualTree";
 import invariant from "tiny-invariant";
+import { useJsonDoc } from "./useJsonDoc";
 
 const initialRect = { width: 800, height: 600 };
 
@@ -48,17 +49,20 @@ export function JsonTreeViewProvider({
 export function useJsonTree(options: JsonTreeOptions): UseJsonTreeInstance {
   const parentRef = useRef<HTMLDivElement>(null);
 
+  const { doc } = useJsonDoc();
   const [json] = useJson();
   const jsonNodes = useMemo(() => {
     return generateTreeViewNodes(json);
   }, [json]);
 
   const tree = useVirtualTree({
+    id: doc.id,
     nodes: jsonNodes,
     parentRef,
     estimateSize: useCallback((index) => 32, []),
     initialRect,
     overscan: options.overscan,
+    persistState: true,
   });
 
   return { tree, parentRef };
