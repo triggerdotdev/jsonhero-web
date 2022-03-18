@@ -131,15 +131,15 @@ function TreeViewNode({
       ref={elementRef}
     >
       <div
-        className={`h-full flex select-none ${
+        className={`h-full flex m-2 rounded-sm select-none ${
           isSelected
-            ? "dark:bg-indigo-700"
+            ? "bg-indigo-700"
             : virtualItem.index % 2
-            ? "dark:bg-slate-800"
-            : "dark:bg-slate-700"
+            ? "dark:bg-slate-900"
+            : "bg-slate-200 bg-opacity-90 dark:bg-slate-800 dark:bg-opacity-30"
         }`}
       >
-        <div className={`${indentClassName} w-2/5 items-center flex`}>
+        <div className={`${indentClassName} w-1/4 items-center flex`}>
           {node.children && node.children.length > 0 && (
             <span
               onClick={(e) => {
@@ -150,22 +150,56 @@ function TreeViewNode({
               }}
             >
               {virtualNode.isCollapsed ? (
-                <ChevronRightIcon className="w-3 h-3 mr-2" />
+                <ChevronRightIcon
+                  className={`w-4 h-4 mr-2 ${
+                    isSelected
+                      ? "text-slate-100"
+                      : "text-slate-600 dark:text-slate-100"
+                  }`}
+                />
               ) : (
-                <ChevronDownIcon className="w-3 h-3 mr-2" />
+                <ChevronDownIcon
+                  className={`w-4 h-4 mr-2 ${
+                    isSelected
+                      ? "text-slate-100"
+                      : "text-slate-600 dark:text-slate-100"
+                  }`}
+                />
               )}
             </span>
           )}
 
-          <Body>{node.longTitle ?? node.name}</Body>
+          <Body
+            className={`${
+              isSelected
+                ? "text-slate-100"
+                : "text-slate-700 dark:text-slate-200"
+            }`}
+          >
+            {node.longTitle ?? node.name}
+          </Body>
         </div>
 
-        <div className="flex w-3/5 items-center">
+        <div className="flex w-3/4 items-center">
           <span className="mr-2">
-            {node.icon && <node.icon className={`h-5 w-5`} />}
+            {node.icon && (
+              <node.icon
+                className={`h-5 w-5 ${
+                  isSelected
+                    ? "text-slate-100"
+                    : "text-slate-600 dark:text-slate-500"
+                }`}
+              />
+            )}
           </span>
           {node.subtitle && (
-            <Mono className="truncate text-gray-400 pr-1 transition dark:text-gray-500">
+            <Mono
+              className={`truncate pr-1 transition ${
+                isSelected
+                  ? "text-slate-100"
+                  : "text-slate-500 dark:text-slate-200"
+              }`}
+            >
               {node.subtitle}
             </Mono>
           )}
