@@ -26,7 +26,7 @@ function ColumnItemElement({
 
   const stateStyle = useMemo<string>(() => {
     if (isHighlighted) {
-      return "bg-slate-300 text-slate-700 hover:bg-slate-400 hover:bg-opacity-60 transition duration-75 ease-out dark:bg-white dark:bg-opacity-[15%] dark:text-slate-400";
+      return "bg-slate-300 text-slate-700 hover:bg-slate-400 hover:bg-opacity-60 transition duration-75 ease-out dark:bg-white dark:bg-opacity-[15%] dark:text-slate-100";
     }
 
     if (isSelected) {
@@ -54,13 +54,14 @@ function ColumnItemElement({
       ref={htmlElement}
     >
       <div className="w-4 flex-none flex-col justify-items-center">
-        {item.icon && <item.icon className={`${iconColor} h-5 w-5`} />}
+      {item.icon && <item.icon className={`h-5 w-5 ${isSelected && isHighlighted ? iconColor : "text-slate-500"}`} />}
+
       </div>
 
       <div className="flex flex-grow flex-shrink items-baseline justify-between truncate">
-        <Body className="flex-grow flex-shrink-0 pl-3 pr-2">{item.title}</Body>
+        <Body className="flex-grow flex-shrink-0 pl-3 pr-2 ">{item.title}</Body>
         {item.subtitle && (
-          <Mono className="truncate text-gray-400 pr-1 transition dark:text-gray-500">
+          <Mono className={`truncate pr-1 transition duration-75 ${isHighlighted ? "text-slate-100" : "text-gray-400 dark:text-gray-500"}`}>
             {item.subtitle}
           </Mono>
         )}

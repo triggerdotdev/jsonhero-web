@@ -23,7 +23,7 @@ function ColumnElement(column: ColumnProps) {
         "column flex-none border-r-[1px] border-slate-300 w-80 transition dark:border-slate-600"
       }
     >
-      <div className="flex text-slate-800 bg-slate-50 mb-[3px] p-2 pb-0 transition dark:bg-slate-900 dark:text-slate-300">
+      <div className="flex items-center text-slate-800 bg-slate-50 mb-[3px] p-2 pb-0 transition dark:bg-slate-900 dark:text-slate-300">
         {column.icon && <column.icon className={`${iconColor} h-6 w-6 mr-1`} />}
         <Title className="">{title}</Title>
       </div>

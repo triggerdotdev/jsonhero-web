@@ -26,6 +26,8 @@ import {
 } from "@heroicons/react/outline";
 import { inferType, JSONValueType } from "@jsonhero/json-infer-types";
 import { JSONHeroPath, PathComponent } from "@jsonhero/path";
+import { ArrayIcon } from "~/components/Icons/ArrayIcon";
+import { ObjectIcon } from "~/components/Icons/ObjectIcon";
 import { StringIcon } from "~/components/Icons/StringIcon";
 import { ColumnViewNode, IconComponent } from "~/useColumnView";
 import { formatValue } from "./formatter";
@@ -120,10 +122,10 @@ export function generateNodesToPath(
 function iconForType(type: JSONValueType): IconComponent {
   switch (type.name) {
     case "object": {
-      return CubeIcon;
+      return ObjectIcon;
     }
     case "array": {
-      return CollectionIcon;
+      return ArrayIcon;
     }
     case "null": {
       return EyeOffIcon;
