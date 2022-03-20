@@ -12,7 +12,7 @@ export function JsonView({ children }: { children: React.ReactNode }) {
         <div className="flex-1 pr-2 min-w-0">
           <PathBar />
         </div>
-        <SearchBar />
+        {/* <SearchBar /> */}
       </div>
 
       {children}
