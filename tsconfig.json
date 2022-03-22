@@ -13,6 +13,8 @@
     "paths": {
       "~/*": ["./app/*"]
     },
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
 
     // Remix takes care of building everything in `remix build`.
     "noEmit": true

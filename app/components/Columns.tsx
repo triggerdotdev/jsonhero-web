@@ -35,7 +35,7 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
                 isHighlighted={
                   highlightedPath[highlightedPath.length - 1] === item.id
                 }
-                selectedItem={goToNodeId}
+                onClick={(id) => goToNodeId(id, "columnView")}
               />
             ))}
           </Column>

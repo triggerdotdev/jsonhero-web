@@ -51,6 +51,7 @@
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.4.2",
     "react-hotkeys-hook": "^3.4.4",
+    "react-virtual": "^2.10.4",
     "remix": "^1.2.3",
     "tailwindcss-radix": "^1.6.0",
     "tiny-invariant": "^1.2.0",
@@ -58,8 +59,6 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.2",
-    "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
-    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@remix-run/dev": "^1.2.3",
     "@tailwindcss/forms": "^0.4.0",
     "@types/color": "^3.0.3",

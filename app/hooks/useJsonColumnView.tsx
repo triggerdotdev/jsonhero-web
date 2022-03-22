@@ -121,6 +121,7 @@ export function JsonColumnViewProvider({ children }: { children: ReactNode }) {
 
   const isStateRestored = useRef<boolean>(!!initialNodeId);
 
+  // This is restoring the state
   useEffect(() => {
     if (isStateRestored.current) {
       return;
@@ -134,9 +135,10 @@ export function JsonColumnViewProvider({ children }: { children: ReactNode }) {
     const restoredState = JSON.parse(storage) as ColumnViewInstanceState;
     if (!restoredState.selectedNodeId) return;
 
-    api.goToNodeId(restoredState.selectedNodeId);
+    api.goToNodeId(restoredState.selectedNodeId, "localStorage");
   }, [doc.id, isStateRestored.current, state, api]);
 
+  // This is setting the state
   useEffect(() => {
     if (doc == null) {
       return;

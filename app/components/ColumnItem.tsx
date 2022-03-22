@@ -10,7 +10,7 @@ export type ColumnItemProps = {
   json: unknown;
   isSelected: boolean;
   isHighlighted: boolean;
-  selectedItem: (id: string) => void;
+  onClick?: (id: string) => void;
 };
 
 function ColumnItemElement({
@@ -18,7 +18,7 @@ function ColumnItemElement({
   json,
   isSelected,
   isHighlighted,
-  selectedItem,
+  onClick,
 }: ColumnItemProps) {
   const htmlElement = useRef<HTMLDivElement>(null);
 
@@ -50,18 +50,31 @@ function ColumnItemElement({
   return (
     <div
       className={`flex h-9 items-center justify-items-stretch mx-1 px-1 py-1 my-1 rounded-sm ${stateStyle}`}
-      onClick={() => selectedItem(item.id)}
+      onClick={() => onClick && onClick(item.id)}
       ref={htmlElement}
     >
       <div className="w-4 flex-none flex-col justify-items-center">
-      {item.icon && <item.icon className={`h-5 w-5 ${isSelected && isHighlighted ? "text-slate-900 dark:text-slate-300" : "text-slate-500"}`} />}
-
+        {item.icon && (
+          <item.icon
+            className={`h-5 w-5 ${
+              isSelected && isHighlighted
+                ? "text-slate-900 dark:text-slate-300"
+                : "text-slate-500"
+            }`}
+          />
+        )}
       </div>
 
       <div className="flex flex-grow flex-shrink items-baseline justify-between truncate">
         <Body className="flex-grow flex-shrink-0 pl-3 pr-2 ">{item.title}</Body>
         {item.subtitle && (
-          <Mono className={`truncate pr-1 transition duration-75 ${isHighlighted ? "text-slate-100" : "text-gray-400 dark:text-gray-500"}`}>
+          <Mono
+            className={`truncate pr-1 transition duration-75 ${
+              isHighlighted
+                ? "text-slate-100"
+                : "text-gray-400 dark:text-gray-500"
+            }`}
+          >
             {item.subtitle}
           </Mono>
         )}

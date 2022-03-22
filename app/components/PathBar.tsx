@@ -42,7 +42,7 @@ export function PathBarLink({
             key={index}
             node={node}
             highlightedNodeId={highlightedNodeId}
-            goToNodeId={goToNodeId}
+            onClick={(id) => goToNodeId(id, "pathBar")}
             isLast={index == selectedNodes.length - 1}
           />
         );
@@ -94,12 +94,12 @@ export function PathHistoryControls() {
 function PathBarElement({
   node,
   highlightedNodeId,
-  goToNodeId,
+  onClick,
   isLast,
 }: {
   node: ColumnViewNode;
   highlightedNodeId: string | undefined;
-  goToNodeId: (id: string) => void;
+  onClick?: (id: string) => void;
   isLast: boolean;
 }) {
   return (
@@ -118,7 +118,7 @@ function PathBarElement({
         style={{
           flexShrink: 1,
         }}
-        onClick={() => goToNodeId(node.id)}
+        onClick={() => onClick && onClick(node.id)}
       >
         <div className="w-4 flex-shrink-[0.5] flex-grow-0 flex-col justify-items-center whitespace-nowrap overflow-x-hidden transition dark:text-slate-400">
           {node.icon && <node.icon className="h-3 w-3" />}

@@ -63,7 +63,7 @@ function HomeInfoBoxSectionContent() {
 
   useEffect(() => {
     const selectedPath = infoBoxData[index].highlight;
-    api.goToNodeId(selectedPath);
+    api.goToNodeId(selectedPath, "home");
   }, [index]);
 
   const resetInterval = () => {
