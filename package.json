@@ -33,6 +33,7 @@
     "@jsonhero/json-schema-fns": "^0.0.1",
     "@jsonhero/path": "^1.0.17",
     "@jsonhero/schema-infer": "^0.1.x",
+    "@radix-ui/react-dialog": "^0.1.7",
     "@radix-ui/react-popover": "^0.1.5",
     "@radix-ui/react-tabs": "^0.1.5",
     "@remix-run/cloudflare-workers": "^1.2.3",
