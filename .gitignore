@@ -11,3 +11,4 @@ node_modules
 .mf
 /meta.json
 /stats.html
+public/entry.worker.js

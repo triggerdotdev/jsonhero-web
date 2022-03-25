@@ -26,9 +26,20 @@ export function formatRawValue(type: JSONValueType): string {
   }
 }
 
-export function formatValue(type: JSONValueType): string | undefined {
+export type FormatValueOptions = {
+  leafNodesOnly?: boolean;
+};
+
+export function formatValue(
+  type: JSONValueType,
+  options?: FormatValueOptions
+): string | undefined {
   switch (type.name) {
     case "array": {
+      if (options?.leafNodesOnly) {
+        return;
+      }
+
       if (type.value.length == 0) {
         return formatRawValue(type);
       } else if (type.value.length === 1) {
@@ -38,6 +49,10 @@ export function formatValue(type: JSONValueType): string | undefined {
       }
     }
     case "object": {
+      if (options?.leafNodesOnly) {
+        return;
+      }
+
       if (Object.keys(type.value).length == 0) {
         return formatRawValue(type);
       } else if (Object.keys(type.value).length === 1) {

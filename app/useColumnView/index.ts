@@ -220,7 +220,7 @@ export function useColumnView({
       selectedNodes,
       highlightedNodeId,
       highlightedPath,
-      columns,
+      columns: columns ?? [],
       getColumnViewProps,
       canGoBack,
       canGoForward,

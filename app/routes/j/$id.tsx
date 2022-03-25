@@ -21,6 +21,7 @@ import { JsonSchemaProvider } from "~/hooks/useJsonSchema";
 import { JsonView } from "~/components/JsonView";
 import safeFetch from "~/utilities/safeFetch";
 import { JsonTreeViewProvider } from "~/hooks/useJsonTree";
+import { JsonSearchProvider } from "~/hooks/useJsonSearch";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -114,34 +115,36 @@ export default function JsonDocumentRoute() {
       <JsonProvider initialJson={loaderData.json}>
         <JsonSchemaProvider>
           <JsonColumnViewProvider>
-            <JsonTreeViewProvider overscan={25}>
-              <div>
-                <div className="h-screen flex flex-col">
-                  <Header />
-                  <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
-                    <div className="main-container flex justify-items-stretch h-full">
-                      <SideBar />
-                      <JsonView>
-                        <Outlet />
-                      </JsonView>
+            <JsonSearchProvider>
+              <JsonTreeViewProvider overscan={25}>
+                <div>
+                  <div className="h-screen flex flex-col">
+                    <Header />
+                    <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
+                      <div className="main-container flex justify-items-stretch h-full">
+                        <SideBar />
+                        <JsonView>
+                          <Outlet />
+                        </JsonView>
 
-                      <Resizable
-                        isHorizontal={true}
-                        initialSize={500}
-                        minimumSize={280}
-                        maximumSize={900}
-                      >
-                        <div className="info-panel flex-grow h-full">
-                          <InfoPanel />
-                        </div>
-                      </Resizable>
+                        <Resizable
+                          isHorizontal={true}
+                          initialSize={500}
+                          minimumSize={280}
+                          maximumSize={900}
+                        >
+                          <div className="info-panel flex-grow h-full">
+                            <InfoPanel />
+                          </div>
+                        </Resizable>
+                      </div>
                     </div>
-                  </div>
 
-                  <Footer></Footer>
+                    <Footer></Footer>
+                  </div>
                 </div>
-              </div>
-            </JsonTreeViewProvider>
+              </JsonTreeViewProvider>
+            </JsonSearchProvider>
           </JsonColumnViewProvider>
         </JsonSchemaProvider>
       </JsonProvider>
