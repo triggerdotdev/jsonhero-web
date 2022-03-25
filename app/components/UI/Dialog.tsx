@@ -8,7 +8,7 @@ export const DialogContent = React.forwardRef<
   <DialogPrimitive.Portal>
     <DialogPrimitive.Overlay
       forceMount
-      className="fixed inset-0 z-20 bg-black/50"
+      className="fixed inset-0 z-20 bg-black/60"
     />
     <DialogPrimitive.Content forceMount {...props} ref={forwardedRef}>
       {children}

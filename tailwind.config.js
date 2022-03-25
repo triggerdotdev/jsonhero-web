@@ -6,10 +6,10 @@ module.exports = {
       tiny: ".5rem", // 8px
       xs: ".625rem", // 10px
       sm: ".75rem", // 12px (SmallBody)
-      base: ".875rem", // 14px (Body)       <p>
-      lg: "1rem", // 16px (SmallTitle) <h3>
-      xl: "1.125rem", // 18px (Title)      <h2>
-      "2xl": "1.375rem", // 22px (LargeTitle) <h1>
+      base: ".875rem", // 14px (Body)           <p>
+      lg: "1rem", // 16px (SmallTitle)          <h3>
+      xl: "1.125rem", // 18px (Title)           <h2>
+      "2xl": "1.375rem", // 22px (LargeTitle)   <h1>
       "3xl": "1.5rem", // 24px
       "4xl": "1.875rem", // 30px
       "5xl": "2rem", // 32px
