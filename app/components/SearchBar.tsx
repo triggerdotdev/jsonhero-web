@@ -50,7 +50,7 @@ export function SearchBar() {
           "w-[95vw] max-w-2xl rounded-lg",
           "top-0 left-[50%] -translate-x-[50%]",
           "mt-[60px]",
-          "bg-white border-[1px] dark:border-slate-700 dark:bg-slate-800"
+          "bg-white border-[1px] border-slate-500 dark:border-slate-700 dark:bg-slate-800"
         )}
       >
         <SearchPalette

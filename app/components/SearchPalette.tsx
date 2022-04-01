@@ -108,21 +108,21 @@ export function SearchPalette({
     <>
       <div
         {...cb.getComboboxProps()}
-        className="search-container max-h-[60vh] px-4 pt-4 overflow-hidden"
+        className="max-h-[60vh] px-4 pt-4 overflow-hidden"
       >
         <label
           {...cb.getLabelProps()}
-          className="relative text-gray-400 focus-within:text-gray-600 block"
+          className="relative text-slate-400 focus-within:text-slate-600 block"
         >
-          <SearchIcon className="absolute w-7 h-7 top-1/2 transform -translate-y-1/2 left-3 text-white pointer-events-none" />
+          <SearchIcon className="absolute w-7 h-7 top-1/2 transform -translate-y-1/2 left-3 text-slate-700 transition dark:text-white pointer-events-none" />
           <input
             {...cb.getInputProps({ onKeyDown: handleInputKeyDown })}
             type="text"
             placeholder="Search the JSON…"
-            className="search-field w-full pl-12 pr-4 py-4 rounded-sm text-white text-2xl caret-indigo-700 bg-slate-900 border-indigo-700 focus:outline-none focus:ring focus:ring-indigo-700"
+            className="w-full pl-12 pr-4 py-4 rounded-sm text-slate-900 bg-slate-100 text-2xl caret-indigo-700 border-indigo-700 transition dark:text-white dark:bg-slate-900 focus:outline-none focus:ring focus:ring-indigo-700"
           />
         </label>
-        <div className="search-content flex flex-col mt-4 mb-2">
+        <div className="flex flex-col mt-4 mb-2">
           <div className="results flex">
             {searchState.status !== "idle" &&
               (!searchState.results || searchState.results.length === 0) && (
@@ -155,7 +155,7 @@ export function SearchPalette({
         </div>
         <ul
           {...cb.getMenuProps({ ref: listRef })}
-          className="search-items w-full max-h-[calc(60vh-120px)] overflow-y-auto relative"
+          className="w-full max-h-[calc(60vh-120px)] overflow-y-auto relative"
         >
           <li
             key="total-size"
@@ -187,20 +187,22 @@ export function SearchPalette({
           })}
         </ul>
       </div>
-      <div className="footer flex items-center w-full gap-4 px-3 py-2 border-t-[1px] border-slate-700 rounded-br-lg rounded-bl-lg bg-slate-900">
+      <div className="flex items-center w-full gap-4 px-3 py-2 border-t-[1px] bg-slate-100 border-slate-200 rounded-br-lg rounded-bl-lg transition dark:bg-slate-900 dark:border-slate-700">
         <div className="flex items-center gap-1">
           <ShortcutIcon className="w-4 h-4 text-sm text-slate-900 bg-slate-300 transition duration-75 group-hover:bg-slate-100 dark:bg-slate-500 dark:group-hover:bg-slate-600">
             ⏎
           </ShortcutIcon>
-          <Body className="text-slate-500">to select</Body>
+          <Body className="text-slate-700 dakr:text-slate-500">to select</Body>
         </div>
         <div className="flex items-center gap-1">
           <ArrowKeysUpDownIcon className="transition text-slate-300 dark:text-slate-500" />
-          <Body className="text-slate-500">to navigate</Body>
+          <Body className="text-slate-700 dakr:text-slate-500">
+            to navigate
+          </Body>
         </div>
         <div className="flex items-center gap-1">
           <EscapeKeyIcon className="transition text-slate-300 dark:text-slate-500" />
-          <Body className="text-slate-500">to close</Body>
+          <Body className="text-slate-700 dakr:text-slate-500">to close</Body>
         </div>
       </div>
     </>
@@ -231,13 +233,13 @@ export function SearchItem({
       <div
         className={classnames(
           "w-full h-[calc(100%-4px)] mb-2 rounded-sm group",
-          isHighlighted ? "dark:bg-indigo-700" : "dark:bg-slate-900"
+          isHighlighted ? "bg-indigo-700" : "bg-slate-100 dark:bg-slate-900"
         )}
       >
         <div className="flex items-center w-full p-2 pl-4 pr-3">
-          <ItemIcon className="h-6 w-6 text-slate-400 group-hover:text-white"></ItemIcon>
+          <ItemIcon className="h-6 w-6 text-slate-500 group-hover:text-white group-hover:dark:text-slate-800 dark:text-slate-400"></ItemIcon>
           <div className="flex flex-col w-full ml-3">
-            <div className="path flex items-center gap-1 mb-1 text-white">
+            <div className="path flex items-center gap-1 mb-1 text-slate-800 dark:text-white group-hover:text-white">
               {components.map((c, index) => {
                 return [
                   <Body key={c.toString() + index + "body"} className="text-lg">
@@ -301,8 +303,8 @@ function SearchResultValue({
   return (
     <Mono
       className={classnames(
-        "text-slate-500",
-        isHighlighted ? "dark:text-white" : ""
+        "",
+        isHighlighted ? "text-white" : "text-slate-600 dark:text-slate-500"
       )}
     >
       {output}
