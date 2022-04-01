@@ -29,7 +29,6 @@ self.onmessage = (e: MessageEvent<SearchWorkerEvent>) => {
 
   console.group(`SearchWorker: ${type}`);
   console.log(payload);
-  console.groupEnd();
 
   switch (type) {
     case "initialize-index": {
@@ -54,7 +53,11 @@ self.onmessage = (e: MessageEvent<SearchWorkerEvent>) => {
 
       const results = self.fuse.search(query);
 
-      self.postMessage({ type: "search-results", payload: { results } });
+      console.log("results", results);
+
+      self.postMessage({ type: "search-results", payload: { results, query } });
     }
   }
+
+  console.groupEnd();
 };

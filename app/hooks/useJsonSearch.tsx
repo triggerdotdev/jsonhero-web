@@ -28,7 +28,7 @@ export type IndexInitializedEvent = {
 
 export type SearchResultsEvent = {
   type: "search-results";
-  payload: { results: Fuse.FuseResult<JsonSearchEntry>[] };
+  payload: { results: Fuse.FuseResult<JsonSearchEntry>[]; query: string };
 };
 
 export type SearchReceiveWorkerEvent =
@@ -37,6 +37,7 @@ export type SearchReceiveWorkerEvent =
 
 export type JsonSearchApi = {
   search: (query: string) => void;
+  reset: () => void;
 };
 
 const JsonSearchStateContext = createContext<JsonSearchState>(
@@ -56,35 +57,118 @@ type SearchAction = {
   payload: { query: string };
 };
 
-type JsonSearchAction = SearchReceiveWorkerEvent | SearchAction;
+type ResetAction = {
+  type: "reset";
+};
+
+type JsonSearchAction = SearchReceiveWorkerEvent | SearchAction | ResetAction;
 
 function reducer(
   state: JsonSearchState,
   action: JsonSearchAction
 ): JsonSearchState {
-  switch (action.type) {
-    case "index-initialized":
-      return {
-        ...state,
-        status: "idle",
-        results: undefined,
-      };
-    case "search-results":
-      return {
-        ...state,
-        status: "idle",
-        results: action.payload.results,
-      };
-    case "search":
-      return {
-        ...state,
-        status: "searching",
-        query: action.payload.query,
-      };
-    default:
+  switch (state.status) {
+    case "initializing": {
+      if (action.type === "index-initialized") {
+        return {
+          ...state,
+          status: "idle",
+          results: undefined,
+        };
+      }
+
       return state;
+    }
+    case "idle": {
+      if (action.type === "reset") {
+        return {
+          ...state,
+          query: undefined,
+          results: undefined,
+        };
+      }
+
+      if (action.type === "search") {
+        return {
+          ...state,
+          status: "searching",
+          query: action.payload.query,
+        };
+      }
+
+      return state;
+    }
+    case "searching": {
+      if (action.type === "reset") {
+        return {
+          ...state,
+          status: "idle",
+          query: undefined,
+          results: undefined,
+        };
+      }
+
+      if (
+        action.type === "search-results" &&
+        state.query === action.payload.query
+      ) {
+        return {
+          ...state,
+          status: "idle",
+          results: action.payload.results,
+        };
+      }
+
+      return state;
+    }
   }
 }
+
+let lastAction: any | undefined;
+
+function wrapReducer<S, A extends { type: string }>(
+  name: string,
+  reducer: React.Reducer<S, A>
+): React.Reducer<S, A> {
+  return (state, action) => {
+    const next = reducer(state, action);
+
+    if (process.env.NODE_ENV !== "production") {
+      if (!lastAction) {
+        console.groupCollapsed(
+          `%cAction: %c${
+            name + " " + action.type
+          } %cat ${getCurrentTimeFormatted()}`,
+          "color: lightgreen; font-weight: bold;",
+          "color: white; font-weight: bold;",
+          "color: lightblue; font-weight: lighter;"
+        );
+        console.log(
+          "%cPrevious State:",
+          "color: #9E9E9E; font-weight: 700;",
+          state
+        );
+        console.log("%cAction:", "color: #00A7F7; font-weight: 700;", action);
+        console.log("%cNext State:", "color: #47B04B; font-weight: 700;", next);
+        console.groupEnd();
+        lastAction = action;
+      } else {
+        lastAction = undefined;
+      }
+    }
+
+    return next;
+  };
+}
+
+const getCurrentTimeFormatted = () => {
+  const currentTime = new Date();
+  const hours = currentTime.getHours();
+  const minutes = currentTime.getMinutes();
+  const seconds = currentTime.getSeconds();
+  const milliseconds = currentTime.getMilliseconds();
+  return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+};
 
 export function JsonSearchProvider({
   children,
@@ -95,7 +179,7 @@ export function JsonSearchProvider({
 
   const [state, dispatch] = useReducer<
     React.Reducer<JsonSearchState, JsonSearchAction>
-  >(reducer, { status: "initializing" });
+  >(wrapReducer("jsonSearch", reducer), { status: "initializing" });
 
   const search = useCallback(
     (query: string) => {
@@ -103,6 +187,10 @@ export function JsonSearchProvider({
     },
     [dispatch]
   );
+
+  const reset = useCallback(() => {
+    dispatch({ type: "reset" });
+  }, [dispatch]);
 
   const handleWorkerMessage = useCallback(
     (e: MessageEvent<SearchReceiveWorkerEvent>) => dispatch(e.data),
@@ -132,10 +220,10 @@ export function JsonSearchProvider({
         fuseOptions: {
           includeScore: true,
           includeMatches: true,
-          minMatchCharLength: 1,
+          minMatchCharLength: 2,
           isCaseSensitive: false,
           threshold: 0.6,
-          distance: 200,
+          distance: 20,
         },
       },
     });
@@ -154,7 +242,7 @@ export function JsonSearchProvider({
 
   return (
     <JsonSearchStateContext.Provider value={state}>
-      <JsonSearchApiContext.Provider value={{ search }}>
+      <JsonSearchApiContext.Provider value={{ search, reset }}>
         {children}
       </JsonSearchApiContext.Provider>
     </JsonSearchStateContext.Provider>

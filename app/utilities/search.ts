@@ -83,3 +83,49 @@ export function getRawValue(type: JSONValueType): string | undefined {
       return "null";
   }
 }
+
+type StringSlice = {
+  start: number;
+  end: number;
+  isMatch: boolean;
+  slice: string;
+};
+
+export function getStringSlices(
+  stringValue: string,
+  matchingIndices: ReadonlyArray<[number, number]>,
+  maxLength: number
+): Array<StringSlice> {
+  const slices: StringSlice[] = [];
+
+  let currentIndex = 0;
+
+  const addSlice = (
+    start: number,
+    end: number,
+    isMatch: boolean,
+    slice: string
+  ) => {
+    slices.push({ start, end, isMatch, slice });
+  };
+
+  for (const [start, end] of matchingIndices) {
+    addSlice(
+      currentIndex,
+      start,
+      false,
+      stringValue.slice(currentIndex, start)
+    );
+    addSlice(start, end + 1, true, stringValue.slice(start, end + 1));
+    currentIndex = end + 1;
+  }
+
+  addSlice(
+    currentIndex,
+    stringValue.length,
+    false,
+    stringValue.slice(currentIndex)
+  );
+
+  return slices;
+}

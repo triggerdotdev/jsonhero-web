@@ -2,6 +2,7 @@ import Fuse from "fuse.js";
 import {
   createSearchEntries,
   createSearchIndex,
+  getStringSlices,
 } from "../app/utilities/search";
 
 const json = {
@@ -56,6 +57,39 @@ const json = {
     },
   ],
 };
+
+describe("getStringSlices", () => {
+  it("returns a slice for each part of the string based on the matches", () => {
+    const slices = getStringSlices(
+      "This is a really great (short) string",
+      [[9, 16]],
+      60
+    );
+
+    expect(slices).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "end": 9,
+    "isMatch": false,
+    "slice": "This is a",
+    "start": 0,
+  },
+  Object {
+    "end": 17,
+    "isMatch": true,
+    "slice": " really ",
+    "start": 9,
+  },
+  Object {
+    "end": 37,
+    "isMatch": false,
+    "slice": "great (short) string",
+    "start": 17,
+  },
+]
+`);
+  });
+});
 
 describe("createSearchIndex", () => {
   it("creates a search index that can search keys, raw values, and formatted values", () => {

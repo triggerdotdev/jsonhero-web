@@ -256,7 +256,7 @@ export type ResetSelectionNodeAction = {
 
 export type GoAction = {
   type: "GO";
-  direction: number;
+  direction: -1 | 1;
 };
 
 export type ColumnViewAction =

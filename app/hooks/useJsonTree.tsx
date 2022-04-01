@@ -3,7 +3,7 @@ import { inferType, JSONValueType } from "@jsonhero/json-infer-types";
 import { JSONHeroPath } from "@jsonhero/path";
 import { IconComponent } from "~/useColumnView";
 import { formatValue } from "~/utilities/formatter";
-import { iconForType } from "~/utilities/jsonColumnView";
+import { iconForType } from "~/utilities/icons";
 import {
   createContext,
   ReactNode,

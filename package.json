@@ -44,6 +44,7 @@
     "@uiw/react-codemirror": "^4.3.3",
     "clsx": "^1.1.1",
     "color": "^4.2.1",
+    "downshift": "^6.1.7",
     "fathom-client": "^3.4.1",
     "framer-motion": "^6.2.4",
     "fuse.js": "^6.5.3",
