@@ -343,7 +343,7 @@ function createOutputForMatch(
                     "",
                     isHighlighted
                       ? "text-white underline underline-offset-1"
-                      : "text-indigo-400"
+                      : "text-indigo-600 dark:text-indigo-400"
                   )
                 : ""
             }
