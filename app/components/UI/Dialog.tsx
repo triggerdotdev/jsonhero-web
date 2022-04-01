@@ -1,5 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import React, { ComponentPropsWithoutRef } from "react";
+import { omit } from "lodash-es";
 
 export const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -15,7 +16,11 @@ export const DialogContent = React.forwardRef<
         props.onOverlayClick && props.onOverlayClick();
       }}
     />
-    <DialogPrimitive.Content forceMount {...props} ref={forwardedRef}>
+    <DialogPrimitive.Content
+      forceMount
+      {...omit(props, "onOverlayClick")}
+      ref={forwardedRef}
+    >
       {children}
     </DialogPrimitive.Content>
   </DialogPrimitive.Portal>
