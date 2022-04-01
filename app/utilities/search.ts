@@ -85,8 +85,6 @@ export function getRawValue(type: JSONValueType): string | undefined {
 }
 
 type StringSlice = {
-  start: number;
-  end: number;
   isMatch: boolean;
   slice: string;
 };
@@ -96,11 +94,13 @@ type StringSlice = {
 // and the matches are [[10, 15], [80, 90], [100, 105]]
 // then we should return slices:
 // [
-//   { start: 70, end: 80, isMatch: false, slice: "the string," },
-//   { start: 80, end: 90, isMatch: true, slice: ", we should" },
-//   { start: 90, end: 100, isMatch: false, slice: "d only retu" },
-//   { start: 100, end: 105, isMatch: true, slice: "urn sl" },
-//   { start: 105, end: 125, isMatch: false, slice: "lices that are within" },
+//   { isMatch: false, slice: "…" }
+//   { isMatch: false, slice: "the string," },
+//   { isMatch: true, slice: ", we should" },
+//   { isMatch: false, slice: "d only retu" },
+//   { isMatch: true, slice: "urn sl" },
+//   { isMatch: false, slice: "lices that are within" },
+//   { isMatch: false, slice: "…" },
 //
 // If stringValue length is less than the windowSize, then we should return all the string slices of the string
 export function getStringSlices(
@@ -110,13 +110,12 @@ export function getStringSlices(
 ): Array<StringSlice> {
   const slices: StringSlice[] = [];
 
-  const addSlice = (
-    start: number,
-    end: number,
-    isMatch: boolean,
-    slice: string
-  ) => {
-    slices.push({ start, end, isMatch, slice });
+  const addSlice = (isMatch: boolean, slice: string) => {
+    slices.push({ isMatch, slice });
+  };
+
+  const addEllipsis = () => {
+    addSlice(false, "…");
   };
 
   const calculateWindow = (): { start: number; end: number } => {
@@ -152,38 +151,31 @@ export function getStringSlices(
 
   let currentIndex = window.start;
 
+  if (window.start > 0) {
+    addEllipsis();
+  }
+
   for (const [start, end] of matchingIndices) {
     if (start < window.start && end <= window.start) {
       continue;
     } else if (start >= window.end) {
       continue;
     } else if (start < window.start && end > window.start) {
-      addSlice(
-        window.start,
-        end + 1,
-        true,
-        stringValue.slice(window.start, end + 1)
-      );
+      addSlice(true, stringValue.slice(window.start, end + 1));
 
       currentIndex = end + 1;
     } else if (start >= window.start && end <= window.end) {
-      addSlice(
-        currentIndex,
-        start,
-        false,
-        stringValue.slice(currentIndex, start)
-      );
-      addSlice(start, end + 1, true, stringValue.slice(start, end + 1));
+      addSlice(false, stringValue.slice(currentIndex, start));
+      addSlice(true, stringValue.slice(start, end + 1));
       currentIndex = end + 1;
     }
   }
 
-  addSlice(
-    currentIndex,
-    window.end,
-    false,
-    stringValue.slice(currentIndex, window.end + 1)
-  );
+  addSlice(false, stringValue.slice(currentIndex, window.end + 1).trimEnd());
+
+  if (window.end < stringValue.length - 1) {
+    addEllipsis();
+  }
 
   return slices;
 }

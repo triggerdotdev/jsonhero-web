@@ -312,13 +312,14 @@ function SearchResultValue({
 function createOutputForMatch(
   stringValue: string,
   isHighlighted: boolean,
-  match?: Fuse.FuseResultMatch
+  match?: Fuse.FuseResultMatch,
+  maxLength: number = 68
 ): JSX.Element {
   if (!match) {
-    return <>{truncate(stringValue, { length: 56 })}</>;
+    return <>{truncate(stringValue, { length: maxLength })}</>;
   }
 
-  const stringSlices = getStringSlices(stringValue, match.indices, 56);
+  const stringSlices = getStringSlices(stringValue, match.indices, maxLength);
 
   return (
     <>

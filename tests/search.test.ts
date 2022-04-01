@@ -69,22 +69,16 @@ describe("getStringSlices", () => {
     expect(slices).toMatchInlineSnapshot(`
 Array [
   Object {
-    "end": 10,
     "isMatch": false,
     "slice": "This is a ",
-    "start": 0,
   },
   Object {
-    "end": 16,
     "isMatch": true,
     "slice": "really",
-    "start": 10,
   },
   Object {
-    "end": 37,
     "isMatch": false,
     "slice": " great (short) string",
-    "start": 16,
   },
 ]
 `);
@@ -104,34 +98,32 @@ Array [
     expect(slices).toMatchInlineSnapshot(`
 Array [
   Object {
-    "end": 80,
+    "isMatch": false,
+    "slice": "…",
+  },
+  Object {
     "isMatch": false,
     "slice": "e is outside of the windo",
-    "start": 55,
   },
   Object {
-    "end": 91,
     "isMatch": true,
     "slice": "w, so we sh",
-    "start": 80,
   },
   Object {
-    "end": 100,
     "isMatch": false,
     "slice": "ould try ",
-    "start": 91,
   },
   Object {
-    "end": 106,
     "isMatch": true,
     "slice": "and ge",
-    "start": 100,
   },
   Object {
-    "end": 115,
     "isMatch": false,
     "slice": "t only sli",
-    "start": 106,
+  },
+  Object {
+    "isMatch": false,
+    "slice": "…",
   },
 ]
 `);
@@ -150,22 +142,24 @@ Array [
     expect(slices2).toMatchInlineSnapshot(`
 Array [
   Object {
-    "end": 103,
+    "isMatch": false,
+    "slice": "…",
+  },
+  Object {
     "isMatch": false,
     "slice": " incididunt ut labore et ",
-    "start": 78,
   },
   Object {
-    "end": 109,
     "isMatch": true,
     "slice": "dolore",
-    "start": 103,
   },
   Object {
-    "end": 133,
     "isMatch": false,
     "slice": " magna aliqua. Ut enim ad",
-    "start": 109,
+  },
+  Object {
+    "isMatch": false,
+    "slice": "…",
   },
 ]
 `);
