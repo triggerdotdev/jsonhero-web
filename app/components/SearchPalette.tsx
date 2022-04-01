@@ -237,7 +237,14 @@ export function SearchItem({
         )}
       >
         <div className="flex items-center w-full p-2 pl-4 pr-3">
-          <ItemIcon className="h-6 w-6 text-slate-500 group-hover:text-white group-hover:dark:text-slate-800 dark:text-slate-400"></ItemIcon>
+          <ItemIcon
+            className={classnames(
+              "h-6 w-6",
+              isHighlighted
+                ? "text-white"
+                : "text-slate-500 dark:text-slate-400"
+            )}
+          ></ItemIcon>
           <div className="flex flex-col w-full ml-3">
             <div className="path flex items-center gap-1 mb-1 text-slate-800 dark:text-white group-hover:text-white">
               {components.map((c, index) => {
