@@ -24,6 +24,7 @@ import { useVirtual } from "react-virtual";
 import { truncate } from "lodash-es";
 import { JSONHeroPath } from "@jsonhero/path";
 import { useHotkeys } from "react-hotkeys-hook";
+import { useJson } from "~/hooks/useJson";
 
 export function SearchPalette({
   onSelect,
@@ -217,9 +218,11 @@ export function SearchItem({
   result,
   isHighlighted,
 }: SearchItemProps) {
-  const ItemIcon = iconForValue(result.item.rawValue);
-
   const heroPath = new JSONHeroPath(result.item.path);
+  const [json] = useJson();
+
+  const itemValue = heroPath.first(json);
+  const ItemIcon = iconForValue(itemValue);
 
   const components = heroPath.components.slice(1);
 
