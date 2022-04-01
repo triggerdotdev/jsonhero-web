@@ -51,7 +51,7 @@ export function SearchPalette({
   const rowVirtualizer = useVirtual({
     size: (searchState.results ?? []).length,
     parentRef: listRef,
-    estimateSize: useCallback(() => 62, []),
+    estimateSize: useCallback(() => 70, []),
     overscan: 6,
   });
 
@@ -227,52 +227,53 @@ export function SearchItem({
   const components = heroPath.components.slice(1);
 
   return (
-    <li
-      {...itemProps}
-      className={classnames(
-        "w-full rounded-sm outline outline-4 outline-slate-800 group hover:cursor-pointer",
-        isHighlighted ? "dark:bg-indigo-700" : "dark:bg-slate-900"
-      )}
-    >
-      <div className="main-container flex items-center w-full p-2 pl-4 pr-3">
-        <ItemIcon className="h-6 w-6 text-slate-400 group-hover:text-white"></ItemIcon>
-        <div className="flex flex-col w-full ml-3">
-          <div className="path flex items-center gap-1 mb-1 text-white">
-            {components.map((c, index) => {
-              return [
-                <Body key={c.toString() + index + "body"} className="text-lg">
-                  {c.toString()}
-                </Body>,
-              ].concat(
-                index + 1 === components.length
-                  ? []
-                  : [
-                      <ChevronRightIcon
-                        key={c.toString() + index + "arrow"}
-                        className="w-4 h-4"
-                      />,
-                    ]
-              );
-            })}
-          </div>
-          <div className="key-value flex justify-between">
-            {result.item.rawValue && (
-              <SearchResultValue
-                isHighlighted={isHighlighted}
-                keyName="rawValue"
-                stringValue={result.item.rawValue}
-                searchResult={result}
-              />
-            )}
-            {result.item.formattedValue &&
-              result.item.formattedValue !== result.item.rawValue && (
+    <li {...itemProps} className={classnames("w-full hover:cursor-pointer")}>
+      <div
+        className={classnames(
+          "w-full h-[calc(100%-4px)] mb-2 rounded-sm group",
+          isHighlighted ? "dark:bg-indigo-700" : "dark:bg-slate-900"
+        )}
+      >
+        <div className="flex items-center w-full p-2 pl-4 pr-3">
+          <ItemIcon className="h-6 w-6 text-slate-400 group-hover:text-white"></ItemIcon>
+          <div className="flex flex-col w-full ml-3">
+            <div className="path flex items-center gap-1 mb-1 text-white">
+              {components.map((c, index) => {
+                return [
+                  <Body key={c.toString() + index + "body"} className="text-lg">
+                    {c.toString()}
+                  </Body>,
+                ].concat(
+                  index + 1 === components.length
+                    ? []
+                    : [
+                        <ChevronRightIcon
+                          key={c.toString() + index + "arrow"}
+                          className="w-4 h-4"
+                        />,
+                      ]
+                );
+              })}
+            </div>
+            <div className="key-value flex justify-between">
+              {result.item.rawValue && (
                 <SearchResultValue
                   isHighlighted={isHighlighted}
-                  keyName="formattedValue"
-                  stringValue={result.item.formattedValue}
+                  keyName="rawValue"
+                  stringValue={result.item.rawValue}
                   searchResult={result}
                 />
               )}
+              {result.item.formattedValue &&
+                result.item.formattedValue !== result.item.rawValue && (
+                  <SearchResultValue
+                    isHighlighted={isHighlighted}
+                    keyName="formattedValue"
+                    stringValue={result.item.formattedValue}
+                    searchResult={result}
+                  />
+                )}
+            </div>
           </div>
         </div>
       </div>
