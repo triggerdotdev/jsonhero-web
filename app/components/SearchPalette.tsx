@@ -50,7 +50,7 @@ export function SearchPalette({
   const rowVirtualizer = useVirtual({
     size: (searchState.results ?? []).length,
     parentRef: listRef,
-    estimateSize: useCallback(() => 70, []),
+    estimateSize: useCallback(() => 62, []),
     overscan: 6,
   });
 
@@ -144,9 +144,13 @@ export function SearchPalette({
         </div>
         <ul
           {...cb.getMenuProps({ ref: listRef })}
-          className="search-items w-full max-h-[inherit] pb-24 overflow-y-auto relative"
+          className="search-items w-full max-h-[inherit] overflow-y-auto relative"
         >
-          <li key="total-size" style={{ height: rowVirtualizer.totalSize }} />
+          <li
+            key="total-size"
+            style={{ height: rowVirtualizer.totalSize }}
+            className="mb-[8.5rem]"
+          />
           {rowVirtualizer.virtualItems.map((virtualRow) => {
             const result = (searchState.results ?? [])[virtualRow.index];
 
@@ -213,12 +217,12 @@ export function SearchItem({
     <li
       {...itemProps}
       className={classnames(
-        "w-full rounded-sm mb-2 last:mb-10 group transition hover:cursor-pointer",
+        "w-full rounded-sm outline outline-4 outline-slate-800 group hover:cursor-pointer",
         isHighlighted ? "dark:bg-indigo-700" : "dark:bg-slate-900"
       )}
     >
       <div className="main-container flex items-center w-full p-2 pl-4 pr-3">
-        <ItemIcon className="h-6 w-6 text-slate-400 transition group-hover:text-white"></ItemIcon>
+        <ItemIcon className="h-6 w-6 text-slate-400 group-hover:text-white"></ItemIcon>
         <div className="flex flex-col w-full ml-3">
           <div className="path flex items-center gap-1 mb-1 text-white">
             {components.map((c, index) => {
@@ -283,7 +287,7 @@ function SearchResultValue({
   return (
     <Mono
       className={classnames(
-        "text-slate-500 transition",
+        "text-slate-500",
         isHighlighted ? "dark:text-white" : ""
       )}
     >
@@ -313,7 +317,7 @@ function createOutputForMatch(
               className={
                 s.isMatch
                   ? classnames(
-                      "text-indigo-500 transition",
+                      "text-indigo-500",
                       isHighlighted
                         ? "text-white underline underline-offset-1"
                         : ""
