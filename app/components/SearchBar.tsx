@@ -41,6 +41,7 @@ export function SearchBar() {
         </div>
       </DialogTrigger>
       <DialogContent
+        onOverlayClick={() => setIsOpen(false)}
         className={classnames(
           "fixed z-50",
           "w-[95vw] max-w-xl rounded-lg",
