@@ -326,10 +326,10 @@ function createOutputForMatch(
             className={
               s.isMatch
                 ? classnames(
-                    "text-indigo-500",
+                    "",
                     isHighlighted
                       ? "text-white underline underline-offset-1"
-                      : ""
+                      : "text-indigo-400"
                   )
                 : ""
             }
