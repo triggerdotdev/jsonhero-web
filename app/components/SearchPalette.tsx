@@ -15,7 +15,11 @@ import {
   UseComboboxState,
   UseComboboxStateChangeOptions,
 } from "downshift";
-import { getStringSlices, JsonSearchEntry } from "~/utilities/search";
+import {
+  getComponentSlices,
+  getStringSlices,
+  JsonSearchEntry,
+} from "~/utilities/search";
 import Fuse from "fuse.js";
 import classnames from "~/utilities/classnames";
 import { iconForValue } from "~/utilities/icons";
@@ -226,8 +230,6 @@ export function SearchItem({
   const itemValue = heroPath.first(json);
   const ItemIcon = iconForValue(itemValue);
 
-  const components = heroPath.components.slice(1);
-
   return (
     <li {...itemProps} className={classnames("w-full hover:cursor-pointer")}>
       <div
@@ -246,24 +248,11 @@ export function SearchItem({
             )}
           ></ItemIcon>
           <div className="flex flex-col w-full ml-3">
-            <div className="path flex items-center gap-1 mb-1 text-slate-800 dark:text-white group-hover:text-white">
-              {components.map((c, index) => {
-                return [
-                  <Body key={c.toString() + index + "body"} className="text-lg">
-                    {c.toString()}
-                  </Body>,
-                ].concat(
-                  index + 1 === components.length
-                    ? []
-                    : [
-                        <ChevronRightIcon
-                          key={c.toString() + index + "arrow"}
-                          className="w-4 h-4"
-                        />,
-                      ]
-                );
-              })}
-            </div>
+            <SearchPathResult
+              path={heroPath}
+              searchResult={result}
+              isHighlighted={isHighlighted}
+            />
             <div className="key-value flex justify-between">
               {result.item.rawValue && (
                 <SearchResultValue
@@ -287,6 +276,72 @@ export function SearchItem({
         </div>
       </div>
     </li>
+  );
+}
+
+// Outputs the following pair for each component except for the last one:
+// <Body className="text-lg">{component}</Body>,
+// <ChevronRightIcon className="w-4 h-4" />,
+//
+// Highlights parts of the component that match the search query.
+// The match indices match against the stringified version of the path (e.g. $.foo.bar.0.details.description)
+//
+// If combined component strings are too long, then we need to choose some components to hide behind an ellipsis, making sure we don't hide matches
+function SearchPathResult({
+  path,
+  searchResult,
+  isHighlighted,
+  maxWeight = 90,
+}: {
+  path: JSONHeroPath;
+  isHighlighted: boolean;
+  searchResult: Fuse.FuseResult<JsonSearchEntry>;
+  maxWeight?: number;
+}) {
+  const components = path.components.slice(1);
+
+  const match = (searchResult.matches ?? []).find(
+    (match) => match.key === "path" && match.indices.length > 0
+  );
+
+  const matchingIndices = (match?.indices ?? []) as [number, number][];
+
+  const displayPath = components.join(".");
+
+  const slices = getComponentSlices(
+    displayPath,
+    matchingIndices.map(([start, end]) => [start - 2, end - 2]),
+    maxWeight
+  );
+
+  return (
+    <>
+      {slices.map((slice, i) =>
+        slice.type === "component" ? (
+          <span
+            key={i}
+            className={
+              slice.slice.isMatch
+                ? classnames(
+                    "font-sans text-base",
+                    isHighlighted
+                      ? "text-white underline underline-offset-1"
+                      : "text-indigo-400"
+                  )
+                : "font-sans text-base"
+            }
+          >
+            {slice.slice.slice}
+          </span>
+        ) : slice.type === "ellipsis" ? (
+          <Body key={i} className="text-lg mx-1">
+            …
+          </Body>
+        ) : (
+          <ChevronRightIcon key={i} className="w-4 h-4 mx-1" />
+        )
+      )}
+    </>
   );
 }
 

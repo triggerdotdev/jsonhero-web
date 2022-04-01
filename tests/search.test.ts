@@ -2,6 +2,7 @@ import Fuse from "fuse.js";
 import {
   createSearchEntries,
   createSearchIndex,
+  getComponentSlices,
   getStringSlices,
 } from "../app/utilities/search";
 
@@ -57,6 +58,193 @@ const json = {
     },
   ],
 };
+
+describe("getComponentSlices", () => {
+  it("returns the correct slices for a path that DOES go above the maxWeight even without any matches", () => {
+    const slices = getComponentSlices(
+      "records.0.users.9.addresses.0.street_address.street_name",
+      [],
+      60
+    );
+
+    expect(slices).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "componentIndex": 0,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "records",
+    },
+    "type": "component",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "componentIndex": 1,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "0",
+    },
+    "type": "component",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "componentIndex": 2,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "users",
+    },
+    "type": "component",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "type": "ellipsis",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "componentIndex": 7,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "street_name",
+    },
+    "type": "component",
+  },
+]
+`);
+  });
+
+  it("returns the correct slices for a path that DOES go above the maxWeight", () => {
+    const slices = getComponentSlices(
+      "records.0.users.9.addresses.0.street_address.street_name",
+      [
+        [0, 1],
+        [11, 14],
+        [30, 35],
+        [45, 50],
+      ],
+      60
+    );
+
+    expect(slices).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "componentIndex": 0,
+    "slice": Object {
+      "isMatch": true,
+      "slice": "re",
+    },
+    "type": "component",
+  },
+  Object {
+    "componentIndex": 0,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "cords",
+    },
+    "type": "component",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "type": "ellipsis",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "componentIndex": 6,
+    "slice": Object {
+      "isMatch": true,
+      "slice": "street",
+    },
+    "type": "component",
+  },
+  Object {
+    "componentIndex": 6,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "_address",
+    },
+    "type": "component",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "componentIndex": 7,
+    "slice": Object {
+      "isMatch": true,
+      "slice": "street",
+    },
+    "type": "component",
+  },
+  Object {
+    "componentIndex": 7,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "_name",
+    },
+    "type": "component",
+  },
+]
+`);
+  });
+
+  it("returns the correct slices for a path that does not go above the maxWeight", () => {
+    const slices = getComponentSlices("records.0.users", [[0, 3]], 70);
+
+    expect(slices).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "componentIndex": 0,
+    "slice": Object {
+      "isMatch": true,
+      "slice": "reco",
+    },
+    "type": "component",
+  },
+  Object {
+    "componentIndex": 0,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "rds",
+    },
+    "type": "component",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "componentIndex": 1,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "0",
+    },
+    "type": "component",
+  },
+  Object {
+    "type": "join",
+  },
+  Object {
+    "componentIndex": 2,
+    "slice": Object {
+      "isMatch": false,
+      "slice": "users",
+    },
+    "type": "component",
+  },
+]
+`);
+  });
+});
 
 describe("getStringSlices", () => {
   it("returns a slice for each part of the string based on the matches", () => {
