@@ -15,7 +15,7 @@ import {
   UseComboboxState,
   UseComboboxStateChangeOptions,
 } from "downshift";
-import { JsonSearchEntry } from "~/utilities/search";
+import { getStringSlices, JsonSearchEntry } from "~/utilities/search";
 import Fuse from "fuse.js";
 import classnames from "~/utilities/classnames";
 import { iconForValue } from "~/utilities/icons";
@@ -305,78 +305,29 @@ function createOutputForMatch(
     return <>{truncate(stringValue, { length: 56 })}</>;
   }
 
-  if (stringValue.length <= 56) {
-    const stringSlices = getAllStringSlices(stringValue, match.indices);
+  const stringSlices = getStringSlices(stringValue, match.indices, 56);
 
-    return (
-      <>
-        {stringSlices.map((s, index) => {
-          return (
-            <span
-              key={index}
-              className={
-                s.isMatch
-                  ? classnames(
-                      "text-indigo-500",
-                      isHighlighted
-                        ? "text-white underline underline-offset-1"
-                        : ""
-                    )
-                  : ""
-              }
-            >
-              {s.slice}
-            </span>
-          );
-        })}
-      </>
-    );
-  }
-
-  return <>{truncate(stringValue, { length: 56 })}</>;
-}
-
-type StringSlice = {
-  start: number;
-  end: number;
-  isMatch: boolean;
-  slice: string;
-};
-
-function getAllStringSlices(
-  stringValue: string,
-  matchingIndices: ReadonlyArray<[number, number]>
-): Array<StringSlice> {
-  const slices: StringSlice[] = [];
-
-  let currentIndex = 0;
-
-  const addSlice = (
-    start: number,
-    end: number,
-    isMatch: boolean,
-    slice: string
-  ) => {
-    slices.push({ start, end, isMatch, slice });
-  };
-
-  for (const [start, end] of matchingIndices) {
-    addSlice(
-      currentIndex,
-      start,
-      false,
-      stringValue.slice(currentIndex, start)
-    );
-    addSlice(start, end + 1, true, stringValue.slice(start, end + 1));
-    currentIndex = end + 1;
-  }
-
-  addSlice(
-    currentIndex,
-    stringValue.length,
-    false,
-    stringValue.slice(currentIndex)
+  return (
+    <>
+      {stringSlices.map((s, index) => {
+        return (
+          <span
+            key={index}
+            className={
+              s.isMatch
+                ? classnames(
+                    "text-indigo-500",
+                    isHighlighted
+                      ? "text-white underline underline-offset-1"
+                      : ""
+                  )
+                : ""
+            }
+          >
+            {s.slice}
+          </span>
+        );
+      })}
+    </>
   );
-
-  return slices;
 }

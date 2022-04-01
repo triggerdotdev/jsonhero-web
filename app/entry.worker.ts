@@ -55,7 +55,10 @@ self.onmessage = (e: MessageEvent<SearchWorkerEvent>) => {
 
       console.log("results", results);
 
-      self.postMessage({ type: "search-results", payload: { results, query } });
+      self.postMessage({
+        type: "search-results",
+        payload: { results, query },
+      });
     }
   }
 

@@ -62,29 +62,110 @@ describe("getStringSlices", () => {
   it("returns a slice for each part of the string based on the matches", () => {
     const slices = getStringSlices(
       "This is a really great (short) string",
-      [[9, 16]],
+      [[10, 15]],
       60
     );
 
     expect(slices).toMatchInlineSnapshot(`
 Array [
   Object {
-    "end": 9,
+    "end": 10,
     "isMatch": false,
-    "slice": "This is a",
+    "slice": "This is a ",
     "start": 0,
   },
   Object {
-    "end": 17,
+    "end": 16,
     "isMatch": true,
-    "slice": " really ",
-    "start": 9,
+    "slice": "really",
+    "start": 10,
   },
   Object {
     "end": 37,
     "isMatch": false,
-    "slice": "great (short) string",
-    "start": 17,
+    "slice": " great (short) string",
+    "start": 16,
+  },
+]
+`);
+  });
+
+  it("returns a subset of the string when the matched ranges are outside the window", () => {
+    const slices = getStringSlices(
+      "This is a very long string and the largest matched range is outside of the window, so we should try and get only slices of the string that focus on the largest match",
+      [
+        [10, 15],
+        [80, 90],
+        [100, 105],
+      ],
+      60
+    );
+
+    expect(slices).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "end": 80,
+    "isMatch": false,
+    "slice": "e is outside of the windo",
+    "start": 55,
+  },
+  Object {
+    "end": 91,
+    "isMatch": true,
+    "slice": "w, so we sh",
+    "start": 80,
+  },
+  Object {
+    "end": 100,
+    "isMatch": false,
+    "slice": "ould try ",
+    "start": 91,
+  },
+  Object {
+    "end": 106,
+    "isMatch": true,
+    "slice": "and ge",
+    "start": 100,
+  },
+  Object {
+    "end": 115,
+    "isMatch": false,
+    "slice": "t only sli",
+    "start": 106,
+  },
+]
+`);
+
+    const slices2 = getStringSlices(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      [
+        [0, 3],
+        [12, 16],
+        [103, 108],
+        [302, 307],
+      ],
+      56
+    );
+
+    expect(slices2).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "end": 103,
+    "isMatch": false,
+    "slice": " incididunt ut labore et ",
+    "start": 78,
+  },
+  Object {
+    "end": 109,
+    "isMatch": true,
+    "slice": "dolore",
+    "start": 103,
+  },
+  Object {
+    "end": 133,
+    "isMatch": false,
+    "slice": " magna aliqua. Ut enim ad",
+    "start": 109,
   },
 ]
 `);

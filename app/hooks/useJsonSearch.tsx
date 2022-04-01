@@ -218,12 +218,12 @@ export function JsonSearchProvider({
       payload: {
         json,
         fuseOptions: {
+          ignoreLocation: true,
           includeScore: true,
           includeMatches: true,
           minMatchCharLength: 2,
           isCaseSensitive: false,
-          threshold: 0.6,
-          distance: 20,
+          ignoreFieldNorm: true,
         },
       },
     });
