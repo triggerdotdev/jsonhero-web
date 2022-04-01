@@ -93,6 +93,16 @@ export function SearchPalette({
       inputValue ? searchApi.search(inputValue) : searchApi.reset(),
   });
 
+  const handleInputKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Escape" && onClose && cb.inputValue.length === 0) {
+        searchApi.reset();
+        onClose?.();
+      }
+    },
+    [onClose, cb.inputValue]
+  );
+
   return (
     <>
       <div
@@ -105,7 +115,7 @@ export function SearchPalette({
         >
           <SearchIcon className="absolute w-7 h-7 top-1/2 transform -translate-y-1/2 left-3 text-white pointer-events-none" />
           <input
-            {...cb.getInputProps()}
+            {...cb.getInputProps({ onKeyDown: handleInputKeyDown })}
             type="text"
             placeholder="Search the JSON…"
             className="search-field w-full pl-12 pr-4 py-4 rounded-sm text-white text-2xl caret-indigo-700 bg-slate-900 border-indigo-700 focus:outline-none focus:ring focus:ring-indigo-700"
