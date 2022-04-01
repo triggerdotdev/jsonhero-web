@@ -44,7 +44,7 @@ export function SearchBar() {
         onOverlayClick={() => setIsOpen(false)}
         className={classnames(
           "fixed z-50",
-          "w-[95vw] max-w-xl rounded-lg",
+          "w-[95vw] max-w-2xl rounded-lg",
           "top-0 left-[50%] -translate-x-[50%]",
           "mt-[60px]",
           "bg-white border-[1px] dark:border-slate-700 dark:bg-slate-800"
