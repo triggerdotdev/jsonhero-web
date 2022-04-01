@@ -144,12 +144,12 @@ export function SearchPalette({
         </div>
         <ul
           {...cb.getMenuProps({ ref: listRef })}
-          className="search-items w-full max-h-[inherit] overflow-y-auto relative"
+          className="search-items w-full max-h-[calc(60vh-120px)] overflow-y-auto relative"
         >
           <li
             key="total-size"
             style={{ height: rowVirtualizer.totalSize }}
-            className="mb-[8.5rem]"
+            className="mb-[1rem]"
           />
           {rowVirtualizer.virtualItems.map((virtualRow) => {
             const result = (searchState.results ?? [])[virtualRow.index];
