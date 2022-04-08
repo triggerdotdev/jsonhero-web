@@ -25,7 +25,7 @@ import classnames from "~/utilities/classnames";
 import { iconForValue } from "~/utilities/icons";
 import { useRef, useCallback } from "react";
 import { useVirtual } from "react-virtual";
-import { truncate } from "lodash-es";
+import { sortedLastIndex, truncate } from "lodash-es";
 import { JSONHeroPath } from "@jsonhero/path";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useJson } from "~/hooks/useJson";
@@ -231,7 +231,10 @@ export function SearchItem({
   const ItemIcon = iconForValue(itemValue);
 
   return (
-    <li {...itemProps} className={classnames("w-full hover:cursor-pointer")}>
+    <li
+      {...itemProps}
+      className={classnames("flex w-full hover:cursor-pointer")}
+    >
       <div
         className={classnames(
           "w-full h-[calc(100%-4px)] mb-2 rounded-sm group",
@@ -247,12 +250,14 @@ export function SearchItem({
                 : "text-slate-500 dark:text-slate-400"
             )}
           ></ItemIcon>
-          <div className="flex flex-col w-full ml-3">
-            <SearchPathResult
-              path={heroPath}
-              searchResult={result}
-              isHighlighted={isHighlighted}
-            />
+          <div className="flex flex-col ml-3">
+            <div className="flex w-full items-center">
+              <SearchPathResult
+                path={heroPath}
+                searchResult={result}
+                isHighlighted={isHighlighted}
+              />
+            </div>
             <div className="key-value flex justify-between">
               {result.item.rawValue && (
                 <SearchResultValue
@@ -323,12 +328,17 @@ function SearchPathResult({
             className={
               slice.slice.isMatch
                 ? classnames(
-                    "font-sans text-base",
+                    "font-sans text-xl",
                     isHighlighted
                       ? "text-white underline underline-offset-1"
-                      : "text-indigo-400"
+                      : "text-indigo-600 dark:text-indigo-400"
                   )
-                : "font-sans text-base"
+                : classnames(
+                    "font-sans text-xl",
+                    isHighlighted
+                      ? "text-white"
+                      : "text-slate-800 dark:text-white"
+                  )
             }
           >
             {slice.slice.slice}
@@ -338,7 +348,13 @@ function SearchPathResult({
             …
           </Body>
         ) : (
-          <ChevronRightIcon key={i} className="w-4 h-4 mx-1" />
+          <ChevronRightIcon
+            key={i}
+            className={classnames(
+              "w-4 h-4 mx-1",
+              isHighlighted ? "text-white" : "text-slate-800 dark:text-white"
+            )}
+          />
         )
       )}
     </>
