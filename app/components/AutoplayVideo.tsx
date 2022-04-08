@@ -6,12 +6,25 @@ export function AutoplayVideo({ src }: { src: string }) {
   const isOnScreen = useOnScreen(elementRef);
 
   useEffect(() => {
+    if (elementRef.current == null) return;
+
+    elementRef.current.muted = true;
+    elementRef.current.playsInline = true;
+
     if (isOnScreen) {
-      elementRef.current?.play();
+      elementRef.current.play();
     } else {
-      elementRef.current?.pause();
+      elementRef.current.pause();
     }
   }, [isOnScreen]);
 
-  return <video src={src} ref={elementRef} loop={true} muted={true} />;
+  return (
+    <video
+      src={src}
+      ref={elementRef}
+      loop={true}
+      muted={true}
+      autoPlay={false}
+    />
+  );
 }
