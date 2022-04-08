@@ -220,7 +220,7 @@ export function useColumnView({
       selectedNodes,
       highlightedNodeId,
       highlightedPath,
-      columns,
+      columns: columns ?? [],
       getColumnViewProps,
       canGoBack,
       canGoForward,
@@ -256,7 +256,7 @@ export type ResetSelectionNodeAction = {
 
 export type GoAction = {
   type: "GO";
-  direction: number;
+  direction: -1 | 1;
 };
 
 export type ColumnViewAction =
