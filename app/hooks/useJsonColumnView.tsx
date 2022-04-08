@@ -130,10 +130,16 @@ export function JsonColumnViewProvider({ children }: { children: ReactNode }) {
     isStateRestored.current = true;
 
     const storage = localStorage.getItem(doc.id);
-    if (storage == null) return;
+    if (storage == null) {
+      api.goToNextSibling();
+      return;
+    }
 
     const restoredState = JSON.parse(storage) as ColumnViewInstanceState;
-    if (!restoredState.selectedNodeId) return;
+    if (!restoredState.selectedNodeId) {
+      api.goToNextSibling();
+      return;
+    }
 
     api.goToNodeId(restoredState.selectedNodeId, "localStorage");
   }, [doc.id, isStateRestored.current, state, api]);
