@@ -41,7 +41,7 @@ export function PathBarLink({
           <PathBarItem
             key={index}
             node={node}
-            highlightedNodeId={highlightedNodeId}
+            isHighlighted={highlightedNodeId === node.id}
             onClick={(id) => goToNodeId(id, "pathBar")}
             isLast={index == selectedNodes.length - 1}
           />
@@ -93,12 +93,12 @@ export function PathHistoryControls() {
 
 function PathBarElement({
   node,
-  highlightedNodeId,
+  isHighlighted,
   onClick,
   isLast,
 }: {
   node: ColumnViewNode;
-  highlightedNodeId: string | undefined;
+  isHighlighted: boolean;
   onClick?: (id: string) => void;
   isLast: boolean;
 }) {
@@ -111,7 +111,7 @@ function PathBarElement({
     >
       <div
         className={`flex items-center hover:cursor-pointer min-w-0 transition ${
-          highlightedNodeId === node.id
+          isHighlighted
             ? "text-slate-700 bg-slate-300 px-2 py-[3px] rounded-sm dark:text-white dark:bg-slate-700"
             : "hover:bg-slate-300 px-2 py-[3px] rounded-sm transition dark:hover:bg-white dark:hover:bg-opacity-[5%]"
         }`}
@@ -137,12 +137,4 @@ function PathBarElement({
   );
 }
 
-const PathBarItem = memo(PathBarElement, (oldProps, newProps) => {
-  if (oldProps.node.id !== newProps.node.id) return false;
-  if (oldProps.highlightedNodeId !== newProps.highlightedNodeId) {
-    const wasHighlighted = oldProps.highlightedNodeId == oldProps.node.id;
-    const nowHighlighted = newProps.highlightedNodeId == newProps.node.id;
-    if (wasHighlighted !== nowHighlighted) return false;
-  }
-  return true;
-});
+const PathBarItem = memo(PathBarElement);
