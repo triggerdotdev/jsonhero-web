@@ -43,7 +43,10 @@ function ColumnItemElement({
 
   useEffect(() => {
     if (isSelected || isHighlighted) {
-      htmlElement.current?.scrollIntoView({ block: "nearest" });
+      htmlElement.current?.scrollIntoView({
+        block: "nearest",
+        inline: "center",
+      });
     }
   }, [isSelected, isHighlighted]);
 
