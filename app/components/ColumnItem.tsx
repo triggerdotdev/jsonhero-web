@@ -71,7 +71,7 @@ function ColumnItemElement({
           <Mono
             className={`truncate pr-1 transition duration-75 ${
               isHighlighted
-                ? "text-slate-100"
+                ? "text-gray-500 dark:text-slate-100"
                 : "text-gray-400 dark:text-gray-500"
             }`}
           >
