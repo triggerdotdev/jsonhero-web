@@ -12,7 +12,7 @@ export function NewFile() {
       <DragAndDropForm />
 
       <div className="mt-4 pt-5">
-        <Title className="text-slate-400">No JSON? Try it out:</Title>
+        <Title className="mb-2 text-slate-400">No JSON? Try it out:</Title>
         <SampleUrls />
       </div>
     </div>
