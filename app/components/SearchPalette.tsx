@@ -122,6 +122,7 @@ export function SearchPalette({
           <input
             {...cb.getInputProps({ onKeyDown: handleInputKeyDown })}
             type="text"
+            spellcheck="false"
             placeholder="Search the JSON…"
             className="w-full pl-12 pr-4 py-4 rounded-sm text-slate-900 bg-slate-100 text-2xl caret-indigo-700 border-indigo-700 transition dark:text-white dark:bg-slate-900 focus:outline-none focus:ring focus:ring-indigo-700"
           />
