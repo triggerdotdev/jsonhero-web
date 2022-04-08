@@ -4,15 +4,12 @@ import { ExtraLargeTitle } from "../Primitives/ExtraLargeTitle";
 import { SmallSubtitle } from "../Primitives/SmallSubtitle";
 import { HomeSection } from "./HomeSection";
 
-const jsonHeroTitle = "JSON used to suck.";
-const jsonHeroSlogan = "It still does, but we're trying to make it better.";
+const jsonHeroTitle = "JSON sucks.";
+const jsonHeroSlogan = "But we're making it better.";
 
 export function HomeHeroSection() {
   return (
-    <HomeSection
-      containerClassName="md:h-[80vh] bg-black p-6 pb-16 pt-32 md:pt-48"
-      flipped
-    >
+    <HomeSection containerClassName="md:h-[80vh] bg-black p-6 pb-16 pt-32 md:pt-48">
       <div className="mt-6 lg:w-1/2 md:pr-10">
         <AutoplayVideo src="/home/JsonHero2.mp4" />
       </div>
