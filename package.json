@@ -101,7 +101,8 @@
       "ts-jest": {
         "tsconfig": "tsconfig.json"
       }
-    }
+    },
+    "globalSetup": "./tests/setup.js"
   },
   "sideEffects": false,
   "main": "dist/worker.js"
