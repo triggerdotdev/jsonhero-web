@@ -59,6 +59,12 @@ const json = {
   ],
 };
 
+describe("Timezones", () => {
+  it("should always be UTC", () => {
+    expect(new Date().getTimezoneOffset()).toBe(0);
+  });
+});
+
 describe("getComponentSlices", () => {
   it("returns the correct slices for a path that DOES go above the maxWeight even without any matches", () => {
     const slices = getComponentSlices(
@@ -423,12 +429,12 @@ Array [
     "rawValue": "1",
   },
   Object {
-    "formattedValue": "Jan 1, 2020, 12:00:00 AM GMT",
+    "formattedValue": "Jan 1, 2020, 12:00:00 AM UTC",
     "path": "$.records.0.createdAt",
     "rawValue": "2020-01-01T00:00:00.000Z",
   },
   Object {
-    "formattedValue": "Dec 2, 2020, 11:34:00 AM GMT",
+    "formattedValue": "Dec 2, 2020, 11:34:00 AM UTC",
     "path": "$.records.0.updatedAt",
     "rawValue": "2020-12-02T11:34:00.000Z",
   },
@@ -523,12 +529,12 @@ Array [
     "rawValue": "2",
   },
   Object {
-    "formattedValue": "Jan 2, 2020, 12:00:00 AM GMT",
+    "formattedValue": "Jan 2, 2020, 12:00:00 AM UTC",
     "path": "$.records.1.createdAt",
     "rawValue": "2020-01-02T00:00:00.000Z",
   },
   Object {
-    "formattedValue": "Dec 3, 2020, 7:55:32 AM GMT",
+    "formattedValue": "Dec 3, 2020, 7:55:32 AM UTC",
     "path": "$.records.1.updatedAt",
     "rawValue": "2020-12-03T07:55:32.000Z",
   },
