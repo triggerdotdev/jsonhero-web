@@ -5,8 +5,11 @@ import { HomeSection } from "./HomeSection";
 
 export function HomeCollaborateSection() {
   return (
-    <HomeSection containerClassName="py-10 px-6 bg-black md:py-36 lg:py-20">
-      <div className="w-full md:pr-10 md:w-1/2">
+    <HomeSection
+      containerClassName="py-10 px-6 bg-black md:py-36 lg:py-20"
+      reversed
+    >
+      <div className="w-full md:pl-10 md:w-1/2">
         <ExtraLargeTitle className="text-white mb-4">
           Collaborate with the whole world (and yourself)
         </ExtraLargeTitle>
