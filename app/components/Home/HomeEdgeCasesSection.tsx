@@ -1,5 +1,4 @@
 import { AutoplayVideo } from "../AutoplayVideo";
-import { Body } from "../Primitives/Body";
 import { ExtraLargeTitle } from "../Primitives/ExtraLargeTitle";
 import { SmallSubtitle } from "../Primitives/SmallSubtitle";
 import { HomeSection } from "./HomeSection";
