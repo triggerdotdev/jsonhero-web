@@ -8,10 +8,12 @@ import { SearchPalette } from "./SearchPalette";
 import { useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useJsonColumnViewAPI } from "~/hooks/useJsonColumnView";
+import { useJsonSearchApi } from "~/hooks/useJsonSearch";
 
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { goToNodeId } = useJsonColumnViewAPI();
+  const searchApi = useJsonSearchApi();
 
   useHotkeys(
     "cmd+k",
@@ -23,7 +25,7 @@ export function SearchBar() {
   );
 
   return (
-    <Dialog open={isOpen}>
+    <Dialog open={isOpen} onOpenChange={() => !isOpen && searchApi.reset()}>
       <DialogTrigger
         className="focus:outline-none focus-visible:outline-none"
         onClick={() => setIsOpen(true)}
