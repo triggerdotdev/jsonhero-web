@@ -15,26 +15,23 @@ import {
   UseComboboxState,
   UseComboboxStateChangeOptions,
 } from "downshift";
-import {
-  getComponentSlices,
-  getStringSlices,
-  JsonSearchEntry,
-} from "~/utilities/search";
-import Fuse from "fuse.js";
+import { getComponentSlices, getStringSlices } from "~/utilities/search";
 import classnames from "~/utilities/classnames";
 import { iconForValue } from "~/utilities/icons";
 import { useRef, useCallback } from "react";
 import { useVirtual } from "react-virtual";
-import { sortedLastIndex, truncate } from "lodash-es";
+import { truncate } from "lodash-es";
 import { JSONHeroPath } from "@jsonhero/path";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useJson } from "~/hooks/useJson";
+import { SearchResult } from "@jsonhero/fuzzy-json-search";
+import { Match } from "@jsonhero/fuzzy-json-search/lib/fuzzyScoring";
 
 export function SearchPalette({
   onSelect,
   onClose,
 }: {
-  onSelect?: (entry: JsonSearchEntry) => void;
+  onSelect?: (entry: string) => void;
   onClose?: () => void;
 }) {
   const searchState = useJsonSearchState();
@@ -60,11 +57,9 @@ export function SearchPalette({
   });
 
   function comboboxReducer(
-    state: UseComboboxState<Fuse.FuseResult<JsonSearchEntry>>,
-    actionAndChanges: UseComboboxStateChangeOptions<
-      Fuse.FuseResult<JsonSearchEntry>
-    >
-  ): Partial<UseComboboxState<Fuse.FuseResult<JsonSearchEntry>>> {
+    state: UseComboboxState<SearchResult<string>>,
+    actionAndChanges: UseComboboxStateChangeOptions<SearchResult<string>>
+  ): Partial<UseComboboxState<SearchResult<string>>> {
     const { changes, ...action } = actionAndChanges;
 
     // Don't update the input field when selecting an item
@@ -122,7 +117,7 @@ export function SearchPalette({
           <input
             {...cb.getInputProps({ onKeyDown: handleInputKeyDown })}
             type="text"
-            spellcheck="false"
+            spellCheck="false"
             placeholder="Search the JSON…"
             className="w-full pl-12 pr-4 py-4 rounded-sm text-slate-900 bg-slate-100 text-2xl caret-indigo-700 border-indigo-700 transition dark:text-white dark:bg-slate-900 focus:outline-none focus:ring focus:ring-indigo-700"
           />
@@ -172,7 +167,7 @@ export function SearchPalette({
 
             return (
               <SearchItem
-                key={result.item.path}
+                key={result.item.toString()}
                 itemProps={cb.getItemProps({
                   item: result,
                   index: virtualRow.index,
@@ -216,7 +211,7 @@ export function SearchPalette({
 
 type SearchItemProps = {
   itemProps: React.HTMLAttributes<HTMLLIElement>;
-  result: Fuse.FuseResult<JsonSearchEntry>;
+  result: SearchResult<string>;
   isHighlighted: boolean;
 };
 
@@ -225,7 +220,7 @@ export function SearchItem({
   result,
   isHighlighted,
 }: SearchItemProps) {
-  const heroPath = new JSONHeroPath(result.item.path);
+  const heroPath = new JSONHeroPath(result.item);
   const [json] = useJson();
 
   const itemValue = heroPath.first(json);
@@ -260,21 +255,19 @@ export function SearchItem({
               />
             </div>
             <div className="key-value flex justify-between">
-              {result.item.rawValue && (
+              {result.score.rawValue && (
                 <SearchResultValue
                   isHighlighted={isHighlighted}
-                  keyName="rawValue"
-                  stringValue={result.item.rawValue}
-                  searchResult={result}
+                  stringValue={result.score.rawValue}
+                  matches={result.score.rawValueMatch}
                 />
               )}
-              {result.item.formattedValue &&
-                result.item.formattedValue !== result.item.rawValue && (
+              {result.score.formattedValue &&
+                result.score.formattedValue !== result.score.rawValue && (
                   <SearchResultValue
                     isHighlighted={isHighlighted}
-                    keyName="formattedValue"
-                    stringValue={result.item.formattedValue}
-                    searchResult={result}
+                    stringValue={result.score.formattedValue}
+                    matches={result.score.formattedValueMatch}
                   />
                 )}
             </div>
@@ -301,59 +294,73 @@ function SearchPathResult({
 }: {
   path: JSONHeroPath;
   isHighlighted: boolean;
-  searchResult: Fuse.FuseResult<JsonSearchEntry>;
+  searchResult: SearchResult<string>;
   maxWeight?: number;
 }) {
-  const components = path.components.slice(1);
+  const description = searchResult.score.description;
+  const label = searchResult.score.label;
 
-  const match = (searchResult.matches ?? []).find(
-    (match) => match.key === "path" && match.indices.length > 0
-  );
+  const labelMatches = searchResult.score.labelMatch;
+  const descriptionMatches = searchResult.score.descriptionMatch;
 
-  const matchingIndices = (match?.indices ?? []) as [number, number][];
-
-  const displayPath = components.join(".");
-
-  const slices = getComponentSlices(
-    displayPath,
-    matchingIndices.map(([start, end]) => [start - 2, end - 2]),
+  const descriptionSlices = getComponentSlices(
+    description ?? "",
+    (descriptionMatches ?? []).map(({ start, end }) => ({
+      start,
+      end: end - 1,
+    })),
     maxWeight
   );
 
   return (
     <>
-      {slices.map((slice, i) =>
+      {label && (
+        <SearchResultValue
+          isHighlighted={isHighlighted}
+          stringValue={label}
+          matches={labelMatches}
+          textSize="text-lg"
+          className={classnames(
+            "mr-4 text-lg",
+            isHighlighted ? `text-white` : "text-slate-800 dark:text-slate-300"
+          )}
+          key="label"
+        />
+      )}
+      {descriptionSlices.map((slice, i) =>
         slice.type === "component" ? (
           <span
             key={i}
             className={
               slice.slice.isMatch
                 ? classnames(
-                    "font-sans text-xl",
+                    "text-base",
                     isHighlighted
                       ? "text-white underline underline-offset-1"
                       : "text-indigo-600 dark:text-indigo-400"
                   )
                 : classnames(
-                    "font-sans text-xl",
+                    "text-base",
                     isHighlighted
                       ? "text-white"
-                      : "text-slate-800 dark:text-white"
+                      : "text-slate-800 dark:text-slate-400"
                   )
             }
           >
             {slice.slice.slice}
           </span>
         ) : slice.type === "ellipsis" ? (
-          <Body key={i} className="text-lg mx-1">
+          <Body key={i} className="text-base mx-1">
             …
           </Body>
         ) : (
           <ChevronRightIcon
             key={i}
             className={classnames(
-              "w-4 h-4 mx-1",
-              isHighlighted ? "text-white" : "text-slate-800 dark:text-white"
+              "w-3 h-3 mx-0.5",
+              isHighlighted
+                ? "text-white"
+                : "text-slate-800 dark:text-slate-400"
             )}
           />
         )
@@ -364,44 +371,51 @@ function SearchPathResult({
 
 function SearchResultValue({
   isHighlighted,
-  keyName,
   stringValue,
-  searchResult,
+  matches,
+  className,
+  textSize,
 }: {
   isHighlighted: boolean;
-  keyName: string;
   stringValue: string;
-  searchResult: Fuse.FuseResult<JsonSearchEntry>;
+  matches?: Array<Match>;
+  className?: string;
+  textSize?: "text-xs" | "text-sm" | "text-base" | "text-lg";
 }) {
-  const match = (searchResult.matches ?? []).find(
-    (match) => match.key === keyName
+  const output = createOutputForMatch(
+    stringValue,
+    isHighlighted,
+    textSize,
+    matches
   );
 
-  const output = createOutputForMatch(stringValue, isHighlighted, match);
-
   return (
-    <Mono
-      className={classnames(
-        "",
-        isHighlighted ? "text-white" : "text-slate-600 dark:text-slate-500"
-      )}
+    <Body
+      className={
+        className ??
+        classnames(
+          "mr-2",
+          isHighlighted ? `text-white` : "text-slate-600 dark:text-slate-500"
+        )
+      }
     >
       {output}
-    </Mono>
+    </Body>
   );
 }
 
 function createOutputForMatch(
   stringValue: string,
   isHighlighted: boolean,
-  match?: Fuse.FuseResultMatch,
+  textSize: "text-xs" | "text-sm" | "text-base" | "text-lg" = "text-base",
+  matches?: Array<Match>,
   maxLength: number = 68
 ): JSX.Element {
-  if (!match) {
+  if (!matches || matches.length === 0) {
     return <>{truncate(stringValue, { length: maxLength })}</>;
   }
 
-  const stringSlices = getStringSlices(stringValue, match.indices, maxLength);
+  const stringSlices = getStringSlices(stringValue, matches, maxLength);
 
   return (
     <>
@@ -412,7 +426,7 @@ function createOutputForMatch(
             className={
               s.isMatch
                 ? classnames(
-                    "",
+                    textSize,
                     isHighlighted
                       ? "text-white underline underline-offset-1"
                       : "text-indigo-600 dark:text-indigo-400"

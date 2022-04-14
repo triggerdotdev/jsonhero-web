@@ -1,6 +1,4 @@
 import { useJson } from "./useJson";
-import Fuse from "fuse.js";
-import { JsonSearchEntry } from "~/utilities/search";
 import {
   createContext,
   useCallback,
@@ -10,9 +8,11 @@ import {
   useRef,
 } from "react";
 
+import { SearchResult } from "@jsonhero/fuzzy-json-search";
+
 export type InitializeIndexEvent = {
   type: "initialize-index";
-  payload: { json: unknown; fuseOptions: Fuse.IFuseOptions<JsonSearchEntry> };
+  payload: { json: unknown };
 };
 
 export type SearchEvent = {
@@ -28,7 +28,7 @@ export type IndexInitializedEvent = {
 
 export type SearchResultsEvent = {
   type: "search-results";
-  payload: { results: Fuse.FuseResult<JsonSearchEntry>[]; query: string };
+  payload: { results: Array<SearchResult<string>>; query: string };
 };
 
 export type SearchReceiveWorkerEvent =
@@ -49,7 +49,7 @@ const JsonSearchApiContext = createContext<JsonSearchApi>({} as JsonSearchApi);
 export type JsonSearchState = {
   status: "initializing" | "idle" | "searching";
   query?: string;
-  results?: Fuse.FuseResult<JsonSearchEntry>[];
+  results?: Array<SearchResult<string>>;
 };
 
 type SearchAction = {
@@ -217,14 +217,6 @@ export function JsonSearchProvider({
       type: "initialize-index",
       payload: {
         json,
-        fuseOptions: {
-          ignoreLocation: true,
-          includeScore: true,
-          includeMatches: true,
-          minMatchCharLength: 2,
-          isCaseSensitive: false,
-          ignoreFieldNorm: true,
-        },
       },
     });
   }, [json, workerRef.current]);
