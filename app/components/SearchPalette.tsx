@@ -329,31 +329,33 @@ function SearchPathResult({
             className={
               slice.slice.isMatch
                 ? classnames(
-                    "font-sans text-xl",
+                    "text-base",
                     isHighlighted
                       ? "text-white underline underline-offset-1"
                       : "text-indigo-600 dark:text-indigo-400"
                   )
                 : classnames(
-                    "font-sans text-xl",
+                    "text-base",
                     isHighlighted
                       ? "text-white"
-                      : "text-slate-800 dark:text-white"
+                      : "text-slate-800 dark:text-slate-400"
                   )
             }
           >
             {slice.slice.slice}
           </span>
         ) : slice.type === "ellipsis" ? (
-          <Body key={i} className="text-lg mx-1">
+          <Body key={i} className="text-base mx-1">
             …
           </Body>
         ) : (
           <ChevronRightIcon
             key={i}
             className={classnames(
-              "w-4 h-4 mx-1",
-              isHighlighted ? "text-white" : "text-slate-800 dark:text-white"
+              "w-3 h-3 mx-0.5",
+              isHighlighted
+                ? "text-white"
+                : "text-slate-800 dark:text-slate-400"
             )}
           />
         )
@@ -374,14 +376,14 @@ function SearchResultValue({
   const output = createOutputForMatch(stringValue, isHighlighted, matches);
 
   return (
-    <Mono
+    <Body
       className={classnames(
-        "",
+        "mr-2",
         isHighlighted ? "text-white" : "text-slate-600 dark:text-slate-500"
       )}
     >
       {output}
-    </Mono>
+    </Body>
   );
 }
 
@@ -406,7 +408,7 @@ function createOutputForMatch(
             className={
               s.isMatch
                 ? classnames(
-                    "",
+                    "text-xl",
                     isHighlighted
                       ? "text-white underline underline-offset-1"
                       : "text-indigo-600 dark:text-indigo-400"
