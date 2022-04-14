@@ -408,7 +408,7 @@ function createOutputForMatch(
             className={
               s.isMatch
                 ? classnames(
-                    "text-xl",
+                    "text-base",
                     isHighlighted
                       ? "text-white underline underline-offset-1"
                       : "text-indigo-600 dark:text-indigo-400"
