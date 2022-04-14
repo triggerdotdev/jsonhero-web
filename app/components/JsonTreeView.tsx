@@ -25,6 +25,10 @@ export function JsonTreeView() {
     }
   }, [selectedNodeId, scrolledToNodeRef]);
 
+  // Yup, this is hacky.
+  // This is to prevent the selection not changing the first time you try to move to a new node in the tree
+  const focusCount = useRef<number>(0);
+
   // This focuses and scrolls to the selected node when the selectedNodeId
   // is set from a source other than this tree (e.g. the search bar, path bar, related values).
   useEffect(() => {
@@ -37,7 +41,8 @@ export function JsonTreeView() {
         return;
       }
 
-      if (selectedNodeSource !== "tree") {
+      if (selectedNodeSource !== "tree" && focusCount.current > 0) {
+        focusCount.current = focusCount.current + 1;
         tree.focusNode(selectedNodeId);
         tree.scrollToNode(selectedNodeId);
       }
