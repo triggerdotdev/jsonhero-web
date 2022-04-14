@@ -314,11 +314,16 @@ function SearchPathResult({
 
   return (
     <>
-      {label && labelMatches && (
+      {label && (
         <SearchResultValue
           isHighlighted={isHighlighted}
           stringValue={label}
           matches={labelMatches}
+          textSize="text-lg"
+          className={classnames(
+            "mr-4 text-lg",
+            isHighlighted ? `text-white` : "text-slate-800 dark:text-slate-300"
+          )}
           key="label"
         />
       )}
@@ -368,19 +373,31 @@ function SearchResultValue({
   isHighlighted,
   stringValue,
   matches,
+  className,
+  textSize,
 }: {
   isHighlighted: boolean;
   stringValue: string;
   matches?: Array<Match>;
+  className?: string;
+  textSize?: "text-xs" | "text-sm" | "text-base" | "text-lg";
 }) {
-  const output = createOutputForMatch(stringValue, isHighlighted, matches);
+  const output = createOutputForMatch(
+    stringValue,
+    isHighlighted,
+    textSize,
+    matches
+  );
 
   return (
     <Body
-      className={classnames(
-        "mr-2",
-        isHighlighted ? "text-white" : "text-slate-600 dark:text-slate-500"
-      )}
+      className={
+        className ??
+        classnames(
+          "mr-2",
+          isHighlighted ? `text-white` : "text-slate-600 dark:text-slate-500"
+        )
+      }
     >
       {output}
     </Body>
@@ -390,6 +407,7 @@ function SearchResultValue({
 function createOutputForMatch(
   stringValue: string,
   isHighlighted: boolean,
+  textSize: "text-xs" | "text-sm" | "text-base" | "text-lg" = "text-base",
   matches?: Array<Match>,
   maxLength: number = 68
 ): JSX.Element {
@@ -408,7 +426,7 @@ function createOutputForMatch(
             className={
               s.isMatch
                 ? classnames(
-                    "text-base",
+                    textSize,
                     isHighlighted
                       ? "text-white underline underline-offset-1"
                       : "text-indigo-600 dark:text-indigo-400"
