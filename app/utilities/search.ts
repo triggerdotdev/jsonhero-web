@@ -1,90 +1,5 @@
-import { JSONValueType, inferType } from "@jsonhero/json-infer-types";
-import { JSONHeroPath } from "@jsonhero/path";
 import { Array, Dict } from "@swan-io/boxed";
-import Fuse from "fuse.js";
-import { groupBy, replace, uniq } from "lodash-es";
-import { formatValue } from "./formatter";
-
-export interface JsonSearchEntry {
-  path: string;
-  rawValue?: string;
-  formattedValue?: string;
-}
-
-export function createSearchIndex(
-  json: unknown
-): [Fuse.FuseIndex<JsonSearchEntry>, Array<JsonSearchEntry>] {
-  const entries = createSearchEntries(json);
-
-  const index = Fuse.createIndex<JsonSearchEntry>(
-    ["path", "rawValue", "formattedValue"],
-    entries
-  );
-
-  return [index, entries];
-}
-
-export function createSearchEntries(json: unknown): Array<JsonSearchEntry> {
-  return createSearchEntryChildren(inferType(json), new JSONHeroPath("$"));
-}
-
-function createSearchEntryChildren(
-  info: JSONValueType,
-  path: JSONHeroPath
-): Array<JsonSearchEntry> {
-  if (info.name === "array" && info.value) {
-    return info.value.flatMap((value, index) => {
-      const childPath = path.child(index.toString());
-      const childInfo = inferType(value);
-
-      const children = createSearchEntryChildren(childInfo, childPath);
-
-      return [
-        {
-          path: childPath.toString(),
-          rawValue: getRawValue(childInfo),
-          formattedValue: formatValue(childInfo, { leafNodesOnly: true }),
-        },
-        ...children,
-      ];
-    });
-  }
-
-  if (info.name === "object" && info.value) {
-    return Object.entries(info.value).flatMap(([key, value]) => {
-      const childPath = path.child(key);
-      const childInfo = inferType(value);
-
-      const children = createSearchEntryChildren(childInfo, childPath);
-
-      return [
-        {
-          path: childPath.toString(),
-          rawValue: getRawValue(childInfo),
-          formattedValue: formatValue(childInfo, { leafNodesOnly: true }),
-        },
-        ...children,
-      ];
-    });
-  }
-
-  return [];
-}
-
-export function getRawValue(type: JSONValueType): string | undefined {
-  switch (type.name) {
-    case "string":
-      return type.value;
-    case "int":
-      return type.value.toString();
-    case "float":
-      return type.value.toString();
-    case "bool":
-      return type.value ? "true" : "false";
-    case "null":
-      return "null";
-  }
-}
+import { groupBy, uniq } from "lodash-es";
 
 type StringSlice = {
   isMatch: boolean;
@@ -93,7 +8,7 @@ type StringSlice = {
 
 // getStringSlices should scope to the largest match
 // For example, if the windowSize is 56 and the stringValue is "This is a very long string and the largest matched range is outside of the window, so we should try and get only slices of the string that focus on the largest match"
-// and the matches are [[10, 15], [80, 90], [100, 105]]
+// and the matches are [{ start: 10, end: 16 }, { start: 80, end: 91 }, { start: 100, end: 106 }]
 // then we should return slices:
 // [
 //   { isMatch: false, slice: "…" }
@@ -107,7 +22,7 @@ type StringSlice = {
 // If stringValue length is less than the windowSize, then we should return all the string slices of the string
 export function getStringSlices(
   stringValue: string,
-  matchingIndices: ReadonlyArray<[number, number]>,
+  matchingIndices: ReadonlyArray<{ start: number; end: number }>,
   windowSize: number
 ): Array<StringSlice> {
   const slices: StringSlice[] = [];
@@ -129,21 +44,21 @@ export function getStringSlices(
 
     const largestMatch = matchingIndices.reduce(
       (largestMatch, match) => {
-        if (match[1] - match[0] > largestMatch[1] - largestMatch[0]) {
+        if (match.end - match.start > largestMatch.end - largestMatch.start) {
           return match;
         }
 
         return largestMatch;
       },
-      [0, 0]
+      { start: 0, end: 0 }
     );
 
-    const largestMatchLength = largestMatch[1] - largestMatch[0];
+    const largestMatchLength = largestMatch.end - largestMatch.start;
 
     const start =
-      largestMatch[0] - Math.floor(windowSize / 2 - largestMatchLength / 2);
+      largestMatch.start - Math.floor(windowSize / 2 - largestMatchLength / 2);
     const end =
-      largestMatch[1] + Math.floor(windowSize / 2 - largestMatchLength / 2);
+      largestMatch.end + Math.floor(windowSize / 2 - largestMatchLength / 2);
 
     return {
       start: Math.max(start, 0),
@@ -159,27 +74,27 @@ export function getStringSlices(
     addEllipsis();
   }
 
-  for (const [start, end] of matchingIndices) {
-    if (start < window.start && end <= window.start) {
+  for (const { start, end } of matchingIndices) {
+    if (start < window.start && end < window.start) {
       continue;
-    } else if (start >= window.end) {
+    } else if (start > window.end) {
       continue;
     } else if (start < window.start && end > window.start) {
-      addSlice(true, stringValue.slice(window.start, end + 1));
+      addSlice(true, stringValue.slice(window.start, end));
 
-      currentIndex = end + 1;
+      currentIndex = end;
     } else if (start >= window.start && end <= window.end) {
       if (start > 0) {
         addSlice(false, stringValue.slice(currentIndex, start));
       }
-      addSlice(true, stringValue.slice(start, end + 1));
-      currentIndex = end + 1;
+      addSlice(true, stringValue.slice(start, end));
+      currentIndex = end;
     }
   }
 
-  addSlice(false, stringValue.slice(currentIndex, window.end + 1).trimEnd());
+  addSlice(false, stringValue.slice(currentIndex, window.end).trimEnd());
 
-  if (window.end < stringValue.length - 1) {
+  if (window.end < stringValue.length) {
     addEllipsis();
   }
 
@@ -215,7 +130,7 @@ export type PathSlice = EllispisSlice | ComponentSlice | JoinSlice;
 // Example:
 // path = records.0.users.9.addresses.0.street_address.street_name
 // maxWeight = 60
-// matchingIndices = [ [ 0, 1 ], [ 11, 14 ], [ 30, 35 ], [ 45, 50 ] ]
+// matchingIndices = [ { start: 0, end: 2 }, { start: 11, end: 15 }, { start: 30, end: 36 }, { start: 45, end: 51 } ]
 //
 // Weight Calculation:
 //  records = 7
@@ -271,7 +186,7 @@ export type PathSlice = EllispisSlice | ComponentSlice | JoinSlice;
 //
 export function getComponentSlices(
   path: string,
-  matchingIndices: ReadonlyArray<[number, number]>,
+  matchingIndices: ReadonlyArray<{ start: number; end: number }>,
   maxWeight: number
 ): Array<PathSlice> {
   const calculateWeight = (pathSlices: PathSlice[]): number => {
@@ -508,7 +423,7 @@ export function getComponentSlices(
 
 export function createComponentSlices(
   path: string,
-  matchingIndices: ReadonlyArray<[number, number]>
+  matchingIndices: ReadonlyArray<{ start: number; end: number }>
 ): Array<PathSlice> {
   const slices: PathSlice[] = [];
 
@@ -537,23 +452,20 @@ export function createComponentSlices(
 
     const endIndex = currentIndex + component.length;
 
-    // Example matchingIndices = [[0, 1], [6, 10], [12, 20]]
+    // Example matchingIndices = [{ start: 0, end: 2 }, { start: 6, end: 11 }, { start: 12, end: 21 }]
     // currentIndex = 7
     // endIndex = 7 + 6 = 13
     const intersectingMatches = matchingIndices
       .filter(
-        ([start, end]) =>
+        ({ start, end }) =>
           (currentIndex >= start && currentIndex <= end) ||
           (endIndex >= start && endIndex <= end) ||
           (start >= currentIndex && end <= endIndex)
       )
-      .map(
-        ([start, end]) =>
-          [Math.max(start - currentIndex, 0), end - currentIndex] as [
-            number,
-            number
-          ]
-      );
+      .map(({ start, end }) => ({
+        start: Math.max(start - currentIndex, 0),
+        end: end - currentIndex,
+      }));
 
     const stringSlices = getStringSlices(
       component,

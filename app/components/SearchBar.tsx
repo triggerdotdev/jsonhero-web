@@ -57,7 +57,7 @@ export function SearchBar() {
           onClose={() => setIsOpen(false)}
           onSelect={(entry) => {
             setIsOpen(false);
-            goToNodeId(entry.path, "search");
+            goToNodeId(entry, "search");
           }}
         />
       </DialogContent>

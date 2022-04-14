@@ -15,26 +15,23 @@ import {
   UseComboboxState,
   UseComboboxStateChangeOptions,
 } from "downshift";
-import {
-  getComponentSlices,
-  getStringSlices,
-  JsonSearchEntry,
-} from "~/utilities/search";
-import Fuse from "fuse.js";
+import { getComponentSlices, getStringSlices } from "~/utilities/search";
 import classnames from "~/utilities/classnames";
 import { iconForValue } from "~/utilities/icons";
 import { useRef, useCallback } from "react";
 import { useVirtual } from "react-virtual";
-import { sortedLastIndex, truncate } from "lodash-es";
+import { truncate } from "lodash-es";
 import { JSONHeroPath } from "@jsonhero/path";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useJson } from "~/hooks/useJson";
+import { SearchResult } from "@jsonhero/fuzzy-json-search";
+import { Match } from "@jsonhero/fuzzy-json-search/lib/fuzzyScoring";
 
 export function SearchPalette({
   onSelect,
   onClose,
 }: {
-  onSelect?: (entry: JsonSearchEntry) => void;
+  onSelect?: (entry: string) => void;
   onClose?: () => void;
 }) {
   const searchState = useJsonSearchState();
@@ -60,11 +57,9 @@ export function SearchPalette({
   });
 
   function comboboxReducer(
-    state: UseComboboxState<Fuse.FuseResult<JsonSearchEntry>>,
-    actionAndChanges: UseComboboxStateChangeOptions<
-      Fuse.FuseResult<JsonSearchEntry>
-    >
-  ): Partial<UseComboboxState<Fuse.FuseResult<JsonSearchEntry>>> {
+    state: UseComboboxState<SearchResult<string>>,
+    actionAndChanges: UseComboboxStateChangeOptions<SearchResult<string>>
+  ): Partial<UseComboboxState<SearchResult<string>>> {
     const { changes, ...action } = actionAndChanges;
 
     // Don't update the input field when selecting an item
@@ -122,7 +117,7 @@ export function SearchPalette({
           <input
             {...cb.getInputProps({ onKeyDown: handleInputKeyDown })}
             type="text"
-            spellcheck="false"
+            spellCheck="false"
             placeholder="Search the JSON…"
             className="w-full pl-12 pr-4 py-4 rounded-sm text-slate-900 bg-slate-100 text-2xl caret-indigo-700 border-indigo-700 transition dark:text-white dark:bg-slate-900 focus:outline-none focus:ring focus:ring-indigo-700"
           />
@@ -172,7 +167,7 @@ export function SearchPalette({
 
             return (
               <SearchItem
-                key={result.item.path}
+                key={result.item.toString()}
                 itemProps={cb.getItemProps({
                   item: result,
                   index: virtualRow.index,
@@ -216,7 +211,7 @@ export function SearchPalette({
 
 type SearchItemProps = {
   itemProps: React.HTMLAttributes<HTMLLIElement>;
-  result: Fuse.FuseResult<JsonSearchEntry>;
+  result: SearchResult<string>;
   isHighlighted: boolean;
 };
 
@@ -225,7 +220,7 @@ export function SearchItem({
   result,
   isHighlighted,
 }: SearchItemProps) {
-  const heroPath = new JSONHeroPath(result.item.path);
+  const heroPath = new JSONHeroPath(result.item);
   const [json] = useJson();
 
   const itemValue = heroPath.first(json);
@@ -260,21 +255,19 @@ export function SearchItem({
               />
             </div>
             <div className="key-value flex justify-between">
-              {result.item.rawValue && (
+              {result.score.rawValue && (
                 <SearchResultValue
                   isHighlighted={isHighlighted}
-                  keyName="rawValue"
-                  stringValue={result.item.rawValue}
-                  searchResult={result}
+                  stringValue={result.score.rawValue}
+                  matches={result.score.rawValueMatch}
                 />
               )}
-              {result.item.formattedValue &&
-                result.item.formattedValue !== result.item.rawValue && (
+              {result.score.formattedValue &&
+                result.score.formattedValue !== result.score.rawValue && (
                   <SearchResultValue
                     isHighlighted={isHighlighted}
-                    keyName="formattedValue"
-                    stringValue={result.item.formattedValue}
-                    searchResult={result}
+                    stringValue={result.score.formattedValue}
+                    matches={result.score.formattedValueMatch}
                   />
                 )}
             </div>
@@ -301,28 +294,35 @@ function SearchPathResult({
 }: {
   path: JSONHeroPath;
   isHighlighted: boolean;
-  searchResult: Fuse.FuseResult<JsonSearchEntry>;
+  searchResult: SearchResult<string>;
   maxWeight?: number;
 }) {
-  const components = path.components.slice(1);
+  const description = searchResult.score.description;
+  const label = searchResult.score.label;
 
-  const match = (searchResult.matches ?? []).find(
-    (match) => match.key === "path" && match.indices.length > 0
-  );
+  const labelMatches = searchResult.score.labelMatch;
+  const descriptionMatches = searchResult.score.descriptionMatch;
 
-  const matchingIndices = (match?.indices ?? []) as [number, number][];
-
-  const displayPath = components.join(".");
-
-  const slices = getComponentSlices(
-    displayPath,
-    matchingIndices.map(([start, end]) => [start - 2, end - 2]),
+  const descriptionSlices = getComponentSlices(
+    description ?? "",
+    (descriptionMatches ?? []).map(({ start, end }) => ({
+      start,
+      end: end - 1,
+    })),
     maxWeight
   );
 
   return (
     <>
-      {slices.map((slice, i) =>
+      {label && labelMatches && (
+        <SearchResultValue
+          isHighlighted={isHighlighted}
+          stringValue={label}
+          matches={labelMatches}
+          key="label"
+        />
+      )}
+      {descriptionSlices.map((slice, i) =>
         slice.type === "component" ? (
           <span
             key={i}
@@ -364,20 +364,14 @@ function SearchPathResult({
 
 function SearchResultValue({
   isHighlighted,
-  keyName,
   stringValue,
-  searchResult,
+  matches,
 }: {
   isHighlighted: boolean;
-  keyName: string;
   stringValue: string;
-  searchResult: Fuse.FuseResult<JsonSearchEntry>;
+  matches?: Array<Match>;
 }) {
-  const match = (searchResult.matches ?? []).find(
-    (match) => match.key === keyName
-  );
-
-  const output = createOutputForMatch(stringValue, isHighlighted, match);
+  const output = createOutputForMatch(stringValue, isHighlighted, matches);
 
   return (
     <Mono
@@ -394,14 +388,14 @@ function SearchResultValue({
 function createOutputForMatch(
   stringValue: string,
   isHighlighted: boolean,
-  match?: Fuse.FuseResultMatch,
+  matches?: Array<Match>,
   maxLength: number = 68
 ): JSX.Element {
-  if (!match) {
+  if (!matches || matches.length === 0) {
     return <>{truncate(stringValue, { length: maxLength })}</>;
   }
 
-  const stringSlices = getStringSlices(stringValue, match.indices, maxLength);
+  const stringSlices = getStringSlices(stringValue, matches, maxLength);
 
   return (
     <>

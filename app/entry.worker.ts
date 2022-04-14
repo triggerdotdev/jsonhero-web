@@ -1,12 +1,10 @@
 /// <reference lib="WebWorker" />
-
-import Fuse from "fuse.js";
-import { createSearchIndex, JsonSearchEntry } from "./utilities/search";
+import { JSONHeroSearch } from "@jsonhero/fuzzy-json-search";
+import { inferType } from "@jsonhero/json-infer-types";
+import { formatValue } from "./utilities/formatter";
 
 type SearchWorker = {
-  entries?: Array<JsonSearchEntry>;
-  index?: Fuse.FuseIndex<JsonSearchEntry>;
-  fuse?: Fuse<JsonSearchEntry>;
+  searcher?: JSONHeroSearch;
 };
 
 export type {};
@@ -14,7 +12,7 @@ declare let self: DedicatedWorkerGlobalScope & SearchWorker;
 
 type InitializeIndexEvent = {
   type: "initialize-index";
-  payload: { json: unknown; fuseOptions: Fuse.IFuseOptions<JsonSearchEntry> };
+  payload: { json: unknown };
 };
 
 type SearchEvent = {
@@ -32,13 +30,13 @@ self.onmessage = (e: MessageEvent<SearchWorkerEvent>) => {
 
   switch (type) {
     case "initialize-index": {
-      const { json, fuseOptions } = payload;
+      const { json } = payload;
 
-      const [index, entries] = createSearchIndex(json);
-
-      self.entries = entries;
-      self.index = index;
-      self.fuse = new Fuse(entries, fuseOptions, index);
+      self.searcher = new JSONHeroSearch(json, {
+        cacheSettings: { max: 100, enabled: true },
+        formatter: valueFormatter,
+      });
+      self.searcher.prepareIndex();
 
       self.postMessage({ type: "index-initialized" });
 
@@ -47,11 +45,17 @@ self.onmessage = (e: MessageEvent<SearchWorkerEvent>) => {
     case "search": {
       const { query } = payload;
 
-      if (!self.fuse) {
+      if (!self.searcher) {
         throw new Error("Search index not initialized");
       }
 
-      const results = self.fuse.search(query);
+      const start = performance.now();
+
+      const results = self.searcher.search(query);
+
+      const end = performance.now();
+
+      console.log(`Search took ${end - start}ms`);
 
       console.log("results", results);
 
@@ -64,3 +68,9 @@ self.onmessage = (e: MessageEvent<SearchWorkerEvent>) => {
 
   console.groupEnd();
 };
+
+function valueFormatter(value: unknown): string | undefined {
+  const inferredType = inferType(value);
+
+  return formatValue(inferredType);
+}
