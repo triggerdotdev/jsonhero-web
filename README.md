@@ -2,7 +2,7 @@
 <img width="300" src="https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/JsonHeroLogo.png"/>
 </p>
 
-# JSONHero
+# JSON Hero
 
 JSON Hero makes reading and understand JSON files easy by giving you a clean and beautiful UI packed with extra features.
 
@@ -12,6 +12,7 @@ JSON Hero makes reading and understand JSON files easy by giving you a clean and
 - Quickly scan related values to check for edge cases
 - Search your JSON files (both keys and values)
 - Keyboard accessible
+- Easily sharable URLs with path support
 
 ![JSON Hero Screenshot](https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/0f5735b3-2421-470b-244c-7047fd77f700/public)
 
