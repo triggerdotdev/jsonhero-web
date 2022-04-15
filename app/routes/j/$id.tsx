@@ -132,7 +132,7 @@ export default function JsonDocumentRoute() {
                       </a>
                     </div>
                   </div>
-                  <div className="h-screen flex flex-col">
+                  <div className="h-screen flex flex-col sm:overflow-hidden">
                     <Header />
                     <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
                       <div className="main-container flex justify-items-stretch h-full">
