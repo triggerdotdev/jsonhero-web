@@ -20,9 +20,5 @@ export function StarCountProvider({
 }
 
 export function useStarCount(): StarCountType {
-  const context = useContext(StarCountContext);
-  if (context === undefined) {
-    throw new Error("useTheme must be used within a StarCountProvider");
-  }
-  return context;
+  return useContext(StarCountContext);
 }
