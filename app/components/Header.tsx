@@ -1,6 +1,6 @@
 import { ShareIcon, PlusIcon } from "@heroicons/react/outline";
 import { DocumentTitle } from "./DocumentTitle";
-import { DiscordIcon } from "./Icons/DiscordIcon";
+import { DiscordIconTransparent } from "./Icons/DiscordIconTransparent";
 import { GithubStar } from "./UI/GithubStar";
 import { Logo } from "./Icons/Logo";
 import { Share } from "./Share";
@@ -20,8 +20,8 @@ export function Header() {
       <ol className="flex items-center gap-2 px-4">
         <Popover>
           <PopoverTrigger>
-            <button className="flex items-center justify-center bg-lime-500 text-slate-700 bg-opacity-80 text-base font-bold px-2 py-1 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
-              <PlusIcon className="w-4 h-4 mr-1"></PlusIcon>
+            <button className="flex items-center justify-center bg-lime-500 text-slate-800 bg-opacity-90 text-base font-bold px-2 py-1 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
+              <PlusIcon className="w-4 h-4 mr-0.5"></PlusIcon>
               New
             </button>
           </PopoverTrigger>
@@ -36,7 +36,7 @@ export function Header() {
 
         <Popover>
           <PopoverTrigger>
-            <button className="flex items-center justify-center py-1 bg-slate-200 text-slate-700 bg-opacity-80 text-base font-bold px-2 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
+            <button className="flex items-center justify-center py-1 bg-slate-200 text-slate-800 bg-opacity-90 text-base font-bold px-2 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
               <ShareIcon className="w-4 h-4 mr-1"></ShareIcon>
               Share
             </button>
@@ -50,12 +50,12 @@ export function Header() {
           </PopoverContent>
         </Popover>
 
-        <li className="opacity-80 transition hover:cursor-pointer hover:opacity-100">
+        <li className="opacity-90 transition hover:cursor-pointer hover:opacity-100">
           <GithubStar />
         </li>
-        <li className="opacity-80 transition hover:cursor-pointer hover:opacity-100">
+        <li className="opacity-90 transition hover:cursor-pointer hover:opacity-100">
           <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
-            <DiscordIcon />
+            <DiscordIconTransparent />
           </a>
         </li>
       </ol>

@@ -1,5 +1,4 @@
-import { DiscordIcon } from "../Icons/DiscordIcon";
-import { GithubIcon } from "../Icons/GithubIcon";
+import { DiscordIconTransparent } from "../Icons/DiscordIconTransparent";
 import { Logo } from "../Icons/Logo";
 import { NewDocument } from "../NewDocument";
 import { GithubStar } from "../UI/GithubStar";
@@ -19,7 +18,7 @@ export function HomeHeader() {
       <ol className="flex items-center gap-2">
         <Popover>
           <PopoverTrigger>
-            <button className="bg-lime-500 text-white text-lg font-bold px-2 py-0.5 rounded-sm uppercase cursor-pointer">
+            <button className="bg-lime-500 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase cursor-pointer opacity-90 hover:opacity-100 transition">
               Try now
             </button>
           </PopoverTrigger>
@@ -37,9 +36,9 @@ export function HomeHeader() {
             <GithubStar />
           </a>
         </li>
-        <li className="hover:cursor-pointer">
+        <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
           <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
-            <DiscordIcon />
+            <DiscordIconTransparent />
           </a>
         </li>
       </ol>
