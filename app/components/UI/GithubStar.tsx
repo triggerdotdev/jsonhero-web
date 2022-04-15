@@ -1,4 +1,4 @@
-import { GithubIcon } from "../Icons/GithubIcon";
+import { GithubIconSimple } from "../Icons/GithubIconSimple";
 import { Body } from "../Primitives/Body";
 import { useStarCount } from "../StarCountProvider";
 
@@ -16,7 +16,7 @@ export function GithubStar({ className }: GithubStarProps) {
       className="flex text-slate-700 opacity-90 transition hover:cursor-pointer hover:opacity-100"
     >
       <div className="flex items-center gap-1 pr-2 pl-1 py-1 bg-slate-300 rounded-l-sm">
-        <GithubIcon className="w-5 h-5 ml-1"></GithubIcon>
+        <GithubIconSimple className="w-4 h-4 ml-1"></GithubIconSimple>
         <Body className="font-semibold">Star</Body>
       </div>
       {starCount && (

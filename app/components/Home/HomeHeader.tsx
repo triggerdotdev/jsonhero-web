@@ -2,6 +2,7 @@ import { DiscordIcon } from "../Icons/DiscordIcon";
 import { GithubIcon } from "../Icons/GithubIcon";
 import { Logo } from "../Icons/Logo";
 import { NewDocument } from "../NewDocument";
+import { GithubStar } from "../UI/GithubStar";
 import {
   Popover,
   PopoverArrow,
@@ -15,27 +16,30 @@ export function HomeHeader() {
       <div className="flex flex-grow items-start ">
         <Logo />
       </div>
-      <Popover>
-        <PopoverTrigger>
-          <button className="mr-2 bg-lime-500 text-white text-lg font-bold px-2 rounded-sm uppercase cursor-pointer">
-            Try now
-          </button>
-        </PopoverTrigger>
-        <PopoverContent side="bottom" sideOffset={30}>
-          <NewDocument />
-          <PopoverArrow className="fill-current text-indigo-700" offset={20} />
-        </PopoverContent>
-      </Popover>
+      <ol className="flex items-center gap-2">
+        <Popover>
+          <PopoverTrigger>
+            <button className="bg-lime-500 text-white text-lg font-bold px-2 py-0.5 rounded-sm uppercase cursor-pointer">
+              Try now
+            </button>
+          </PopoverTrigger>
+          <PopoverContent side="bottom" sideOffset={30}>
+            <NewDocument />
+            <PopoverArrow
+              className="fill-current text-indigo-700"
+              offset={20}
+            />
+          </PopoverContent>
+        </Popover>
 
-      <ol className="flex ml-2">
-        <li className="ml-0 hover:cursor-pointer">
-          <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
-            <DiscordIcon />
+        <li className="hover:cursor-pointer">
+          <a href="https://github.com/jsonhero-io" target="_blank">
+            <GithubStar />
           </a>
         </li>
-        <li className="ml-2 hover:cursor-pointer">
-          <a href="https://github.com/jsonhero-io" target="_blank">
-            <GithubIcon />
+        <li className="hover:cursor-pointer">
+          <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
+            <DiscordIcon />
           </a>
         </li>
       </ol>
