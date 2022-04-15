@@ -1,5 +1,5 @@
 <p align="center">
-<img width="300" src="https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/JsonHeroLogo.png"/>
+<img width="300" src="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/8aaa6f22-d600-4f26-cda9-c9f040863400/public"/>
 </p>
 
 # JSON Hero
