@@ -18,8 +18,25 @@ import {
   useTheme,
 } from "~/components/ThemeProvider";
 
-export const meta: MetaFunction = () => {
-  return { title: "JSON Hero - Browse, edit and share JSON" };
+export const meta: MetaFunction = ({ location }) => {
+  const description =
+    "JSON Hero makes reading and understand JSON files easy by giving you a nice, clean, and beautiful UI packed with extra features.";
+  return {
+    title: "JSON Hero - A beautiful JSON viewer",
+    charset: "utf-8",
+    viewport: "width=device-width,initial-scale=1",
+    description,
+    "og:image": `https://jsonhero.io/images/opengraph.png`,
+    "og:url": `https://jsonhero.io${location.pathname}`,
+    "og:title": "JSON Hero - A beautiful JSON viewer",
+    "og:description": description,
+    "twitter:image": "https://jsonhero.io/images/opengraph.png",
+    "twitter:card": "summary_large_image",
+    "twitter:creator": "@json_hero",
+    "twitter:site": "@json_hero",
+    "twitter:title": "JSON Hero",
+    "twitter:description": description,
+  };
 };
 
 import styles from "./tailwind.css";
@@ -49,8 +66,6 @@ function App() {
   return (
     <html lang="en" className={clsx(theme)}>
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
         <NonFlashOfWrongThemeEls ssrTheme={Boolean(theme)} />
