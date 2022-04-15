@@ -21,7 +21,7 @@ import { JsonView } from "~/components/JsonView";
 import safeFetch from "~/utilities/safeFetch";
 import { JsonTreeViewProvider } from "~/hooks/useJsonTree";
 import { JsonSearchProvider } from "~/hooks/useJsonSearch";
-import { Title } from "~/components/Primitives/Title";
+import { LargeTitle } from "~/components/Primitives/LargeTitle";
 import { Body } from "~/components/Primitives/Body";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
@@ -121,8 +121,8 @@ export default function JsonDocumentRoute() {
                 <div>
                   <div className="block sm:hidden fixed bg-black/80 h-screen w-screen z-50 text-white">
                     <div className="flex flex-col items-center justify-center h-full text-center">
-                      <Title>JSON Hero only works on desktop.</Title>
-                      <Title>👇</Title>
+                      <LargeTitle>JSON Hero only works on desktop</LargeTitle>
+                      <LargeTitle>👇</LargeTitle>
                       <Body>(For now!)</Body>
                       <a
                         href="/"
