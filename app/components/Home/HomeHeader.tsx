@@ -12,13 +12,13 @@ import {
 export function HomeHeader() {
   return (
     <header className="fixed z-20 flex items-center justify-between w-screen h-[82px] px-4 bg-indigo-700">
-      <div className="flex flex-grow items-start ">
+      <div className="flex w-44 mr-3">
         <Logo />
       </div>
       <ol className="flex items-center gap-2">
         <Popover>
           <PopoverTrigger>
-            <button className="bg-lime-500 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase cursor-pointer opacity-90 hover:opacity-100 transition">
+            <button className="bg-lime-500 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
               Try now
             </button>
           </PopoverTrigger>

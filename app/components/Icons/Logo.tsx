@@ -2,7 +2,7 @@ import { Link } from "remix";
 
 export function Logo({
   className,
-  width = "196",
+  width = "100%",
 }: {
   className?: string;
   width?: string;
