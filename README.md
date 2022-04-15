@@ -4,12 +4,14 @@
 
 # JSONHero
 
-JSON Hero is a beautiful JSON viewer for the web. Stop reading thousand-line JSON documents in your editor
+JSON Hero makes reading and understand JSON files easy by giving you a clean and beautiful UI packed with extra features.
 
 - View JSON any way you'd like: Column View, Tree View, Editor View, and more.
 - Automatically infers the contents of strings and provides useful previews
 - Creates an inferred JSON Schema that could be used to validate your JSON
 - Quickly scan related values to check for edge cases
+- Search your JSON files (both keys and values)
+- Keyboard accessible
 
 ![JSON Hero Screenshot](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/main.png)
 
@@ -35,6 +37,18 @@ View your entire JSON document in an editor, but keep the nice previews and rela
 
 ![Editor view](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-editorview.gif)
 
+### Tree view
+
+Use a traditional tree view to traverse your JSON document, with collapsible sections and keyboard shortcuts. All while keeping the nice previews:
+
+![Tree view](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-treeview.gif)
+
+### Search
+
+Quickly open a search panel and fuzzy search your entire JSON file in milliseconds. Searches through key names, key paths, values, and even pretty formatted values (e.g. Searching for `"Dec"` will find datetime strings in the month of December.)
+
+![Search](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-search.gif)
+
 ### Content Previews
 
 JSON Hero automatically infers the content of strings and provides useful previews and properties of the value you've selected. It's "Show Don't Tell" for JSON:
@@ -53,21 +67,11 @@ JSON Hero automatically infers the content of strings and provides useful previe
 
 #### JSON URLs
 
-![Preview JSON](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-preview-tweeturls.png)
-
-####
+![Preview JSON](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-preview-jsonurls.png)
 
 #### Colors
 
 ![Preview colors](https://raw.githubusercontent.com/jsonhero-io/jsonhero-web/main/docs/images/features-preview-colors.png)
-
-### Tree view
-
-> Coming soon
-
-### Terminal
-
-> Coming soon
 
 ## Bugs and Feature Requests
 
