@@ -6,12 +6,14 @@ import { HomeHeroSection } from "~/components/Home/HomeHeroSection";
 import { HomeInfoBoxSection } from "~/components/Home/HomeInfoBoxSection";
 import { HomeSearchSection } from "~/components/Home/HomeSearchSection";
 import { HomeFooter } from "~/components/Home/HomeFooter";
+import { GithubBanner } from "~/components/Home/HomeGithubBanner";
 
 export default function Index() {
   return (
     <div className="overflow-x-hidden">
       <HomeHeader />
       <HomeHeroSection />
+      <GithubBanner />
       <HomeInfoBoxSection />
       <HomeEdgeCasesSection />
       <HomeSearchSection />
