@@ -237,7 +237,7 @@ export function SearchItem({
           isHighlighted ? "bg-indigo-700" : "bg-slate-100 dark:bg-slate-900"
         )}
       >
-        <div className="flex items-center w-full p-2 pl-4 pr-3">
+        <div className="flex items-center w-full py-2 pl-4 pr-3">
           <ItemIcon
             className={classnames(
               "h-6 w-6",
@@ -247,7 +247,7 @@ export function SearchItem({
             )}
           ></ItemIcon>
           <div className="flex flex-col ml-3">
-            <div className="flex w-full items-center">
+            <div className="flex w-full items-baseline">
               <SearchPathResult
                 path={heroPath}
                 searchResult={result}
@@ -319,10 +319,10 @@ function SearchPathResult({
           isHighlighted={isHighlighted}
           stringValue={label}
           matches={labelMatches}
-          textSize="text-lg"
+          textSize="text-xl"
           className={classnames(
-            "mr-4 text-lg",
-            isHighlighted ? `text-white` : "text-slate-800 dark:text-slate-300"
+            "mr-3 text-xl",
+            isHighlighted ? `text-white` : "text-slate-900 dark:text-white"
           )}
           key="label"
         />
@@ -350,17 +350,25 @@ function SearchPathResult({
             {slice.slice.slice}
           </span>
         ) : slice.type === "ellipsis" ? (
-          <Body key={i} className="text-base mx-1">
+          <Body
+            key={i}
+            className={classnames(
+              "text-base",
+              isHighlighted
+                ? "text-white"
+                : "text-slate-600 dark:text-slate-400"
+            )}
+          >
             …
           </Body>
         ) : (
           <ChevronRightIcon
             key={i}
             className={classnames(
-              "w-3 h-3 mx-0.5",
+              "w-3 h-3 mx-[1px] relative top-[2px]",
               isHighlighted
                 ? "text-white"
-                : "text-slate-800 dark:text-slate-400"
+                : "text-slate-600 dark:text-slate-400"
             )}
           />
         )
@@ -395,7 +403,7 @@ function SearchResultValue({
         className ??
         classnames(
           "mr-2",
-          isHighlighted ? `text-white` : "text-slate-600 dark:text-slate-500"
+          isHighlighted ? `text-white` : "text-slate-600 dark:text-slate-400"
         )
       }
     >
