@@ -20,7 +20,7 @@ export function Header() {
       <ol className="flex items-center gap-2 px-4">
         <Popover>
           <PopoverTrigger>
-            <button className="flex items-center justify-center bg-lime-500 text-slate-700 bg-opacity-80 text-base font-bold pl-1 pr-2 py-1 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
+            <button className="flex items-center justify-center bg-lime-500 text-slate-700 bg-opacity-80 text-base font-bold px-2 py-1 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
               <PlusIcon className="w-4 h-4 mr-1"></PlusIcon>
               New
             </button>
@@ -36,7 +36,7 @@ export function Header() {
 
         <Popover>
           <PopoverTrigger>
-            <button className="flex items-center justify-center py-1 bg-slate-200 text-slate-700 bg-opacity-80 text-base font-bold pl-1 pr-2 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
+            <button className="flex items-center justify-center py-1 bg-slate-200 text-slate-700 bg-opacity-80 text-base font-bold px-2 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
               <ShareIcon className="w-4 h-4 mr-1"></ShareIcon>
               Share
             </button>
