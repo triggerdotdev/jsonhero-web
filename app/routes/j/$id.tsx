@@ -7,7 +7,6 @@ import {
 } from "remix";
 import invariant from "tiny-invariant";
 import { getDocument, JSONDocument } from "~/jsonDoc.server";
-
 import { JsonDocProvider } from "~/hooks/useJsonDoc";
 import { useEffect } from "react";
 import { JsonProvider } from "~/hooks/useJson";
@@ -22,6 +21,8 @@ import { JsonView } from "~/components/JsonView";
 import safeFetch from "~/utilities/safeFetch";
 import { JsonTreeViewProvider } from "~/hooks/useJsonTree";
 import { JsonSearchProvider } from "~/hooks/useJsonSearch";
+import { Title } from "~/components/Primitives/Title";
+import { Body } from "~/components/Primitives/Body";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -118,6 +119,19 @@ export default function JsonDocumentRoute() {
             <JsonSearchProvider>
               <JsonTreeViewProvider overscan={25}>
                 <div>
+                  <div className="block sm:hidden fixed bg-black/80 h-screen w-screen z-50 text-white">
+                    <div className="flex flex-col items-center justify-center h-full text-center">
+                      <Title>JSON Hero only works on desktop.</Title>
+                      <Title>👇</Title>
+                      <Body>(For now!)</Body>
+                      <a
+                        href="/"
+                        className="mt-8 text-white bg-lime-500 rounded-sm px-4 py-2"
+                      >
+                        Back to Home
+                      </a>
+                    </div>
+                  </div>
                   <div className="h-screen flex flex-col">
                     <Header />
                     <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
