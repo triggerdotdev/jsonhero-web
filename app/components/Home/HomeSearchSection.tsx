@@ -12,8 +12,8 @@ export function HomeSearchSection() {
         </ExtraLargeTitle>
         <SmallSubtitle className="mb:6 md:mb-10">
           Search for absolutely anything in your JSON file with blistering
-          speed. Use keyboard shortcuts to make navigating your files even
-          faster.
+          speed. Use the fuzzy matching and keyboard shortcuts to make
+          navigating your files even faster.
         </SmallSubtitle>
       </div>
       <div className="w-full md:w-1/2">
