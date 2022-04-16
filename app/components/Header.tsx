@@ -1,6 +1,7 @@
 import { ShareIcon, PlusIcon } from "@heroicons/react/outline";
 import { DocumentTitle } from "./DocumentTitle";
 import { DiscordIconTransparent } from "./Icons/DiscordIconTransparent";
+import { EmailIconTransparent } from "./Icons/EmailIconTransparent";
 import { GithubStar } from "./UI/GithubStar";
 import { Logo } from "./Icons/Logo";
 import { Share } from "./Share";
@@ -52,6 +53,11 @@ export function Header() {
 
         <li className="opacity-90 transition hover:cursor-pointer hover:opacity-100">
           <GithubStar />
+        </li>
+         <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
+          <a href="mailto:hello@jsonhero.io">
+            <EmailIconTransparent />
+          </a>
         </li>
         <li className="opacity-90 transition hover:cursor-pointer hover:opacity-100">
           <a href="https://discord.gg/ZQq6Had5nP" target="_blank">

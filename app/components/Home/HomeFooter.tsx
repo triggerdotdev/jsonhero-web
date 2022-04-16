@@ -1,4 +1,5 @@
 import { DiscordIcon } from "../Icons/DiscordIcon";
+import { EmailIcon } from "../Icons/EmailIcon";
 import { GithubIcon } from "../Icons/GithubIcon";
 import { Logo } from "../Icons/Logo";
 
@@ -17,12 +18,23 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
           <Logo />
         </div>
         <ol className="flex ml-2">
-          <li className="ml-0 hover:cursor-pointer">
-            <DiscordIcon />
+          <li className="hover:cursor-pointer">
+            <a href="https://github.com/jsonhero-io/jsonhero-web" target="_blank">
+              <GithubIcon />
+            </a>
           </li>
           <li className="ml-2 hover:cursor-pointer">
-            <GithubIcon />
+            <a href="mailto:hello@jsonhero.io">
+            <EmailIcon/>
+            </a>
           </li>
+          <li className="ml-2 hover:cursor-pointer">
+            <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
+            <DiscordIcon />
+            </a>
+          </li>
+        
+      
         </ol>
       </div>
     </footer>

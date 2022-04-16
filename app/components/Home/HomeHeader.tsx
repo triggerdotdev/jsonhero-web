@@ -1,4 +1,5 @@
 import { DiscordIconTransparent } from "../Icons/DiscordIconTransparent";
+import { EmailIconTransparent } from "../Icons/EmailIconTransparent";
 import { Logo } from "../Icons/Logo";
 import { NewDocument } from "../NewDocument";
 import { GithubStar } from "../UI/GithubStar";
@@ -34,6 +35,11 @@ export function HomeHeader() {
         <li className="hover:cursor-pointer">
           <a href="https://github.com/jsonhero-io" target="_blank">
             <GithubStar />
+          </a>
+        </li>
+        <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
+          <a href="mailto:hello@jsonhero.io">
+            <EmailIconTransparent />
           </a>
         </li>
         <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
