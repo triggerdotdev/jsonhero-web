@@ -19,7 +19,7 @@ export function HomeHeader() {
       <ol className="flex items-center gap-2">
         <Popover>
           <PopoverTrigger>
-            <button className="bg-lime-500 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
+            <button className="hidden md:block bg-lime-500 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
               Try now
             </button>
           </PopoverTrigger>
