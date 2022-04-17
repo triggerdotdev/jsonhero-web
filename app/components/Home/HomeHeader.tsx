@@ -33,9 +33,7 @@ export function HomeHeader() {
         </Popover>
 
         <li className="hover:cursor-pointer">
-          <a href="https://github.com/jsonhero-io" target="_blank">
-            <GithubStar />
-          </a>
+          <GithubStar />
         </li>
         <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
           <a href="mailto:hello@jsonhero.io">
