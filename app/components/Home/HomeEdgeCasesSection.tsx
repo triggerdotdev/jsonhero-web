@@ -13,7 +13,7 @@ export function HomeEdgeCasesSection() {
         <ExtraLargeTitle className="text-white mb-4">
           Uncover edge cases
         </ExtraLargeTitle>
-        <SmallSubtitle className="mb:6 md:mb-10">
+        <SmallSubtitle className="mb-6 md:mb-10">
           Sometimes a field can be null, have an unexpected value or be missing
           entirely. View any field's related values and see what to expect when
           you least expect it. Or check out the inferred JSON schema to see what

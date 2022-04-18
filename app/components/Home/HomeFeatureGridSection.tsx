@@ -15,7 +15,7 @@ export function HomeFeatureGridSection() {
   return (
     <HomeSection containerClassName="bg-black">
       <div className="flex flex-col px-4 pb-2 pt-6 md:py-12">
-        <LargeTitle className="mb-4 text-slate-500">
+        <LargeTitle className="mb-4 text-slate-300">
           And lots more features…
         </LargeTitle>
         <div className="flex flex-col gap-4 md:flex-row md:flex-wrap">

@@ -10,7 +10,7 @@ export function HomeSearchSection() {
         <ExtraLargeTitle className="text-white mb-4">
           Quickly search your whole JSON file
         </ExtraLargeTitle>
-        <SmallSubtitle className="mb:6 md:mb-10">
+        <SmallSubtitle className="mb-6 md:mb-10">
           Search for absolutely anything in your JSON file with blistering
           speed. Use the fuzzy matching and keyboard shortcuts to make
           navigating your files even faster.

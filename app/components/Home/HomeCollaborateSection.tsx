@@ -13,7 +13,7 @@ export function HomeCollaborateSection() {
         <ExtraLargeTitle className="text-white mb-4">
           Collaborate with the whole world (and yourself)
         </ExtraLargeTitle>
-        <SmallSubtitle className="mb:6 md:mb-10">
+        <SmallSubtitle className="mb-6 md:mb-10">
           Easily share your JSON documents with any distant relative. Link right
           to the part of the document you're on. Or save the link for some
           casual browsing later in the evening while enjoying a glass of red.
