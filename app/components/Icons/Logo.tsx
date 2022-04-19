@@ -8,7 +8,7 @@ export function Logo({
   width?: string;
 }) {
   return (
-    <Link to="/" aria-label="JSON Hero homepage">
+    <Link to="/" aria-label="JSON Hero homepage" className="w-40">
       <svg
         className={className}
         width={width}
