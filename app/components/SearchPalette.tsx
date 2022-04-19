@@ -319,9 +319,9 @@ function SearchPathResult({
           isHighlighted={isHighlighted}
           stringValue={label}
           matches={labelMatches}
-          textSize="text-xl"
+          textSize="text-lg"
           className={classnames(
-            "mr-3 text-xl",
+            "mr-3 text-lg",
             isHighlighted ? `text-white` : "text-slate-900 dark:text-white"
           )}
           key="label"

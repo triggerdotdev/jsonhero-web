@@ -14,27 +14,29 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
         className="flex items-center justify-between w-full pt-9 border-t-[1px] border-slate-800"
         style={{ maxWidth: maxWidth }}
       >
-        <div className="flex flex-grow items-start ">
+        <div className="flex flex-grow items-start">
           <Logo />
         </div>
         <ol className="flex ml-2">
           <li className="hover:cursor-pointer">
-            <a href="https://github.com/jsonhero-io/jsonhero-web" target="_blank">
+            <a
+              href="https://github.com/jsonhero-io/jsonhero-web"
+              className="w-28"
+              target="_blank"
+            >
               <GithubIcon />
             </a>
           </li>
           <li className="ml-2 hover:cursor-pointer">
             <a href="mailto:hello@jsonhero.io">
-            <EmailIcon/>
+              <EmailIcon />
             </a>
           </li>
           <li className="ml-2 hover:cursor-pointer">
             <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
-            <DiscordIcon />
+              <DiscordIcon />
             </a>
           </li>
-        
-      
         </ol>
       </div>
     </footer>
