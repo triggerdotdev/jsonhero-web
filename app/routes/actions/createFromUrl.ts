@@ -1,7 +1,7 @@
 import { redirect } from "remix";
 import type { ActionFunction, LoaderFunction } from "remix";
 import invariant from "tiny-invariant";
-import { createFromUrl } from "~/jsonDoc.server";
+import { createFromUrl, createFromUrlOrRawJson } from "~/jsonDoc.server";
 import { sendEvent } from "~/graphJSON.server";
 
 type CreateFromUrlError = {
@@ -23,19 +23,18 @@ export let action: ActionFunction = async ({ request, context }) => {
 
   invariant(typeof jsonUrl === "string", "jsonUrl must be a string");
 
-  const url = new URL(jsonUrl);
+  const doc = await createFromUrlOrRawJson(jsonUrl, title);
 
-  invariant(url, "jsonUrl must be a valid URL");
-
-  const doc = await createFromUrl(url, title ?? url.hostname);
+  if (!doc) {
+    return redirect("/");
+  }
 
   const requestUrl = new URL(request.url);
 
   context.waitUntil(
     sendEvent({
       type: "create",
-      from: "url",
-      hostname: url.hostname,
+      from: "urlOrJson",
       id: doc.id,
       source: requestUrl.searchParams.get("utm_source") ?? requestUrl.hostname,
     })

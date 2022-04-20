@@ -17,6 +17,19 @@ export type UrlJsonDocument = BaseJsonDocument & {
 
 export type JSONDocument = RawJsonDocument | UrlJsonDocument;
 
+export async function createFromUrlOrRawJson(
+  urlOrJson: string,
+  title?: string
+): Promise<JSONDocument | undefined> {
+  if (isUrl(urlOrJson)) {
+    return createFromUrl(new URL(urlOrJson), title);
+  }
+
+  if (isJSON(urlOrJson)) {
+    return createFromRawJson("Untitled", urlOrJson);
+  }
+}
+
 export async function createFromUrl(
   url: URL,
   title?: string
@@ -82,4 +95,22 @@ function createId(): string {
     }
   );
   return nanoid();
+}
+
+function isUrl(possibleUrl: string): boolean {
+  try {
+    new URL(possibleUrl);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isJSON(possibleJson: string): boolean {
+  try {
+    JSON.parse(possibleJson);
+    return true;
+  } catch {
+    return false;
+  }
 }
