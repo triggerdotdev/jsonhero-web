@@ -22,7 +22,7 @@ export const meta: MetaFunction = ({ location }) => {
   const description =
     "JSON Hero makes reading and understand JSON files easy by giving you a clean and beautiful UI packed with extra features.";
   return {
-    title: "JSON Hero - A beautiful JSON viewer",
+    title: "JSON Viewer - JSON Hero",
     charset: "utf-8",
     viewport: "width=device-width,initial-scale=1",
     description,
