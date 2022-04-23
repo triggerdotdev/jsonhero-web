@@ -96,7 +96,7 @@ Easily see all the related values across your entire JSON document for a specifi
 
 ## Bugs and Feature Requests
 
-Have a bug or a feature request? Feel free to [open a new issue](/issues).
+Have a bug or a feature request? Feel free to [open a new issue](https://github.com/jsonhero-io/jsonhero-web/issues).
 
 You can also join our [Discord channel](https://discord.gg/ZQq6Had5nP) to hang out and discuss anything you'd like.
 
