@@ -1,5 +1,8 @@
 export async function sendEvent(event: Record<string, any>): Promise<void> {
-  if (!GRAPH_JSON_API_KEY || !GRAPH_JSON_COLLECTION) {
+  if (
+    typeof GRAPH_JSON_API_KEY === "undefined" ||
+    typeof GRAPH_JSON_COLLECTION === "undefined"
+  ) {
     return;
   }
 
