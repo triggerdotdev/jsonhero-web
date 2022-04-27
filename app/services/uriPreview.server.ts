@@ -14,8 +14,8 @@ const imageContentTypes = [
 ];
 
 async function getPeekalink(link: string): Promise<PreviewResult> {
-  if (!PEEKALINK_API_KEY) {
-    return { error: "PEEKALINK_API_KEY is not set" };
+  if (typeof PEEKALINK_API_KEY === "undefined") {
+    return { error: "Preview unavailable" };
   }
 
   const response = await fetch("https://api.peekalink.io/", {
