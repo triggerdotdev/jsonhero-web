@@ -20,7 +20,7 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
   const { selectedNodeId, highlightedNodeId, selectedNodes } =
     useJsonColumnViewState();
 
-  if (!selectedNodeId || !highlightedNodeId) {
+  if (!selectedNodeId || !highlightedNodeId || selectedNodes.length === 0) {
     return <EmptyState />;
   }
 
@@ -49,11 +49,15 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
           {selectedName ?? "nothing"}
         </Title>
         <div>
-          <ValueIcon monochrome type={selectedInfo} size={ValueIconSize.Medium} />
+          <ValueIcon
+            monochrome
+            type={selectedInfo}
+            size={ValueIconSize.Medium}
+          />
         </div>
       </div>
       <div
-        className="relative w-full h-full" 
+        className="relative w-full h-full"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >
