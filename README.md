@@ -18,6 +18,36 @@ JSON Hero makes reading and understand JSON files easy by giving you a clean and
 
 ## Features
 
+### Send to JSON Hero
+
+Send your JSON to JSON Hero in a variety of ways
+
+- Head to [jsonhero.io](https://jsonhero.io) and Drag and Drop a JSON file, or paste JSON or a JSON url in the provided form
+- Include a Base64 encoded string of a JSON payload: [jsonhero.io/new?j=eyAiZm9vIjogImJhciIgfQ==](https://jsonhero.io/new?j=eyAiZm9vIjogImJhciIgfQ==)
+- Include a JSON URL to the `new` endpoint: [jsonhero.io/new?url=https://jsonplaceholder.typicode.com/todos/1](https://jsonhero.io/new?url=https://jsonplaceholder.typicode.com/todos/1)
+- Install the [VS Code extension](https://marketplace.visualstudio.com/items?itemName=JSONHero.jsonhero-vscode) and open JSON from VS Code
+- Raycast user? Check out our extension [here](https://www.raycast.com/maverickdotdev/open-in-json-hero)
+- Use the unofficial API:
+
+  - Make a `POST` request to `jsonhero.io/api/create.json` with the following JSON body:
+
+  ```json
+  {
+    "title": "test 123",
+    "content": { "foo": "bar" }
+  }
+  ```
+
+  The JSON response will be the following:
+
+  ```json
+  {
+    "id": "YKKduNySH7Ub",
+    "title": "test 123",
+    "location": "https://jsonhero.io/j/YKKduNySH7Ub"
+  }
+  ```
+
 ### Column view
 
 Inspired by macOS Finder, Column View is a new way to browse a JSON document.
@@ -83,14 +113,6 @@ JSON Hero automatically infers the content of strings and provides useful previe
 Easily see all the related values across your entire JSON document for a specific field, including any `undefined` or `null` values.
 
 ![Editor view](https://raw.githubusercontent.com/jsonhero-io/documentation-hosting/main/images/features-relatedvalues.gif)
-
-<!-- TODO -->
-
-### Keyboard Shortcuts
-
-<!-- TODO -->
-
-### Sharing
 
 <!-- TODO -->
 
