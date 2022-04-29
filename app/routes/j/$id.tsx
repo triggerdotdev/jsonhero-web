@@ -23,6 +23,7 @@ import safeFetch from "~/utilities/safeFetch";
 import { JsonTreeViewProvider } from "~/hooks/useJsonTree";
 import { JsonSearchProvider } from "~/hooks/useJsonSearch";
 import { LargeTitle } from "~/components/Primitives/LargeTitle";
+import { ExtraLargeTitle } from "~/components/Primitives/ExtraLargeTitle";
 import { Body } from "~/components/Primitives/Body";
 import { PageNotFoundTitle } from "~/components/Primitives/PageNotFoundTitle";
 import { SmallSubtitle } from "~/components/Primitives/SmallSubtitle";
@@ -185,9 +186,9 @@ export function CatchBoundary() {
           </PageNotFoundTitle>
         </div>
         <div className="text-center leading-snug text-white">
-          <SmallSubtitle className="text-slate-200 mb-8">
-            <b>Oops</b>, something went wrong!
-          </SmallSubtitle>
+          <ExtraLargeTitle className="text-slate-200 mb-8">
+            <b>Sorry</b>! Something went wrong...
+          </ExtraLargeTitle>
           <SmallSubtitle className="text-slate-200 mb-8">
             We couldn't find the page <b>'https://jsonhero.io/j/{params.id}</b>'
           </SmallSubtitle>
