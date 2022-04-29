@@ -10,7 +10,11 @@ export function ExampleUrl({
   displayTitle?: string;
 }) {
   return (
-    <Form method="post" action="/actions/createFromUrl" reloadDocument>
+    <Form
+      method="post"
+      action="/actions/createFromUrl?utm_source=example_url"
+      reloadDocument
+    >
       <input type="hidden" name="jsonUrl" value={url} />
       <input type="hidden" name="title" value={title} />
       <button
