@@ -24,7 +24,8 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build:types": "tsc",
-    "build:types:watch": "tsc --watch"
+    "build:types:watch": "tsc --watch",
+    "lint": "npm run build:types"
   },
   "dependencies": {
     "@codemirror/lang-json": "^0.19.1",
