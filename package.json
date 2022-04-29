@@ -59,7 +59,7 @@
     "react-dropzone": "^11.4.2",
     "react-hotkeys-hook": "^3.4.4",
     "react-virtual": "^2.10.4",
-    "remix": "^1.2.3",
+    "remix": "^1.4.3",
     "tailwindcss-radix": "^1.6.0",
     "tiny-invariant": "^1.2.0",
     "ts-pattern": "^3.3.4"
