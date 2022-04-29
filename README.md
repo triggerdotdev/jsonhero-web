@@ -122,7 +122,33 @@ Have a bug or a feature request? Feel free to [open a new issue](https://github.
 
 You can also join our [Discord channel](https://discord.gg/ZQq6Had5nP) to hang out and discuss anything you'd like.
 
-## Developing
+## Developing and Deployment
+
+You could choose to deploy this service locally, either directly or by docker.
+
+## Docker
+
+You could pull prebuilt image from Docker Hub or build your own image locally.
+
+### Pull image and run 
+
+```bash
+# Pull the latest image from Docker Hub
+docker pull jsonhero_docker_hub_username/jsonhero-web:latest
+# Run the container, then visit http://localhost:8787
+docker run -it -d --name jsonhero_web -p 8787:8787 jsonhero_docker_hub_username/jsonhero-web:latest
+```
+
+### Build your own image locally
+
+```bash
+# Build your own image locally
+docker build . -t yourname/jsonhero-web:localdev
+# Run the container, then visit http://localhost:8787
+docker run -it -d --name jsonhero_web_dev -p 8787:8787 yourname/jsonhero-web:localdev
+```
+
+## Directly
 
 To run locally, first clone the repo and install the dependencies:
 
