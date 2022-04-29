@@ -23,7 +23,6 @@ export const meta: MetaFunction = ({ location }) => {
     "JSON Hero makes reading and understand JSON files easy by giving you a clean and beautiful UI packed with extra features.";
   return {
     title: "JSON Viewer - JSON Hero",
-    charset: "utf-8",
     viewport: "width=device-width,initial-scale=1",
     description,
     "og:image": `https://jsonhero.io/images/opengraph.png`,
@@ -72,6 +71,7 @@ function App() {
     <html lang="en" className={clsx(theme)}>
       <head>
         <Meta />
+        <meta charSet="utf-8" />
         <Links />
         <NonFlashOfWrongThemeEls ssrTheme={Boolean(theme)} />
       </head>
