@@ -143,7 +143,7 @@ function TreeViewNode({
             : "bg-slate-100 bg-opacity-90 dark:bg-slate-800 dark:bg-opacity-30"
         }`}
       >
-        <div className={`pl-5 w-2/6 items-center flex`}>
+        <div className={`pl-2 w-2/6 items-center flex`}>
           {node.children && node.children.length > 0 && (
             <span
               onClick={(e) => {
