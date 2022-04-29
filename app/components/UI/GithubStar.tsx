@@ -1,3 +1,4 @@
+import { formatStarCount } from "~/utilities/formatStarCount";
 import { GithubIconSimple } from "../Icons/GithubIconSimple";
 import { Body } from "../Primitives/Body";
 import { useStarCount } from "../StarCountProvider";
@@ -21,7 +22,7 @@ export function GithubStar({ className }: GithubStarProps) {
       </div>
       {starCount && (
         <div className="px-2 py-1 border-l border-slate-400 bg-slate-100 rounded-r-sm">
-          <Body className="font-bold">{starCount}</Body>
+          <Body className="font-bold">{formatStarCount(starCount)}</Body>
         </div>
       )}
     </a>

@@ -88,10 +88,11 @@ export const meta: MetaFunction = ({
   data: LoaderData | undefined;
 }) => {
   if (!data) {
-    return { title: "JSON Hero" };
+    return { title: "JSON Hero", robots: "noindex,nofollow" };
   }
   return {
     title: `JSON Hero - ${data.doc.title}`,
+    robots: "noindex,nofollow",
   };
 };
 
