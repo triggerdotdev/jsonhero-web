@@ -79,7 +79,10 @@ type HeadInfo = {
   lastModified: string;
 };
 
-async function headUri(uri: string): Promise<HeadInfo | undefined> {
+async function headUri(
+  uri: string,
+  redirectCount = 0
+): Promise<HeadInfo | undefined> {
   const response = await fetch(uri, {
     method: "HEAD",
     headers: {
@@ -90,9 +93,36 @@ async function headUri(uri: string): Promise<HeadInfo | undefined> {
   });
 
   if (!response.ok) {
+    // If this is a 405 Method Not Allowed, do a GET request instead and if that is a redirect, return the head of the redirect url
+    if (response.status === 405 && redirectCount < 5) {
+      console.log(
+        `${uri} is a 405 Method Not Allowed, trying to do a GET instead`
+      );
+      // Do a GET request that does not follow redirects
+      const noFollowResponse = await fetch(uri, {
+        method: "GET",
+        redirect: "manual",
+        headers: {
+          accept: "*/*",
+          "user-agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36",
+        },
+      });
+
+      if (noFollowResponse.status === 301 || noFollowResponse.status === 302) {
+        // Get the url from the response Location header
+        const location = noFollowResponse.headers.get("location");
+
+        if (location) {
+          return headUri(location, redirectCount + 1);
+        }
+      }
+    }
+
     console.log(
       `Could not perform head request for ${uri}: ${response.status} [${response.statusText}]`
     );
+
     return;
   }
 
