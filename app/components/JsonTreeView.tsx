@@ -135,15 +135,15 @@ function TreeViewNode({
       {...virtualNode.getItemProps()}
     >
       <div
-        className={`h-full flex m-2 pl-5 rounded-sm select-none ${
+        className={`h-full flex pl-5 rounded-sm select-none ${
           isSelected
             ? "bg-indigo-700"
             : virtualItem.index % 2
             ? "dark:bg-slate-900"
-            : "bg-slate-200 bg-opacity-90 dark:bg-slate-800 dark:bg-opacity-30"
+            : "bg-slate-100 bg-opacity-90 dark:bg-slate-800 dark:bg-opacity-30"
         }`}
       >
-        <div className={`${indentClassName} w-2/6 items-center flex`}>
+        <div className={`pl-5 w-2/6 items-center flex`}>
           {node.children && node.children.length > 0 && (
             <span
               onClick={(e) => {
@@ -155,7 +155,7 @@ function TreeViewNode({
             >
               {virtualNode.isCollapsed ? (
                 <ChevronRightIcon
-                  className={`w-4 h-4 mr-1 -ml-5 ${
+                  className={`w-4 h-4 mr-1 -ml-5  ${
                     isSelected
                       ? "text-slate-100"
                       : "text-slate-600 dark:text-slate-100"
@@ -174,7 +174,7 @@ function TreeViewNode({
           )}
 
           <Body
-            className={`truncate whitespace-nowrap pr-2 ${
+            className={`${indentClassName} leading-8 truncate whitespace-nowrap pl-2 pr-2 ${
               isSelected
                 ? "text-slate-100"
                 : "text-slate-700 dark:text-slate-200"
@@ -216,28 +216,28 @@ function TreeViewNode({
 function computeTreeNodePaddingClass(depth: number) {
   switch (depth) {
     case 0:
-      return "pl-[4px]";
+      return "ml-[4px] border-l border-slate-400/70";
     case 1:
-      return "pl-[calc(12px_+_4px)]";
+      return "ml-[calc(12px_+_4px)] border-l border-pink-400/70";
     case 2:
-      return "pl-[calc(12px_*_2_+_4px)]";
+      return "ml-[calc(12px_*_2_+_4px)] border-l border-blue-400/70";
     case 3:
-      return "pl-[calc(12px_*_3_+_4px)]";
+      return "ml-[calc(12px_*_3_+_4px)] border-l border-orange-400/70";
     case 4:
-      return "pl-[calc(12px_*_4_+_4px)]";
+      return "ml-[calc(12px_*_4_+_4px)] border-l border-emerald-400/70";
     case 5:
-      return "pl-[calc(12px_*_5_+_4px)]";
+      return "ml-[calc(12px_*_5_+_4px)] border-l border-pink-400/70";
     case 6:
-      return "pl-[calc(12px_*_6_+_4px)]";
+      return "ml-[calc(12px_*_6_+_4px)] border-l border-blue-400/70";
     case 7:
-      return "pl-[calc(12px_*_7_+_4px)]";
+      return "ml-[calc(12px_*_7_+_4px)] border-l border-orange-400/70";
     case 8:
-      return "pl-[calc(12px_*_8_+_4px)]";
+      return "ml-[calc(12px_*_8_+_4px)] border-l border-emerald-400/70";
     case 9:
-      return "pl-[calc(12px_*_9_+_4px)]";
+      return "ml-[calc(12px_*_9_+_4px)] border-l border-pink-400/70";
     case 10:
-      return "pl-[calc(12px_*_10_+_4px)]";
+      return "ml-[calc(12px_*_10_+_4px)] border-l border-orange-400/70";
     default:
-      return "pl-[calc(12px_*_11_+_4px)]";
+      return "ml-[calc(12px_*_11_+_4px)] border-l border-slate-400/70";
   }
 }
