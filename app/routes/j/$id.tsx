@@ -4,6 +4,7 @@ import {
   Outlet,
   useLoaderData,
   useLocation,
+  useParams,
 } from "remix";
 import invariant from "tiny-invariant";
 import { getDocument, JSONDocument } from "~/jsonDoc.server";
@@ -164,5 +165,14 @@ export default function JsonDocumentRoute() {
         </JsonSchemaProvider>
       </JsonProvider>
     </JsonDocProvider>
+  );
+}
+
+export function CatchBoundary() {
+  const params = useParams();
+  return (
+    <div>
+      <h2>We couldn't find {params.id}</h2>
+    </div>
   );
 }
