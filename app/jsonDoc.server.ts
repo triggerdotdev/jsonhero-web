@@ -15,6 +15,11 @@ export type UrlJsonDocument = BaseJsonDocument & {
   url: string;
 };
 
+export type CreateJsonOptions = {
+  ttl?: number;
+  metadata?: any;
+};
+
 export type JSONDocument = RawJsonDocument | UrlJsonDocument;
 
 export async function createFromUrlOrRawJson(
@@ -49,12 +54,16 @@ export async function createFromUrl(
 
 export async function createFromRawJson(
   filename: string,
-  contents: string
+  contents: string,
+  options?: CreateJsonOptions
 ): Promise<JSONDocument> {
   const docId = createId();
   const doc = { id: docId, type: <const>"raw", contents, title: filename };
 
-  await DOCUMENTS.put(docId, JSON.stringify(doc));
+  await DOCUMENTS.put(docId, JSON.stringify(doc), {
+    expirationTtl: options?.ttl ?? undefined,
+    metadata: options?.metadata ?? undefined,
+  });
 
   return doc;
 }
