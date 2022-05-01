@@ -4,6 +4,7 @@ import {
   Outlet,
   useLoaderData,
   useLocation,
+  useParams,
 } from "remix";
 import invariant from "tiny-invariant";
 import { getDocument, JSONDocument } from "~/jsonDoc.server";
@@ -22,7 +23,11 @@ import safeFetch from "~/utilities/safeFetch";
 import { JsonTreeViewProvider } from "~/hooks/useJsonTree";
 import { JsonSearchProvider } from "~/hooks/useJsonSearch";
 import { LargeTitle } from "~/components/Primitives/LargeTitle";
+import { ExtraLargeTitle } from "~/components/Primitives/ExtraLargeTitle";
 import { Body } from "~/components/Primitives/Body";
+import { PageNotFoundTitle } from "~/components/Primitives/PageNotFoundTitle";
+import { SmallSubtitle } from "~/components/Primitives/SmallSubtitle";
+import { Logo } from "~/components/Icons/Logo";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -164,5 +169,36 @@ export default function JsonDocumentRoute() {
         </JsonSchemaProvider>
       </JsonProvider>
     </JsonDocProvider>
+  );
+}
+
+export function CatchBoundary() {
+  const params = useParams();
+  return (
+    <div className="flex items-center justify-center w-screen h-screen bg-[rgb(56,52,139)]">
+      <div className="w-2/3">
+        <div className="text-center text-lime-300">
+          <div className="">
+            <Logo />
+          </div>
+          <PageNotFoundTitle className="text-center leading-tight">
+            404
+          </PageNotFoundTitle>
+        </div>
+        <div className="text-center leading-snug text-white">
+          <ExtraLargeTitle className="text-slate-200 mb-8">
+            <b>Sorry</b>! Something went wrong...
+          </ExtraLargeTitle>
+          <SmallSubtitle className="text-slate-200 mb-8">
+            We couldn't find the page <b>'https://jsonhero.io/j/{params.id}</b>'
+          </SmallSubtitle>
+          <a href="https:jsonhero.io">
+            <button className="self-align-center bg-lime-500 text-slate-900 text-lg font-bold px-5 py-1 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
+              HOME
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }
