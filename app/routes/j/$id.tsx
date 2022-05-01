@@ -192,10 +192,11 @@ export function CatchBoundary() {
           <SmallSubtitle className="text-slate-200 mb-8">
             We couldn't find the page <b>'https://jsonhero.io/j/{params.id}</b>'
           </SmallSubtitle>
-          <a href="https:jsonhero.io">
-            <button className="self-align-center bg-lime-500 text-slate-900 text-lg font-bold px-5 py-1 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
-              HOME
-            </button>
+          <a
+            href="/"
+            className="mx-auto w-24 bg-lime-500 text-slate-900 text-lg font-bold px-5 py-1 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition"
+          >
+            HOME
           </a>
         </div>
       </div>
