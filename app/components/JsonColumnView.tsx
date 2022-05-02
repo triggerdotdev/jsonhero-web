@@ -4,7 +4,7 @@ import {
 } from "../hooks/useJsonColumnView";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Columns } from "./Columns";
-import { useSelectedInfo } from "../hooks/useSelectedInfo";
+import { CopySelectedNodeShortcut } from "./CopySelectedNode";
 
 export function JsonColumnView() {
   const { getColumnViewProps, columns } = useJsonColumnViewState();
@@ -21,7 +21,6 @@ export function JsonColumnView() {
 
 function KeyboardShortcuts() {
   const api = useJsonColumnViewAPI();
-  const selectedInfo = useSelectedInfo();
 
   useHotkeys(
     "down",
@@ -69,15 +68,7 @@ function KeyboardShortcuts() {
     [api]
   );
 
-  useHotkeys(
-    "ctrl+c,cmd+c",
-    (e) => {
-      e.preventDefault();
-      const selectedJSON = JSON.stringify(selectedInfo?.value, null, 2);
-      navigator.clipboard.writeText(selectedJSON);
-    },
-    [selectedInfo]
-  );
-
-  return <></>;
+  return <>
+    <CopySelectedNodeShortcut />
+  </>;
 }
