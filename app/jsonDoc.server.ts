@@ -37,7 +37,8 @@ export async function createFromUrlOrRawJson(
 
 export async function createFromUrl(
   url: URL,
-  title?: string
+  title?: string,
+  options?: CreateJsonOptions
 ): Promise<JSONDocument> {
   const docId = createId();
   const doc = {
@@ -47,7 +48,10 @@ export async function createFromUrl(
     title: title ?? url.hostname,
   };
 
-  await DOCUMENTS.put(docId, JSON.stringify(doc));
+  await DOCUMENTS.put(docId, JSON.stringify(doc), {
+    expirationTtl: options?.ttl ?? undefined,
+    metadata: options?.metadata ?? undefined,
+  });
 
   return doc;
 }

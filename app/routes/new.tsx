@@ -1,15 +1,30 @@
 import { LoaderFunction, redirect } from "remix";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
-import { createFromRawJson, createFromUrl } from "~/jsonDoc.server";
+import {
+  createFromRawJson,
+  createFromUrl,
+  CreateJsonOptions,
+} from "~/jsonDoc.server";
 
 export let loader: LoaderFunction = async ({ request, context }) => {
   const url = new URL(request.url);
   const jsonUrl = url.searchParams.get("url");
   const base64EncodedJson = url.searchParams.get("j");
+  const ttl = url.searchParams.get("ttl");
 
   if (!jsonUrl && !base64EncodedJson) {
     return redirect("/");
+  }
+
+  const options: CreateJsonOptions = {};
+
+  if (typeof ttl === "string") {
+    invariant(ttl.match(/^\d+$/), "ttl must be a number");
+
+    options.ttl = parseInt(ttl, 10);
+
+    invariant(options.ttl >= 60, "ttl must be at least 60 seconds");
   }
 
   if (jsonUrl) {
@@ -17,7 +32,7 @@ export let loader: LoaderFunction = async ({ request, context }) => {
 
     invariant(jsonURL, "url must be a valid URL");
 
-    const doc = await createFromUrl(jsonURL, jsonURL.href);
+    const doc = await createFromUrl(jsonURL, jsonURL.href, options);
 
     context.waitUntil(
       sendEvent({
@@ -33,7 +48,11 @@ export let loader: LoaderFunction = async ({ request, context }) => {
   }
 
   if (base64EncodedJson) {
-    const doc = await createFromRawJson("Untitled", atob(base64EncodedJson));
+    const doc = await createFromRawJson(
+      "Untitled",
+      atob(base64EncodedJson),
+      options
+    );
 
     context.waitUntil(
       sendEvent({
