@@ -14,7 +14,6 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
   const [json] = useJson();
   const { selectedPath, highlightedPath, highlightedNodeId } =
     useJsonColumnViewState();
-  const { goToNodeId } = useJsonColumnViewAPI();
   const highlightedItemIsValue = useMemo<boolean>(() => {
     if (highlightedNodeId == null) {
       return false;
@@ -38,20 +37,10 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
             hasHighlightedElement={
               highlightedPath[highlightedPath.length - 2] === column.id
             }
-          >
-            {column.items.map((item) => (
-              <ColumnItem
-                key={item.id}
-                item={item}
-                json={json}
-                isSelected={selectedPath.includes(item.id)}
-                isHighlighted={
-                  highlightedPath[highlightedPath.length - 1] === item.id
-                }
-                onClick={(id) => goToNodeId(id, "columnView")}
-              />
-            ))}
-          </Column>
+            selectedPath={selectedPath}
+            highlightedPath={highlightedPath}
+            items={column.items}
+          />
         );
       })}
       {highlightedItemIsValue ? <BlankColumn /> : null}
