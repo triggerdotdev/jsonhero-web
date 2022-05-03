@@ -6,6 +6,7 @@ import {
 } from "~/hooks/useJsonColumnView";
 import { JsonTreeViewNode, useJsonTreeViewContext } from "~/hooks/useJsonTree";
 import { VirtualNode } from "~/hooks/useVirtualTree";
+import { CopySelectedNodeShortcut } from "./CopySelectedNode";
 import { Body } from "./Primitives/Body";
 import { Mono } from "./Primitives/Mono";
 
@@ -78,31 +79,34 @@ export function JsonTreeView() {
   }, [treeRef.current]);
 
   return (
-    <div
-      className="text-white w-full"
-      ref={parentRef}
-      style={{
-        height: `calc(100vh - 106px)`,
-        overflowY: "auto",
-        overflowX: "hidden",
-      }}
-    >
+    <>
+      <CopySelectedNodeShortcut />
       <div
-        className="relative w-full outline-none"
-        style={{ height: `${tree.totalSize}px` }}
-        {...tree.getTreeProps()}
-        ref={treeRef}
+        className="text-white w-full"
+        ref={parentRef}
+        style={{
+          height: `calc(100vh - 106px)`,
+          overflowY: "auto",
+          overflowX: "hidden",
+        }}
       >
-        {tree.nodes.map((virtualNode) => (
-          <TreeViewNode
-            virtualNode={virtualNode}
-            key={virtualNode.node.id}
-            onToggle={(node, e) => tree.toggleNode(node.id, e)}
-            selectedNodeId={selectedNodeId}
-          />
-        ))}
+        <div
+          className="relative w-full outline-none"
+          style={{ height: `${tree.totalSize}px` }}
+          {...tree.getTreeProps()}
+          ref={treeRef}
+        >
+          {tree.nodes.map((virtualNode) => (
+            <TreeViewNode
+              virtualNode={virtualNode}
+              key={virtualNode.node.id}
+              onToggle={(node, e) => tree.toggleNode(node.id, e)}
+              selectedNodeId={selectedNodeId}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

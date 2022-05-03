@@ -4,6 +4,7 @@ import {
 } from "../hooks/useJsonColumnView";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Columns } from "./Columns";
+import { CopySelectedNodeShortcut } from "./CopySelectedNode";
 
 export function JsonColumnView() {
   const { getColumnViewProps, columns } = useJsonColumnViewState();
@@ -67,5 +68,7 @@ function KeyboardShortcuts() {
     [api]
   );
 
-  return <></>;
+  return <>
+    <CopySelectedNodeShortcut />
+  </>;
 }
