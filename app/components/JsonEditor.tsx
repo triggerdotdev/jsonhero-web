@@ -81,7 +81,7 @@ export function JsonEditor() {
     <CodeEditor
       language="json"
       content={jsonMapped.json}
-      readOnly={false}
+      readOnly={true}
       onUpdate={onUpdate}
       selection={selection}
     />

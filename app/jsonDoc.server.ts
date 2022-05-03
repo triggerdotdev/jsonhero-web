@@ -3,6 +3,7 @@ import { customRandom } from "nanoid";
 type BaseJsonDocument = {
   id: string;
   title: string;
+  readOnly: boolean;
 };
 
 export type RawJsonDocument = BaseJsonDocument & {
@@ -17,6 +18,7 @@ export type UrlJsonDocument = BaseJsonDocument & {
 
 export type CreateJsonOptions = {
   ttl?: number;
+  readOnly?: boolean;
   metadata?: any;
 };
 
@@ -41,11 +43,12 @@ export async function createFromUrl(
   options?: CreateJsonOptions
 ): Promise<JSONDocument> {
   const docId = createId();
-  const doc = {
+  const doc: JSONDocument = {
     id: docId,
     type: <const>"url",
     url: url.href,
     title: title ?? url.hostname,
+    readOnly: options?.readOnly ?? false,
   };
 
   await DOCUMENTS.put(docId, JSON.stringify(doc), {
@@ -62,7 +65,13 @@ export async function createFromRawJson(
   options?: CreateJsonOptions
 ): Promise<JSONDocument> {
   const docId = createId();
-  const doc = { id: docId, type: <const>"raw", contents, title: filename };
+  const doc: JSONDocument = {
+    id: docId,
+    type: <const>"raw",
+    contents,
+    title: filename,
+    readOnly: options?.readOnly ?? false,
+  };
 
   await DOCUMENTS.put(docId, JSON.stringify(doc), {
     expirationTtl: options?.ttl ?? undefined,

@@ -1,4 +1,4 @@
-import { LoaderFunction, redirect } from "remix";
+import { json, LoaderFunction, redirect } from "remix";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
 import {
@@ -12,6 +12,8 @@ export let loader: LoaderFunction = async ({ request, context }) => {
   const jsonUrl = url.searchParams.get("url");
   const base64EncodedJson = url.searchParams.get("j");
   const ttl = url.searchParams.get("ttl");
+  const readOnly = url.searchParams.get("readonly");
+  const title = url.searchParams.get("title");
 
   if (!jsonUrl && !base64EncodedJson) {
     return redirect("/");
@@ -27,12 +29,16 @@ export let loader: LoaderFunction = async ({ request, context }) => {
     invariant(options.ttl >= 60, "ttl must be at least 60 seconds");
   }
 
+  if (typeof readOnly === "string") {
+    options.readOnly = readOnly === "true";
+  }
+
   if (jsonUrl) {
     const jsonURL = new URL(jsonUrl);
 
     invariant(jsonURL, "url must be a valid URL");
 
-    const doc = await createFromUrl(jsonURL, jsonURL.href, options);
+    const doc = await createFromUrl(jsonURL, title ?? jsonURL.href, options);
 
     context.waitUntil(
       sendEvent({
@@ -49,7 +55,7 @@ export let loader: LoaderFunction = async ({ request, context }) => {
 
   if (base64EncodedJson) {
     const doc = await createFromRawJson(
-      "Untitled",
+      title ?? "Untitled",
       atob(base64EncodedJson),
       options
     );

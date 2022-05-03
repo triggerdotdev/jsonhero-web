@@ -142,7 +142,13 @@ function SampleJSONPreview({
 }) {
   return (
     <JsonDocProvider
-      doc={{ id: "sample", title: "Sample", type: "raw", contents: "" }}
+      doc={{
+        id: "sample",
+        title: "Sample",
+        type: "raw",
+        readOnly: false,
+        contents: "",
+      }}
       path={initialSelection}
     >
       <JsonProvider initialJson={json}>
