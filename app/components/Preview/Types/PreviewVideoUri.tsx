@@ -32,7 +32,7 @@ export function PreviewVideoUri({
     <div>
       <PreviewBox>
         <Body>
-          <video controls ref={videoRef}>
+          <video key={src} controls ref={videoRef}>
             <source src={src} type={contentType} />
             Sorry, your browser doesn't support embedded videos.
           </video>
