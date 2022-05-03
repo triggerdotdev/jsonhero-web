@@ -48,12 +48,18 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const jsonResponse = await safeFetch(doc.url);
 
     if (!jsonResponse.ok) {
+      console.log(
+        `Failed to fetch ${doc.url}: ${jsonResponse.status} (${jsonResponse.statusText})`
+      );
+
       throw new Response(jsonResponse.statusText, {
         status: jsonResponse.status,
       });
     }
 
     const json = await jsonResponse.json();
+
+    console.log(`Fetched ${doc.url} with json, returning...`);
 
     return {
       doc,
