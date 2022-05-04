@@ -1,12 +1,13 @@
+import { ExampleDoc } from "./ExampleDoc";
 import { ExampleUrl } from "./ExampleUrl";
 
 export function SampleUrls() {
   return (
     <div className="flex justify-start flex-wrap gap-2">
-      <ExampleUrl
-        url="https://gist.githubusercontent.com/ericallam/332aca65c34dbc0fdb1b3cffbdf3f7a4/raw/4c6e264c3afd3432b608bad628290a7d71035253/unsplash.json"
-        title="Unsplash API Example"
-        displayTitle="Unsplash API"
+      <ExampleDoc
+        id="xW6aDgcbKgwC"
+        title="Unsplash API"
+        path="4.urls.regular"
       />
 
       <ExampleUrl
