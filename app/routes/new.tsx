@@ -14,6 +14,7 @@ export let loader: LoaderFunction = async ({ request, context }) => {
   const ttl = url.searchParams.get("ttl");
   const readOnly = url.searchParams.get("readonly");
   const title = url.searchParams.get("title");
+  const injest = url.searchParams.get("injest");
 
   if (!jsonUrl && !base64EncodedJson) {
     return redirect("/");
@@ -31,6 +32,10 @@ export let loader: LoaderFunction = async ({ request, context }) => {
 
   if (typeof readOnly === "string") {
     options.readOnly = readOnly === "true";
+  }
+
+  if (typeof injest === "string") {
+    options.injest = injest === "true";
   }
 
   if (jsonUrl) {

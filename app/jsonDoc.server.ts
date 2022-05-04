@@ -1,4 +1,5 @@
 import { customRandom } from "nanoid";
+import safeFetch from "./utilities/safeFetch";
 
 type BaseJsonDocument = {
   id: string;
@@ -19,6 +20,7 @@ export type UrlJsonDocument = BaseJsonDocument & {
 export type CreateJsonOptions = {
   ttl?: number;
   readOnly?: boolean;
+  injest?: boolean;
   metadata?: any;
 };
 
@@ -42,7 +44,18 @@ export async function createFromUrl(
   title?: string,
   options?: CreateJsonOptions
 ): Promise<JSONDocument> {
+  if (options?.injest) {
+    const response = await safeFetch(url.href);
+
+    if (!response.ok) {
+      throw new Error(`Failed to injest ${url.href}`);
+    }
+
+    return createFromRawJson(title || url.href, await response.text(), options);
+  }
+
   const docId = createId();
+
   const doc: JSONDocument = {
     id: docId,
     type: <const>"url",
