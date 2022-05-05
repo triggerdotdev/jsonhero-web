@@ -4,6 +4,7 @@ import {
   Outlet,
   useLoaderData,
   useLocation,
+  useParams,
 } from "remix";
 import invariant from "tiny-invariant";
 import { getDocument, JSONDocument } from "~/jsonDoc.server";
@@ -22,7 +23,11 @@ import safeFetch from "~/utilities/safeFetch";
 import { JsonTreeViewProvider } from "~/hooks/useJsonTree";
 import { JsonSearchProvider } from "~/hooks/useJsonSearch";
 import { LargeTitle } from "~/components/Primitives/LargeTitle";
+import { ExtraLargeTitle } from "~/components/Primitives/ExtraLargeTitle";
 import { Body } from "~/components/Primitives/Body";
+import { PageNotFoundTitle } from "~/components/Primitives/PageNotFoundTitle";
+import { SmallSubtitle } from "~/components/Primitives/SmallSubtitle";
+import { Logo } from "~/components/Icons/Logo";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -43,12 +48,18 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const jsonResponse = await safeFetch(doc.url);
 
     if (!jsonResponse.ok) {
+      console.log(
+        `Failed to fetch ${doc.url}: ${jsonResponse.status} (${jsonResponse.statusText})`
+      );
+
       throw new Response(jsonResponse.statusText, {
         status: jsonResponse.status,
       });
     }
 
     const json = await jsonResponse.json();
+
+    console.log(`Fetched ${doc.url} with json, returning...`);
 
     return {
       doc,
@@ -164,5 +175,37 @@ export default function JsonDocumentRoute() {
         </JsonSchemaProvider>
       </JsonProvider>
     </JsonDocProvider>
+  );
+}
+
+export function CatchBoundary() {
+  const params = useParams();
+  return (
+    <div className="flex items-center justify-center w-screen h-screen bg-[rgb(56,52,139)]">
+      <div className="w-2/3">
+        <div className="text-center text-lime-300">
+          <div className="">
+            <Logo />
+          </div>
+          <PageNotFoundTitle className="text-center leading-tight">
+            404
+          </PageNotFoundTitle>
+        </div>
+        <div className="text-center leading-snug text-white">
+          <ExtraLargeTitle className="text-slate-200 mb-8">
+            <b>Sorry</b>! Something went wrong...
+          </ExtraLargeTitle>
+          <SmallSubtitle className="text-slate-200 mb-8">
+            We couldn't find the page <b>'https://jsonhero.io/j/{params.id}</b>'
+          </SmallSubtitle>
+          <a
+            href="/"
+            className="mx-auto w-24 bg-lime-500 text-slate-900 text-lg font-bold px-5 py-1 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition"
+          >
+            HOME
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }

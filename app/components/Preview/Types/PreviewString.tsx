@@ -6,9 +6,11 @@ import {
 import Color from "color";
 import { CodeViewer } from "~/components/CodeViewer";
 import { PreviewBox } from "../PreviewBox";
+import { PreviewAudioUri } from "./PreviewAudioUri";
 import { PreviewDate } from "./PreviewDate";
 import { PreviewImageUri } from "./PreviewImageUri";
 import { PreviewUri } from "./PreviewUri";
+import { PreviewVideoUri } from "./PreviewVideoUri";
 
 export function PreviewString({ info }: { info: JSONStringType }) {
   if (info.format == null) {
@@ -26,6 +28,28 @@ export function PreviewString({ info }: { info: JSONStringType }) {
       ) {
         return (
           <PreviewImageUri
+            src={info.value}
+            contentType={info.format.contentType}
+          />
+        );
+      } else if (
+        info.format.contentType === "video/mp4" ||
+        info.format.contentType === "video/webm" ||
+        info.format.contentType === "video/ogg"
+      ) {
+        return (
+          <PreviewVideoUri
+            src={info.value}
+            contentType={info.format.contentType}
+          />
+        );
+      } else if (
+        info.format.contentType === "audio/mpeg" ||
+        info.format.contentType === "audio/ogg" ||
+        info.format.contentType === "audio/wav"
+      ) {
+        return (
+          <PreviewAudioUri
             src={info.value}
             contentType={info.format.contentType}
           />
