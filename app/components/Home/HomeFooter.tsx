@@ -2,6 +2,7 @@ import { DiscordIcon } from "../Icons/DiscordIcon";
 import { EmailIcon } from "../Icons/EmailIcon";
 import { GithubIcon } from "../Icons/GithubIcon";
 import { Logo } from "../Icons/Logo";
+import { TwitterIcon } from "../Icons/TwitterIcon";
 
 export type HomeFooterProps = {
   maxWidth?: string;
@@ -34,6 +35,11 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
           <li className="ml-2 hover:cursor-pointer">
             <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
               <DiscordIcon />
+            </a>
+          </li>
+          <li className="ml-2 hover:cursor-pointer">
+            <a href="https://twitter.com/json_hero" target="_blank">
+              <TwitterIcon />
             </a>
           </li>
         </ol>
