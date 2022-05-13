@@ -24,6 +24,10 @@ module.exports = {
         inspectorHeight: "calc(100vh - 70px)",
         jsonViewerHeight: "calc(100vh - 106px)",
       },
+      gridTemplateRows: {
+        'app': '40px 40px auto 40px',
+        'app-banner': '40px auto 40px',
+      },
       fontFamily: {
         sans: ["Source Sans Pro", "sans-serif"],
         mono: ["MonoLisa", "monospace"],
