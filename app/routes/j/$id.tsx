@@ -28,6 +28,7 @@ import { Body } from "~/components/Primitives/Body";
 import { PageNotFoundTitle } from "~/components/Primitives/PageNotFoundTitle";
 import { SmallSubtitle } from "~/components/Primitives/SmallSubtitle";
 import { Logo } from "~/components/Icons/Logo";
+import { Banner } from "~/components/Banner";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -145,6 +146,7 @@ export default function JsonDocumentRoute() {
                     </div>
                   </div>
                   <div className="h-screen flex flex-col sm:overflow-hidden">
+                    <Banner />
                     <Header />
                     <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
                       <div className="main-container flex justify-items-stretch h-full">

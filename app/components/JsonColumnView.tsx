@@ -12,9 +12,7 @@ export function JsonColumnView() {
   return (
     <>
       <KeyboardShortcuts />
-      <div {...getColumnViewProps()}>
-        <Columns columns={columns} />
-      </div>
+      <Columns columns={columns} props={getColumnViewProps()} />
     </>
   );
 }
@@ -68,7 +66,9 @@ function KeyboardShortcuts() {
     [api]
   );
 
-  return <>
-    <CopySelectedNodeShortcut />
-  </>;
+  return (
+    <>
+      <CopySelectedNodeShortcut />
+    </>
+  );
 }

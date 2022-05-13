@@ -10,7 +10,13 @@ import { BlankColumn } from "./BlankColumn";
 import { Column } from "./Column";
 import { ColumnItem } from "./ColumnItem";
 
-function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
+function ColumnsElement({
+  columns,
+  props,
+}: {
+  columns: ColumnDefinition[];
+  props?: any;
+}) {
   const [json] = useJson();
   const { selectedPath, highlightedPath, highlightedNodeId } =
     useJsonColumnViewState();
@@ -27,7 +33,10 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
   }, [highlightedPath, json]);
 
   return (
-    <div className="columns flex flex-grow overflow-x-auto no-scrollbar focus:outline-none">
+    <div
+      className="all-columns flex h-full overflow-hidden focus:outline-none"
+      {...props}
+    >
       {columns.map((column) => {
         return (
           <Column

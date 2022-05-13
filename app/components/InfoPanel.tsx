@@ -24,7 +24,7 @@ export function InfoPanel() {
 
   return (
     <>
-      <div className="h-inspectorHeight p-4 bg-white border-l-[1px] border-slate-300 overflow-y-auto no-scrollbar transition dark:bg-slate-800 dark:border-slate-600">
+      <div className="h-full p-4 bg-white border-l-[1px] border-slate-300 overflow-y-auto no-scrollbar transition dark:bg-slate-800 dark:border-slate-600">
         <InfoHeader relatedPaths={relatedPaths} />
 
         <div className="mb-4">

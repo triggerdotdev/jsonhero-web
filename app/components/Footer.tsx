@@ -7,7 +7,7 @@ import { ThemeModeToggler } from "./ThemeModeToggle";
 
 export function Footer() {
   return (
-    <footer className="flex items-center justify-between w-screen h-[30px] bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
+    <footer className="flex items-center justify-between w-screen min-h-[30px] bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
       <ol className="flex pl-3">
         <li className="flex items-center">
           <ArrowKeysIcon className="transition text-slate-300 dark:text-slate-500" />

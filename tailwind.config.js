@@ -20,13 +20,12 @@ module.exports = {
     },
     extend: {
       height: {
-        viewerHeight: "calc(100vh - 146px)",
-        inspectorHeight: "calc(100vh - 70px)",
-        jsonViewerHeight: "calc(100vh - 106px)",
+        // viewerHeight: "calc(100vh - 146px)",
+        // inspectorHeight: "calc(100vh - 70px)",
+        // jsonViewerHeight: "calc(100vh - 106px)",
       },
-      gridTemplateRows: {
-        'app': '40px 40px auto 40px',
-        'app-banner': '40px auto 40px',
+      gridTemplateColumns: {
+        'json-column': 'auto',
       },
       fontFamily: {
         sans: ["Source Sans Pro", "sans-serif"],

@@ -94,10 +94,7 @@ export function CodeEditor(opts: CodeEditorProps) {
 
   return (
     <div>
-      <div
-        className="h-jsonViewerHeight overflow-y-auto no-scrollbar"
-        ref={editor}
-      />
+      <div className="h-full overflow-y-auto no-scrollbar" ref={editor} />
     </div>
   );
 }

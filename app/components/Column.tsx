@@ -20,16 +20,14 @@ function ColumnElement(column: ColumnProps) {
   return (
     <div
       className={
-        "column flex-none border-r-[1px] border-slate-300 w-80 transition dark:border-slate-600"
+        "column flex-none overflow-x-auto no-scrollbar border-r-[1px] border-slate-300 w-80 transition dark:border-slate-600"
       }
     >
       <div className="flex items-center text-slate-800 bg-slate-50 mb-[3px] p-2 pb-0 transition dark:bg-slate-900 dark:text-slate-300">
         {column.icon && <column.icon className="h-6 w-6 mr-1" />}
         <Title className="">{title}</Title>
       </div>
-      <div className="overflow-y-auto h-viewerHeight no-scrollbar">
-        {children}
-      </div>
+      <div className="h-full">{children}</div>
     </div>
   );
 }
