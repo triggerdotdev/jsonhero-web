@@ -9,6 +9,7 @@ import { PreviewBox } from "../PreviewBox";
 import { PreviewAudioUri } from "./PreviewAudioUri";
 import { PreviewDate } from "./PreviewDate";
 import { PreviewImageUri } from "./PreviewImageUri";
+import { PreviewIPFSImage } from "./PreviewIPFSImage";
 import { PreviewUri } from "./PreviewUri";
 import { PreviewVideoUri } from "./PreviewVideoUri";
 
@@ -26,12 +27,18 @@ export function PreviewString({ info }: { info: JSONStringType }) {
         info.format.contentType === "image/svg+xml" ||
         info.format.contentType === "image/webp"
       ) {
-        return (
-          <PreviewImageUri
-            src={info.value}
-            contentType={info.format.contentType}
-          />
-        );
+        const url = new URL(info.value);
+
+        if (url.protocol === "ipfs:") {
+          return <PreviewIPFSImage src={url} />;
+        } else {
+          return (
+            <PreviewImageUri
+              src={info.value}
+              contentType={info.format.contentType}
+            />
+          );
+        }
       } else if (
         info.format.contentType === "video/mp4" ||
         info.format.contentType === "video/webm" ||
