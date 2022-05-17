@@ -1,5 +1,6 @@
 import { DiscordIconTransparent } from "../Icons/DiscordIconTransparent";
 import { EmailIconTransparent } from "../Icons/EmailIconTransparent";
+import { TwitterIcon } from "../Icons/TwitterIcon";
 import { Logo } from "../Icons/Logo";
 import { NewDocument } from "../NewDocument";
 import { GithubStar } from "../UI/GithubStar";
@@ -13,7 +14,7 @@ import {
 export function HomeHeader() {
   return (
     <header className="fixed z-20 flex items-center justify-between w-screen h-[82px] px-4 bg-indigo-700">
-      <div className="flex w-44 mr-3">
+      <div className="flex w-36 sm:w-44 mr-3">
         <Logo />
       </div>
       <ol className="flex items-center gap-2">
@@ -43,6 +44,11 @@ export function HomeHeader() {
         <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
           <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
             <DiscordIconTransparent />
+          </a>
+        </li>
+        <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
+          <a href="https://twitter.com/json_hero" target="_blank">
+            <TwitterIcon />
           </a>
         </li>
       </ol>

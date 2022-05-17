@@ -4,23 +4,15 @@ import { PropertiesValue } from "./Properties/PropertiesValue";
 import { InfoHeader } from "./InfoHeader";
 import { ContainerInfo } from "./ContainerInfo";
 import { useSelectedInfo } from "~/hooks/useSelectedInfo";
-import { useMemo } from "react";
-import { useJson } from "~/hooks/useJson";
-import { getRelatedPathsAtPath } from "~/utilities/relatedValues";
-import { useJsonColumnViewState } from "~/hooks/useJsonColumnView";
 import { useRelatedPaths } from "~/hooks/useRelatedPaths";
 
 export function InfoPanel() {
   const selectedInfo = useSelectedInfo();
-  const { selectedNodeId } = useJsonColumnViewState();
   const relatedPaths = useRelatedPaths();
 
   if (!selectedInfo) {
     return <></>;
   }
-
-  const isSelectedLeafNode =
-    selectedInfo.name !== "object" && selectedInfo.name !== "array";
 
   return (
     <>
@@ -34,7 +26,7 @@ export function InfoPanel() {
 
         <ContainerInfo />
 
-        {isSelectedLeafNode && <RelatedValues relatedPaths={relatedPaths} />}
+        <RelatedValues relatedPaths={relatedPaths} />
       </div>
     </>
   );

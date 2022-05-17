@@ -1,0 +1,402 @@
+[
+  {
+    "movie": "Cars 3",
+    "year": 2017,
+    "release_date": "2017-05-23",
+    "director": "Brian Fee",
+    "character": "Lighting McQueen",
+    "movie_duration": "01:42:25",
+    "timestamp": "00:25:10",
+    "full_line": "Oh, hey, Mr. Sterling. Wow.",
+    "current_wow_in_movie": 3,
+    "total_wows_in_movie": 10,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/43fOBsgY8iOJL0dijvFnfl/ea361efc5131a859c173ab5dd3fdfe1e/Cars_3_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/MwAHRe21gYt7qgtQqQSgi/20188401d4ae548db5c4f861fad96f49/Cars_3_Wow_3_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/7dL6LdSOmZ2mbXgdi4KeZl/6fe6efef423d28e5704637658a3650ec/Cars_3_Wow_3_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/7uciNXhLeVXBByZu8ipAr4/5bcae43dde19fa0bb249e9318953ba09/Cars_3_Wow_3_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/KL91bYDqfWVeK6NdaXh1O/f1baca7b2988a2e5853256be5f9e2c89/Cars_3_Wow_3_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/6PlYbs7cO3iXEEM1szcfHZ/bf10fba861c8e0d2c20ac4714974bde1/Cars_3_Wow_3.mp3"
+  },
+  {
+    "movie": "The Internship",
+    "year": 2013,
+    "release_date": "2013-05-29",
+    "director": "Shawn Levy",
+    "character": "Nick Campbell",
+    "movie_duration": "02:05:02",
+    "timestamp": "00:38:59",
+    "full_line": "Wow! Seven projects.",
+    "current_wow_in_movie": 1,
+    "total_wows_in_movie": 5,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/6XhmTpc1PoiTf0q1nDYMyv/594947f72b4dba7f3c24938a680dd603/The_Internship_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/11VKtDgrvqvU4atLRF9QV9/f1f1ae91486a001e41fb3f66821f1e62/The_Internship_Wow_1_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/6uDteZpujqfebwhVAXoFkm/768bbb0a63dcef265b0040b54e417483/The_Internship_Wow_1_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/4JTqjEo1kTWtALpSdE9pVs/f9242e24e89c9bd32aa3f5212eca08e9/The_Internship_Wow_1_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/5VGJ7XEkBhxEbLMuDR4AIC/e5b80d57316dbb910cd72685f72b8f2b/The_Internship_Wow_1_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/2vwdiSubw2iEcsl1yCUk0A/3cb1ba763c12fd7711823619b4c3d904/The_Internship_Wow_1.mp3"
+  },
+  {
+    "movie": "Cars 3",
+    "year": 2017,
+    "release_date": "2017-05-23",
+    "director": "Brian Fee",
+    "character": "Lighting McQueen",
+    "movie_duration": "01:42:25",
+    "timestamp": "01:03:08",
+    "full_line": "Wow. You don't mince words around here, do you?",
+    "current_wow_in_movie": 10,
+    "total_wows_in_movie": 10,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/43fOBsgY8iOJL0dijvFnfl/ea361efc5131a859c173ab5dd3fdfe1e/Cars_3_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/3KJZ435sr6Y5k00AnZdOJ2/2aadc7fbc687b38c3f1536a9efc16cdb/Cars_3_Wow_10_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/5vQtn6ny9J79PNG16jsJMR/1b4804366cfb9206d70472ab9b7f37e6/Cars_3_Wow_10_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/6kIDoftFyBJOgvCBe5Jr5k/51be6dcd0a40aff052a4215258f6f2cb/Cars_3_Wow_10_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/923BnYGWVuiPpWeM7e6wv/db39600a6bd7c6a807e95d397d129dd4/Cars_3_Wow_10_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/3iZaUMMLnxCH1fIqcXpYZ0/78e6ee967cae46e64a6f65c6f451115a/Cars_3_Wow_10.mp3"
+  },
+  {
+    "movie": "Night at the Museum: Secret of the Tomb",
+    "year": 2014,
+    "release_date": "2014-12-11",
+    "director": "Shawn Levy",
+    "character": "Jedediah Smith",
+    "movie_duration": "01:37:48",
+    "timestamp": "00:39:36",
+    "full_line": "Wow. We're a long way from home, boy.",
+    "current_wow_in_movie": 1,
+    "total_wows_in_movie": 1,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/4cwNnRAOKM1HuAtlH6dscl/52762736d4815c2390619a4009d66d93/Night_at_the_Museum_Secret_of_the_Tomb_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/uHF5B0MFoK8H0S40Sqld9/fa9aca4d8c52ebff4ab4f390196ab0f1/Night_at_the_Museum_Secret_of_the_Tomb_Wow_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/47qSLctyurmw22A3z7X1YG/8651f02d7e58ebb1eb312a26f732515b/Night_at_the_Museum_Secret_of_the_Tomb_Wow_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/3ZLiolsGZkiTp3p8aLJb3d/e330311fcaed4716f7a603d058ee8767/Night_at_the_Museum_Secret_of_the_Tomb_Wow_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/1ZwmDYe0zdKzsy1MJrANSE/e5e0f5ea1c745baf61b205b6e6574605/Night_at_the_Museum_Secret_of_the_Tomb_Wow_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/5o3CSC67KEoIojYH0UMghP/fbf9dea48ac1914eb7f7bffca802b012/Night_at_the_Museum_Secret_of_the_Tomb_Wow.mp3"
+  },
+  {
+    "movie": "The Internship",
+    "year": 2013,
+    "release_date": "2013-05-29",
+    "director": "Shawn Levy",
+    "character": "Nick Campbell",
+    "movie_duration": "02:05:02",
+    "timestamp": "01:26:54",
+    "full_line": "You're so cute. It's beautiful. Wow.",
+    "current_wow_in_movie": 4,
+    "total_wows_in_movie": 5,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/6XhmTpc1PoiTf0q1nDYMyv/594947f72b4dba7f3c24938a680dd603/The_Internship_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/61gtrYzY8qsD3Onc4hUNdx/e1685933255e13fce8578594dbfc30aa/The_Internship_Wow_4_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/3CQQDswj7JP1UU95KdHZ2x/af3e2709d1b8c730a177a56e0395bce3/The_Internship_Wow_4_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/67gEv3fXOzKu5IsscIYAxw/bf8e18b6543eec4ac1952d6c6845cb8f/The_Internship_Wow_4_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/1ZrN3pCfLhimJ2fxxf86n3/43116038f56d789a1514778081c7dcc2/The_Internship_Wow_4_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/5Jphk5c8qFsc7ZiWNeJOKQ/80f43d3758ee8730987c6a859ffec667/The_Internship_Wow_4.mp3"
+  },
+  {
+    "movie": "Cars 3",
+    "year": 2017,
+    "release_date": "2017-05-23",
+    "director": "Brian Fee",
+    "character": "Lighting McQueen",
+    "movie_duration": "01:42:25",
+    "timestamp": "00:22:42",
+    "full_line": "Wow!",
+    "current_wow_in_movie": 2,
+    "total_wows_in_movie": 10,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/43fOBsgY8iOJL0dijvFnfl/ea361efc5131a859c173ab5dd3fdfe1e/Cars_3_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/1xpGU65BqXMplnWjcs0HG7/19ad3a66f22c976b7a345ba7a2d931ce/Cars_3_Wow_2_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/NXF2Haueh2DGbaHOpLDuV/21d43d80d211f6f93062b4f35c6d68ba/Cars_3_Wow_2_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/6mN4TgA3TUcgqUEec3qCOV/c30c18bc851f43db95b3cab17aea0fb0/Cars_3_Wow_2_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/316quJhdUfAkcmKkzPjww0/1780af73d03a7a631c71429d59a064e9/Cars_3_Wow_2_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/7rkrQVW7vsUj6amBflfTQ9/fe38afabd1eeaed70d14a8bbcf68d417/Cars_3_Wow_2.mp3"
+  },
+  {
+    "movie": "Hall Pass",
+    "year": 2011,
+    "release_date": "2011-02-25",
+    "director": "Peter Farrelly and Bobby Farrelly",
+    "character": "Rick Mills",
+    "movie_duration": "01:51:35",
+    "timestamp": "01:26:28",
+    "full_line": "Wow.",
+    "current_wow_in_movie": 6,
+    "total_wows_in_movie": 6,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/6jFEUPmYiKifaTuC2cugm8/22087834d091445fc9393cdd9163a901/Hall_Pass_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/V9JGQ3qgfufm4vUkzyJYI/6182dce642b9f31ab698d7ab448688bd/Hall_Pass_Wow_6_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/3RkKyI4NFfakkYzUEO83hG/21d29c6b7695d1b072084a92e05b6283/Hall_Pass_Wow_6_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/54Zd2b5BQrQi4hvZ8IAg8j/9a719307cdf6525257e0dba0afa9ceee/Hall_Pass_Wow_6_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/7Jo3JA6zl3vzAiIkriLLOR/5f488e12cdc1c7792484f098732b790d/Hall_Pass_Wow_6_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/7mZxDvl1IsR95NAg8mKj0t/43a0b44fd325c1de3f86cf6cec3a80d5/Hall_Pass_Wow_6.mp3"
+  },
+  {
+    "movie": "Cars",
+    "year": 2006,
+    "release_date": "2006-06-09",
+    "director": "John Lasseter",
+    "character": "Lightning McQueen",
+    "movie_duration": "01:56:36",
+    "timestamp": "01:23:13",
+    "full_line": "Wow, you were right!",
+    "current_wow_in_movie": 4,
+    "total_wows_in_movie": 5,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/6dsHUil72TJLYqbwYMEjH4/387a2d9994a2f1fb069d970a0f30ba32/Cars_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/5WH68GXLSVdosuz0ouwFDF/0b55b456669a8bf8a13e6aecd46cae89/Cars_Wow_4_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/7KSwlI2izHJDNtiGAH32SU/7d7698ac27be72753ddc1e2291399b46/Cars_Wow_4_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/6OExsgI6VJHXcjNZtlqBkx/3152bd6700486416ec0b818829de9374/Cars_Wow_4_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/2ibZvAYOWwmoqQtANL3d8o/9c09f29a7f42ecd996ac991b52b2cc65/Cars_Wow_4_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/iJ5LIuyc3pmvEAaiSVSLS/85e36dc0324b28549ea56a6882a03062/Cars_Wow_4.mp3"
+  },
+  {
+    "movie": "The Big Bounce",
+    "year": 2004,
+    "release_date": "2004-01-30",
+    "director": "George Armitage",
+    "character": "Jack Ryan",
+    "movie_duration": "01:28:10",
+    "timestamp": "00:58:00",
+    "full_line": "What is it about the produce section? Wow.",
+    "current_wow_in_movie": 2,
+    "total_wows_in_movie": 2,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/4hPpMWXhuXQ8HzLusmcaS5/4c46fa4fa8bce13b06d8b4444f6150ef/The_Big_Bounce_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/6TPALdqhVTMztHMSw2qOOj/81d512b2ee8b7c05e7e851eae7790d0e/The_Big_Bounce_Wow_2_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/dEuiSxnBLWP26YHaWiHbz/599ac6fb7a6aead87e8e6efdab759f74/The_Big_Bounce_Wow_2_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/7tA15W0lgJr7CpJNCf1m4Z/86a953df81d88f5fa79e35aa1e4e4dc1/The_Big_Bounce_Wow_2_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/1iKZTtL0qQRDek4y4SduD5/bbd83798b30435b43a2df4c360130d72/The_Big_Bounce_Wow_2_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/6pjOYj0xK38VAkPAl1QK7R/a5f083c60ce9e9c4fa93a8be70817d22/The_Big_Bounce_Wow_2.mp3"
+  },
+  {
+    "movie": "The Big Year",
+    "year": 2011,
+    "release_date": "2011-10-14",
+    "director": "David Frankel",
+    "character": "Kenny Bostick",
+    "movie_duration": "01:43:09",
+    "timestamp": "01:08:23",
+    "full_line": "Wow, and here I thought I was the bomb at 728.",
+    "current_wow_in_movie": 3,
+    "total_wows_in_movie": 3,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/pCjGOhbTCQVjLRN9zTwIi/ce7cdf4b40f3549326d881697aa468a1/The_Big_Year_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/uOdKu6VANHZjtwZXeBU8M/bf1f0f44c7bc01faa648a1b97b1205d3/The_Big_Year_Wow_3_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/y9wR96fHZaNnZr367mjyI/1262c2af0400cb1dc8528c3c8e6a83a4/The_Big_Year_Wow_3_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/55z94kbUxNFIL0rYb1i2mH/ca0505ca5e2017b663f18cca8af571b2/The_Big_Year_Wow_3_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/6moRL0SzmkTGzgEuZeVByI/c63fa33d0992c0594ecbaed4fcd7e891/The_Big_Year_Wow_3_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/1dXEYZQP1Fl6CX1roy7ZAH/f31b90a6f961dcc16c16b294f4faf664/The_Big_Year_Wow_3.mp3"
+  },
+  {
+    "movie": "Hall Pass",
+    "year": 2011,
+    "release_date": "2011-02-25",
+    "director": "Peter Farrelly and Bobby Farrelly",
+    "character": "Rick Mills",
+    "movie_duration": "01:51:35",
+    "timestamp": "00:46:55",
+    "full_line": "Wow. This is awkward. I feel like I'm at my first junior high mixer. You know? When you don't know what to say.",
+    "current_wow_in_movie": 3,
+    "total_wows_in_movie": 6,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/6jFEUPmYiKifaTuC2cugm8/22087834d091445fc9393cdd9163a901/Hall_Pass_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/4QcL02MHJ8ApVkbfN8cP6E/264c28c1e9195d87f0206e143c5ca54a/Hall_Pass_Wow_3_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/15h0sMoIhdeaPDB8qSsUN9/36245f66352b595dc40bc4d9903fa5b3/Hall_Pass_Wow_3_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/74fQiVcwuT7ePQemGC7ih4/b102922c97c9ff38f47268d648628a22/Hall_Pass_Wow_3_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/7mSGl1rSVtGdfSacwnKVsu/e7ac36e5684f6b64978987d2f68c43db/Hall_Pass_Wow_3_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/2NBIVPDF4o7cy0epTvPOwR/406cd5c17e9b01511f1e350bb96df352/Hall_Pass_Wow_3.mp3"
+  },
+  {
+    "movie": "No Escape",
+    "year": 2015,
+    "release_date": "2015-08-26",
+    "director": "John Erick Dowdle",
+    "character": "Jack Dwyer",
+    "movie_duration": "01:43:06",
+    "timestamp": "00:08:11",
+    "full_line": "Wow.",
+    "current_wow_in_movie": 1,
+    "total_wows_in_movie": 2,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/R3PGhNHo0k5uhnPM7bqIp/5e2b3723c69f7c70313be19417c6fdba/No_Escape_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/3WxIt1hZQtpqnveyAb4xw3/54773cfd70ab4380c47048324f216fc4/No_Escape_Wow_1_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/2JcYMonzmocD3qABm1dpNg/019b752a33b2517033d75ea5bfd20b59/No_Escape_Wow_1_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/5QMtRpqqyfg9irqjPPx5JO/5a24212c22dc20944b5831e5b81efe4d/No_Escape_Wow_1_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/6aou6AH16gfvXSccxgcZFf/347d5ff951c851d5fe9928323e6067eb/No_Escape_Wow_1_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/24lDtvWBG8mDqaqBM8Qsr0/4c08f87367dd3399efb6a5554f6f4858/No_Escape_Wow_1.mp3"
+  },
+  {
+    "movie": "Midnight in Paris",
+    "year": 2011,
+    "release_date": "2011-05-20",
+    "director": "Woody Allen",
+    "character": "Gil Pender",
+    "movie_duration": "01:33:57",
+    "timestamp": "00:58:22",
+    "full_line": "Wow.",
+    "current_wow_in_movie": 5,
+    "total_wows_in_movie": 10,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/2ZcfSCe2dlfoVzYMr4b9nK/d566e5ad044dee56645f3bffc7200d64/Midnight_in_Paris_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/1DSaYjQ8SnL1Imeuxe0eXE/100d3106c8a0bf5e80372e2187daf325/Midnight_in_Paris_Wow_5_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/eFI1n7voe4CsxkWEWv2q0/36781ed8f50e508e8e1f79c8e65e601a/Midnight_in_Paris_Wow_5_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/6oSaIzfy7k3DJMvvy3j1kN/d77192d7decb3ba9d06a5210a58df1fa/Midnight_in_Paris_Wow_5_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/4LQ4lkhx41XDC6UcMlmjbA/dfd5e3604c85c9fb9d38ea2dfdd02a2f/Midnight_in_Paris_Wow_5_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/2A5G34x8JCQBuYwU4D2l9S/27cc467b3ff5796ff1bbe113a06a6e64/Midnight_in_Paris_Wow_5.mp3"
+  },
+  {
+    "movie": "The Haunting",
+    "year": 1999,
+    "release_date": "1999-07-23",
+    "director": "Jan de Bont",
+    "character": "Luke Sanderson",
+    "movie_duration": "01:52:37",
+    "timestamp": "00:41:34",
+    "full_line": "Wow, I sorta got screwed on the ol' bedroom selection.",
+    "current_wow_in_movie": 4,
+    "total_wows_in_movie": 5,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/6Zu7ux0JYrUWk0UC8vxPtj/d0da8bfbad670655779a9921ac514759/The_Haunting_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/01C128tlGJ79vtlFEPc7V9/184759a9ca6fb1ab57114977afccb2ff/The_Haunting_Wow_4_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/3fR8AigFIp2I1vkSLRhzur/afb0c226daf7806bc9bd9c5e7b008fb4/The_Haunting_Wow_4_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/1OCimrvhXGGfffHqBKaqz7/52d16b12a2d1a8a264b09364afc4c87c/The_Haunting_Wow_4_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/6bwt57tdhBCbhsXZ4i0pce/7f6debc7e52f80c78a618f19c8087985/The_Haunting_Wow_4_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/3yvd3DvmY0XUyqWPLUYLqp/1aabc0f7a6b58003ccdaa61469b8d5ee/The_Haunting_Wow_4.mp3"
+  },
+  {
+    "movie": "Cars 3",
+    "year": 2017,
+    "release_date": "2017-05-23",
+    "director": "Brian Fee",
+    "character": "Lighting McQueen",
+    "movie_duration": "01:42:25",
+    "timestamp": "00:26:23",
+    "full_line": "Wow.",
+    "current_wow_in_movie": 5,
+    "total_wows_in_movie": 10,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/43fOBsgY8iOJL0dijvFnfl/ea361efc5131a859c173ab5dd3fdfe1e/Cars_3_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/4Vp8pVwekVrXfmHT3xYCBm/5775501444824d3ee90acda0698e3472/Cars_3_Wow_5_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/6IoA0jwJiPwyXcSbDCrbJ5/5e65c8caa57c62ce9fc862aaeb327255/Cars_3_Wow_5_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/JrOrzMzr2aHCVPkRJUCae/06c5cb7543e95211a6f99ed89e6ea498/Cars_3_Wow_5_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/6uufhJa3yX9e0Ib0xsOb46/16f9e55246ad32a33a34d58e621b8942/Cars_3_Wow_5_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/4aUtZzrqLHol2Hhb52zgHQ/ed5c4ef03ebba9ae34659e9058e58461/Cars_3_Wow_5.mp3"
+  },
+  {
+    "movie": "Cars 3",
+    "year": 2017,
+    "release_date": "2017-05-23",
+    "director": "Brian Fee",
+    "character": "Lighting McQueen",
+    "movie_duration": "01:42:25",
+    "timestamp": "00:26:11",
+    "full_line": "Wow.",
+    "current_wow_in_movie": 4,
+    "total_wows_in_movie": 10,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/43fOBsgY8iOJL0dijvFnfl/ea361efc5131a859c173ab5dd3fdfe1e/Cars_3_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/7G6jLS5xfYBOepUxkW7R3c/c78d22f63ba51f371a1550834888b9ca/Cars_3_Wow_4_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/lIhPcmNS5L4DnpY41EpUA/96b0c5b44acf3fe16e68d1e67156d41c/Cars_3_Wow_4_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/1h3am3BfJYUm0VXV4uKF9P/e75775ec0621889efd40ce1bc372735a/Cars_3_Wow_4_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/6eO8c3ojQA4rWMlE1hMMOa/c3a9ce4c01b2d342b33144c9f90b9e3e/Cars_3_Wow_4_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/6aJuGg3bTjqd20j59vP1Wv/6cb60311194d3a9aa040882911a5f516/Cars_3_Wow_4.mp3"
+  },
+  {
+    "movie": "Midnight in Paris",
+    "year": 2011,
+    "release_date": "2011-05-20",
+    "director": "Woody Allen",
+    "character": "Gil Pender",
+    "movie_duration": "01:33:57",
+    "timestamp": "01:19:23",
+    "full_line": "Wow. Yes. Yes. Yes.",
+    "current_wow_in_movie": 7,
+    "total_wows_in_movie": 10,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/2ZcfSCe2dlfoVzYMr4b9nK/d566e5ad044dee56645f3bffc7200d64/Midnight_in_Paris_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/7N21xMDnGKfrmBO42xvoc9/c8e05e53e5841c6ba8a659aaf4f6736a/Midnight_in_Paris_Wow_7_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/6CF2q8U9OYgt3yFA7JUBkr/d6ddbf8d57b1cf9d38127735a6266431/Midnight_in_Paris_Wow_7_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/4IoMNf4pF7L3wDZ72Ad31d/efd2e6859fecf3a82a7ecdaf43175826/Midnight_in_Paris_Wow_7_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/5yF8k9rwFj99H69WASEZWU/f9741ed0771da2afd9a26454863137bb/Midnight_in_Paris_Wow_7_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/UmpPa6skALBubhqeKQFpn/2a64c51d16877b8c0bf8c23a74749f7e/Midnight_in_Paris_Wow_7.mp3"
+  },
+  {
+    "movie": "Midnight in Paris",
+    "year": 2011,
+    "release_date": "2011-05-20",
+    "director": "Woody Allen",
+    "character": "Gil Pender",
+    "movie_duration": "01:33:57",
+    "timestamp": "00:48:45",
+    "full_line": "Wow.",
+    "current_wow_in_movie": 3,
+    "total_wows_in_movie": 10,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/2ZcfSCe2dlfoVzYMr4b9nK/d566e5ad044dee56645f3bffc7200d64/Midnight_in_Paris_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/7BBJiej0qdBbuB3Xvimrae/932bc77c9e9a9918949709f846035541/Midnight_in_Paris_Wow_3_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/5tBiVUM6ef2mARH3OXzP92/8ad999e82b7bff5ac4a07d1b4dcb45f3/Midnight_in_Paris_Wow_3_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/39zl8hKK4QP1kASldccYyN/7fc8a7c86872abb9fd527a350365beea/Midnight_in_Paris_Wow_3_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/6rl512MqIH6r04L4O9jHU2/2d843c19937d770860f17719960d8352/Midnight_in_Paris_Wow_3_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/7BDkqWADSOxxYOSQGqNRcr/6fc4696de0d8bcafa487ddea97bb6d3b/Midnight_in_Paris_Wow_3.mp3"
+  },
+  {
+    "movie": "The Internship",
+    "year": 2013,
+    "release_date": "2013-05-29",
+    "director": "Shawn Levy",
+    "character": "Nick Campbell",
+    "movie_duration": "02:05:02",
+    "timestamp": "01:27:38",
+    "full_line": "Wow, a little heart and everything.",
+    "current_wow_in_movie": 5,
+    "total_wows_in_movie": 5,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/6XhmTpc1PoiTf0q1nDYMyv/594947f72b4dba7f3c24938a680dd603/The_Internship_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/1tZ97B7BWV7WhuYJSRL0aQ/c86ca6ce4c67a0f1f5343e68a7b1f428/The_Internship_Wow_5_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/2QlKc3s0Nf10vMLaKGFhVf/a76e1c99d80b13687ae593ad95837706/The_Internship_Wow_5_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/2t0rkVxOB7MVJVzUtVobAV/c396fd523e190052d4b009081b22423f/The_Internship_Wow_5_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/1W9V229ebo4J74HLZGO7pF/f4379d501080fc77221ca8df020a7cd6/The_Internship_Wow_5_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/30nYCeovpGBN5dwVmnTxrf/62c07aaab901bb488bc53ed61d2edffc/The_Internship_Wow_5.mp3"
+  },
+  {
+    "movie": "The Big Year",
+    "year": 2011,
+    "release_date": "2011-10-14",
+    "director": "David Frankel",
+    "character": "Kenny Bostick",
+    "movie_duration": "01:43:09",
+    "timestamp": "00:44:48",
+    "full_line": "Wow!",
+    "current_wow_in_movie": 1,
+    "total_wows_in_movie": 3,
+    "poster": "https://images.ctfassets.net/bs8ntwkklfua/pCjGOhbTCQVjLRN9zTwIi/ce7cdf4b40f3549326d881697aa468a1/The_Big_Year_Poster.jpg",
+    "video": {
+      "1080p": "https://videos.ctfassets.net/bs8ntwkklfua/2IZMW5Aeytz5rtu5MzcFk8/f675c3f6ef153c5df0c81679c80677d4/The_Big_Year_Wow_1_1080p.mp4",
+      "720p": "https://videos.ctfassets.net/bs8ntwkklfua/2K0XjRiHYd8zbdYcmiTMH4/b2e4a9b02db184a4d4bd71fe15ab37a9/The_Big_Year_Wow_1_720p.mp4",
+      "480p": "https://videos.ctfassets.net/bs8ntwkklfua/6QMkzBk6HrfuVxVT97mQg/5877904b163d7ccdc4baa92d449858d8/The_Big_Year_Wow_1_480p.mp4",
+      "360p": "https://videos.ctfassets.net/bs8ntwkklfua/5SFeCoTmyTUEJYtK0kOO92/462afffbd6315182db59271f99a5a829/The_Big_Year_Wow_1_360p.mp4"
+    },
+    "audio": "https://assets.ctfassets.net/bs8ntwkklfua/45tt9xH4Uf3Rgt0EJtykZZ/b5cef0c5d09d368359f4a9c0e66a6663/The_Big_Year_Wow_1.mp3"
+  }
+]

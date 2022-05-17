@@ -28,6 +28,10 @@ export function groupRelatedValues(
       return "undefined";
     } else if (value == null) {
       return "null";
+    } else if (Array.isArray(value)) {
+      return "[...]";
+    } else if (typeof value === "object") {
+      return "{...}";
     } else {
       return value.toString();
     }
@@ -70,6 +74,8 @@ export function getRelatedPathsAtPath(
     const inferredType = inferType(value);
 
     if (inferredType.name !== "array") continue;
+
+    if (index + 1 === pathDepth) continue;
 
     for (
       let childIndex = 0;

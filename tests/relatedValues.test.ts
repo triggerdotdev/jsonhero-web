@@ -46,6 +46,9 @@ const json = {
       },
       id: "B65hEUWW01ErVKDDGImKcBquYhwEAkjW6Ic3lPY0299Cc",
       created_at: "1607587513",
+      another_field: {
+        nested: "value",
+      },
       modifiedAt: null,
     },
     {
@@ -75,11 +78,62 @@ const json = {
       },
       id: "B65hEUWW01ErVKDDGImKcBquYhwEAkjW6Ic3lPY0299Cc",
       created_at: "1607587513",
+      another_field: {
+        nested: "value",
+      },
     },
   ],
 };
 
 describe("calculateRelatedValuesGroups", () => {
+  test("it should return the correct values when path is an object", () => {
+    const path = "$.data.1.another_field";
+
+    const result = calculateRelatedValuesGroups(path, json);
+
+    expect(result).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "paths": Array [
+      "$.data.1.another_field",
+      "$.data.2.another_field",
+    ],
+    "value": "{...}",
+  },
+  Object {
+    "paths": Array [
+      "$.data.0.another_field",
+    ],
+    "value": "undefined",
+  },
+]
+`);
+  });
+
+  test("it should return the correct values when path is an array", () => {
+    const path = "$.data.1.recent_asset_ids";
+
+    const result = calculateRelatedValuesGroups(path, json);
+
+    expect(result).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "paths": Array [
+      "$.data.1.recent_asset_ids",
+      "$.data.2.recent_asset_ids",
+    ],
+    "value": "[...]",
+  },
+  Object {
+    "paths": Array [
+      "$.data.0.recent_asset_ids",
+    ],
+    "value": "undefined",
+  },
+]
+`);
+  });
+
   test("it should return the correct related values grouped by value", () => {
     const path = "$.data.1.playback_ids.0.policy";
 
@@ -106,7 +160,7 @@ describe("calculateRelatedValuesGroups", () => {
         paths: ["$.data.2.playback_ids.1.policy"],
       },
       {
-        value: "[object Object]",
+        value: "{...}",
         paths: ["$.data.2.playback_ids.2.policy"],
       },
     ]);

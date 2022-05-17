@@ -131,7 +131,7 @@ export default function JsonDocumentRoute() {
             <JsonSearchProvider>
               <JsonTreeViewProvider overscan={25}>
                 <div>
-                  <div className="block sm:hidden fixed bg-black/80 h-screen w-screen z-50 text-white">
+                  <div className="block md:hidden fixed bg-black/80 h-screen w-screen z-50 text-white">
                     <div className="flex flex-col items-center justify-center h-full text-center">
                       <LargeTitle>JSON Hero only works on desktop</LargeTitle>
                       <LargeTitle>👇</LargeTitle>
