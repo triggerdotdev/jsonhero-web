@@ -1,3 +1,6 @@
+
+![Docker Pulls](https://img.shields.io/docker/pulls/henryclw/jsonhero-web)
+![Docker Image Size (tag)](https://img.shields.io/docker/image-size/henryclw/jsonhero-web/latest)
 [![Build and Publish Docker Image](https://github.com/henryclw/jsonhero-web/actions/workflows/docker-image.yml/badge.svg)](https://github.com/henryclw/jsonhero-web/actions/workflows/docker-image.yml)
 
 # What's the differences? Docker!
