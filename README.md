@@ -5,6 +5,8 @@
 
 # What's the differences? Docker!
 
+There main difference between this repo and the `jsonhero-io/jsonhero-web` one is **docker**.
+
 Since the pull request for docker image has been rejected. Anyone who's willing to run jsonhero with docker is welcomed to pull my image:
 
 ## Pull image and run
