@@ -1,3 +1,31 @@
+# What's the differences? Docker!
+
+Since the pull request for docker image has been rejected. Anyone who's willing to run jsonhero with docker is welcomed to pull my image:
+
+## Pull image and run
+
+Simple, easy, and fast!
+
+```bash
+# Pull the latest image from Docker Hub
+docker pull henryclw/jsonhero-web:latest
+# Run the container, then visit http://localhost:8787
+docker run -it -d --name jsonhero_web -p 8787:8787 henryclw/jsonhero-web:latest
+```
+
+## Build your own image locally
+
+If you may want to do some customization, this is what you should look for
+
+```bash
+# Build your own image locally
+docker build . -t yourname/jsonhero-web:localdev
+# Run the container, then visit http://localhost:8787
+docker run -it -d --name jsonhero_web_dev -p 8787:8787 yourname/jsonhero-web:localdev
+```
+
+---
+
 <p align="center">
 <img width="300" src="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/8aaa6f22-d600-4f26-cda9-c9f040863400/public"/>
 </p>
@@ -125,28 +153,6 @@ You can also join our [Discord channel](https://discord.gg/ZQq6Had5nP) to hang o
 ## Developing and Deployment
 
 You could choose to deploy this service locally, either directly or by docker.
-
-## Docker
-
-You could pull prebuilt image from Docker Hub or build your own image locally.
-
-### Pull image and run 
-
-```bash
-# Pull the latest image from Docker Hub
-docker pull jsonhero_docker_hub_username/jsonhero-web:latest
-# Run the container, then visit http://localhost:8787
-docker run -it -d --name jsonhero_web -p 8787:8787 jsonhero_docker_hub_username/jsonhero-web:latest
-```
-
-### Build your own image locally
-
-```bash
-# Build your own image locally
-docker build . -t yourname/jsonhero-web:localdev
-# Run the container, then visit http://localhost:8787
-docker run -it -d --name jsonhero_web_dev -p 8787:8787 yourname/jsonhero-web:localdev
-```
 
 ## Directly
 
