@@ -1,3 +1,5 @@
+[![Build and Publish Docker Image](https://github.com/henryclw/jsonhero-web/actions/workflows/docker-image.yml/badge.svg)](https://github.com/henryclw/jsonhero-web/actions/workflows/docker-image.yml)
+
 # What's the differences? Docker!
 
 Since the pull request for docker image has been rejected. Anyone who's willing to run jsonhero with docker is welcomed to pull my image:
