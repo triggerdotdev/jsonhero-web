@@ -6,11 +6,11 @@ export function PreviewImageUri({
   contentType,
 }: {
   src: string;
-  contentType: string;
+  contentType?: string;
 }) {
   return (
     <div>
-      <PreviewBox>
+      <PreviewBox link={src}>
         <Body>
           <img src={src} />
         </Body>
