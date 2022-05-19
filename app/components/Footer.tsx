@@ -2,8 +2,10 @@ import { ThemeModeToggler } from "./ThemeModeToggle";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import ShortcutsDialog from "./ShortcutsDialog";
 import { styled } from "@stitches/react";
-import ToggleShortcutsPanelIcon from "./Icons/ToggleShortcutsPanelIcon";
+import ToggleShortcutsPanelIconMac from "./Icons/ToggleShortcutsPanelIconMac";
+import ToggleShortcutsPanelIconWin from "./Icons/ToggleShortcutsPanelIconWin";
 import { useHotkeys } from "react-hotkeys-hook";
+import { useEffect } from "react";
 
 export const StyledDialog = styled(DialogPrimitive.Root, {
   outline: "none",
@@ -18,7 +20,7 @@ export const DialogTrigger = styled(DialogPrimitive.Trigger, {
   borderRadius: "5px",
   display: "flex",
   justifyContent: "space-between",
-  width: "235px",
+  width: "135px",
   color: "#000000",
 
   "&:hover": {
@@ -28,9 +30,17 @@ export const DialogTrigger = styled(DialogPrimitive.Trigger, {
 });
 
 export function Footer() {
-  useHotkeys("alt+s", (e) => {
+  useHotkeys("opt+s, alt+s", (e) => {
     e.preventDefault();
     document.getElementById("ShortcutPanelTrigger")?.click();
+  });
+
+  let OS = "";
+  useEffect(() => {
+    if (navigator.userAgent.indexOf("Win") != -1) OS = "Windows";
+    if (navigator.userAgent.indexOf("Mac") != -1) OS = "Mac";
+    if (navigator.userAgent.indexOf("Linux") != -1) OS = "Linux";
+    console.log(OS);
   });
 
   return (
@@ -40,11 +50,15 @@ export function Footer() {
           <StyledDialog>
             <DialogTrigger asChild>
               <div style={{ padding: "0px 5px" }} id="ShortcutPanelTrigger">
-                <button style={{ color: "inherit" }} className="pl-2 pr-4 transition">
-                  Open Shortcuts Panel
+                <button style={{ color: "inherit" }} className="transition">
+                  Shortcuts
                 </button>
                 <div className="mt-0.5">
-                  <ToggleShortcutsPanelIcon></ToggleShortcutsPanelIcon>
+                  {OS == "Mac" ? (
+                    <ToggleShortcutsPanelIconWin className="dark:text-white"></ToggleShortcutsPanelIconWin>
+                  ) : (
+                    <ToggleShortcutsPanelIconMac className="dark:text-white"></ToggleShortcutsPanelIconMac>
+                  )}
                 </div>
               </div>
             </DialogTrigger>

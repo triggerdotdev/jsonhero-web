@@ -10,10 +10,14 @@ import LeftArrowIcon from "./Icons/LeftArrowIcon";
 import EscapeIcon from "./Icons/EscapeIcon";
 import LeftBracketIcon from "./Icons/LeftBracketIcon";
 import RightBracketIcon from "./Icons/RightBracketIcon";
-import OpenSearchIcon from "./Icons/OpenSearchIcon";
 import SelectIcon from "./Icons/SelectIcon";
-import ThemeChangeIcon from "./Icons/ThemeChangeIcon";
-import ToggleShortcutsPanelIcon from "./Icons/ToggleShortcutsPanelIcon";
+import ThemeChangeIconMac from "./Icons/ThemeChangeIconMac";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import OpenSearchIconMac from "./Icons/OpenSearchIconMac";
+import OpenSearchIconWin from "./Icons/OpenSearchIconWin";
+import ThemeChangeIconWin from "./Icons/ThemeChangeIconWin";
+import ToggleShortcutsPanelIconMac from "./Icons/ToggleShortcutsPanelIconMac";
+import ToggleShortcutsPanelIconWin from "./Icons/ToggleShortcutsPanelIconWin";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
@@ -134,114 +138,137 @@ export const DialogDescription = StyledDescription;
 export const DialogClose = DialogPrimitive.Close;
 
 function ShortcutsDialog() {
+  let OS = "";
+  useEffect(() => {
+    if (navigator.userAgent.indexOf("Win") != -1) OS = "Windows";
+    if (navigator.userAgent.indexOf("Mac") != -1) OS = "Mac";
+    if (navigator.userAgent.indexOf("Linux") != -1) OS = "Linux";
+
+    console.log(OS);
+  });
+
   return (
-    <DialogContent>
-      <DialogTitle>Shortcuts</DialogTitle>
-      <DialogDescription>
-        View and change every shortcut that the app uses. Hover over the shortcuts to change them.
-      </DialogDescription>
-      <div>
-        <div>
-          <StyledSubheading className="font-bold text-xl">Navigation</StyledSubheading>
-          <ul style={{ width: "fit-content" }}>
-            <StyledListItem>
+    <DialogContent className="dark:text-white dark:bg-slate-900">
+      <DialogClose asChild>
+        <StyledIconContainer>
+          <Cross2Icon className="dark:text-white" />
+        </StyledIconContainer>
+      </DialogClose>
+      <DialogTitle className="dark:text-white">Shortcuts</DialogTitle>
+      <div className="dark:text-white">
+        <div className="dark:text-white">
+          <StyledSubheading className="font-bold text-xl dark:text-white">Navigation</StyledSubheading>
+          <ul className="dark:text-white" style={{ width: "fit-content" }}>
+            <StyledListItem className="dark:text-white">
               Up
               <StyledIconContainer>
-                <UpArrowIcon></UpArrowIcon>
+                <UpArrowIcon className="dark:text-white"></UpArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Down
               <StyledIconContainer>
-                <DownArrowIcon></DownArrowIcon>
+                <DownArrowIcon className="dark:text-white"></DownArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Right
               <StyledIconContainer>
-                <RightArrowIcon></RightArrowIcon>
+                <RightArrowIcon className="dark:text-white"></RightArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Left
               <StyledIconContainer>
-                <LeftArrowIcon></LeftArrowIcon>
+                <LeftArrowIcon className="dark:text-white"></LeftArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Go Back In History
               <StyledIconContainer>
-                <LeftBracketIcon></LeftBracketIcon>
+                <LeftBracketIcon className="dark:text-white"></LeftBracketIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Go Forward In History
               <StyledIconContainer>
-                <RightBracketIcon></RightBracketIcon>
+                <RightBracketIcon className="dark:text-white"></RightBracketIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Reset Path
               <StyledIconContainer>
-                <EscapeIcon></EscapeIcon>
+                <EscapeIcon className="dark:text-white"></EscapeIcon>
               </StyledIconContainer>
             </StyledListItem>
           </ul>
         </div>
         <div>
           <StyledSubheading className="font-bold text-xl">Search</StyledSubheading>
-          <ul style={{ width: "fit-content" }}>
-            <StyledListItem>
+          <ul className="dark:text-white" style={{ width: "fit-content" }}>
+            <StyledListItem className="dark:text-white">
               Open Search
               <StyledIconContainer>
-                <OpenSearchIcon></OpenSearchIcon>
+                {OS == "Mac" ? (
+                  <OpenSearchIconWin className="dark:text-white"></OpenSearchIconWin>
+                ) : (
+                  <OpenSearchIconMac className="dark:text-white"></OpenSearchIconMac>
+                )}
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Up
               <StyledIconContainer>
-                <UpArrowIcon></UpArrowIcon>
+                <UpArrowIcon className="dark:text-white"></UpArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Down
               <StyledIconContainer>
-                <DownArrowIcon></DownArrowIcon>
+                <DownArrowIcon className="dark:text-white"></DownArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Select
               <StyledIconContainer>
-                <SelectIcon></SelectIcon>
+                <SelectIcon className="dark:text-white"></SelectIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Close
               <StyledIconContainer>
-                <EscapeIcon></EscapeIcon>
+                <EscapeIcon className="dark:text-white"></EscapeIcon>
               </StyledIconContainer>
             </StyledListItem>
           </ul>
         </div>
         <div>
           <StyledSubheading className="font-bold text-xl">Other</StyledSubheading>
-          <ul style={{ width: "fit-content" }}>
-            <StyledListItem>
+          <ul className="dark:text-white" style={{ width: "fit-content" }}>
+            <StyledListItem className="dark:text-white">
               Copy Current Selected Node
               <StyledIconContainer>
-                <CopyCurrentSelectedNodeIcon></CopyCurrentSelectedNodeIcon>
+                <CopyCurrentSelectedNodeIcon className="dark:text-white"></CopyCurrentSelectedNodeIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Change Theme
               <StyledIconContainer>
-                <ThemeChangeIcon></ThemeChangeIcon>
+                {OS == "Mac" ? (
+                  <ThemeChangeIconWin className="dark:text-white"></ThemeChangeIconWin>
+                ) : (
+                  <ThemeChangeIconMac className="dark:text-white"></ThemeChangeIconMac>
+                )}
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Toggle Shortcuts Panel
               <StyledIconContainer>
-                <ToggleShortcutsPanelIcon></ToggleShortcutsPanelIcon>
+                {OS == "Mac" ? (
+                  <ToggleShortcutsPanelIconWin className="dark:text-white"></ToggleShortcutsPanelIconWin>
+                ) : (
+                  <ToggleShortcutsPanelIconMac className="dark:text-white"></ToggleShortcutsPanelIconMac>
+                )}
               </StyledIconContainer>
             </StyledListItem>
           </ul>

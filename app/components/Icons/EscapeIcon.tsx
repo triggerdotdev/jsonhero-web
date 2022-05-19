@@ -1,8 +1,14 @@
 import React from "react";
 
-function EscapeIcon() {
+function EscapeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg width="29" height="20" viewBox="0 0 29 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={props.className}
+      width="29"
+      height="20"
+      viewBox="0 0 29 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
       <rect width="29" height="20" rx="4" fill="#C4C4C4" />
       <text
         fill="black"
