@@ -1,0 +1,19 @@
+name: npm audit
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+  schedule:
+   - cron: '0 10 * * *'
+
+jobs:
+  npm-audit-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ybiquitous/npm-audit-fix-action@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
