@@ -1,23 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { styled, keyframes } from "@stitches/react";
 import { violet, blackA, mauve, green } from "@radix-ui/colors";
-import CopyCurrentSelectedNodeIcon from "./Icons/CopyCurrentSelectedNodeIcon";
-import DownArrowIcon from "./Icons/DownArrowIcon";
-import UpArrowIcon from "./Icons/UpArrowIcon";
-import RightArrowIcon from "./Icons/RightArrowIcon";
-import LeftArrowIcon from "./Icons/LeftArrowIcon";
-import EscapeIcon from "./Icons/EscapeIcon";
-import LeftBracketIcon from "./Icons/LeftBracketIcon";
-import RightBracketIcon from "./Icons/RightBracketIcon";
-import SelectIcon from "./Icons/SelectIcon";
-import ThemeChangeIconMac from "./Icons/ThemeChangeIconMac";
 import { Cross2Icon } from "@radix-ui/react-icons";
-import OpenSearchIconMac from "./Icons/OpenSearchIconMac";
-import OpenSearchIconWin from "./Icons/OpenSearchIconWin";
-import ThemeChangeIconWin from "./Icons/ThemeChangeIconWin";
-import ToggleShortcutsPanelIconMac from "./Icons/ToggleShortcutsPanelIconMac";
-import ToggleShortcutsPanelIconWin from "./Icons/ToggleShortcutsPanelIconWin";
+import LetterIcon from "./Icons/LetterIcon";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
@@ -123,6 +109,9 @@ export const StyledIconContainer = styled("div", {
   right: "40px",
   "&:active": {
     outline: "none",
+    "& input": {
+      display: "flex",
+    },
   },
   "&:hover": {
     "& input": {
@@ -131,13 +120,79 @@ export const StyledIconContainer = styled("div", {
   },
 });
 
+export const StyledShortcutChangingInput = styled("input", {
+  width: "120px",
+  height: "20px",
+  borderRadius: "5px",
+  border: "1px solid #444444",
+  position: "absolute",
+  right: "0px",
+  top: "0px",
+  padding: "5px 10px",
+  outline: "none",
+  display: "none",
+  color: "#000000",
+  "&:active": {
+    outline: "none",
+    display: "flex",
+  },
+  "&:focus": {
+    display: "flex",
+  },
+});
+
 export const Dialog = DialogPrimitive.Root;
 export const DialogContent = Content;
 export const DialogTitle = StyledTitle;
 export const DialogDescription = StyledDescription;
 export const DialogClose = DialogPrimitive.Close;
+// @ts-ignore
+let altKeysObj: any = {
+  "–": "-",
+  "≠": `=`,
+  œ: "q",
+  "∑": "w",
+  "´": "e",
+  "®": "r",
+  "†": "t",
+  "¥": "y",
+  "¨": "u",
+  ˆ: "I",
+  ø: "o",
+  π: "p",
+  "“": "[",
+  "‘": "]",
+  "«": '"',
+  å: "a",
+  ß: "s",
+  "∂": "d",
+  ƒ: "f",
+  "©": "g",
+  "˙": "h",
+  "∆": "j",
+  "˚": "k",
+  "¬": "l",
+  "…": ";",
+  æ: "‘",
+  Ω: "z",
+  "≈": "x",
+  ç: "c",
+  "√": "v",
+  "∫": "b",
+  "˜": "n",
+  µ: "m",
+  "≤": ",",
+  "≥": ".",
+  "÷": "/",
+};
 
-function ShortcutsDialog() {
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue((value) => value + 1); // update the state to force render
+}
+
+function ShortcutsDialog({ shortcutObject, iconObject }: any) {
+  const forceUpdate = useForceUpdate();
   let OS = "";
   useEffect(() => {
     if (navigator.userAgent.indexOf("Win") != -1) OS = "Windows";
@@ -146,6 +201,60 @@ function ShortcutsDialog() {
 
     console.log(OS);
   });
+
+  localStorage.setItem("shortcuts", JSON.stringify(shortcutObject));
+
+  let assignShortcut = (event: any) => {
+    let id = event.target.id;
+    let key = event.key;
+    if (isFinite(event.key)) {
+      window.alert("You can not use numbers in the shortcuts!");
+      return;
+    }
+    if (altKeysObj[event.key]) {
+      key = altKeysObj[event.key];
+    }
+    shortcutObject[id] =
+      event.metaKey && !event.altKey && !event.ctrlKey && !event.shiftKey
+        ? "Cmd " + key
+        : event.altKey
+        ? (OS == "Mac" ? "Opt " : "Alt ") + key
+        : event.ctrlKey
+        ? "Ctrl " + key
+        : event.shiftKey
+        ? "Shift " + key
+        : key;
+    console.log(shortcutObject);
+    localStorage.setItem("shortcuts", JSON.stringify(shortcutObject));
+    for (let i in shortcutObject) {
+      let values = shortcutObject[i];
+      //@ts-ignore
+      document.getElementById(i).value = "" + values;
+      getShortcutIcon(i);
+      forceUpdate();
+    }
+  };
+
+  function isLetter(str: string) {
+    return str.length === 1 && str.match(/[a-z]/i);
+  }
+
+  let getShortcutIcon = (shortcut: string) => {
+    let iconsArr: any = [];
+    let IconTag;
+    let shortcutKeysArr = shortcutObject[shortcut].split(" ");
+    for (let i in shortcutKeysArr) {
+      let key = shortcutKeysArr[i];
+      if (isLetter(key)) {
+        IconTag = <LetterIcon style={{ marginLeft: "3px" }} letter={key}></LetterIcon>;
+      } else {
+        IconTag = iconObject[key];
+      }
+      //@ts-ignore
+      iconsArr.push(IconTag);
+    }
+    return iconsArr;
+  };
 
   return (
     <DialogContent className="dark:text-white dark:bg-slate-900">
@@ -162,43 +271,113 @@ function ShortcutsDialog() {
             <StyledListItem className="dark:text-white">
               Up
               <StyledIconContainer>
-                <UpArrowIcon className="dark:text-white"></UpArrowIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("NavigationUpShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="NavigationUpShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Down
               <StyledIconContainer>
-                <DownArrowIcon className="dark:text-white"></DownArrowIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("NavigationDownShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="NavigationDownShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Right
               <StyledIconContainer>
-                <RightArrowIcon className="dark:text-white"></RightArrowIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("NavigationRightShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="NavigationRightShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Left
               <StyledIconContainer>
-                <LeftArrowIcon className="dark:text-white"></LeftArrowIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("NavigationLeftShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="NavigationLeftShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Go Back In History
               <StyledIconContainer>
-                <LeftBracketIcon className="dark:text-white"></LeftBracketIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("GoBackInHistoryShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="GoBackInHistoryShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Go Forward In History
               <StyledIconContainer>
-                <RightBracketIcon className="dark:text-white"></RightBracketIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("GoForwardInHistoryShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="GoForwardInHistoryShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Reset Path
               <StyledIconContainer>
-                <EscapeIcon className="dark:text-white"></EscapeIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("ResetPathShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="ResetPathShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
           </ul>
@@ -209,35 +388,81 @@ function ShortcutsDialog() {
             <StyledListItem className="dark:text-white">
               Open Search
               <StyledIconContainer>
-                {OS == "Mac" ? (
-                  <OpenSearchIconWin className="dark:text-white"></OpenSearchIconWin>
-                ) : (
-                  <OpenSearchIconMac className="dark:text-white"></OpenSearchIconMac>
-                )}
+                <div className="flex justify-between">
+                  {getShortcutIcon("OpenSearchShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="OpenSearchShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Up
               <StyledIconContainer>
-                <UpArrowIcon className="dark:text-white"></UpArrowIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("SearchUpShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="SearchUpShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Down
               <StyledIconContainer>
-                <DownArrowIcon className="dark:text-white"></DownArrowIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("SearchDownShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="SearchDownShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Select
               <StyledIconContainer>
-                <SelectIcon className="dark:text-white"></SelectIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("SearchSelectShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="SearchSelectShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Close
               <StyledIconContainer>
-                <EscapeIcon className="dark:text-white"></EscapeIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("SearchCloseShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="SearchCloseShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
           </ul>
@@ -248,27 +473,49 @@ function ShortcutsDialog() {
             <StyledListItem className="dark:text-white">
               Copy Current Selected Node
               <StyledIconContainer>
-                <CopyCurrentSelectedNodeIcon className="dark:text-white"></CopyCurrentSelectedNodeIcon>
+                <div className="flex justify-between">
+                  {getShortcutIcon("CopyCurrentSelectedNodeShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="CopyCurrentSelectedNodeShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Change Theme
               <StyledIconContainer>
-                {OS == "Mac" ? (
-                  <ThemeChangeIconWin className="dark:text-white"></ThemeChangeIconWin>
-                ) : (
-                  <ThemeChangeIconMac className="dark:text-white"></ThemeChangeIconMac>
-                )}
+                <div className="flex justify-between">
+                  {getShortcutIcon("ChangeThemeShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="ChangeThemeShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
             <StyledListItem className="dark:text-white">
               Toggle Shortcuts Panel
               <StyledIconContainer>
-                {OS == "Mac" ? (
-                  <ToggleShortcutsPanelIconWin className="dark:text-white"></ToggleShortcutsPanelIconWin>
-                ) : (
-                  <ToggleShortcutsPanelIconMac className="dark:text-white"></ToggleShortcutsPanelIconMac>
-                )}
+                <div className="flex justify-between">
+                  {getShortcutIcon("ToggleShortcutsPanelShortcutInput").map((icon: any) => {
+                    return icon;
+                  })}
+                </div>
+                <StyledShortcutChangingInput
+                  onKeyDown={(e) => {
+                    e.preventDefault();
+                    assignShortcut(e);
+                  }}
+                  id="ToggleShortcutsPanelShortcutInput"></StyledShortcutChangingInput>
               </StyledIconContainer>
             </StyledListItem>
           </ul>

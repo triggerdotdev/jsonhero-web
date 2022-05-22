@@ -14,10 +14,10 @@ function ThemeChangeIconWin(props: React.SVGProps<SVGSVGElement>) {
         fill="black"
         xmlSpace="preserve"
         style={{ whiteSpace: "pre" }}
-        font-family="Source Sans Pro"
-        font-size="12"
-        font-weight="600"
-        letter-spacing="0em">
+        fontFamily="Source Sans Pro"
+        fontSize="12"
+        fontWeight="600"
+        letterSpacing="0em">
         <tspan x="7" y="13.766">
           Alt
         </tspan>

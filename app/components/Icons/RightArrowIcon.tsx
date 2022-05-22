@@ -14,7 +14,7 @@ function RightArrowIcon(props: React.SVGProps<SVGSVGElement>) {
         d="M6.99998 6.9228L6.99998 13.3582C6.99998 14.1719 7.91996 14.645 8.58176 14.1716L13.1244 10.9222C13.6852 10.5211 13.6814 9.68608 13.1168 9.29016L8.57419 6.10409C7.9115 5.6393 6.99998 6.11336 6.99998 6.9228Z"
         fill="black"
         stroke="black"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

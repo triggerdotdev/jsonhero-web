@@ -14,10 +14,10 @@ function EscapeIcon(props: React.SVGProps<SVGSVGElement>) {
         fill="black"
         xmlSpace="preserve"
         style={{ whiteSpace: "pre" }}
-        font-family="Source Sans Pro"
-        font-size="12"
-        font-weight="500"
-        letter-spacing="0em">
+        fontFamily="Source Sans Pro"
+        fontSize="12"
+        fontWeight="500"
+        letterSpacing="0em">
         <tspan x="6" y="12.766">
           esc
         </tspan>
