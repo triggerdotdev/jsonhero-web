@@ -1,20 +1,12 @@
 import { useJsonSearchApi, useJsonSearchState } from "~/hooks/useJsonSearch";
-import {
-  ChevronRightIcon,
-  ExclamationIcon,
-  SearchIcon,
-} from "@heroicons/react/outline";
+import { ChevronRightIcon, ExclamationIcon, SearchIcon } from "@heroicons/react/outline";
 import { EscapeKeyIcon } from "./Icons/EscapeKeyIcon";
 import { ArrowKeysUpDownIcon } from "./Icons/ArrowKeysUpDownIcon";
 import { LoadingIcon } from "./Icons/LoadingIcon";
 import { Body } from "./Primitives/Body";
 import { ShortcutIcon } from "./Icons/ShortcutIcon";
 import { Mono } from "./Primitives/Mono";
-import {
-  useCombobox,
-  UseComboboxState,
-  UseComboboxStateChangeOptions,
-} from "downshift";
+import { useCombobox, UseComboboxState, UseComboboxStateChangeOptions } from "downshift";
 import { getComponentSlices, getStringSlices } from "~/utilities/search";
 import classnames from "~/utilities/classnames";
 import { iconForValue } from "~/utilities/icons";
@@ -38,7 +30,14 @@ export function SearchPalette({
   const searchApi = useJsonSearchApi();
 
   useHotkeys(
-    "esc",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["SearchCloseShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+      : "esc",
     (e) => {
       e.preventDefault();
       searchApi.reset();
@@ -89,8 +88,7 @@ export function SearchPalette({
     },
     onHighlightedIndexChange: ({ highlightedIndex }) =>
       highlightedIndex && rowVirtualizer.scrollToIndex(highlightedIndex),
-    onInputValueChange: ({ inputValue }) =>
-      inputValue ? searchApi.search(inputValue) : searchApi.reset(),
+    onInputValueChange: ({ inputValue }) => (inputValue ? searchApi.search(inputValue) : searchApi.reset()),
   });
 
   const handleInputKeyDown = useCallback(
@@ -105,14 +103,8 @@ export function SearchPalette({
 
   return (
     <>
-      <div
-        {...cb.getComboboxProps()}
-        className="max-h-[60vh] px-4 pt-4 overflow-hidden"
-      >
-        <label
-          {...cb.getLabelProps()}
-          className="relative text-slate-400 focus-within:text-slate-600 block"
-        >
+      <div {...cb.getComboboxProps()} className="max-h-[60vh] px-4 pt-4 overflow-hidden">
+        <label {...cb.getLabelProps()} className="relative text-slate-400 focus-within:text-slate-600 block">
           <SearchIcon className="absolute w-7 h-7 top-1/2 transform -translate-y-1/2 left-3 text-slate-700 transition dark:text-white pointer-events-none" />
           <input
             {...cb.getInputProps({ onKeyDown: handleInputKeyDown })}
@@ -124,19 +116,16 @@ export function SearchPalette({
         </label>
         <div className="flex flex-col mt-4 mb-2">
           <div className="results flex">
-            {searchState.status !== "idle" &&
-              (!searchState.results || searchState.results.length === 0) && (
-                <div className="results-loading flex">
-                  <LoadingIcon className="animate-spin h-5 w-5 mr-1"></LoadingIcon>
-                  <Body className="text-slate-400">Loading…</Body>
-                </div>
-              )}
+            {searchState.status !== "idle" && (!searchState.results || searchState.results.length === 0) && (
+              <div className="results-loading flex">
+                <LoadingIcon className="animate-spin h-5 w-5 mr-1"></LoadingIcon>
+                <Body className="text-slate-400">Loading…</Body>
+              </div>
+            )}
             {searchState.results && searchState.results.length > 0 && (
               <div className="results-returned">
                 <Body className="text-slate-400">
-                  {searchState.results.length === 1
-                    ? "1 result"
-                    : `${searchState.results.length} results`}
+                  {searchState.results.length === 1 ? "1 result" : `${searchState.results.length} results`}
                 </Body>
               </div>
             )}
@@ -146,22 +135,15 @@ export function SearchPalette({
               (!searchState.results || searchState.results.length === 0) && (
                 <div className="results-none flex">
                   <ExclamationIcon className="h-5 w-5 mr-1 text-white"></ExclamationIcon>
-                  <Body className="text-slate-400">
-                    No results for "{cb.inputValue}"
-                  </Body>
+                  <Body className="text-slate-400">No results for "{cb.inputValue}"</Body>
                 </div>
               )}
           </div>
         </div>
         <ul
           {...cb.getMenuProps({ ref: listRef })}
-          className="w-full max-h-[calc(60vh-120px)] overflow-y-auto relative"
-        >
-          <li
-            key="total-size"
-            style={{ height: rowVirtualizer.totalSize }}
-            className="mb-[1rem]"
-          />
+          className="w-full max-h-[calc(60vh-120px)] overflow-y-auto relative">
+          <li key="total-size" style={{ height: rowVirtualizer.totalSize }} className="mb-[1rem]" />
           {rowVirtualizer.virtualItems.map((virtualRow) => {
             const result = (searchState.results ?? [])[virtualRow.index];
 
@@ -196,9 +178,7 @@ export function SearchPalette({
         </div>
         <div className="flex items-center gap-1">
           <ArrowKeysUpDownIcon className="transition text-slate-300 dark:text-slate-500" />
-          <Body className="text-slate-700 dakr:text-slate-500">
-            to navigate
-          </Body>
+          <Body className="text-slate-700 dakr:text-slate-500">to navigate</Body>
         </div>
         <div className="flex items-center gap-1">
           <EscapeKeyIcon className="transition text-slate-300 dark:text-slate-500" />
@@ -215,11 +195,7 @@ type SearchItemProps = {
   isHighlighted: boolean;
 };
 
-export function SearchItem({
-  itemProps,
-  result,
-  isHighlighted,
-}: SearchItemProps) {
+export function SearchItem({ itemProps, result, isHighlighted }: SearchItemProps) {
   const heroPath = new JSONHeroPath(result.item);
   const [json] = useJson();
 
@@ -227,32 +203,21 @@ export function SearchItem({
   const ItemIcon = iconForValue(itemValue);
 
   return (
-    <li
-      {...itemProps}
-      className={classnames("flex w-full hover:cursor-pointer")}
-    >
+    <li {...itemProps} className={classnames("flex w-full hover:cursor-pointer")}>
       <div
         className={classnames(
           "w-full h-[calc(100%-4px)] mb-2 rounded-sm group",
           isHighlighted ? "bg-indigo-700" : "bg-slate-100 dark:bg-slate-900"
-        )}
-      >
+        )}>
         <div className="flex items-center w-full py-2 pl-4 pr-3">
           <ItemIcon
             className={classnames(
               "h-6 w-6",
-              isHighlighted
-                ? "text-white"
-                : "text-slate-500 dark:text-slate-400"
-            )}
-          ></ItemIcon>
+              isHighlighted ? "text-white" : "text-slate-500 dark:text-slate-400"
+            )}></ItemIcon>
           <div className="flex flex-col ml-3">
             <div className="flex w-full items-baseline">
-              <SearchPathResult
-                path={heroPath}
-                searchResult={result}
-                isHighlighted={isHighlighted}
-              />
+              <SearchPathResult path={heroPath} searchResult={result} isHighlighted={isHighlighted} />
             </div>
             <div className="key-value flex justify-between">
               {result.score.rawValue && (
@@ -262,14 +227,13 @@ export function SearchItem({
                   matches={result.score.rawValueMatch}
                 />
               )}
-              {result.score.formattedValue &&
-                result.score.formattedValue !== result.score.rawValue && (
-                  <SearchResultValue
-                    isHighlighted={isHighlighted}
-                    stringValue={result.score.formattedValue}
-                    matches={result.score.formattedValueMatch}
-                  />
-                )}
+              {result.score.formattedValue && result.score.formattedValue !== result.score.rawValue && (
+                <SearchResultValue
+                  isHighlighted={isHighlighted}
+                  stringValue={result.score.formattedValue}
+                  matches={result.score.formattedValueMatch}
+                />
+              )}
             </div>
           </div>
         </div>
@@ -339,14 +303,8 @@ function SearchPathResult({
                       ? "text-white underline underline-offset-1"
                       : "text-indigo-600 dark:text-indigo-400"
                   )
-                : classnames(
-                    "text-base",
-                    isHighlighted
-                      ? "text-white"
-                      : "text-slate-800 dark:text-slate-400"
-                  )
-            }
-          >
+                : classnames("text-base", isHighlighted ? "text-white" : "text-slate-800 dark:text-slate-400")
+            }>
             {slice.slice.slice}
           </span>
         ) : slice.type === "ellipsis" ? (
@@ -354,11 +312,8 @@ function SearchPathResult({
             key={i}
             className={classnames(
               "text-base",
-              isHighlighted
-                ? "text-white"
-                : "text-slate-600 dark:text-slate-400"
-            )}
-          >
+              isHighlighted ? "text-white" : "text-slate-600 dark:text-slate-400"
+            )}>
             …
           </Body>
         ) : (
@@ -366,9 +321,7 @@ function SearchPathResult({
             key={i}
             className={classnames(
               "w-3 h-3 mx-[1px] relative top-[2px]",
-              isHighlighted
-                ? "text-white"
-                : "text-slate-600 dark:text-slate-400"
+              isHighlighted ? "text-white" : "text-slate-600 dark:text-slate-400"
             )}
           />
         )
@@ -390,23 +343,13 @@ function SearchResultValue({
   className?: string;
   textSize?: "text-xs" | "text-sm" | "text-base" | "text-lg";
 }) {
-  const output = createOutputForMatch(
-    stringValue,
-    isHighlighted,
-    textSize,
-    matches
-  );
+  const output = createOutputForMatch(stringValue, isHighlighted, textSize, matches);
 
   return (
     <Body
       className={
-        className ??
-        classnames(
-          "mr-2",
-          isHighlighted ? `text-white` : "text-slate-600 dark:text-slate-400"
-        )
-      }
-    >
+        className ?? classnames("mr-2", isHighlighted ? `text-white` : "text-slate-600 dark:text-slate-400")
+      }>
       {output}
     </Body>
   );
@@ -440,8 +383,7 @@ function createOutputForMatch(
                       : "text-indigo-600 dark:text-indigo-400"
                   )
                 : ""
-            }
-          >
+            }>
             {s.slice}
           </span>
         );

@@ -5,12 +5,18 @@ export function CopySelectedNodeShortcut() {
   const selectedInfo = useSelectedInfo();
 
   useHotkeys(
-    'shift+c,shift+C',
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["CopyCurrentSelectedNodeShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+      : "shift+c,shift+C",
     (e) => {
       e.preventDefault();
-      const selectedJSON = selectedInfo?.name === "string"
-        ? selectedInfo?.value
-        : JSON.stringify(selectedInfo?.value, null, 2);
+      const selectedJSON =
+        selectedInfo?.name === "string" ? selectedInfo?.value : JSON.stringify(selectedInfo?.value, null, 2);
       navigator.clipboard.writeText(selectedJSON);
     },
     [selectedInfo]

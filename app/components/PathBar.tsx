@@ -1,26 +1,14 @@
-import {
-  ChevronRightIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-} from "@heroicons/react/outline";
+import { ChevronRightIcon, ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/outline";
 import { ColumnViewNode } from "~/useColumnView";
 import { Body } from "./Primitives/Body";
-import {
-  useJsonColumnViewAPI,
-  useJsonColumnViewState,
-} from "../hooks/useJsonColumnView";
+import { useJsonColumnViewAPI, useJsonColumnViewState } from "../hooks/useJsonColumnView";
 import { useHotkeys } from "react-hotkeys-hook";
 import { memo } from "react";
 
 export function PathBar() {
   const { selectedNodes, highlightedNodeId } = useJsonColumnViewState();
 
-  return (
-    <PathBarLink
-      selectedNodes={selectedNodes}
-      highlightedNodeId={highlightedNodeId}
-    />
-  );
+  return <PathBarLink selectedNodes={selectedNodes} highlightedNodeId={highlightedNodeId} />;
 }
 
 export type PathBarLinkProps = {
@@ -28,10 +16,7 @@ export type PathBarLinkProps = {
   highlightedNodeId?: string;
 };
 
-export function PathBarLink({
-  selectedNodes,
-  highlightedNodeId,
-}: PathBarLinkProps) {
+export function PathBarLink({ selectedNodes, highlightedNodeId }: PathBarLinkProps) {
   const { goToNodeId } = useJsonColumnViewAPI();
 
   return (
@@ -56,7 +41,14 @@ export function PathHistoryControls() {
   const { goBack, goForward } = useJsonColumnViewAPI();
 
   useHotkeys(
-    "[",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["GoBackInHistoryShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+      : "[",
     () => {
       goBack();
     },
@@ -64,7 +56,14 @@ export function PathHistoryControls() {
   );
 
   useHotkeys(
-    "]",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["GoForwardInHistoryShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+      : "]",
     () => {
       goForward();
     },
@@ -76,15 +75,13 @@ export function PathHistoryControls() {
       <button
         className="flex justify-center items-center w-[26px] h-[26px] disabled:text-slate-400 disabled:text-opacity-50 text-slate-700 hover:bg-slate-300 hover:disabled:bg-transparent rounded-sm transition dark:disabled:text-slate-700 dark:text-slate-400 dark:hover:bg-white dark:hover:bg-opacity-[5%] dark:hover:disabled:bg-transparent"
         disabled={!canGoBack}
-        onClick={goBack}
-      >
+        onClick={goBack}>
         <ArrowLeftIcon className="w-5 h-6" />
       </button>
       <button
         className="flex justify-center items-center w-[26px] h-[26px] disabled:text-slate-400 disabled:text-opacity-50 text-slate-700 hover:bg-slate-300 hover:disabled:bg-transparent rounded-sm transition dark:disabled:text-slate-700 dark:text-slate-400 dark:hover:bg-white dark:hover:bg-opacity-[5%] dark:hover:disabled:bg-transparent"
         disabled={!canGoForward}
-        onClick={goForward}
-      >
+        onClick={goForward}>
         <ArrowRightIcon className="w-5 h-6" />
       </button>
     </div>
@@ -107,8 +104,7 @@ function PathBarElement({
       className="flex items-center min-w-0"
       style={{
         flexShrink: 1,
-      }}
-    >
+      }}>
       <div
         className={`flex items-center hover:cursor-pointer min-w-0 transition ${
           isHighlighted
@@ -118,8 +114,7 @@ function PathBarElement({
         style={{
           flexShrink: 1,
         }}
-        onClick={() => onClick && onClick(node.id)}
-      >
+        onClick={() => onClick && onClick(node.id)}>
         <div className="w-4 flex-shrink-[0.5] flex-grow-0 flex-col justify-items-center whitespace-nowrap overflow-x-hidden transition dark:text-slate-400">
           {node.icon && <node.icon className="h-3 w-3" />}
         </div>

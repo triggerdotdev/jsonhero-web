@@ -1,7 +1,4 @@
-import {
-  useJsonColumnViewAPI,
-  useJsonColumnViewState,
-} from "../hooks/useJsonColumnView";
+import { useJsonColumnViewAPI, useJsonColumnViewState } from "../hooks/useJsonColumnView";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Columns } from "./Columns";
 import { CopySelectedNodeShortcut } from "./CopySelectedNode";
@@ -23,7 +20,15 @@ function KeyboardShortcuts() {
   const api = useJsonColumnViewAPI();
 
   useHotkeys(
-    "down",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["NavigationDownShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+          .replace("Arrow", "")
+      : "down",
     (e) => {
       e.preventDefault();
       api.goToNextSibling();
@@ -33,7 +38,15 @@ function KeyboardShortcuts() {
   );
 
   useHotkeys(
-    "up",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["NavigationUpShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+          .replace("Arrow", "")
+      : "up",
     (e) => {
       e.preventDefault();
       api.goToPreviousSibling();
@@ -42,7 +55,15 @@ function KeyboardShortcuts() {
   );
 
   useHotkeys(
-    "right",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["NavigationRightShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+          .replace("Arrow", "")
+      : "right",
     (e) => {
       e.preventDefault();
       api.goToChildren();
@@ -51,7 +72,15 @@ function KeyboardShortcuts() {
   );
 
   useHotkeys(
-    "left,alt+left",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["NavigationLeftShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+          .replace("Arrow", "")
+      : "left,alt+left",
     (e) => {
       e.preventDefault();
       api.goToParent({ source: e });
@@ -60,7 +89,15 @@ function KeyboardShortcuts() {
   );
 
   useHotkeys(
-    "esc",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["ResetPathShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+          .replace("Arrow", "")
+      : "esc",
     (e) => {
       e.preventDefault();
       api.resetSelection();
@@ -68,7 +105,9 @@ function KeyboardShortcuts() {
     [api]
   );
 
-  return <>
-    <CopySelectedNodeShortcut />
-  </>;
+  return (
+    <>
+      <CopySelectedNodeShortcut />
+    </>
+  );
 }

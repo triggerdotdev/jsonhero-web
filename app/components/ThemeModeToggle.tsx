@@ -11,15 +11,23 @@ export function ThemeModeToggler() {
   };
   const SwitchIcon = theme === "light" ? MoonIcon : SunIcon;
 
-  useHotkeys("alt+t", () => toggleTheme(), [toggleTheme]);
+  useHotkeys(
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["ChangeThemeShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+      : "alt+t",
+    () => toggleTheme(),
+    [toggleTheme]
+  );
 
   return (
     <button
-      className={`flex text-xl items-center pr-2 ${
-        theme === "light" ? "text-slate-800" : "text-white"
-      }`}
-      onClick={toggleTheme}
-    >
+      className={`flex text-xl items-center pr-2 ${theme === "light" ? "text-slate-800" : "text-white"}`}
+      onClick={toggleTheme}>
       <SwitchIcon />
     </button>
   );

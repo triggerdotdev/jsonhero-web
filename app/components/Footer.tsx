@@ -51,11 +51,23 @@ function useForceUpdate() {
 
 export function Footer() {
   const forceUpdate = useForceUpdate();
-  useHotkeys("opt+s, alt+s", (e) => {
-    e.preventDefault();
-    forceUpdate();
-    document.getElementById("ShortcutPanelTrigger")?.click();
-  });
+  //@ts-ignore
+  useHotkeys(
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["ToggleShortcutsPanelShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+          .replace("Arrow", "")
+      : "opt+s, alt+s",
+    (e) => {
+      e.preventDefault();
+      forceUpdate();
+      document.getElementById("ShortcutPanelTrigger")?.click();
+    }
+  );
 
   let OS = "";
   useEffect(() => {

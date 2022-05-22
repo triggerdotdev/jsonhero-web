@@ -16,7 +16,14 @@ export function SearchBar() {
   const searchApi = useJsonSearchApi();
 
   useHotkeys(
-    "cmd+k",
+    localStorage.getItem("shortcuts")
+      ? //@ts-ignore
+        JSON.parse(localStorage.getItem("shortcuts"))
+          ["OpenSearchShortcutInput"].split(" ")
+          .join("+")
+          .replace("Opt", "Alt")
+          .replace("Arrow", "")
+      : "cmd+k",
     (e) => {
       e.preventDefault();
       setIsOpen(true);
@@ -28,8 +35,7 @@ export function SearchBar() {
     <Dialog open={isOpen} onOpenChange={() => !isOpen && searchApi.reset()}>
       <DialogTrigger
         className="focus:outline-none focus-visible:outline-none"
-        onClick={() => setIsOpen(true)}
-      >
+        onClick={() => setIsOpen(true)}>
         <div className="flex justify-between items-center group w-44 py-[3px] rounded-sm bg-slate-300 transition hover:bg-slate-400 hover:bg-opacity-50 dark:bg-slate-800 dark:text-slate-400 hover:cursor-pointer hover:dark:bg-slate-700 hover:dark:bg-opacity-70">
           <div className="flex items-center pl-1">
             <SearchIcon className="w-4 h-4 mr-1" />
@@ -53,8 +59,7 @@ export function SearchBar() {
           "top-0 left-[50%] -translate-x-[50%]",
           "mt-[60px]",
           "bg-white border-[1px] border-slate-500 dark:border-slate-700 dark:bg-slate-800"
-        )}
-      >
+        )}>
         <SearchPalette
           onClose={() => setIsOpen(false)}
           onSelect={(entry) => {
