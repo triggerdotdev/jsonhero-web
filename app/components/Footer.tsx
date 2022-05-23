@@ -22,8 +22,7 @@ export const DialogTrigger = styled(DialogPrimitive.Trigger, {
   color: "#000000",
 
   "&:hover": {
-    backgroundColor: "#4237C9",
-    color: "#ffffff",
+    color: "#4237C9",
   },
 });
 
@@ -40,12 +39,12 @@ export function Footer() {
           <StyledDialog>
             <DialogTrigger asChild>
               <div style={{ padding: "0px 5px" }} id="ShortcutPanelTrigger">
-                <button style={{ color: "inherit" }} className="pl-2 pr-4 transition">
+                <button style={{ color: "inherit" }} className="flex dark:text-white">
                   Open Shortcuts Panel
+                  <div className="mt-0.5 ml-01">
+                    <ToggleShortcutsPanelIcon></ToggleShortcutsPanelIcon>
+                  </div>
                 </button>
-                <div className="mt-0.5">
-                  <ToggleShortcutsPanelIcon></ToggleShortcutsPanelIcon>
-                </div>
               </div>
             </DialogTrigger>
             <ShortcutsDialog></ShortcutsDialog>
