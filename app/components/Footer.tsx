@@ -39,8 +39,7 @@ export const DialogTrigger = styled(DialogPrimitive.Trigger, {
   width: "135px",
 
   "&:hover": {
-    backgroundColor: "#4237C9",
-    color: "#ffffff",
+    color: "#4237C9",
   },
 });
 
@@ -148,14 +147,16 @@ export function Footer() {
           <StyledDialog>
             <DialogTrigger asChild>
               <div style={{ padding: "0px 5px" }} id="ShortcutPanelTrigger">
-                <button className="dark:text-white">Shortcuts</button>
-                <div className="mt-0.5">
-                  <div className="flex justify-between">
-                    {getShortcutIcon("ToggleShortcutsPanelShortcutInput").map((icon: any) => {
-                      return icon;
-                    })}
+                <button className="flex dark:text-white">
+                  Shortcuts
+                  <div className="mt-0.5 ml-1">
+                    <div className="flex justify-between dark:text-black">
+                      {getShortcutIcon("ToggleShortcutsPanelShortcutInput").map((icon: any) => {
+                        return icon;
+                      })}
+                    </div>
                   </div>
-                </div>
+                </button>
               </div>
             </DialogTrigger>
             <ShortcutsDialog shortcutObject={shortcutObject} iconObject={iconObject}></ShortcutsDialog>
