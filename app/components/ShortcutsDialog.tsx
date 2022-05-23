@@ -14,6 +14,7 @@ import OpenSearchIcon from "./Icons/OpenSearchIcon";
 import SelectIcon from "./Icons/SelectIcon";
 import ThemeChangeIcon from "./Icons/ThemeChangeIcon";
 import ToggleShortcutsPanelIcon from "./Icons/ToggleShortcutsPanelIcon";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
@@ -135,15 +136,15 @@ export const DialogClose = DialogPrimitive.Close;
 
 function ShortcutsDialog() {
   return (
-    <DialogContent>
-      <DialogTitle>Shortcuts</DialogTitle>
-      <DialogDescription>
-        View and change every shortcut that the app uses. Hover over the shortcuts to change them.
-      </DialogDescription>
-      <div>
-        <div>
+    <DialogContent className="dark:text-white dark:bg-slate-900">
+        <StyledIconContainer>
+          <Cross2Icon className="dark:text-white" />
+        </StyledIconContainer>
+      <DialogTitle className="dark:text-white">Shortcuts</DialogTitle>
+      <div className="dark:text-white">
+        <div className="dark:text-white">
           <StyledSubheading className="font-bold text-xl">Navigation</StyledSubheading>
-          <ul style={{ width: "fit-content" }}>
+          <ul className="dark:text-white" style={{ width: "fit-content" }}>
             <StyledListItem>
               Up
               <StyledIconContainer>
@@ -190,7 +191,7 @@ function ShortcutsDialog() {
         </div>
         <div>
           <StyledSubheading className="font-bold text-xl">Search</StyledSubheading>
-          <ul style={{ width: "fit-content" }}>
+          <ul className="dark:text-white" style={{ width: "fit-content" }}>
             <StyledListItem>
               Open Search
               <StyledIconContainer>
@@ -225,7 +226,7 @@ function ShortcutsDialog() {
         </div>
         <div>
           <StyledSubheading className="font-bold text-xl">Other</StyledSubheading>
-          <ul style={{ width: "fit-content" }}>
+          <ul className="dark:text-white" style={{ width: "fit-content" }}>
             <StyledListItem>
               Copy Current Selected Node
               <StyledIconContainer>
