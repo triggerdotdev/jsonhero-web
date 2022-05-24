@@ -9,7 +9,7 @@ import {
 import invariant from "tiny-invariant";
 import { getDocument, JSONDocument } from "~/jsonDoc.server";
 import { JsonDocProvider } from "~/hooks/useJsonDoc";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { JsonProvider } from "~/hooks/useJson";
 import { Footer } from "~/components/Footer";
 import { Header } from "~/components/Header";
@@ -28,6 +28,7 @@ import { Body } from "~/components/Primitives/Body";
 import { PageNotFoundTitle } from "~/components/Primitives/PageNotFoundTitle";
 import { SmallSubtitle } from "~/components/Primitives/SmallSubtitle";
 import { Logo } from "~/components/Icons/Logo";
+
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -108,6 +109,7 @@ export const meta: MetaFunction = ({
 };
 
 export default function JsonDocumentRoute() {
+  let [isShortcutPanelOpen, setIsShortcutPanelOpen] = useState(false);
   const loaderData = useLoaderData<LoaderData>();
 
   // Redirect back to `/j/${slug}` if the path is set, that way refreshing the page doesn't go to the path in the url.
@@ -118,7 +120,7 @@ export default function JsonDocumentRoute() {
       window.history.replaceState({}, "", location.pathname);
     }
   }, [loaderData.path]);
-
+  
   return (
     <JsonDocProvider
       doc={loaderData.doc}
@@ -149,7 +151,8 @@ export default function JsonDocumentRoute() {
                     <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
                       <div className="main-container flex justify-items-stretch h-full">
                         <SideBar />
-                        <JsonView>
+                        <JsonView isShortcutPanelOpen={isShortcutPanelOpen}
+                          setIsShortcutPanelOpen={setIsShortcutPanelOpen}>
                           <Outlet />
                         </JsonView>
 
@@ -166,7 +169,7 @@ export default function JsonDocumentRoute() {
                       </div>
                     </div>
 
-                    <Footer></Footer>
+                    <Footer isOpen={isShortcutPanelOpen} setIsOpen={setIsShortcutPanelOpen}></Footer>
                   </div>
                 </div>
               </JsonTreeViewProvider>
