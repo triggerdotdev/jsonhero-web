@@ -135,10 +135,15 @@ export const DialogDescription = StyledDescription;
 export const DialogClose = DialogPrimitive.Close;
 
 function ShortcutsDialog() {
+  useHotkeys("esc, cmd+k, ctrl+k", (e)=>{
+    e.preventDefault();
+    document.getElementById("closeShortcutPanel")?.click();
+  })
+  
   return (
     <DialogContent className="dark:text-white dark:bg-slate-900">
       <DialogClose asChild>
-        <StyledIconContainer>
+        <StyledIconContainer id="closeShortcutPanel">
           <Cross2Icon className="dark:text-white" />
         </StyledIconContainer>
       </DialogClose>
