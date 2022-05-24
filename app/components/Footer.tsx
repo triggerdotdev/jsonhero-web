@@ -38,10 +38,10 @@ export function Footer() {
         <li className="flex items-center">
           <StyledDialog>
             <DialogTrigger asChild>
-              <div style={{ padding: "0px 5px" }} id="ShortcutPanelTrigger">
+              <div style={{ padding: "0px 5px" }} className="flex dark:text-white" id="ShortcutPanelTrigger">
                 <button style={{ color: "inherit" }} className="flex dark:text-white">
                   Open Shortcuts Panel
-                  <div className="mt-0.5 ml-01">
+                  <div className="mt-0.5 ml-1">
                     <ToggleShortcutsPanelIcon></ToggleShortcutsPanelIcon>
                   </div>
                 </button>
