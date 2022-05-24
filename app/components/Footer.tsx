@@ -4,6 +4,7 @@ import ShortcutsDialog from "./ShortcutsDialog";
 import { styled } from "@stitches/react";
 import ToggleShortcutsPanelIcon from "./Icons/ToggleShortcutsPanelIcon";
 import { useHotkeys } from "react-hotkeys-hook";
+import {useState} from "react";
 
 export const StyledDialog = styled(DialogPrimitive.Root, {
   outline: "none",
@@ -27,17 +28,25 @@ export const DialogTrigger = styled(DialogPrimitive.Trigger, {
 });
 
 export function Footer() {
+  let [isOpen, setIsOpen] = useState(false);
+  
   useHotkeys("alt+s", (e) => {
     e.preventDefault();
-    document.getElementById("ShortcutPanelTrigger")?.click();
+    setIsOpen(true)
   });
 
   return (
     <footer className="flex items-center justify-between w-screen h-[30px] bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
       <ol className="flex pl-3">
         <li className="flex items-center">
-          <StyledDialog>
-            <DialogTrigger asChild>
+          <StyledDialog open={isOpen}
+            onOpenChange={() => {
+              !isOpen;
+            }}>
+            <DialogTrigger
+              onClick={() => {
+                setIsOpen(true);
+              }} asChild>
               <div style={{ padding: "0px 5px" }} className="flex dark:text-white" id="ShortcutPanelTrigger">
                 <button style={{ color: "inherit" }} className="flex dark:text-white">
                   Open Shortcuts Panel
@@ -47,7 +56,8 @@ export function Footer() {
                 </button>
               </div>
             </DialogTrigger>
-            <ShortcutsDialog></ShortcutsDialog>
+            <ShortcutsDialog openState={isOpen}
+              setOpenState={setIsOpen}></ShortcutsDialog>
           </StyledDialog>
         </li>
       </ol>
