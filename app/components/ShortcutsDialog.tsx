@@ -15,6 +15,7 @@ import SelectIcon from "./Icons/SelectIcon";
 import ThemeChangeIcon from "./Icons/ThemeChangeIcon";
 import ToggleShortcutsPanelIcon from "./Icons/ToggleShortcutsPanelIcon";
 import { Cross2Icon } from "@radix-ui/react-icons";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
@@ -135,11 +136,11 @@ export const DialogDescription = StyledDescription;
 export const DialogClose = DialogPrimitive.Close;
 
 function ShortcutsDialog() {
-  useHotkeys("esc, cmd+k, ctrl+k", (e)=>{
+  useHotkeys("esc", (e) => {
     e.preventDefault();
     document.getElementById("closeShortcutPanel")?.click();
-  })
-  
+  });
+
   return (
     <DialogContent className="dark:text-white dark:bg-slate-900">
       <DialogClose asChild>
