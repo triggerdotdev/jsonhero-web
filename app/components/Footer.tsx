@@ -48,7 +48,7 @@ function useForceUpdate() {
   return () => setValue((value) => value + 1); // update the state to force render
 }
 
-export function Footer() {
+export function Footer({ isOpen, setIsOpen }: any) {
   const forceUpdate = useForceUpdate();
   //@ts-ignore
   useHotkeys(
@@ -64,7 +64,7 @@ export function Footer() {
     (e) => {
       e.preventDefault();
       forceUpdate();
-      document.getElementById("ShortcutPanelTrigger")?.click();
+      setIsOpen(true);
     }
   );
 
@@ -144,8 +144,16 @@ export function Footer() {
     <footer className="flex items-center justify-between w-screen h-[30px] bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
       <ol className="flex pl-3">
         <li className="flex items-center">
-          <StyledDialog>
-            <DialogTrigger asChild>
+          <StyledDialog
+            open={isOpen}
+            onOpenChange={() => {
+              !isOpen;
+            }}>
+            <DialogTrigger
+              onClick={() => {
+                setIsOpen(true);
+              }}
+              asChild>
               <div style={{ padding: "0px 5px" }} id="ShortcutPanelTrigger">
                 <button className="flex dark:text-white">
                   Shortcuts
@@ -159,7 +167,11 @@ export function Footer() {
                 </button>
               </div>
             </DialogTrigger>
-            <ShortcutsDialog shortcutObject={shortcutObject} iconObject={iconObject}></ShortcutsDialog>
+            <ShortcutsDialog
+              openState={isOpen}
+              setOpenState={setIsOpen}
+              shortcutObject={shortcutObject}
+              iconObject={iconObject}></ShortcutsDialog>
           </StyledDialog>
         </li>
       </ol>

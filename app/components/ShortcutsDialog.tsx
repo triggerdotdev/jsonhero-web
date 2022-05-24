@@ -192,7 +192,7 @@ function useForceUpdate() {
   return () => setValue((value) => value + 1); // update the state to force render
 }
 
-function ShortcutsDialog({ shortcutObject, iconObject }: any) {
+function ShortcutsDialog({ shortcutObject, iconObject, openState, setOpenState }: any) {
   const forceUpdate = useForceUpdate();
   let OS = "";
   useEffect(() => {
@@ -259,13 +259,17 @@ function ShortcutsDialog({ shortcutObject, iconObject }: any) {
 
   useHotkeys("esc", (e) => {
     e.preventDefault();
-    document.getElementById("closeShortcutPanel")?.click();
+    setOpenState(false);
   });
 
   return (
     <DialogContent className="dark:text-white dark:bg-slate-900">
       <DialogClose asChild>
-        <StyledIconContainer id="closeShortcutPanel">
+        <StyledIconContainer
+          onClick={() => {
+            setOpenState(false);
+          }}
+          id="closeShortcutPanel">
           <Cross2Icon className="dark:text-white" />
         </StyledIconContainer>
       </DialogClose>
