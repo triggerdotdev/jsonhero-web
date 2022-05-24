@@ -27,9 +27,7 @@ export const DialogTrigger = styled(DialogPrimitive.Trigger, {
   },
 });
 
-export function Footer() {
-  let [isOpen, setIsOpen] = useState(false);
-  
+export function Footer({ isOpen, setIsOpen }: any) {
   useHotkeys("alt+s", (e) => {
     e.preventDefault();
     setIsOpen(true)
