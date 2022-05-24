@@ -4,7 +4,6 @@ import ShortcutsDialog from "./ShortcutsDialog";
 import { styled } from "@stitches/react";
 import ToggleShortcutsPanelIcon from "./Icons/ToggleShortcutsPanelIcon";
 import { useHotkeys } from "react-hotkeys-hook";
-import {useState} from "react";
 
 export const StyledDialog = styled(DialogPrimitive.Root, {
   outline: "none",
