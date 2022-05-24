@@ -4,6 +4,7 @@ import { styled, keyframes } from "@stitches/react";
 import { violet, blackA, mauve, green } from "@radix-ui/colors";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import LetterIcon from "./Icons/LetterIcon";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
@@ -256,10 +257,15 @@ function ShortcutsDialog({ shortcutObject, iconObject }: any) {
     return iconsArr;
   };
 
+  useHotkeys("esc", (e) => {
+    e.preventDefault();
+    document.getElementById("closeShortcutPanel")?.click();
+  });
+
   return (
     <DialogContent className="dark:text-white dark:bg-slate-900">
       <DialogClose asChild>
-        <StyledIconContainer>
+        <StyledIconContainer id="closeShortcutPanel">
           <Cross2Icon className="dark:text-white" />
         </StyledIconContainer>
       </DialogClose>

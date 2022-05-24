@@ -26,6 +26,7 @@ export function SearchBar() {
       : "cmd+k",
     (e) => {
       e.preventDefault();
+      document.getElementById("closeShortcutPanel")?.click();
       setIsOpen(true);
     },
     [setIsOpen]
