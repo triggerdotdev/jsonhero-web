@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { styled, keyframes } from "@stitches/react";
 import { violet, blackA, mauve, green } from "@radix-ui/colors";
@@ -135,16 +135,18 @@ export const DialogTitle = StyledTitle;
 export const DialogDescription = StyledDescription;
 export const DialogClose = DialogPrimitive.Close;
 
-function ShortcutsDialog() {
+function ShortcutsDialog({openState, setOpenState}:any) {
   useHotkeys("esc", (e) => {
     e.preventDefault();
-    document.getElementById("closeShortcutPanel")?.click();
+    setOpenState(false);
   });
 
   return (
     <DialogContent className="dark:text-white dark:bg-slate-900">
       <DialogClose asChild>
-        <StyledIconContainer id="closeShortcutPanel">
+        <StyledIconContainer onClick={()=>{
+            setOpenState(false)
+          }} id="closeShortcutPanel">
           <Cross2Icon className="dark:text-white" />
         </StyledIconContainer>
       </DialogClose>
