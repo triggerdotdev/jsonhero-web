@@ -10,7 +10,7 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { useJsonColumnViewAPI } from "~/hooks/useJsonColumnView";
 import { useJsonSearchApi } from "~/hooks/useJsonSearch";
 
-export function SearchBar() {
+export function SearchBar({ isShortcutPanelOpen, setIsShortcutPanelOpen }: any) {
   const [isOpen, setIsOpen] = useState(false);
   const { goToNodeId } = useJsonColumnViewAPI();
   const searchApi = useJsonSearchApi();
@@ -19,7 +19,7 @@ export function SearchBar() {
     "cmd+k",
     (e) => {
       e.preventDefault();
-      document.getElementById("closeShortcutPanel")?.click();
+      setIsShortcutPanelOpen(false);
       setIsOpen(true);
     },
     [setIsOpen]
