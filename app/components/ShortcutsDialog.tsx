@@ -137,51 +137,53 @@ export const DialogClose = DialogPrimitive.Close;
 function ShortcutsDialog() {
   return (
     <DialogContent className="dark:text-white dark:bg-slate-900">
+      <DialogClose asChild>
         <StyledIconContainer>
           <Cross2Icon className="dark:text-white" />
         </StyledIconContainer>
+      </DialogClose>
       <DialogTitle className="dark:text-white">Shortcuts</DialogTitle>
       <div className="dark:text-white">
         <div className="dark:text-white">
           <StyledSubheading className="font-bold text-xl">Navigation</StyledSubheading>
           <ul className="dark:text-white" style={{ width: "fit-content" }}>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Up
               <StyledIconContainer>
                 <UpArrowIcon></UpArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Down
               <StyledIconContainer>
                 <DownArrowIcon></DownArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Right
               <StyledIconContainer>
                 <RightArrowIcon></RightArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Left
               <StyledIconContainer>
                 <LeftArrowIcon></LeftArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Go Back In History
               <StyledIconContainer>
                 <LeftBracketIcon></LeftBracketIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Go Forward In History
               <StyledIconContainer>
                 <RightBracketIcon></RightBracketIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Reset Path
               <StyledIconContainer>
                 <EscapeIcon></EscapeIcon>
@@ -192,31 +194,31 @@ function ShortcutsDialog() {
         <div>
           <StyledSubheading className="font-bold text-xl">Search</StyledSubheading>
           <ul className="dark:text-white" style={{ width: "fit-content" }}>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Open Search
               <StyledIconContainer>
                 <OpenSearchIcon></OpenSearchIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Up
               <StyledIconContainer>
                 <UpArrowIcon></UpArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Down
               <StyledIconContainer>
                 <DownArrowIcon></DownArrowIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Select
               <StyledIconContainer>
                 <SelectIcon></SelectIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Close
               <StyledIconContainer>
                 <EscapeIcon></EscapeIcon>
@@ -227,19 +229,19 @@ function ShortcutsDialog() {
         <div>
           <StyledSubheading className="font-bold text-xl">Other</StyledSubheading>
           <ul className="dark:text-white" style={{ width: "fit-content" }}>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Copy Current Selected Node
               <StyledIconContainer>
                 <CopyCurrentSelectedNodeIcon></CopyCurrentSelectedNodeIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Change Theme
               <StyledIconContainer>
                 <ThemeChangeIcon></ThemeChangeIcon>
               </StyledIconContainer>
             </StyledListItem>
-            <StyledListItem>
+            <StyledListItem className="dark:text-white">
               Toggle Shortcuts Panel
               <StyledIconContainer>
                 <ToggleShortcutsPanelIcon></ToggleShortcutsPanelIcon>
