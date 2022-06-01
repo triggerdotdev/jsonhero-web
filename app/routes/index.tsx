@@ -11,7 +11,7 @@ import { GithubBanner } from "~/components/Home/HomeGithubBanner";
 export default function Index() {
   return (
     <div className="overflow-x-hidden">
-      <HomeHeader />
+      <HomeHeader fixed={true} />
       <HomeHeroSection />
       <GithubBanner />
       <HomeInfoBoxSection />

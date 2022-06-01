@@ -11,9 +11,13 @@ import {
   PopoverTrigger,
 } from "../UI/Popover";
 
-export function HomeHeader() {
+export function HomeHeader({ fixed }: { fixed?: boolean }) {
   return (
-    <header className="fixed z-20 flex items-center justify-between w-screen h-[82px] px-4 bg-indigo-700">
+    <header
+      className={`${
+        fixed ? "fixed" : ""
+      } z-20 flex items-center justify-between w-screen h-[82px] px-4 bg-indigo-700`}
+    >
       <div className="flex w-36 sm:w-44 mr-3">
         <Logo />
       </div>

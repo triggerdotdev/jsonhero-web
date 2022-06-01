@@ -1,3 +1,4 @@
+import { Link } from "remix";
 import { DiscordIcon } from "../Icons/DiscordIcon";
 import { EmailIcon } from "../Icons/EmailIcon";
 import { GithubIcon } from "../Icons/GithubIcon";
@@ -41,6 +42,10 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
             <a href="https://twitter.com/json_hero" target="_blank">
               <TwitterIcon />
             </a>
+          </li>
+
+          <li className="ml-2 hover:cursor-pointer text-indigo-700">
+            <Link to="/privacy">Privacy Policy</Link>
           </li>
         </ol>
       </div>
