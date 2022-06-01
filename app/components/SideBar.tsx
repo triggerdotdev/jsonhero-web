@@ -6,6 +6,7 @@ import { useJsonDoc } from "~/hooks/useJsonDoc";
 import { ToolTip } from "./ToolTip";
 import { Body } from "./Primitives/Body";
 import { ShortcutIcon } from "./Icons/ShortcutIcon";
+import { useTheme } from "./ThemeProvider";
 
 export function SideBar() {
   const { doc } = useJsonDoc();
@@ -81,6 +82,23 @@ function SidebarLink({
 
   const isActive = location.pathname === to;
 
+  const { minimal } = useJsonDoc();
+  const [theme] = useTheme();
+
+  const queryParams = new URLSearchParams();
+
+  if (typeof minimal === "boolean") {
+    queryParams.set("minimal", String(minimal));
+
+    if (theme) {
+      queryParams.set("theme", theme);
+    }
+  }
+
+  const href = `${to}${
+    queryParams.toString().length > 0 ? `?${queryParams.toString()}` : ""
+  }`;
+
   if (hotKey) {
     const navigate = useNavigate();
     useHotkeys(
@@ -88,7 +106,7 @@ function SidebarLink({
       (e) => {
         e.preventDefault();
         if (!isActive && to) {
-          navigate(to);
+          navigate(href);
         }
       },
       [navigate, isActive, to]
@@ -100,7 +118,7 @@ function SidebarLink({
     : "relative w-10 h-10 mb-1 text-slate-700 hover:bg-slate-300 rounded-sm cursor:pointer transition dark:text-white dark:hover:bg-slate-700";
 
   return !!to ? (
-    <Link to={to} prefetch={isActive ? "none" : "render"}>
+    <Link to={href} prefetch={isActive ? "none" : "render"}>
       <li className={classes}>{children}</li>
     </Link>
   ) : (

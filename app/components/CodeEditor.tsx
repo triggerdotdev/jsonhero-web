@@ -6,6 +6,7 @@ import {
   ViewUpdate,
 } from "@uiw/react-codemirror";
 import { useRef, useEffect } from "react";
+import { useJsonDoc } from "~/hooks/useJsonDoc";
 import { getEditorSetup } from "~/utilities/codeMirrorSetup";
 import { darkTheme, lightTheme } from "~/utilities/codeMirrorTheme";
 import { useTheme } from "./ThemeProvider";
@@ -92,10 +93,14 @@ export function CodeEditor(opts: CodeEditorProps) {
     }
   }, [selection, view, setSelectionRef.current]);
 
+  const { minimal } = useJsonDoc();
+
   return (
     <div>
       <div
-        className="h-jsonViewerHeight overflow-y-auto no-scrollbar"
+        className={`${
+          minimal ? "h-jsonViewerHeightMinimal" : "h-jsonViewerHeight"
+        } overflow-y-auto no-scrollbar`}
         ref={editor}
       />
     </div>

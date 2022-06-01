@@ -3,6 +3,7 @@ import { colorForItemAtPath } from "~/utilities/colors";
 import { IconComponent } from "~/useColumnView";
 import { useJson } from "../hooks/useJson";
 import { memo, useMemo } from "react";
+import { useJsonDoc } from "~/hooks/useJsonDoc";
 
 export type ColumnProps = {
   id: string;
@@ -15,6 +16,7 @@ export type ColumnProps = {
 function ColumnElement(column: ColumnProps) {
   const { id, title, children } = column;
   const [json] = useJson();
+  const { minimal } = useJsonDoc();
   const iconColor = useMemo(() => colorForItemAtPath(id, json), [id, json]);
 
   return (
@@ -27,7 +29,11 @@ function ColumnElement(column: ColumnProps) {
         {column.icon && <column.icon className="h-6 w-6 mr-1" />}
         <Title className="">{title}</Title>
       </div>
-      <div className="overflow-y-auto h-viewerHeight no-scrollbar">
+      <div
+        className={`overflow-y-auto ${
+          minimal ? "h-viewerHeightMinimal" : "h-viewerHeight"
+        } no-scrollbar`}
+      >
         {children}
       </div>
     </div>
