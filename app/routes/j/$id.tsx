@@ -133,7 +133,7 @@ export default function JsonDocumentRoute() {
       path={loaderData.path}
       key={loaderData.doc.id}
       minimal={loaderData.minimal}
-      >
+    >
       <JsonProvider initialJson={loaderData.json}>
         <JsonSchemaProvider>
           <JsonColumnViewProvider>
