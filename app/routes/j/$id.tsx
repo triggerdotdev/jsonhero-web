@@ -34,6 +34,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   }
 
   const path = getPathFromRequest(request);
+  const minimal = getMinimalFromRequest(request);
 
   if (doc.type == "url") {
     console.log(`Fetching ${doc.url}...`);
@@ -56,12 +57,14 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       doc,
       json,
       path,
+      minimal,
     };
   } else {
     return {
       doc,
       json: JSON.parse(doc.contents),
       path,
+      minimal,
     };
   }
 };
@@ -82,7 +85,24 @@ function getPathFromRequest(request: Request): string | null {
   return `$.${path}`;
 }
 
-type LoaderData = { doc: JSONDocument; json: unknown; path?: string };
+function getMinimalFromRequest(request: Request): boolean | undefined {
+  const url = new URL(request.url);
+
+  const minimal = url.searchParams.get("minimal");
+
+  if (!minimal) {
+    return;
+  }
+
+  return minimal === "true";
+}
+
+type LoaderData = {
+  doc: JSONDocument;
+  json: unknown;
+  path?: string;
+  minimal?: boolean;
+};
 
 export const meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -108,7 +128,11 @@ export default function JsonDocumentRoute() {
   }, [loaderData.path]);
 
   return (
-    <JsonDocProvider doc={loaderData.doc} path={loaderData.path} key={loaderData.doc.id}>
+    <JsonDocProvider
+      doc={loaderData.doc}
+      path={loaderData.path}
+      key={loaderData.doc.id}
+      minimal={loaderData.minimal}>
       <JsonProvider initialJson={loaderData.json}>
         <JsonSchemaProvider>
           <JsonColumnViewProvider>
@@ -126,7 +150,7 @@ export default function JsonDocumentRoute() {
                     </div>
                   </div>
                   <div className="h-screen flex flex-col sm:overflow-hidden">
-                    <Header />
+                    {!loaderData.minimal && <Header />}
                     <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
                       <div className="main-container flex justify-items-stretch h-full">
                         <SideBar />
