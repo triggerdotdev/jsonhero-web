@@ -21,7 +21,11 @@ export function JsonDocProvider({
   path?: string;
   minimal?: boolean;
 }) {
-  return <JsonDocContext.Provider value={{ doc, path, minimal }}>{children}</JsonDocContext.Provider>;
+  return (
+    <JsonDocContext.Provider value={{ doc, path, minimal }}>
+      {children}
+    </JsonDocContext.Provider>
+  );
 }
 
 export function useJsonDoc(): JsonDocType {
