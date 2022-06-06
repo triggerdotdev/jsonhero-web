@@ -17,7 +17,7 @@ export function GithubStarSmall({ className }: GithubStarSmallProps) {
       className="flex p-1 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition hover:cursor-pointer"
     >
       <div className="flex items-center gap-1.5 pl-1 rounded-l-sm">
-        <GithubIconSimple className="w-4 h-4 ml-1 fill-slate-700 dark:fill-white transition"></GithubIconSimple>
+        <GithubIconSimple className="w-4 h-4 ml-1 text-slate-700 dark:text-white transition"></GithubIconSimple>
         <Body className="font-semibold text-slate-800 dark:text-slate-100">
           Star
         </Body>
