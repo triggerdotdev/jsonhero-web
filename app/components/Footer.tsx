@@ -1,11 +1,15 @@
+import { useJsonDoc } from "~/hooks/useJsonDoc";
 import { ArrowKeysIcon } from "./Icons/ArrowKeysIcon";
 import { CopyShortcutIcon } from "./Icons/CopyShortcutIcon";
 import { EscapeKeyIcon } from "./Icons/EscapeKeyIcon";
 import { SquareBracketsIcon } from "./Icons/SquareBracketsIcon";
 import { Body } from "./Primitives/Body";
 import { ThemeModeToggler } from "./ThemeModeToggle";
+import { GithubStarSmall } from "./UI/GithubStarSmall";
 
 export function Footer() {
+  const { minimal } = useJsonDoc();
+
   return (
     <footer className="flex items-center justify-between w-screen h-[30px] bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
       <ol className="flex pl-3">
@@ -34,7 +38,16 @@ export function Footer() {
           </Body>
         </li>
       </ol>
-      <ThemeModeToggler />
+      <ol className="flex items-center">
+        {minimal && (
+          <li>
+            <GithubStarSmall />
+          </li>
+        )}
+        <li>
+          <ThemeModeToggler />
+        </li>
+      </ol>
     </footer>
   );
 }
