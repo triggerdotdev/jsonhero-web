@@ -4,6 +4,7 @@ import { EscapeKeyIcon } from "./Icons/EscapeKeyIcon";
 import { SquareBracketsIcon } from "./Icons/SquareBracketsIcon";
 import { Body } from "./Primitives/Body";
 import { ThemeModeToggler } from "./ThemeModeToggle";
+import { GithubStarSmall } from "./UI/GithubStarSmall";
 
 export function Footer() {
   return (
@@ -34,7 +35,14 @@ export function Footer() {
           </Body>
         </li>
       </ol>
-      <ThemeModeToggler />
+      <ol className="flex items-center">
+        <li>
+          <GithubStarSmall />
+        </li>
+        <li>
+          <ThemeModeToggler />
+        </li>
+      </ol>
     </footer>
   );
 }
