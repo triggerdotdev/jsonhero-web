@@ -7,13 +7,38 @@ import { HomeInfoBoxSection } from "~/components/Home/HomeInfoBoxSection";
 import { HomeSearchSection } from "~/components/Home/HomeSearchSection";
 import { HomeFooter } from "~/components/Home/HomeFooter";
 import { GithubBanner } from "~/components/Home/HomeGithubBanner";
+import { HomeChromeExtensionPrompt } from "~/components/Home/HomeChromeExtensionPrompt";
+import { LoaderFunction, useLoaderData } from "remix";
+import userAgentParser from "ua-parser-js";
+
+type LoaderData = {
+  userAgent: ReturnType<typeof userAgentParser>;
+};
+
+export const loader: LoaderFunction = async ({
+  request,
+}): Promise<LoaderData> => {
+  const rawUserAgent = request.headers.get("user-agent") || "";
+  const userAgent = userAgentParser(rawUserAgent);
+
+  return {
+    userAgent,
+  };
+};
 
 export default function Index() {
+  const { userAgent } = useLoaderData<LoaderData>();
+
   return (
     <div className="overflow-x-hidden">
       <HomeHeader fixed={true} />
       <HomeHeroSection />
-      <GithubBanner />
+      {userAgent.browser.name === "Chrome" ? (
+        <HomeChromeExtensionPrompt />
+      ) : (
+        <GithubBanner />
+      )}
+
       <HomeInfoBoxSection />
       <HomeEdgeCasesSection />
       <HomeSearchSection />
