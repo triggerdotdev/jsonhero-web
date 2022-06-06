@@ -7,6 +7,7 @@ import { HomeInfoBoxSection } from "~/components/Home/HomeInfoBoxSection";
 import { HomeSearchSection } from "~/components/Home/HomeSearchSection";
 import { HomeFooter } from "~/components/Home/HomeFooter";
 import { GithubBanner } from "~/components/Home/HomeGithubBanner";
+import { HomeChromeExtensionPrompt } from "~/components/Home/HomeChromeExtensionPrompt";
 
 export default function Index() {
   return (
@@ -14,6 +15,7 @@ export default function Index() {
       <HomeHeader fixed={true} />
       <HomeHeroSection />
       <GithubBanner />
+      <HomeChromeExtensionPrompt />
       <HomeInfoBoxSection />
       <HomeEdgeCasesSection />
       <HomeSearchSection />
