@@ -157,6 +157,10 @@ function rewriteUrl(url: URL | string): URL {
   const unmodifiedUrl =
     typeof url === "string" ? new URL(url) : new URL(url.href);
 
+  console.log(
+    `[getPreview][rewriteUrl] ${unmodifiedUrl.href}, protocol: ${unmodifiedUrl.protocol}, hostname: ${unmodifiedUrl.hostname}, pathname: ${unmodifiedUrl.pathname}, search: ${unmodifiedUrl.search}, hash: ${unmodifiedUrl.hash}`
+  );
+
   // Rewrite the URL if it is a relative URL
   if (unmodifiedUrl.protocol === "ipfs:") {
     if (unmodifiedUrl.hostname === "") {
