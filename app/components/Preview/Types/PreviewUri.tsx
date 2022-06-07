@@ -23,7 +23,15 @@ export function PreviewUri(props: PreviewUriProps) {
     <div>
       {previewFetcher.type === "done" ? (
         <>
-          {"error" in previewFetcher.data ? (
+          {typeof previewFetcher.data == "string" ? (
+            <PreviewBox>
+              <Body>
+                <span
+                  dangerouslySetInnerHTML={{ __html: previewFetcher.data }}
+                ></span>
+              </Body>
+            </PreviewBox>
+          ) : "error" in previewFetcher.data ? (
             <PreviewBox>
               <Body>{previewFetcher.data.error}</Body>
             </PreviewBox>
