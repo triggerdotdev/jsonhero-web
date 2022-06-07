@@ -37,6 +37,8 @@ async function getPeekalink(link: string): Promise<PreviewResult> {
 }
 
 export async function getUriPreview(uri: string): Promise<PreviewResult> {
+  console.log(`[getPreview][getUriPreview] ${uri}`);
+
   const url = rewriteUrl(uri);
 
   const head = await headUri(url.href);
@@ -153,9 +155,8 @@ function createPreviewImage(uri: string, head: HeadInfo): PreviewImage {
 }
 
 // Rewrites the URL to convert an ipfs: url to use https://ipfs.io/ipfs/
-function rewriteUrl(url: URL | string): URL {
-  const unmodifiedUrl =
-    typeof url === "string" ? new URL(url) : new URL(url.href);
+function rewriteUrl(url: string): URL {
+  const unmodifiedUrl = new URL(url);
 
   console.log(
     `[getPreview][rewriteUrl] ${unmodifiedUrl.href}, protocol: ${unmodifiedUrl.protocol}, hostname: ${unmodifiedUrl.hostname}, pathname: ${unmodifiedUrl.pathname}, search: ${unmodifiedUrl.search}, hash: ${unmodifiedUrl.hash}`
@@ -168,8 +169,12 @@ function rewriteUrl(url: URL | string): URL {
         `https://ipfs.io/ipfs/${unmodifiedUrl.pathname.substring(2)}`
       );
     } else {
+      // Parse out the "hostname" from the raw url because hostnames are case-insensitive and automatically lowercased
+      const urlMatches = url.match(/^ipfs:\/\/([A-Za-z0-9]+)(\/.*)?/i);
+      const hostname = urlMatches?.[1];
+
       return new URL(
-        `https://ipfs.io/ipfs/${unmodifiedUrl.hostname}${
+        `https://ipfs.io/ipfs/${hostname ?? unmodifiedUrl.hostname}${
           unmodifiedUrl.pathname.length > 0 ? `/${unmodifiedUrl.pathname}` : ""
         }${unmodifiedUrl.search}`
       );
