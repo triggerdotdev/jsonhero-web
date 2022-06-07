@@ -159,11 +159,17 @@ function rewriteUrl(url: URL | string): URL {
 
   // Rewrite the URL if it is a relative URL
   if (unmodifiedUrl.protocol === "ipfs:") {
-    return new URL(
-      `https://ipfs.io/ipfs/${unmodifiedUrl.hostname}${
-        unmodifiedUrl.pathname.length > 0 ? `/${unmodifiedUrl.pathname}` : ""
-      }${unmodifiedUrl.search}`
-    );
+    if (unmodifiedUrl.hostname === "") {
+      return new URL(
+        `https://ipfs.io/ipfs/${unmodifiedUrl.pathname.substring(2)}`
+      );
+    } else {
+      return new URL(
+        `https://ipfs.io/ipfs/${unmodifiedUrl.hostname}${
+          unmodifiedUrl.pathname.length > 0 ? `/${unmodifiedUrl.pathname}` : ""
+        }${unmodifiedUrl.search}`
+      );
+    }
   }
 
   return unmodifiedUrl;
