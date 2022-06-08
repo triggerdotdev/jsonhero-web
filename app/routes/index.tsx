@@ -34,12 +34,12 @@ export default function Index() {
     <div className="overflow-x-hidden">
       <HomeHeader fixed={true} />
       <HomeHeroSection />
-      {userAgent.browser.name === "Chrome" ? (
+      {/* {userAgent.browser.name === "Chrome" ? (
         <HomeChromeExtensionPrompt />
       ) : (
         <GithubBanner />
-      )}
-      {/* <HomeProductHuntBanner /> */}
+      )} */}
+      <HomeProductHuntBanner />
       <HomeInfoBoxSection />
       <HomeEdgeCasesSection />
       <HomeSearchSection />
