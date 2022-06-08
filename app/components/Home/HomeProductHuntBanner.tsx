@@ -2,7 +2,7 @@ import { Body } from "../Primitives/Body";
 
 export function HomeProductHuntBanner() {
   return (
-    <div className="flex items-center justify-center w-full py-3 bg-indigo-600">
+    <div className="flex items-center justify-center w-full px-6 py-3 bg-indigo-600">
       <div className="flex items-center">
         <Body className="mr-3 text-xl text-white">
           We're live on Product Hunt! 👉
