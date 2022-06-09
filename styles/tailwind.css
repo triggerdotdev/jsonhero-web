@@ -3,6 +3,7 @@
   font-family: "MonoLisa";
   src: url("/fonts/MonoLisa/woff2/MonoLisa-Regular.woff2") format("woff2"),
     url("/fonts/MonoLisa/woff/MonoLisa-Regular.woff") format("woff");
+  font-display: swap;
 }
 
 @tailwind base;
