@@ -62,8 +62,7 @@
     "remix": "^1.2.3",
     "tailwindcss-radix": "^1.6.0",
     "tiny-invariant": "^1.2.0",
-    "ts-pattern": "^3.3.4",
-    "ua-parser-js": "^1.0.2"
+    "ts-pattern": "^3.3.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.2",
