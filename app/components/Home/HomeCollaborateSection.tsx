@@ -3,6 +3,8 @@ import { ExtraLargeTitle } from "../Primitives/ExtraLargeTitle";
 import { SmallSubtitle } from "../Primitives/SmallSubtitle";
 import { HomeSection } from "./HomeSection";
 
+import shareVideo from "~/assets/home/JsonHeroShare.mp4";
+
 export function HomeCollaborateSection() {
   return (
     <HomeSection
@@ -20,7 +22,7 @@ export function HomeCollaborateSection() {
         </SmallSubtitle>
       </div>
       <div className="w-full md:w-1/2">
-        <AutoplayVideo src="/home/JsonHeroShare.mp4" />
+        <AutoplayVideo src={shareVideo} />
       </div>
     </HomeSection>
   );

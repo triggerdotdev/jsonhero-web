@@ -1,5 +1,5 @@
+import chromeExtensionBadge from "~/assets/images/chrome-extension-badge.png";
+
 export function ChromeExtensionBadge() {
-  return (
-    <img src="../images/chrome-extension-badge.png" className="h-14"></img>
-  );
+  return <img src={chromeExtensionBadge} className="h-14"></img>;
 }

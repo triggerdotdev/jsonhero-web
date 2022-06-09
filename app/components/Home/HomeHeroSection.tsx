@@ -2,7 +2,8 @@ import { AutoplayVideo } from "../AutoplayVideo";
 import { NewFile } from "../NewFile";
 import { ExtraLargeTitle } from "../Primitives/ExtraLargeTitle";
 import { SmallSubtitle } from "../Primitives/SmallSubtitle";
-import { HomeSection } from "./HomeSection";
+
+import heroVideo from "~/assets/home/JsonHero2.mp4";
 
 const jsonHeroTitle = "JSON sucks.";
 const jsonHeroSlogan = "But we're making it better.";
@@ -14,7 +15,7 @@ export function HomeHeroSection() {
     >
       <div className="self-center md:w-1/2 md:pr-10 flex justify-end">
         <div className=" max-w-3xl">
-          <AutoplayVideo src="/home/JsonHero2.mp4" />
+          <AutoplayVideo src={heroVideo} />
         </div>
       </div>
       <div className="self-center flex align-center md:w-1/2 px-6 pb-8 mt-8 lg:mt-0">

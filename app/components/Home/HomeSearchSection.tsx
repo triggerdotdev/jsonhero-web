@@ -3,6 +3,8 @@ import { ExtraLargeTitle } from "../Primitives/ExtraLargeTitle";
 import { SmallSubtitle } from "../Primitives/SmallSubtitle";
 import { HomeSection } from "./HomeSection";
 
+import searchVideo from "~/assets/home/JsonHeroSearch.mp4";
+
 export function HomeSearchSection() {
   return (
     <HomeSection containerClassName="py-10 px-6 bg-black md:py-36 lg:py-20">
@@ -17,7 +19,7 @@ export function HomeSearchSection() {
         </SmallSubtitle>
       </div>
       <div className="w-full md:w-1/2">
-        <AutoplayVideo src="/home/JsonHeroSearch.mp4" />
+        <AutoplayVideo src={searchVideo} />
       </div>
     </HomeSection>
   );
