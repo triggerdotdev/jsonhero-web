@@ -6,11 +6,11 @@ import { useJsonColumnViewState } from "~/hooks/useJsonColumnView";
 import { concatenated, getHierarchicalTypes } from "~/utilities/dataType";
 import { formatRawValue } from "~/utilities/formatter";
 import { isNullable } from "~/utilities/nullable";
+import { CopyTextButton } from "./CopyTextButton";
 import { Body } from "./Primitives/Body";
 import { LargeMono } from "./Primitives/LargeMono";
 import { Title } from "./Primitives/Title";
 import { ValueIcon, ValueIconSize } from "./ValueIcon";
-import { CopyTextButton } from "./CopyTextButton";
 
 export type InfoHeaderProps = {
   relatedPaths: string[];
@@ -41,12 +41,13 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
   }, [relatedPaths, json]);
 
   const [hovering, setHovering] = useState(false);
+  console.warn(selectedInfo);
 
   return (
     <div className="mb-4 pb-4">
       <div className="flex items-center">
-        <Title className="flex-1 mr-2 text-slate-700 transition dark:text-slate-200">
-          {selectedName ?? "nothing"}
+        <Title className="flex-1 mr-2 overflow-hidden overflow-ellipsis break-words text-slate-700 transition dark:text-slate-200">
+          { selectedName ?? "nothing" }
         </Title>
         <div>
           <ValueIcon
