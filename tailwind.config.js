@@ -28,7 +28,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["Source Sans Pro", "sans-serif"],
-        mono: ["MonoLisa", "monospace"],
+        mono: ["Roboto Mono", "monospace"],
       },
     },
   },
