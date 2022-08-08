@@ -7,7 +7,7 @@ export function HomeApiHeroBanner() {
       <div className="relative flex justify-center items-center w-1/2 md:w-full pl-6 md:px-6">
         <div className="flex flex-col">
           <Body className="text-white text-2xl font-bold md:text-4xl leading-tight">
-            We did a thing!
+            Coming soon...
           </Body>
           <p className="mb-2 text-white">
             <span className="font-bold">API Hero</span> – integrate APIs in
@@ -18,7 +18,10 @@ export function HomeApiHeroBanner() {
             target="new"
             className="flex items-center justify-center px-3 py-2 mt-2 text-center text-lg md:text-xl text-slate-800 font-bold bg-lime-500 rounded shadow-md hover:bg-lime-400 transition"
           >
-            Sign up for early access &rarr;
+            Sign up{" "}
+            <span className="hidden md:block">&nbsp;for early access </span>
+            <span className="md:hidden">&nbsp;now </span>
+            &rarr;
           </a>
         </div>
         <a
