@@ -25,7 +25,7 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
           </li>
           <li className="hover:cursor-pointer">
             <a
-              href="https://github.com/jsonhero-io/jsonhero-web"
+              href="https://github.com/apihero-run/jsonhero-web"
               target="_blank"
             >
               <GithubIcon />
