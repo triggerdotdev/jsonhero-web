@@ -89,7 +89,7 @@
   },
   "jest": {
     "preset": "ts-jest",
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "coverageReporters": [
       "json-summary",
       "text",
