@@ -1,5 +1,4 @@
 export default function isXML(possibleXml: string): boolean {
-  console.log(window.DOMParser);
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(possibleXml, "application/xml");
   // As per this latest documentation
