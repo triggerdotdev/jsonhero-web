@@ -16,7 +16,7 @@ export function SearchBar() {
   const searchApi = useJsonSearchApi();
 
   useHotkeys(
-    "cmd+k",
+    "cmd+k,ctrl+k",
     (e) => {
       e.preventDefault();
       setIsOpen(true);
