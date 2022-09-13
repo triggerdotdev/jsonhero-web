@@ -40,6 +40,7 @@ export async function createFromUrlOrRawJson(
     return createFromRawJson("Untitled", urlOrJson);
   }
 
+  // Wrapper for createFromRawJson to handle XML
   // TODO ? change from urlOrJson to urlOrJsonOrXml 
   if (isXML(urlOrJson)) {
     return createFromRawXml("Untitled", urlOrJson);
