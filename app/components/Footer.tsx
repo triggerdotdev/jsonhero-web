@@ -66,8 +66,8 @@ export function Footer() {
               target="new"
               className="flex justify-center items-center rounded-full h-8 pt-1 px-4 pb-1 text-center text-md text-slate-800 font-bold bg-lime-500 rounded shadow-md hover:bg-lime-400 transition"
             >
-              <span className="hidden lg:inline">Private beta </span>
-              &nbsp;&rarr;
+              <span className="hidden lg:inline">Private beta &nbsp;</span>
+              &rarr;
             </a>
           </div>
         </a>
