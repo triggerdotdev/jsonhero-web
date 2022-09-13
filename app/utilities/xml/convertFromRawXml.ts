@@ -1,38 +1,45 @@
 import { DOMParser } from "xmldom";
 
-const getCleanXmlString = (xmlString: any): string => {
+export type SerializedXMLObject = {
+  [key: string]: [] | string | {} | undefined;
+  $attributes?: { [key: string]: any };
+  $values?: [] | { [key: string]: any };
+};
+
+const getCleanXmlString = (xmlString: string): string => {
   const cleanXmlString = xmlString
     .replace(/(\r\n|\n|\r)/gm, "") // remove line breaks
     .replace(/>\s+</g, "><"); // remove all whitespaces between tags
   return cleanXmlString;
 };
 
-const serializeXml = (node: any): any => {
+const serializeXml = (
+  node: ChildNode & { attributes?: NamedNodeMap }
+): SerializedXMLObject | string | undefined => {
   const { nodeName, nodeType, nodeValue } = node;
 
   // text
   if (nodeType === 3) {
-    return nodeValue;
+    return nodeValue || undefined;
   }
 
   // comment, ignore
   if (nodeType === 8) {
-    return;
+    return undefined;
   }
 
   const children = Array.from(node.childNodes).map((child) =>
     serializeXml(child)
   );
-  
+
   const attributes =
     node.attributes &&
     Array.from(node.attributes).reduce(
-      (acc: any, attr: any) => ({ ...acc, [attr.name]: attr.value }),
+      (acc: {}, attr: any) => ({ ...acc, [attr.name]: attr.value }),
       {}
     );
 
-
-  let childObject: { [key: string]: any } = {};
+  let childObject: any = {};
 
   if (children.length === 1 && typeof children[0] === "string") {
     childObject[nodeName] = children[0];
@@ -61,7 +68,7 @@ const serializeXml = (node: any): any => {
 
     if (childenUniqueKeys.size === children.length) {
       childObject[nodeName] = children.reduce(
-        (acc: any, child: any) => ({ ...acc, ...child }),
+        (acc: {}, child: any) => ({ ...acc, ...child }),
         {}
       );
     } else {
