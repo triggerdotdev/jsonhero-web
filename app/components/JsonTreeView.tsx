@@ -88,7 +88,7 @@ export function JsonTreeView() {
         className="text-white w-full"
         ref={parentRef}
         style={{
-          height: `calc(100vh - ${minimal ? "66px" : "106px"})`,
+          height: `calc(100vh - 30px - ${minimal ? "66px" : "106px"})`,
           overflowY: "auto",
           overflowX: "hidden",
         }}

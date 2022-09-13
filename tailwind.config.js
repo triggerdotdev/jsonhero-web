@@ -19,12 +19,12 @@ module.exports = {
     },
     extend: {
       height: {
-        viewerHeight: "calc(100vh - 146px)",
-        inspectorHeight: "calc(100vh - 70px)",
-        jsonViewerHeight: "calc(100vh - 106px)",
-        viewerHeightMinimal: "calc(100vh - 106px)",
-        inspectorHeightMinimal: "calc(100vh - 30px)",
-        jsonViewerHeightMinimal: "calc(100vh - 66px)",
+        viewerHeight: "calc(100vh - 146px - 30px)",
+        inspectorHeight: "calc(100vh - 70px - 30px)",
+        jsonViewerHeight: "calc(100vh - 106px - 30px)",
+        viewerHeightMinimal: "calc(100vh - 106px - 30px)",
+        inspectorHeightMinimal: "calc(100vh - 30px - 30px)",
+        jsonViewerHeightMinimal: "calc(100vh - 66px - 30px)",
       },
       fontFamily: {
         sans: ["Source Sans Pro", "sans-serif"],
