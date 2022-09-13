@@ -1,3 +1,5 @@
+import { DOMParser } from "xmldom";
+
 const getCleanXmlString = (xmlString: any): string => {
   const cleanXmlString = xmlString
     .replace(/(\r\n|\n|\r)/gm, "") // remove line breaks
@@ -6,8 +8,22 @@ const getCleanXmlString = (xmlString: any): string => {
 };
 
 const serializeXml = (node: any): any => {
-  const children = [...node.childNodes].map((child) => serializeXml(child));
   const { nodeName, nodeType, nodeValue } = node;
+
+  // text
+  if (nodeType === 3) {
+    return nodeValue;
+  }
+
+  // comment, ignore
+  if (nodeType === 8) {
+    return;
+  }
+
+  const children = Array.from(node.childNodes).map((child) =>
+    serializeXml(child)
+  );
+  
   const attributes =
     node.attributes &&
     Array.from(node.attributes).reduce(
@@ -15,10 +31,6 @@ const serializeXml = (node: any): any => {
       {}
     );
 
-  // isText
-  if (nodeType === 3) {
-    return nodeValue;
-  }
 
   let childObject: { [key: string]: any } = {};
 
@@ -65,17 +77,26 @@ const serializeXml = (node: any): any => {
 };
 
 export default function convertFromRawXml(xmlString: string): string {
-  const parser = new DOMParser();
   const cleanXmlString = getCleanXmlString(xmlString);
-  const xmlDoc = parser.parseFromString(cleanXmlString, "application/xml");
 
-  const errorNode = xmlDoc.querySelector("parsererror");
-  if (errorNode) {
-    console.error(`XML parsing error, ${errorNode.textContent}`);
-    throw errorNode.textContent;
-  }
+  // Read comment in isXML.ts for why we need to handle error this way
+  const xmlDoc = new DOMParser({
+    errorHandler: {
+      warning: () => {},
+      error: () => {
+        throw new Error("Invalid XML");
+      },
+      fatalError: () => {
+        throw new Error("Invalid XML");
+      },
+    },
+  }).parseFromString(cleanXmlString, "application/xml");
 
-  const nodes = [...xmlDoc.childNodes];
+  // This line is necessary because xmldom does not throw an error
+  // if we pass it a plain string.
+  if (!xmlDoc?.documentElement) throw new Error("Invalid XML");
+
+  const nodes = Array.from(xmlDoc.childNodes);
   const serialized = nodes.map((node) => {
     return serializeXml(node);
   });
