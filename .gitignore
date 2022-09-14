@@ -14,3 +14,4 @@ node_modules
 public/entry.worker.js
 
 wrangler.toml.dev
+.env.production

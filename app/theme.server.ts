@@ -2,7 +2,13 @@ import { createCookieSessionStorage } from "remix";
 
 import { Theme, isTheme } from "~/components/ThemeProvider";
 
-const sessionSecret = SESSION_SECRET;
+const DEV_SECRET = "abc123";
+const sessionSecret =
+  typeof process !== "undefined"
+    ? process.env.SESSION_SECRET ?? DEV_SECRET
+    : DEV_SECRET;
+
+// const sessionSecret = SESSION_SECRET;
 
 // if (!sessionSecret) {
 //   throw new Error("SESSION_SECRET must be set");
