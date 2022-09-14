@@ -8,13 +8,13 @@ workers_dev = true
 kv_namespaces = [ 
   { binding = "DOCUMENTS", id = "8c6a9a71fc504abdaaa7aa409c7b2abd" }
 ]
+main = "./dist/worker.js"
 
 [vars]
 GRAPH_JSON_COLLECTION = "jsonhero-dev"
 
 [site]
 bucket = "./public"
-entry-point = "."
 
 [build]
 command = "npm run build:worker"
