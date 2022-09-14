@@ -11,7 +11,7 @@ export function Footer() {
   const { minimal } = useJsonDoc();
 
   return (
-    <footer className="flex items-center justify-between w-screen h-[30px] bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
+    <footer className="flex items-center justify-between w-screen h-[30px] flex-shrink-0 bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
       <ol className="flex pl-3">
         <li className="flex items-center">
           <ArrowKeysIcon className="transition text-slate-300 dark:text-slate-500" />
@@ -38,7 +38,8 @@ export function Footer() {
           </Body>
         </li>
       </ol>
-      <ol className="flex items-center">
+
+      <ol className="flex items-center h-full invisible md:visible">
         {minimal && (
           <li>
             <GithubStarSmall />
@@ -47,6 +48,29 @@ export function Footer() {
         <li>
           <ThemeModeToggler />
         </li>
+
+        <a
+          href="https://apihero.run"
+          target="new"
+          className="flex h-full justify-right  w-full bg-gradient-to-r from-purple-600 to-blue-600"
+        >
+          <div className="relative flex justify-center items-center w-1/2 md:w-full">
+            <p className=" text-white text-md px-4">
+              <span className="font-bold inline"> ⚡️ API HERO</span>
+              <span className="hidden lg:inline">
+                &nbsp;- integrate popular APIs in seconds
+              </span>
+            </p>
+            <a
+              href="https://apihero.run"
+              target="new"
+              className="flex justify-center items-center h-8 px-5  text-center text-md text-slate-800 font-bold bg-lime-500 shadow-md hover:bg-lime-400 transition"
+            >
+              <span className="hidden lg:inline">Private beta&nbsp; </span>
+              &rarr;
+            </a>
+          </div>
+        </a>
       </ol>
     </footer>
   );
