@@ -15,6 +15,7 @@ GRAPH_JSON_COLLECTION = "jsonhero-dev"
 
 [site]
 bucket = "./public"
+entry-point = "."
 
 [build]
 command = "npm run build:worker"
