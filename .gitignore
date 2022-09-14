@@ -12,3 +12,5 @@ node_modules
 /meta.json
 /stats.html
 public/entry.worker.js
+
+wrangler.toml.dev
