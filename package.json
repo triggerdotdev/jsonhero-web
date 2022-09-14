@@ -62,7 +62,8 @@
     "remix": "^1.2.3",
     "tailwindcss-radix": "^1.6.0",
     "tiny-invariant": "^1.2.0",
-    "ts-pattern": "^3.3.4"
+    "ts-pattern": "^3.3.4",
+    "xmldom": "^0.6.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.2",
@@ -74,6 +75,7 @@
     "@types/react": "^17.0.24",
     "@types/react-dom": "^17.0.9",
     "@types/ua-parser-js": "^0.7.36",
+    "@types/xmldom": "^0.1.31",
     "concurrently": "^7.0.0",
     "esbuild-visualizer": "^0.3.1",
     "jest": "^27.4.7",

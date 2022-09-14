@@ -1,5 +1,7 @@
 import { customRandom } from "nanoid";
 import safeFetch from "./utilities/safeFetch";
+import createFromRawXml from "./utilities/xml/createFromRawXml";
+import isXML from "./utilities/xml/isXML";
 
 type BaseJsonDocument = {
   id: string;
@@ -36,6 +38,12 @@ export async function createFromUrlOrRawJson(
 
   if (isJSON(urlOrJson)) {
     return createFromRawJson("Untitled", urlOrJson);
+  }
+
+  // Wrapper for createFromRawJson to handle XML
+  // TODO ? change from urlOrJson to urlOrJsonOrXml 
+  if (isXML(urlOrJson)) {
+    return createFromRawXml("Untitled", urlOrJson);
   }
 }
 
