@@ -1,0 +1,36 @@
+type = "javascript"
+compatibility_date = "2022-02-01"
+
+account_id = "c974caaaa18255c03f1771097bade662"
+workers_dev = true
+
+kv_namespaces = [ 
+  { binding = "DOCUMENTS", id = "a90ce96eb26c4989a1232db27e864ed6" }
+]
+
+[vars]
+GRAPH_JSON_COLLECTION = "jsonhero-dev"
+
+[site]
+bucket = "./public"
+entry-point = "."
+
+[build]
+command = "npm run build:worker"
+watch_dir = "build/index.js"
+
+[build.upload]
+format="service-worker"
+
+[env.production]
+kv_namespaces = [ 
+  { binding = "DOCUMENTS", id = "a90ce96eb26c4989a1232db27e864ed6" }
+]
+
+[env.production.vars]
+GRAPH_JSON_COLLECTION = "jsonhero-prod"
+
+# Secrets
+# [SESSION_STORAGE]
+# [GRAPH_JSON_API_KEY]
+# [PEEKALINK_API_KEY]
