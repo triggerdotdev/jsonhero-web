@@ -37,7 +37,6 @@ async function getPeekalink(link: string): Promise<PreviewResult> {
 }
 
 export async function getUriPreview(uri: string): Promise<PreviewResult> {
-  console.log(`[getPreview][getUriPreview] ${uri}`);
 
   const url = rewriteUrl(uri);
 
@@ -99,9 +98,7 @@ async function headUri(
   if (!response.ok) {
     // If this is a 405 Method Not Allowed, do a GET request instead and if that is a redirect, return the head of the redirect url
     if (response.status === 405 && redirectCount < 5) {
-      console.log(
-        `${uri} is a 405 Method Not Allowed, trying to do a GET instead`
-      );
+      
       // Do a GET request that does not follow redirects
       const noFollowResponse = await fetch(uri, {
         method: "GET",
@@ -122,10 +119,6 @@ async function headUri(
         }
       }
     }
-
-    console.log(
-      `Could not perform head request for ${uri}: ${response.status} [${response.statusText}]`
-    );
 
     return;
   }
@@ -157,10 +150,6 @@ function createPreviewImage(uri: string, head: HeadInfo): PreviewImage {
 // Rewrites the URL to convert an ipfs: url to use https://ipfs.io/ipfs/
 function rewriteUrl(url: string): URL {
   const unmodifiedUrl = new URL(url);
-
-  console.log(
-    `[getPreview][rewriteUrl] ${unmodifiedUrl.href}, protocol: ${unmodifiedUrl.protocol}, hostname: ${unmodifiedUrl.hostname}, pathname: ${unmodifiedUrl.pathname}, search: ${unmodifiedUrl.search}, hash: ${unmodifiedUrl.hash}`
-  );
 
   // Rewrite the URL if it is a relative URL
   if (unmodifiedUrl.protocol === "ipfs:") {
