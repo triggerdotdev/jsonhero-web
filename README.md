@@ -138,4 +138,6 @@ Then, create a file at the root of the repo called `.env` and set the `SESSION_S
 SESSION_SECRET=abc123
 ```
 
+Then, run `npm run build` or `npm run dev` to build.
+
 Now, run `npm start` and open your browser to `http://localhost:8787`

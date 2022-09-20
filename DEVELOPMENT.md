@@ -62,6 +62,8 @@ Run the following command to create the `.env` file with a new `SESSION_SECRET` 
 echo "SESSION_SECRET=$(openssl rand -hex 32)" > .env
 ```
 
+Then, run `npm run build` or `npm run dev` to build.
+
 Start the development server:
 
 ```bash
