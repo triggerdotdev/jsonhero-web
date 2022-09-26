@@ -2,6 +2,10 @@
 <img width="300" src="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/8aaa6f22-d600-4f26-cda9-c9f040863400/public"/>
 </p>
 
+# Brought to you by API Hero
+
+JSON Hero was created and is maintained by the team behind [API Hero](https://apihero.run). API Hero makes it quick and easy to add popular APIs to your project using the frameworks you love, and scale without worry.
+
 # JSON Hero
 
 JSON Hero makes reading and understand JSON files easy by giving you a clean and beautiful UI packed with extra features.
