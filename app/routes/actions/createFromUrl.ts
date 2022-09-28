@@ -3,6 +3,7 @@ import type { ActionFunction, LoaderFunction } from "remix";
 import invariant from "tiny-invariant";
 import { createFromUrl, createFromUrlOrRawJson } from "~/jsonDoc.server";
 import { sendEvent } from "~/graphJSON.server";
+import { commitSession, getSession } from "../../services/toats.server";
 
 type CreateFromUrlError = {
   jsonUrl?: boolean;
@@ -10,7 +11,7 @@ type CreateFromUrlError = {
 
 export let action: ActionFunction = async ({ request, context }) => {
   const formData = await request.formData();
-
+  const toastCookie = await getSession(request.headers.get("cookie"));
   const jsonUrl = formData.get("jsonUrl");
   const title = formData.get("title") as string;
 
@@ -22,9 +23,16 @@ export let action: ActionFunction = async ({ request, context }) => {
   }
 
   invariant(typeof jsonUrl === "string", "jsonUrl must be a string");
+  try {
+    await createFromUrlOrRawJson(jsonUrl, title);
+  } catch (e: any) {
+    toastCookie.flash("errorMessage", { error: e.message });
+    return redirect("/", {
+      headers: { "Set-Cookie": await commitSession(toastCookie) },
+    });
+  }
 
   const doc = await createFromUrlOrRawJson(jsonUrl, title);
-
   if (!doc) {
     return redirect("/");
   }

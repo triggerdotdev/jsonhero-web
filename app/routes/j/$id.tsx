@@ -126,7 +126,6 @@ export default function JsonDocumentRoute() {
       path={loaderData.path}
       key={loaderData.doc.id}
     >
-      <ToastPopover />
       <JsonProvider initialJson={loaderData.json}>
         <JsonSchemaProvider>
           <JsonColumnViewProvider>

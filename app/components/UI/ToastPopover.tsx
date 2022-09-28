@@ -1,32 +1,18 @@
 import * as ToastPrimitive from "@radix-ui/react-toast";
 import cx from "~/utilities/classnames";
-import React from "react";
+import React, { useEffect } from "react";
 import { Body } from "../Primitives/Body";
 import { Title } from "../Primitives/Title";
 
-type Props = {};
+type Props = { message: string };
 
 const Toast = (props: Props) => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <ToastPrimitive.Provider>
-      <button
-        onClick={() => {
-          if (open) {
-            setOpen(false);
-            setTimeout(() => {
-              setOpen(true);
-            }, 500);
-          } else {
-            setOpen(true);
-          }
-        }}
-      >
-        Click
-      </button>
       <ToastPrimitive.Root
-        open={open}
+        open={true}
         onOpenChange={setOpen}
         className={cx(
           "z-50 fixed bottom-4 inset-x-4 w-auto md:top-4 md:right-2 md:left-auto md:bottom-auto md:w-full md:max-w-sm shadow-lg rounded-md",
@@ -44,7 +30,7 @@ const Toast = (props: Props) => {
             <div className="w-full radix">
               <Title className="dark:text-slate-200">Invalid JSON</Title>
               <Body className="mt-0.5 dark:text-slate-400">
-                Check your JSON is valid and try again.
+                {props.message}
               </Body>
             </div>
           </div>
@@ -63,7 +49,10 @@ const Toast = (props: Props) => {
                 </ToastPrimitive.Action>
               </div>
               <div className="h-0 flex-1 flex">
-                <ToastPrimitive.Close className="w-full max-h-10 border border-transparent rounded-sm px-3 py-2 flex items-center justify-center text-md font-medium text-slate-700 dark:text-slate-100 bg-slate-300 hover:bg-slate-300/80 dark:bg-slate-700 hover:dark:bg-slate-700/80 dark:hover:bg-slate-900 focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75">
+                <ToastPrimitive.Close
+                  className="w-full max-h-10 border border-transparent rounded-sm px-3 py-2 flex items-center justify-center text-md font-medium text-slate-700 dark:text-slate-100 bg-slate-300 hover:bg-slate-300/80 dark:bg-slate-700 hover:dark:bg-slate-700/80 dark:hover:bg-slate-900 focus:z-10 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-75"
+                  onClick={(e) => setOpen(false)}
+                >
                   Secondary
                 </ToastPrimitive.Close>
               </div>
