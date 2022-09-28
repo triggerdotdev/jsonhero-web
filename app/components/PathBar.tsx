@@ -85,7 +85,7 @@ export function PathBarText({ selectedNodes, onConfirm }: { selectedNodes: Colum
           onChange={(e) => setPath(e.target.value)}
         />
       </label>
-      <button type="submit" className="flex ml-auto justify-center items-center w-[26px] h-[26px] hover:bg-slate-300 dark:text-slate-400 dark:hover:bg-white dark:hover:bg-opacity-[10%]">
+      <button type="submit" className="flex ml-auto justify-center items-center w-[26px] h-[26px] hover:bg-slate-400 dark:text-slate-400 dark:hover:bg-white dark:hover:bg-opacity-[10%]">
         <CheckIcon className='h-5' />
       </button>
     </form>
