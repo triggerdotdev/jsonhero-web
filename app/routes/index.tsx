@@ -21,9 +21,12 @@ export async function loader({ request }: { request: Request }) {
     return {};
   }
 
-  return json(errorMessage.error, {
-    headers: { "Set-Cookie": await commitSession(session) },
-  });
+  return json(
+    { errorMessage: errorMessage.error },
+    {
+      headers: { "Set-Cookie": await commitSession(session) },
+    }
+  );
 }
 export default function Index() {
   const data = useLoaderData<LoaderData>();
