@@ -4,6 +4,8 @@ import { useJsonColumnViewAPI } from "~/hooks/useJsonColumnView";
 import { ColumnViewNode, IconComponent } from "~/useColumnView";
 import { Body } from "./Primitives/Body";
 
+import eyeIcon from "~/assets/svgs/EyeIcon.svg";
+
 export type PathPreviewProps = {
   nodes: ColumnViewNode[];
   maxComponents?: number;
@@ -77,7 +79,7 @@ export function PathPreview({
     <div
       className={`flex select-none pl-7 ${
         isEnabled
-          ? "relative transition hover:bg-slate-200 hover:cursor-pointer dark:hover:bg-slate-600 after:transition after:absolute after:h-3 after:w-3 after:opacity-0 hover:after:opacity-100 after:top-1 after:left-1 after:content-[''] after:bg-[url('/svgs/EyeIcon.svg')] after:bg-no-repeat"
+          ? `relative transition hover:bg-slate-200 hover:cursor-pointer dark:hover:bg-slate-600 after:transition after:absolute after:h-3 after:w-3 after:opacity-0 hover:after:opacity-100 after:top-1 after:left-1 after:content-[''] after:bg-[url('${eyeIcon}')] after:bg-no-repeat`
           : "disabled"
       }`}
       onClick={() =>

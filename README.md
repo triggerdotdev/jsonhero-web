@@ -2,6 +2,10 @@
 <img width="300" src="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/8aaa6f22-d600-4f26-cda9-c9f040863400/public"/>
 </p>
 
+# Brought to you by API Hero
+
+JSON Hero was created and is maintained by the team behind [API Hero](https://apihero.run). API Hero makes it quick and easy to add popular APIs to your project using the frameworks you love, and scale without worry.
+
 # JSON Hero
 
 JSON Hero makes reading and understand JSON files easy by giving you a clean and beautiful UI packed with extra features.
@@ -52,13 +56,13 @@ Send your JSON to JSON Hero in a variety of ways
 
 Inspired by macOS Finder, Column View is a new way to browse a JSON document.
 
-![JSON Hero Column View](https://raw.githubusercontent.com/jsonhero-io/documentation-hosting/main/images/features-columnview.gif)
+![JSON Hero Column View](https://raw.githubusercontent.com/apihero-run/documentation-hosting/main/images/features-columnview.gif)
 
 It has all the features you'd expect: Keyboard navigation, Path bar, history.
 
 It also has a nifty feature that allows you to "hold" a descendent selected and travel up through the hierarchy, and then move between siblings and view the different values found at that path. It's hard to describe, but here is an animation to help demonstrate:
 
-![Column View - Traverse with Context](https://raw.githubusercontent.com/jsonhero-io/documentation-hosting/main/images/features-traversewithcontext.gif)
+![Column View - Traverse with Context](https://raw.githubusercontent.com/apihero-run/documentation-hosting/main/images/features-traversewithcontext.gif)
 
 As you can see, holding the `Option` (or `Alt` key on Windows) while moving to a parent keeps the part of the document selected and shows it in context of it's surrounding JSON. Then you can traverse between items in an array and compare the values of the selection across deep hierarchy cahnges.
 
@@ -66,19 +70,19 @@ As you can see, holding the `Option` (or `Alt` key on Windows) while moving to a
 
 View your entire JSON document in an editor, but keep the nice previews and related values you get from the sidebar as you move around the document:
 
-![Editor view](https://raw.githubusercontent.com/jsonhero-io/documentation-hosting/main/images/features-editorview.gif)
+![Editor view](https://raw.githubusercontent.com/apihero-run/documentation-hosting/main/images/features-editorview.gif)
 
 ### Tree view
 
 Use a traditional tree view to traverse your JSON document, with collapsible sections and keyboard shortcuts. All while keeping the nice previews:
 
-![Tree view](https://raw.githubusercontent.com/jsonhero-io/documentation-hosting/main/images/features-treeview.gif)
+![Tree view](https://raw.githubusercontent.com/apihero-run/documentation-hosting/main/images/features-treeview.gif)
 
 ### Search
 
 Quickly open a search panel and fuzzy search your entire JSON file in milliseconds. Searches through key names, key paths, values, and even pretty formatted values (e.g. Searching for `"Dec"` will find datetime strings in the month of December.)
 
-![Search](https://raw.githubusercontent.com/jsonhero-io/documentation-hosting/main/images/features-search.gif)
+![Search](https://raw.githubusercontent.com/apihero-run/documentation-hosting/main/images/features-search.gif)
 
 ### Content Previews
 
@@ -112,13 +116,13 @@ JSON Hero automatically infers the content of strings and provides useful previe
 
 Easily see all the related values across your entire JSON document for a specific field, including any `undefined` or `null` values.
 
-![Editor view](https://raw.githubusercontent.com/jsonhero-io/documentation-hosting/main/images/features-relatedvalues.gif)
+![Editor view](https://raw.githubusercontent.com/apihero-run/documentation-hosting/main/images/features-relatedvalues.gif)
 
 <!-- TODO -->
 
 ## Bugs and Feature Requests
 
-Have a bug or a feature request? Feel free to [open a new issue](https://github.com/jsonhero-io/jsonhero-web/issues).
+Have a bug or a feature request? Feel free to [open a new issue](https://github.com/apihero-run/jsonhero-web/issues).
 
 You can also join our [Discord channel](https://discord.gg/ZQq6Had5nP) to hang out and discuss anything you'd like.
 
@@ -127,7 +131,7 @@ You can also join our [Discord channel](https://discord.gg/ZQq6Had5nP) to hang o
 To run locally, first clone the repo and install the dependencies:
 
 ```bash
-git clone https://github.com/jsonhero-io/jsonhero-web.git
+git clone https://github.com/apihero-run/jsonhero-web.git
 cd jsonhero-web
 npm install
 ```
@@ -137,5 +141,7 @@ Then, create a file at the root of the repo called `.env` and set the `SESSION_S
 ```
 SESSION_SECRET=abc123
 ```
+
+Then, run `npm run build` or `npm run dev` to build.
 
 Now, run `npm start` and open your browser to `http://localhost:8787`

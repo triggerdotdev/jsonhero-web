@@ -66,12 +66,12 @@ export function DragAndDropForm() {
     <Form method="post" action="/actions/createFromFile" ref={formRef}>
       <div
         {...getRootProps()}
-        className="block min-w-[300px] p-4 text-base text-slate-300 bg-slate-800 border-2 border-slate-600 border-dashed rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+        className="block min-w-[300px] cursor-pointer rounded-md border-2 border-dashed border-slate-600 bg-slate-800 p-4 text-base text-slate-300 focus:border-indigo-500 focus:ring-indigo-500"
       >
         <input {...getInputProps()} />
         <div className="flex items-center">
           <ArrowCircleDownIcon
-            className={`w-6 h-6 inline mr-3 ${
+            className={`mr-3 inline h-6 w-6 ${
               isDragActive ? "text-lime-500" : ""
             }`}
           />

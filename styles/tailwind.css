@@ -1,9 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&display=swap");
-@font-face {
-  font-family: "MonoLisa";
-  src: url("/fonts/MonoLisa/woff2/MonoLisa-Regular.woff2") format("woff2"),
-    url("/fonts/MonoLisa/woff/MonoLisa-Regular.woff") format("woff");
-}
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&family=Roboto+Mono&display=swap");
 
 @tailwind base;
 @tailwind components;

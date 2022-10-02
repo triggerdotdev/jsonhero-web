@@ -10,6 +10,7 @@ import { GithubBanner } from "~/components/Home/HomeGithubBanner";
 import { commitSession, getSession } from "../services/toats.server";
 import ToastPopover from "../components/UI/ToastPopover";
 import { json, LoaderFunction, useLoaderData } from "remix";
+import { HomeApiHeroBanner } from "~/components/Home/HomeApiHeroBanner";
 
 type LoaderData = { errorMessage: string };
 
@@ -35,8 +36,9 @@ export default function Index() {
     <div className="overflow-x-hidden">
       {data.errorMessage && <ToastPopover message={data.errorMessage} />}
       <HomeHeader />
+      <HomeHeader fixed={true} />
       <HomeHeroSection />
-      <GithubBanner />
+      <HomeApiHeroBanner />
       <HomeInfoBoxSection />
       <HomeEdgeCasesSection />
       <HomeSearchSection />

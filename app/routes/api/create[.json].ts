@@ -1,7 +1,21 @@
-import { ActionFunction, json } from "remix";
+import { ActionFunction, json, LoaderFunction } from "remix";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
 import { createFromRawJson, CreateJsonOptions } from "~/jsonDoc.server";
+
+export const loader: LoaderFunction = async ({ request }) => {
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "86400",
+      },
+    });
+  }
+};
 
 export const action: ActionFunction = async ({ request, context }) => {
   const url = new URL(request.url);
@@ -42,5 +56,12 @@ export const action: ActionFunction = async ({ request, context }) => {
     })
   );
 
-  return json({ id: doc.id, title, location: url.toString() });
+  return json(
+    { id: doc.id, title, location: url.toString() },
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
 };

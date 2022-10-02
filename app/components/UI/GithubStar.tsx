@@ -12,7 +12,7 @@ export function GithubStar({ className }: GithubStarProps) {
 
   return (
     <a
-      href="https://github.com/jsonhero-io/jsonhero-web"
+      href="https://github.com/apihero-run/jsonhero-web"
       target="_blank"
       className="flex text-slate-700 opacity-90 transition hover:cursor-pointer hover:opacity-100"
     >

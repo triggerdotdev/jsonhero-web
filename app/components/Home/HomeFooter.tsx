@@ -1,3 +1,4 @@
+import { Link } from "remix";
 import { DiscordIcon } from "../Icons/DiscordIcon";
 import { EmailIcon } from "../Icons/EmailIcon";
 import { GithubIcon } from "../Icons/GithubIcon";
@@ -19,9 +20,12 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
           <Logo />
         </div>
         <ol className="flex ml-2">
+          <li className="mr-2 hover:cursor-pointer text-white/70 hover:text-white transition">
+            <Link to="/privacy">Privacy</Link>
+          </li>
           <li className="hover:cursor-pointer">
             <a
-              href="https://github.com/jsonhero-io/jsonhero-web"
+              href="https://github.com/apihero-run/jsonhero-web"
               target="_blank"
             >
               <GithubIcon />
@@ -38,7 +42,7 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
             </a>
           </li>
           <li className="ml-2 hover:cursor-pointer">
-            <a href="https://twitter.com/json_hero" target="_blank">
+            <a href="https://twitter.com/tryapihero" target="_blank">
               <TwitterIcon />
             </a>
           </li>

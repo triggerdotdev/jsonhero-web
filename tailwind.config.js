@@ -16,17 +16,19 @@ module.exports = {
       "6xl": ["2.625rem", "3rem"], // 42px
       "7xl": "4rem", // 64px
       "8xl": "8rem", // 128px
-
     },
     extend: {
       height: {
         viewerHeight: "calc(100vh - 146px)",
         inspectorHeight: "calc(100vh - 70px)",
         jsonViewerHeight: "calc(100vh - 106px)",
+        viewerHeightMinimal: "calc(100vh - 106px)",
+        inspectorHeightMinimal: "calc(100vh - 30px)",
+        jsonViewerHeightMinimal: "calc(100vh - 66px)",
       },
       fontFamily: {
         sans: ["Source Sans Pro", "sans-serif"],
-        mono: ["MonoLisa", "monospace"],
+        mono: ["Roboto Mono", "monospace"],
       },
     },
   },
