@@ -8,15 +8,17 @@ import {
 import { ViewUpdate } from "@uiw/react-codemirror";
 import jsonMap from "json-source-map";
 import { JSONHeroPath } from "@jsonhero/path";
+import {usePreferences} from '~/components/PreferencesProvider'
 
 export function JsonEditor() {
   const [json] = useJson();
   const { selectedNodeId } = useJsonColumnViewState();
   const { goToNodeId } = useJsonColumnViewAPI();
+  const [preferences] = usePreferences();
 
   const jsonMapped = useMemo(() => {
-    return jsonMap.stringify(json, null, 2);
-  }, [json]);
+    return jsonMap.stringify(json, null, preferences?.indent || 2);
+  }, [json, preferences]);
 
   const selection = useMemo<{ start: number; end: number } | undefined>(() => {
     if (!selectedNodeId) {

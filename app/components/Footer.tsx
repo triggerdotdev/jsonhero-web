@@ -6,6 +6,7 @@ import { SquareBracketsIcon } from "./Icons/SquareBracketsIcon";
 import { Body } from "./Primitives/Body";
 import { ThemeModeToggler } from "./ThemeModeToggle";
 import { GithubStarSmall } from "./UI/GithubStarSmall";
+import {IndentPreference} from '~/components/IndentPreference'
 
 export function Footer() {
   const { minimal } = useJsonDoc();
@@ -45,6 +46,9 @@ export function Footer() {
             <GithubStarSmall />
           </li>
         )}
+        <li>
+          <IndentPreference />
+        </li>
         <li>
           <ThemeModeToggler />
         </li>
