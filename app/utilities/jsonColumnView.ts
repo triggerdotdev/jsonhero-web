@@ -42,7 +42,7 @@ function generateChildren(
 
   if (info.name === "object" && info.value) {
     return Object.entries(info.value).map(([key, value]) => {
-      const cleanKey = key.replace(/\./g, '\\.');
+      const cleanKey = key.replace(/\./g, "\\.");
       const childPath = path.child(cleanKey);
       const childInfo = inferType(value);
       const children = generateChildren(childInfo, childPath);
