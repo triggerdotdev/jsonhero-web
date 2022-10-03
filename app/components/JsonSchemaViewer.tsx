@@ -3,13 +3,18 @@ import { useMemo, useState } from "react";
 import { useJsonSchema } from "~/hooks/useJsonSchema";
 import { CodeViewer } from "./CodeViewer";
 import { CopyTextButton } from "./CopyTextButton";
+import {usePreferences} from '~/components/PreferencesProvider'
 
 export function JsonSchemaViewer({ path }: { path: string }) {
   const schema = useJsonSchema();
   const schemaPath = schemaPathFromPath(path);
   const schemaJson = schemaPath.first(schema);
   const [hovering, setHovering] = useState(false);
-  const code = useMemo(() => JSON.stringify(schemaJson, null, 2), [schemaJson]);
+  const [preferences] = usePreferences();
+
+  const code = useMemo(() => {
+    return JSON.stringify(schemaJson, null, preferences?.indent || 2);
+  }, [schemaJson, preferences]);
 
   return (
     <div
