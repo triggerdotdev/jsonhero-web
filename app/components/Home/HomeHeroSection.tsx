@@ -4,11 +4,12 @@ import { ExtraLargeTitle } from "../Primitives/ExtraLargeTitle";
 import { SmallSubtitle } from "../Primitives/SmallSubtitle";
 
 import heroVideo from "~/assets/home/JsonHero2.mp4";
+import { JsonFormResponse } from "~/routes";
 
 const jsonHeroTitle = "JSON sucks.";
 const jsonHeroSlogan = "But we're making it better.";
 
-export function HomeHeroSection() {
+export function HomeHeroSection({formResponse}: {formResponse: JsonFormResponse}) {
   return (
     <div
       className={`flex items-stretch flex-col md:flex-row bg-[rgb(56,52,139)] lg:p-6 lg:pb-16 pt-20 lg:pt-32`}
@@ -31,7 +32,7 @@ export function HomeHeroSection() {
             staring at thousand line JSON files in your browser. With a few nice
             features to help make it not <em>the worst</em>.
           </SmallSubtitle>
-          <NewFile />
+          <NewFile formResponse={formResponse}/>
         </div>
       </div>
     </div>
