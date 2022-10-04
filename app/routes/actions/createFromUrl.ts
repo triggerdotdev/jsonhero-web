@@ -1,14 +1,15 @@
-import { redirect } from "remix";
 import type { ActionFunction, LoaderFunction } from "remix";
+import { redirect } from "remix";
 import invariant from "tiny-invariant";
 import { createFromUrl, createFromUrlOrRawJson } from "~/jsonDoc.server";
 import { sendEvent } from "~/graphJSON.server";
+import { commitSession, getSession } from "~/session.server";
 
 type CreateFromUrlError = {
   jsonUrl?: boolean;
 };
 
-export let action: ActionFunction = async ({ request, context }) => {
+export let action: ActionFunction = async ({request, context}) => {
   const formData = await request.formData();
 
   const jsonUrl = formData.get("jsonUrl");
@@ -26,7 +27,9 @@ export let action: ActionFunction = async ({ request, context }) => {
   const doc = await createFromUrlOrRawJson(jsonUrl, title);
 
   if (!doc) {
-    return redirect("/");
+    const session = await getSession(request.headers.get("Cookie"));
+    session.flash("malformedError", true);
+    return redirect("/", {headers: {"Set-Cookie": await commitSession(session)}});
   }
 
   const requestUrl = new URL(request.url);
@@ -43,7 +46,7 @@ export let action: ActionFunction = async ({ request, context }) => {
   return redirect(`/j/${doc.id}`);
 };
 
-export let loader: LoaderFunction = async ({ request, context }) => {
+export let loader: LoaderFunction = async ({request, context}) => {
   const url = new URL(request.url);
   const jsonUrl = url.searchParams.get("jsonUrl");
 

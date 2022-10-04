@@ -149,7 +149,7 @@ function isUrl(possibleUrl: string): boolean {
   }
 }
 
-function isJSON(possibleJson: string): boolean {
+export function isJSON(possibleJson: string): boolean {
   try {
     JSON.parse(possibleJson);
     return true;

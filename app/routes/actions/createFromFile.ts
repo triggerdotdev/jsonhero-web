@@ -1,14 +1,15 @@
 import { ActionFunction, redirect } from "remix";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
-import { createFromRawJson } from "~/jsonDoc.server";
+import { createFromRawJson, isJSON } from "~/jsonDoc.server";
+import { commitSession, getSession } from "~/session.server";
 
 type CreateFromFileError = {
   filename?: boolean;
   rawJson?: boolean;
 };
 
-export const action: ActionFunction = async ({ request, context }) => {
+export const action: ActionFunction = async ({request, context}) => {
   const formData = await request.formData();
   const filename = formData.get("filename");
   const rawJson = formData.get("rawJson");
@@ -24,6 +25,12 @@ export const action: ActionFunction = async ({ request, context }) => {
 
   invariant(typeof filename === "string", "filename must be a string");
   invariant(typeof rawJson === "string", "rawJson must be a string");
+
+  if (!isJSON(rawJson)) {
+    const session = await getSession(request.headers.get("Cookie"));
+    session.flash("malformedError", true);
+    return redirect("/", {headers: {"Set-Cookie": await commitSession(session)}});
+  }
 
   const doc = await createFromRawJson(filename, rawJson);
 
