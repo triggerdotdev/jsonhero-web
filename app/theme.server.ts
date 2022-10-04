@@ -4,10 +4,6 @@ import { Theme, isTheme } from "~/components/ThemeProvider";
 
 const sessionSecret = SESSION_SECRET;
 
-// if (!sessionSecret) {
-//   throw new Error("SESSION_SECRET must be set");
-// }
-
 const themeStorage = createCookieSessionStorage({
   cookie: {
     name: "theme-cookie",
