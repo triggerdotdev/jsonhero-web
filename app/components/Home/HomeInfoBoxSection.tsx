@@ -133,9 +133,9 @@ function HomeInfoBoxSectionContent() {
 }
 
 function SampleJSONPreview({
-                             children,
-                             initialSelection,
-                           }: {
+  children,
+  initialSelection,
+}: {
   children: React.ReactNode;
   initialSelection: string;
 }) {
