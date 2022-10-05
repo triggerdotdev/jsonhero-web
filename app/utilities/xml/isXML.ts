@@ -1,4 +1,4 @@
-import { DOMParser } from "xmldom";
+import { DOMParser } from "@xmldom/xmldom";
 
 export default function isXML(possibleXml: string): boolean {
   let isValid = true;

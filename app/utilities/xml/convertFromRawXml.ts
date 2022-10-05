@@ -1,4 +1,4 @@
-import { DOMParser } from "xmldom";
+import { DOMParser } from "@xmldom/xmldom";
 
 export type SerializedXMLObject = {
   [key: string]: [] | string | {} | undefined;
