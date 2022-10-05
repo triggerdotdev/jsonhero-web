@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { JsonProvider } from "~/hooks/useJson";
-import {
-  JsonColumnViewProvider,
-  useJsonColumnViewAPI,
-} from "~/hooks/useJsonColumnView";
+import { JsonColumnViewProvider, useJsonColumnViewAPI, } from "~/hooks/useJsonColumnView";
 import { JsonDocProvider } from "~/hooks/useJsonDoc";
 import { JsonPreview } from "../JsonPreview";
 import { PreviewValue } from "../Preview/PreviewValue";
@@ -51,7 +48,7 @@ const autoplayDuration = 3000;
 export function HomeInfoBoxSection() {
   return (
     <SampleJSONPreview initialSelection={infoBoxData[0].highlight}>
-      <HomeInfoBoxSectionContent />
+      <HomeInfoBoxSectionContent/>
     </SampleJSONPreview>
   );
 }
@@ -88,7 +85,7 @@ function HomeInfoBoxSectionContent() {
       <div className="md:pr-4 lg:pr-10 flex flex-col w-full md:w-1/2">
         <ExtraLargeTitle className="text-white mb-4">
           <span className=" text-lime-300">{infoBoxData[index].title}</span> are
-          more than just strings
+          more than just strings
         </ExtraLargeTitle>
         <SmallSubtitle className="text-slate-400 mb-10">
           We figure out what your strings are made of, so you don't have to.
@@ -120,13 +117,15 @@ function HomeInfoBoxSectionContent() {
           />
         </div>
       </div>
-      <div className="relative pointer-events-none w-full md:w-1/2 flex flex-col justify-center items-center py-5">
-        <div className="absolute z-10 bottom-0 w-full h-[200px] bg-gradient-to-t from-slate-900 to-transparent"></div>
-        <div className="min-w-full max-w-full p-4 rounded-sm bg-slate-900 h-[65vh] overflow-y-auto">
-          <div className="mb-4">
-            <PreviewValue />
+      <div className="relative w-full md:w-1/2 flex flex-col justify-center items-center py-5">
+        <div className="pointer-events-none absolute z-10 bottom-0 w-full h-[200px] bg-gradient-to-t from-slate-900 to-transparent mb-5"></div>
+        <div className="pointer-events-auto min-w-full max-w-full p-4 rounded-sm bg-slate-900 h-[65vh] overflow-y-auto custom-scrollbar">
+          <div className="pointer-events-none">
+            <div className="mb-4">
+              <PreviewValue/>
+            </div>
+            <PropertiesValue/>
           </div>
-          <PropertiesValue />
         </div>
       </div>
     </HomeSection>
