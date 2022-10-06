@@ -44,6 +44,7 @@ import styles from "./tailwind.css";
 import { getThemeSession } from "./theme.server";
 import { getStarCount } from "./services/github.server";
 import { StarCountProvider } from "./components/StarCountProvider";
+import {PreferencesProvider} from '~/components/PreferencesProvider'
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
@@ -112,9 +113,11 @@ export default function AppWithProviders() {
       specifiedTheme={theme}
       themeOverride={forceDarkMode ? "dark" : themeOverride}
     >
-      <StarCountProvider starCount={starCount}>
-        <App />
-      </StarCountProvider>
+      <PreferencesProvider>
+        <StarCountProvider starCount={starCount}>
+          <App />
+        </StarCountProvider>
+      </PreferencesProvider>
     </ThemeProvider>
   );
 }

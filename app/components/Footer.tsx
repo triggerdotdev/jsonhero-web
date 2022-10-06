@@ -6,12 +6,13 @@ import { SquareBracketsIcon } from "./Icons/SquareBracketsIcon";
 import { Body } from "./Primitives/Body";
 import { ThemeModeToggler } from "./ThemeModeToggle";
 import { GithubStarSmall } from "./UI/GithubStarSmall";
+import {IndentPreference} from '~/components/IndentPreference'
 
 export function Footer() {
   const { minimal } = useJsonDoc();
 
   return (
-    <footer className="flex items-center justify-between w-screen h-[30px] flex-shrink-0 bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
+    <footer className="flex items-center justify-between w-screen h-[32px] flex-shrink-0 bg-slate-200 dark:bg-slate-800 border-t-[1px] border-slate-400 transition dark:border-slate-600">
       <ol className="flex pl-3">
         <li className="flex items-center">
           <ArrowKeysIcon className="transition text-slate-300 dark:text-slate-500" />
@@ -45,6 +46,9 @@ export function Footer() {
             <GithubStarSmall />
           </li>
         )}
+        <li>
+          <IndentPreference />
+        </li>
         <li>
           <ThemeModeToggler />
         </li>

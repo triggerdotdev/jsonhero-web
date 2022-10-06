@@ -119,8 +119,9 @@ function generateChildren(
 
   if (info.name === "object") {
     return Object.entries(info.value).map(([key, value]) => {
+      const cleanKey = key.replace(/\./g, "\\.");
       const itemInfo = inferType(value);
-      const itemPath = path.child(key);
+      const itemPath = path.child(cleanKey);
       return {
         id: itemPath.toString(),
         name: key,
