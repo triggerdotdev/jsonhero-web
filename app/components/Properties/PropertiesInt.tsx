@@ -1,4 +1,4 @@
-import { JSONFloatType, JSONIntType } from "@jsonhero/json-infer-types";
+import { JSONIntType } from "@jsonhero/json-infer-types";
 import {
   JSONTimestampFormat,
 } from "@jsonhero/json-infer-types/lib/formats";
@@ -10,7 +10,7 @@ export type PropertiesNumberProps = {
   type: JSONIntType;
 };
 
-export function PropertiesNumber({ type }: { type: JSONIntType }) {
+export function PropertiesInt({ type }: { type: JSONIntType }) {
   if (type.format == null) {
     return (
       <DataTable

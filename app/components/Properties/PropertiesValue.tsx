@@ -1,5 +1,6 @@
 import { useSelectedInfo } from "~/hooks/useSelectedInfo";
-import { PropertiesNumber } from "./PropertiesNumber";
+import { PropertiesInt } from "./PropertiesInt";
+import { PropertiesFloat } from "./PropertiesFloat";
 import { PropertiesString } from "./PropertiesString";
 
 export function PropertiesValue() {
@@ -11,8 +12,9 @@ export function PropertiesValue() {
 
   switch (info.name) {
     case "float":
+      return <PropertiesFloat type={info} />;
     case "int":
-      return <PropertiesNumber type={info} />;
+      return <PropertiesInt type={info} />;
     case "string":
       return <PropertiesString type={info} />;
     default:
