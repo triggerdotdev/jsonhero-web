@@ -11,8 +11,8 @@ import {
   getSession,
   ToastMessage,
 } from "../services/toast.server";
-import ToastPopover from "../components/UI/ToastPopover";
 import { json, useLoaderData } from "remix";
+import ToastPopover from "../components/UI/ToastPopover";
 import { HomeApiHeroBanner } from "~/components/Home/HomeApiHeroBanner";
 
 type LoaderData = { toastMessage?: ToastMessage };
