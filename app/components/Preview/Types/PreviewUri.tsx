@@ -41,7 +41,9 @@ export function PreviewUri(props: PreviewUriProps) {
         </>
       ) : (
         <PreviewBox>
-          <Body>Loading…</Body>
+          <Body className="h-96 animate-pulse bg-slate-300 dark:text-slate-300 dark:bg-slate-500 flex justify-center items-center">
+            Loading…
+          </Body>
         </PreviewBox>
       )}
     </div>
