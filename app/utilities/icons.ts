@@ -46,7 +46,19 @@ export function iconForType(type: JSONValueType): IconComponent {
     case "bool": {
       return CheckCircleIcon;
     }
-    case "int":
+    case "int": {
+      if (type.format == null) {
+        return HashtagIcon;
+      }
+      switch (type.format.name) {
+        case "timestamp": {
+          return CalendarIcon;
+        }
+        default: {
+          return HashtagIcon;
+        }
+      }
+    }
     case "float": {
       return HashtagIcon;
     }

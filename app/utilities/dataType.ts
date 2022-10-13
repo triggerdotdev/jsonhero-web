@@ -38,9 +38,16 @@ export function getHierarchicalTypes(type: JSONValueType): HierarchicalTypes {
           break;
         }
       }
+      break;
+    }
+    case "int": {
+      if (type.format == null) {
+        break;
+      }
+
+      types.push(type.format.name);
     }
   }
-
   return {
     types: types,
   };

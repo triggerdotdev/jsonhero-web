@@ -1,13 +1,13 @@
-import { JSONFloatType, JSONIntType } from "@jsonhero/json-infer-types";
+import { JSONFloatType } from "@jsonhero/json-infer-types";
 import { formatValue } from "~/utilities/formatter";
 import { DataTable } from "../DataTable";
 import { ValueIcon } from "../ValueIcon";
 
-export type PropertiesNumberProps = {
-  type: JSONIntType | JSONFloatType;
+export type PropertiesFloatProps = {
+  type: JSONFloatType;
 };
 
-export function PropertiesNumber(info: PropertiesNumberProps) {
+export function PropertiesFloat(info: PropertiesFloatProps) {
   return (
     <DataTable
       rows={[

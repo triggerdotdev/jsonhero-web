@@ -66,7 +66,16 @@ export const ValueIcon: FunctionComponent<ValueIconProps> = ({
     case "bool": {
       return <CheckCircleIcon className={classes} />;
     }
-    case "int":
+    case "int": {
+      if (type.format == null) {
+        return <HashtagIcon className={classes} />;
+      }
+      switch (type.format.name) {
+        case "timestamp": {
+          return <CalendarIcon className={classes} />;
+        }
+      }
+    }
     case "float": {
       return <HashtagIcon className={classes} />;
     }
