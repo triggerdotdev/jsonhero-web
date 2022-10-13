@@ -94,6 +94,7 @@ export async function createFromRawJson(
     readOnly: options?.readOnly ?? false,
   };
 
+  JSON.parse(contents);
   await DOCUMENTS.put(docId, JSON.stringify(doc), {
     expirationTtl: options?.ttl ?? undefined,
     metadata: options?.metadata ?? undefined,
@@ -153,7 +154,7 @@ function isJSON(possibleJson: string): boolean {
   try {
     JSON.parse(possibleJson);
     return true;
-  } catch {
-    return false;
+  } catch (e: any) {
+    throw new Error(e.message);
   }
 }

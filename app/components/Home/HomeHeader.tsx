@@ -51,7 +51,7 @@ export function HomeHeader({ fixed }: { fixed?: boolean }) {
           </a>
         </li>
         <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
-          <a href="https://twitter.com/tryapihero" target="_blank">
+          <a href="https://twitter.com/runapihero" target="_blank">
             <TwitterIcon />
           </a>
         </li>

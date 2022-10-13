@@ -6,7 +6,8 @@ import { SquareBracketsIcon } from "./Icons/SquareBracketsIcon";
 import { Body } from "./Primitives/Body";
 import { ThemeModeToggler } from "./ThemeModeToggle";
 import { GithubStarSmall } from "./UI/GithubStarSmall";
-import {IndentPreference} from '~/components/IndentPreference'
+import { IndentPreference } from "~/components/IndentPreference";
+import { ArrowRightIcon } from "@heroicons/react/outline";
 
 export function Footer() {
   const { minimal } = useJsonDoc();
@@ -40,7 +41,9 @@ export function Footer() {
         </li>
       </ol>
 
-      <ol className="flex items-center h-full invisible md:visible">
+      <ApiHeroFooterBanner />
+
+      <ol className="flex gap-2 items-center h-full invisible md:visible">
         {minimal && (
           <li>
             <GithubStarSmall />
@@ -52,30 +55,26 @@ export function Footer() {
         <li>
           <ThemeModeToggler />
         </li>
-
-        <a
-          href="https://apihero.run"
-          target="new"
-          className="flex h-full justify-right  w-full bg-gradient-to-r from-purple-600 to-blue-600"
-        >
-          <div className="relative flex justify-center items-center w-1/2 md:w-full">
-            <p className=" text-white text-md px-4">
-              <span className="font-bold inline"> ⚡️ API HERO</span>
-              <span className="hidden lg:inline">
-                &nbsp;- integrate popular APIs in seconds
-              </span>
-            </p>
-            <a
-              href="https://apihero.run"
-              target="new"
-              className="flex justify-center items-center h-8 px-5  text-center text-md text-slate-800 font-bold bg-lime-500 shadow-md hover:bg-lime-400 transition"
-            >
-              <span className="hidden lg:inline">Private beta&nbsp; </span>
-              &rarr;
-            </a>
-          </div>
-        </a>
       </ol>
     </footer>
+  );
+}
+
+function ApiHeroFooterBanner() {
+  return (
+    <a
+      href="https://apihero.run"
+      target="_blank"
+      className="hover:underline flex group hover:cursor-pointer text-slate-900 dark:text-white transition items-center dark:hover:text-transparent dark:hover:bg-clip-text dark:hover:bg-gradient-to-r dark:hover:from-purple-400 dark:hover:to-pink-600"
+    >
+      <p>
+        Try{" "}
+        <span className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
+          API Hero
+        </span>{" "}
+        – integrate popular APIs in seconds without a server!
+      </p>
+      <ArrowRightIcon className="ml-1 h-4 w-4 text-base text-slate-900 dark:text-white dark:group-hover:text-purple-400 transition" />
+    </a>
   );
 }

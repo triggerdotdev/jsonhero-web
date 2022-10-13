@@ -42,7 +42,7 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
             </a>
           </li>
           <li className="ml-2 hover:cursor-pointer">
-            <a href="https://twitter.com/tryapihero" target="_blank">
+            <a href="https://twitter.com/runapihero" target="_blank">
               <TwitterIcon />
             </a>
           </li>
