@@ -2,7 +2,10 @@ import { inferType } from "@jsonhero/json-infer-types";
 import { JSONHeroPath } from "@jsonhero/path";
 import { useMemo, useState } from "react";
 import { useJson } from "~/hooks/useJson";
-import { useJsonColumnViewState } from "~/hooks/useJsonColumnView";
+import {
+  useJsonColumnViewAPI,
+  useJsonColumnViewState,
+} from "~/hooks/useJsonColumnView";
 import { concatenated, getHierarchicalTypes } from "~/utilities/dataType";
 import { formatRawValue } from "~/utilities/formatter";
 import { isNullable } from "~/utilities/nullable";
@@ -19,6 +22,7 @@ export type InfoHeaderProps = {
 export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
   const { selectedNodeId, highlightedNodeId, selectedNodes } =
     useJsonColumnViewState();
+  const { goToNodeId } = useJsonColumnViewAPI();
 
   if (!selectedNodeId || !highlightedNodeId || selectedNodes.length === 0) {
     return <EmptyState />;
@@ -31,6 +35,7 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
   const selectedHeroPath = new JSONHeroPath(selectedNodeId);
   const selectedJson = selectedHeroPath.first(json);
   const selectedInfo = inferType(selectedJson);
+  const formattedSelectedInfo = formatRawValue(selectedInfo);
   const selectedName = selectedNode.longTitle ?? selectedNode.title;
 
   const isSelectedLeafNode =
@@ -42,6 +47,19 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
 
   const [hovering, setHovering] = useState(false);
   console.warn(selectedInfo);
+
+  const newPath = formattedSelectedInfo.replace(/^#/, "$").replace(/\//g, ".");
+
+  const checkPathExists = () => {
+    const heroPath = new JSONHeroPath(newPath);
+    const node = heroPath.first(json);
+    if (node) return true;
+    return false;
+  };
+
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    goToNodeId(newPath, "pathBar");
+  };
 
   return (
     <div className="mb-4 pb-4">
@@ -68,11 +86,17 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
               hovering ? "bg-slate-100 dark:bg-slate-700" : "bg-transparent"
             }`}
           >
-            {formatRawValue(selectedInfo)}
+            {selectedNode.name === "$ref" && checkPathExists() ? (
+              <button onClick={handleClick}>
+                {formatRawValue(selectedInfo)}
+              </button>
+            ) : (
+              formatRawValue(selectedInfo)
+            )}
           </LargeMono>
         )}
         <div
-          className={`absolute top-1 right-0 flex justify-end h-full w-full transition ${
+          className={`absolute top-1 right-0 flex justify-end h-full w-fit transition ${
             hovering ? "opacity-100" : "opacity-0"
           }`}
         >
