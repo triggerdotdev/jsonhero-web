@@ -1,6 +1,6 @@
 import { inferType } from "@jsonhero/json-infer-types";
 import { JSONHeroPath } from "@jsonhero/path";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useJson } from "~/hooks/useJson";
 import {
   useJsonColumnViewAPI,
@@ -50,16 +50,9 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
 
   const newPath = formattedSelectedInfo.replace(/^#/, "$").replace(/\//g, ".");
 
-  const checkPathExists = () => {
-    const heroPath = new JSONHeroPath(newPath);
-    const node = heroPath.first(json);
-    if (node) return true;
-    return false;
-  };
-
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+  const handleClick = useCallback(() => {
     goToNodeId(newPath, "pathBar");
-  };
+  }, [newPath, goToNodeId]);
 
   return (
     <div className="mb-4 pb-4">
@@ -86,7 +79,7 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
               hovering ? "bg-slate-100 dark:bg-slate-700" : "bg-transparent"
             }`}
           >
-            {selectedNode.name === "$ref" && checkPathExists() ? (
+            {selectedNode.name === "$ref" && checkPathExists(json, newPath) ? (
               <button onClick={handleClick}>
                 {formatRawValue(selectedInfo)}
               </button>
@@ -114,6 +107,12 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
       </div>
     </div>
   );
+}
+
+function checkPathExists(json: unknown, newPath: string) {
+  const heroPath = new JSONHeroPath(newPath);
+  const node = heroPath.first(json);
+  return Boolean(node);
 }
 
 function EmptyState() {
