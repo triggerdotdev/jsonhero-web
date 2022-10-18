@@ -122,7 +122,7 @@ Array [
       "$.data.1.recent_asset_ids",
       "$.data.2.recent_asset_ids",
     ],
-    "value": "[...]",
+    "value": "Array(2)",
   },
   Object {
     "paths": Array [

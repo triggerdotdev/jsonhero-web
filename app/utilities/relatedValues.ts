@@ -29,7 +29,7 @@ export function groupRelatedValues(
     } else if (value == null) {
       return "null";
     } else if (Array.isArray(value)) {
-      return "[...]";
+      return `Array(${value.length})`;
     } else if (typeof value === "object") {
       return "{...}";
     } else {
