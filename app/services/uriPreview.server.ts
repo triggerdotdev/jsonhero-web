@@ -148,6 +148,7 @@ function createPreviewImage(uri: string, head: HeadInfo): PreviewImage {
 }
 
 // Rewrites the URL to convert an ipfs: url to use https://ipfs.io/ipfs/
+// Rewrites the URL to convert an git: url to use https://
 function rewriteUrl(url: string): URL {
   const unmodifiedUrl = new URL(url);
 
@@ -168,6 +169,11 @@ function rewriteUrl(url: string): URL {
         }${unmodifiedUrl.search}`
       );
     }
+  }
+  if(unmodifiedUrl.protocol === "git:"){
+    return new URL(
+      `https://${unmodifiedUrl.hostname}${unmodifiedUrl.pathname.replace(".git","")}`
+    );
   }
 
   return unmodifiedUrl;
