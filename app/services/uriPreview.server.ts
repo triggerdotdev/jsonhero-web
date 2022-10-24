@@ -39,7 +39,6 @@ async function getPeekalink(link: string): Promise<PreviewResult> {
 export async function getUriPreview(uri: string): Promise<PreviewResult> {
 
   const url = rewriteUrl(uri);
-  console.log(url)
 
   const head = await headUri(url.href);
 
