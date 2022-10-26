@@ -1,5 +1,5 @@
 import { JSONStringType } from "@jsonhero/json-infer-types/lib/@types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFetcher } from "remix";
 import { Body } from "~/components/Primitives/Body";
 import { PreviewBox } from "../PreviewBox";
@@ -13,12 +13,30 @@ export type PreviewUriProps = {
 
 export function PreviewUri(props: PreviewUriProps) {
   const previewFetcher = useFetcher<PreviewResult>();
-
+  const [isOffline, setIsOffline] = useState(false);
+  const listenForOnline = () => { setIsOffline(false); }
   useEffect(() => {
     const encodedUri = encodeURIComponent(props.value);
-    previewFetcher.load(`/actions/getPreview/${encodedUri}`);
+    if (window.navigator.onLine) {
+      previewFetcher.load(`/actions/getPreview/${encodedUri}`);
+    }else{
+      setIsOffline(true)
+      window.addEventListener("online", listenForOnline);
+    }
+    return () => {
+      window.removeEventListener("online", listenForOnline);
+    };
   }, [props.value]);
 
+  if(isOffline){
+    return (
+      <PreviewBox>
+        <Body>
+          unable to load preview
+        </Body>
+      </PreviewBox>
+    )
+  }
   return (
     <div>
       {previewFetcher.type === "done" ? (
