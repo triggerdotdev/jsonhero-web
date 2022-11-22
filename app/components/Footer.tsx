@@ -29,14 +29,18 @@ export function Footer() {
         </li>
         <li className="flex items-center">
           <EscapeKeyIcon className="transition text-slate-300 dark:text-slate-500" />
-          <Body className="pl-2 pr-4 text-slate-800 transition dark:text-white">
+          <Body className="pl-2 pr-4 text-slate-800 transition dark:text-white whitespace-nowrap">
             Reset path
           </Body>
         </li>
         <li className="flex items-center">
           <CopyShortcutIcon className="transition text-slate-300 dark:text-slate-500" />
-          <Body className="pl-2 pr-4 text-slate-800 transition dark:text-white">
-            Copy selected node
+          <Body className="flex pl-2 pr-4 text-slate-800 transition dark:text-white">
+            Copy&nbsp;
+            <span className="hidden lg:flex whitespace-nowrap">
+              selected&nbsp;
+            </span>
+            node
           </Body>
         </li>
       </ol>
@@ -67,12 +71,12 @@ function ApiHeroFooterBanner() {
       target="_blank"
       className="hover:underline flex group hover:cursor-pointer text-slate-900 dark:text-white transition items-center dark:hover:text-transparent dark:hover:bg-clip-text dark:hover:bg-gradient-to-r dark:hover:from-purple-400 dark:hover:to-pink-600"
     >
-      <p>
+      <p className="md:text-lg text-sm whitespace-nowrap">
         Try{" "}
-        <span className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
+        <span className=" font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
           API Hero
         </span>{" "}
-        – integrate popular APIs in seconds without a server!
+        – make every API you use faster and more reliable!
       </p>
       <ArrowRightIcon className="ml-1 h-4 w-4 text-base text-slate-900 dark:text-white dark:group-hover:text-purple-400 transition" />
     </a>

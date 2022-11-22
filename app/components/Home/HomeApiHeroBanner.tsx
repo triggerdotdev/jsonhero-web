@@ -7,20 +7,17 @@ export function HomeApiHeroBanner() {
       <div className="relative flex justify-center items-center w-1/2 md:w-full pl-6 md:px-6">
         <div className="flex flex-col">
           <Body className=" text-white text-[1rem] sm:text-[1.2rem] font-bold md:text-3xl leading-tight">
-            Introducing ⚡️ API Hero
+            Early access to ⚡️ API Hero
           </Body>
-          <p className="mb-2 text-white">
-            Integrate APIs in seconds
-            <span className="hidden md:inline">
-              &nbsp;and scale without servers.
-            </span>
+          <p className="mb-2 text-white md:text-xl text-sm">
+            Make every API you use faster and more reliable.
           </p>
           <a
             href="https://apihero.run"
             target="new"
-            className="flex items-center justify-center px-3 py-2 mt-2 text-center text-m md:text-xl text-slate-800 font-bold bg-lime-500 rounded shadow-md hover:bg-lime-400 transition"
+            className="flex items-center justify-center px-3 py-2 mt-2 text-center text-md md:text-xl text-slate-800 font-bold bg-lime-500 rounded shadow-md hover:bg-lime-400 transition"
           >
-            Check it out &rarr;
+            Get started &rarr;
           </a>
         </div>
         <a
