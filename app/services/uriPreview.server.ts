@@ -4,6 +4,7 @@ import {
   PreviewResult,
 } from "~/components/Preview/Types/preview.types";
 import safeFetch from "~/utilities/safeFetch";
+import { fetchProxy } from "./apihero.server";
 
 const imageContentTypes = [
   "image/jpeg",
@@ -18,7 +19,7 @@ async function getPeekalink(link: string): Promise<PreviewResult> {
     return { error: "Preview unavailable" };
   }
 
-  const response = await fetch("https://api.peekalink.io/", {
+  const response = await fetchProxy("https://api.peekalink.io/", {
     method: "POST",
     headers: {
       "X-API-Key": PEEKALINK_API_KEY,
@@ -37,7 +38,6 @@ async function getPeekalink(link: string): Promise<PreviewResult> {
 }
 
 export async function getUriPreview(uri: string): Promise<PreviewResult> {
-
   const url = rewriteUrl(uri);
 
   const head = await headUri(url.href);
@@ -98,7 +98,6 @@ async function headUri(
   if (!response.ok) {
     // If this is a 405 Method Not Allowed, do a GET request instead and if that is a redirect, return the head of the redirect url
     if (response.status === 405 && redirectCount < 5) {
-      
       // Do a GET request that does not follow redirects
       const noFollowResponse = await fetch(uri, {
         method: "GET",
@@ -170,9 +169,12 @@ function rewriteUrl(url: string): URL {
       );
     }
   }
-  if(unmodifiedUrl.protocol === "git:"){
+  if (unmodifiedUrl.protocol === "git:") {
     return new URL(
-      `https://${unmodifiedUrl.hostname}${unmodifiedUrl.pathname.replace(".git","")}`
+      `https://${unmodifiedUrl.hostname}${unmodifiedUrl.pathname.replace(
+        ".git",
+        ""
+      )}`
     );
   }
 
