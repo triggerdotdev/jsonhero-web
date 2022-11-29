@@ -1,5 +1,4 @@
 import { ExampleDoc } from "./ExampleDoc";
-import { ExampleUrl } from "./ExampleUrl";
 
 export function SampleUrls() {
   return (
@@ -10,6 +9,16 @@ export function SampleUrls() {
         path="data.0.entities.urls.0.expanded_url"
       />
       <ExampleDoc id="PjHo1o5MVeH4" title="Github API" />
+      <ExampleDoc
+        id="XKqIsPgCssUN"
+        title="Airtable API"
+        path="records.3.createdTime"
+      />
+      <ExampleDoc
+        id="bSc7r1Ta0fED"
+        title="Unsplash API"
+        path="4.urls.regular"
+      />
     </div>
   );
 }

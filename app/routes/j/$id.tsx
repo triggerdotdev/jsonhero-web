@@ -34,6 +34,7 @@ import { IntercomProvider, useIntercom } from "react-use-intercom";
 import {
   commitSession,
   getSession,
+  setErrorMessage,
   setSuccessMessage,
 } from "~/services/toast.server";
 
@@ -94,9 +95,23 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   invariant(params.id, "expected params.id");
 
-  await deleteDocument(params.id);
-
   const toastCookie = await getSession(request.headers.get("cookie"));
+
+  const document = await getDocument(params.id);
+
+  if (!document) {
+    setErrorMessage(toastCookie, "Document not found", "Error");
+
+    return redirect(`/`);
+  }
+
+  if (document.readOnly) {
+    setErrorMessage(toastCookie, "Document is read-only", "Error");
+
+    return redirect(`/j/${params.id}`);
+  }
+
+  await deleteDocument(params.id);
 
   setSuccessMessage(toastCookie, "Document deleted successfully", "Success");
 
