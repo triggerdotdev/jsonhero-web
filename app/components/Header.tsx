@@ -13,30 +13,33 @@ import {
   PopoverTrigger,
 } from "./UI/Popover";
 import { Form } from "remix";
-import { Body } from "./Primitives/Body";
-import { ToolTip } from "./ToolTip";
+import { useJsonDoc } from "~/hooks/useJsonDoc";
 
 export function Header() {
+  const { doc } = useJsonDoc();
+
   return (
     <header className="flex items-center justify-between w-screen h-[40px] bg-indigo-700 dark:bg-slate-800 border-b-[1px] border-slate-600">
       <Logo className="pl-1 pr-2" width={"130"} />
       <DocumentTitle />
       <ol className="flex items-center gap-2 px-4">
-        <Form
-          method="delete"
-          onSubmit={(e) =>
-            !confirm(
-              "This will permanantly delete this document from jsonhero.io, are you sure you want to continue?"
-            ) && e.preventDefault()
-          }
-        >
-          <button type="submit">
-            <button className="flex items-center justify-center py-1 bg-slate-200 text-slate-800 bg-opacity-90 text-base font-bold px-2 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
-              <TrashIcon className="w-4 h-4 mr-0.5"></TrashIcon>
-              Delete
+        {!doc.readOnly && (
+          <Form
+            method="delete"
+            onSubmit={(e) =>
+              !confirm(
+                "This will permanantly delete this document from jsonhero.io, are you sure you want to continue?"
+              ) && e.preventDefault()
+            }
+          >
+            <button type="submit">
+              <button className="flex items-center justify-center py-1 bg-slate-200 text-slate-800 bg-opacity-90 text-base font-bold px-2 rounded-sm uppercase hover:cursor-pointer hover:bg-opacity-100 transition">
+                <TrashIcon className="w-4 h-4 mr-0.5"></TrashIcon>
+                Delete
+              </button>
             </button>
-          </button>
-        </Form>
+          </Form>
+        )}
 
         <Popover>
           <PopoverTrigger>
