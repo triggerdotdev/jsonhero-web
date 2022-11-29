@@ -70,6 +70,7 @@ export function PreviewString({ info }: { info: JSONStringType }) {
       }
       return <></>;
     case "color":
+    case "colour":
       return <PreviewColor value={info.value} format={info.format} />;
     case "json":
       return <PreviewJson value={info.value} format={info.format} />;
