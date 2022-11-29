@@ -34,8 +34,10 @@ const Toast = ({
       ? "bg-slate-50 dark:bg-slate-900"
       : "bg-rose-50 dark:bg-rose-100";
 
-  const titleClasses = type === "success" ? "text-slate-900" : "text-slate-900";
-  const bodyClasses = type === "success" ? "text-slate-700" : "text-slate-700";
+  const titleClasses =
+    type === "success" ? "text-emerald-500" : "text-slate-900";
+  const bodyClasses =
+    type === "success" ? "text-emerald-500" : "text-slate-700";
 
   const iconType =
     type === "success" ? "text-emerald-700 h-7 w-7" : "text-rose-700 h-7 w-7";

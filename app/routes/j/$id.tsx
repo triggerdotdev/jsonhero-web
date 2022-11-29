@@ -1,13 +1,15 @@
 import {
+  ActionFunction,
   LoaderFunction,
   MetaFunction,
   Outlet,
+  redirect,
   useLoaderData,
   useLocation,
   useParams,
 } from "remix";
 import invariant from "tiny-invariant";
-import { getDocument, JSONDocument } from "~/jsonDoc.server";
+import { deleteDocument, getDocument, JSONDocument } from "~/jsonDoc.server";
 import { JsonDocProvider } from "~/hooks/useJsonDoc";
 import { useEffect } from "react";
 import { JsonProvider } from "~/hooks/useJson";
@@ -29,6 +31,11 @@ import { PageNotFoundTitle } from "~/components/Primitives/PageNotFoundTitle";
 import { SmallSubtitle } from "~/components/Primitives/SmallSubtitle";
 import { Logo } from "~/components/Icons/Logo";
 import { IntercomProvider, useIntercom } from "react-use-intercom";
+import {
+  commitSession,
+  getSession,
+  setSuccessMessage,
+} from "~/services/toast.server";
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -77,6 +84,25 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       minimal,
     };
   }
+};
+
+export const action: ActionFunction = async ({ request, params }) => {
+  // Return if the request is not a DELETE
+  if (request.method !== "DELETE") {
+    return;
+  }
+
+  invariant(params.id, "expected params.id");
+
+  await deleteDocument(params.id);
+
+  const toastCookie = await getSession(request.headers.get("cookie"));
+
+  setSuccessMessage(toastCookie, "Document deleted successfully", "Success");
+
+  return redirect("/", {
+    headers: { "Set-Cookie": await commitSession(toastCookie) },
+  });
 };
 
 function getPathFromRequest(request: Request): string | null {

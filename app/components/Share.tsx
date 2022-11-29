@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Body } from "./Primitives/Body";
 import { ClipboardIcon } from "@heroicons/react/outline";
-import { useSelectedInfo } from "~/hooks/useSelectedInfo";
 import { useJsonColumnViewState } from "~/hooks/useJsonColumnView";
 
 const buttonDefault = (

@@ -41,7 +41,7 @@ export async function createFromUrlOrRawJson(
   }
 
   // Wrapper for createFromRawJson to handle XML
-  // TODO ? change from urlOrJson to urlOrJsonOrXml 
+  // TODO ? change from urlOrJson to urlOrJsonOrXml
   if (isXML(urlOrJson)) {
     return createFromRawXml("Untitled", urlOrJson);
   }
@@ -126,6 +126,10 @@ export async function updateDocument(
   await DOCUMENTS.put(slug, JSON.stringify(updated));
 
   return updated;
+}
+
+export async function deleteDocument(slug: string): Promise<void> {
+  await DOCUMENTS.delete(slug);
 }
 
 function createId(): string {
