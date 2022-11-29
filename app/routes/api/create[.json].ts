@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request, context }) => {
   const url = new URL(request.url);
 
-  const { title, content, ttl } = await request.json();
+  const { title, content, ttl, readOnly } = await request.json();
 
   if (!title || !content) {
     return json({ message: "Missing title or content" }, 400);
@@ -39,6 +39,10 @@ export const action: ActionFunction = async ({ request, context }) => {
     }
 
     options.ttl = ttl;
+  }
+
+  if (typeof readOnly === "boolean") {
+    options.readOnly = readOnly;
   }
 
   const doc = await createFromRawJson(title, JSON.stringify(content), options);

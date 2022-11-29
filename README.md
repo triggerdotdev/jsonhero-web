@@ -38,7 +38,9 @@ Send your JSON to JSON Hero in a variety of ways
   ```json
   {
     "title": "test 123",
-    "content": { "foo": "bar" }
+    "content": { "foo": "bar" },
+    "readOnly": false, // this is optional, will make it so the document title cannot be edited or document cannot be deleted
+    "ttl": 3600 // this will expire the document after 3600 seconds, also optional
   }
   ```
 
