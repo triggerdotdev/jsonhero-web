@@ -14,6 +14,7 @@ import {
 import { json, useLoaderData } from "remix";
 import ToastPopover from "../components/UI/ToastPopover";
 import { HomeApiHeroBanner } from "~/components/Home/HomeApiHeroBanner";
+import { HomeWorkflowBanner } from "~/components/Home/HomeWorkflowBanner";
 
 type LoaderData = { toastMessage?: ToastMessage };
 
@@ -44,6 +45,7 @@ export default function Index() {
       )}
 
       <HomeHeader fixed={true} />
+      <HomeWorkflowBanner />
       <HomeHeroSection />
       <HomeInfoBoxSection />
       <HomeEdgeCasesSection />
