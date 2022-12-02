@@ -65,7 +65,7 @@ export function Footer() {
 function WorkflowFooterBanner() {
   return (
     <a
-      href="https://bcymafitv0e.typeform.com/workflows"
+      href="https://bcymafitv0e.typeform.com/automation"
       target="_blank"
       className="hover:underline flex group hover:cursor-pointer text-slate-900 dark:text-white transition items-center dark:hover:text-transparent dark:hover:bg-clip-text dark:hover:bg-gradient-to-r dark:hover:from-purple-400 dark:hover:to-pink-600"
     >

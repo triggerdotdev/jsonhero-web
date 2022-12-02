@@ -15,7 +15,7 @@ export function HomeWorkflowBanner() {
           </div>
           <div className="flex flex-col items-center justify-center pr-4">
             <a
-              href="https://bcymafitv0e.typeform.com/workflows"
+              href="https://bcymafitv0e.typeform.com/automation"
               target="new"
               className="flex items-center py-2 justify-center px-3 text-center text-md md:text-xl text-slate-800 font-bold bg-lime-500 rounded shadow-md hover:bg-lime-400 transition whitespace-nowrap"
             >
