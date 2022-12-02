@@ -1,0 +1,17 @@
+version: '3'
+x-uffizzi:
+  ingress:
+    service: jsonhero
+    port: 8787
+services:
+  jsonhero:
+    image: "${APP_IMAGE}"
+    ports:
+      - 8787:8787
+    environment:
+      SESSION_SECRET: abc123
+    deploy:
+      resources:
+        limits:
+          memory: 2000M
+
