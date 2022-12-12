@@ -30,7 +30,6 @@ import { Body } from "~/components/Primitives/Body";
 import { PageNotFoundTitle } from "~/components/Primitives/PageNotFoundTitle";
 import { SmallSubtitle } from "~/components/Primitives/SmallSubtitle";
 import { Logo } from "~/components/Icons/Logo";
-import { IntercomProvider, useIntercom } from "react-use-intercom";
 import {
   commitSession,
   getSession,
@@ -185,68 +184,63 @@ export default function JsonDocumentRoute() {
     }
   }, [loaderData.path]);
 
-  const INTERCOM_APP_ID = "pfbctmiv";
-
   return (
-    <IntercomProvider appId={INTERCOM_APP_ID}>
-      <JsonDocProvider
-        doc={loaderData.doc}
-        path={loaderData.path}
-        key={loaderData.doc.id}
-        minimal={loaderData.minimal}
-      >
-        <JsonProvider initialJson={loaderData.json}>
-          <JsonSchemaProvider>
-            <JsonColumnViewProvider>
-              <JsonSearchProvider>
-                <JsonTreeViewProvider overscan={25}>
-                  <div>
-                    <IntercomSurvey />
-                    <div className="block md:hidden fixed bg-black/80 h-screen w-screen z-50 text-white">
-                      <div className="flex flex-col items-center justify-center h-full text-center">
-                        <LargeTitle>JSON Hero only works on desktop</LargeTitle>
-                        <LargeTitle>👇</LargeTitle>
-                        <Body>(For now!)</Body>
-                        <a
-                          href="/"
-                          className="mt-8 text-white bg-lime-500 rounded-sm px-4 py-2"
-                        >
-                          Back to Home
-                        </a>
-                      </div>
-                    </div>
-                    <div className="h-screen flex flex-col sm:overflow-hidden">
-                      {!loaderData.minimal && <Header />}
-                      <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
-                        <div className="main-container flex justify-items-stretch h-full">
-                          <SideBar />
-                          <JsonView>
-                            <Outlet />
-                          </JsonView>
-
-                          <Resizable
-                            isHorizontal={true}
-                            initialSize={500}
-                            minimumSize={280}
-                            maximumSize={900}
-                          >
-                            <div className="info-panel flex-grow h-full">
-                              <InfoPanel />
-                            </div>
-                          </Resizable>
-                        </div>
-                      </div>
-
-                      <Footer></Footer>
+    <JsonDocProvider
+      doc={loaderData.doc}
+      path={loaderData.path}
+      key={loaderData.doc.id}
+      minimal={loaderData.minimal}
+    >
+      <JsonProvider initialJson={loaderData.json}>
+        <JsonSchemaProvider>
+          <JsonColumnViewProvider>
+            <JsonSearchProvider>
+              <JsonTreeViewProvider overscan={25}>
+                <div>
+                  <div className="block md:hidden fixed bg-black/80 h-screen w-screen z-50 text-white">
+                    <div className="flex flex-col items-center justify-center h-full text-center">
+                      <LargeTitle>JSON Hero only works on desktop</LargeTitle>
+                      <LargeTitle>👇</LargeTitle>
+                      <Body>(For now!)</Body>
+                      <a
+                        href="/"
+                        className="mt-8 text-white bg-lime-500 rounded-sm px-4 py-2"
+                      >
+                        Back to Home
+                      </a>
                     </div>
                   </div>
-                </JsonTreeViewProvider>
-              </JsonSearchProvider>
-            </JsonColumnViewProvider>
-          </JsonSchemaProvider>
-        </JsonProvider>
-      </JsonDocProvider>
-    </IntercomProvider>
+                  <div className="h-screen flex flex-col sm:overflow-hidden">
+                    {!loaderData.minimal && <Header />}
+                    <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
+                      <div className="main-container flex justify-items-stretch h-full">
+                        <SideBar />
+                        <JsonView>
+                          <Outlet />
+                        </JsonView>
+
+                        <Resizable
+                          isHorizontal={true}
+                          initialSize={500}
+                          minimumSize={280}
+                          maximumSize={900}
+                        >
+                          <div className="info-panel flex-grow h-full">
+                            <InfoPanel />
+                          </div>
+                        </Resizable>
+                      </div>
+                    </div>
+
+                    <Footer></Footer>
+                  </div>
+                </div>
+              </JsonTreeViewProvider>
+            </JsonSearchProvider>
+          </JsonColumnViewProvider>
+        </JsonSchemaProvider>
+      </JsonProvider>
+    </JsonDocProvider>
   );
 }
 
@@ -280,15 +274,4 @@ export function CatchBoundary() {
       </div>
     </div>
   );
-}
-
-function IntercomSurvey() {
-  const { boot, shutdown, hide, show, update } = useIntercom();
-
-  useEffect(() => {
-    boot({});
-    return () => shutdown();
-  }, []);
-
-  return <></>;
 }
