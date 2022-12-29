@@ -2,9 +2,10 @@
 <img width="300" src="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/8aaa6f22-d600-4f26-cda9-c9f040863400/public"/>
 </p>
 
-# Brought to you by API Hero
+# Brought to you by Trigger.dev
 
-JSON Hero was created and is maintained by the team behind [API Hero](https://apihero.run). API Hero makes it quick and easy to add popular APIs to your project using the frameworks you love, and scale without worry.
+JSON Hero was created and is maintained by the team behind [Trigger.dev](https://trigger.dev). With Trigger.dev you can trigger workflows from APIs, on a schedule, or on demand. We make API calls easy with authentication handled for you, and you can add durable delays that survive server restarts. 
+
 
 # JSON Hero
 
