@@ -2,7 +2,7 @@
 
 Welcome to JSON Hero development and thanks for being here! If you'd like to run JSON Hero locally, please use the following guide to get started. If you have any issues with this guide please feel free to email me at [eric@jsonhero.io](mailto:eric@jsonhero.io) or come leave a message in our open [Discord Channel](https://discord.gg/ZQq6Had5nP).
 
-For more information about contributing to JSON Hero please see the [Contributing doc](https://github.com/apihero-run/jsonhero-web/blob/main/CONTRIBUTING.md).
+For more information about contributing to JSON Hero please see the [Contributing doc](https://github.com/triggerdotdev/jsonhero-web/blob/main/CONTRIBUTING.md).
 
 ### Install dependencies
 
@@ -26,14 +26,14 @@ npm ---version
 
 ### Fork JSON Hero on GitHub (optional)
 
-To contribute code to JSON Hero, you should first create a fork of the [jsonhero-web](https://github.com/apihero-run/jsonhero-web) repository on GitHub. Follow [these instructions](https://docs.github.com/en/get-started/quickstart/fork-a-repo) on repository forking.
+To contribute code to JSON Hero, you should first create a fork of the [jsonhero-web](https://github.com/triggerdotdev/jsonhero-web) repository on GitHub. Follow [these instructions](https://docs.github.com/en/get-started/quickstart/fork-a-repo) on repository forking.
 
 ### Clone the repo
 
 In your terminal, issue the following command to clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/apihero-run/jsonhero-web.git
+git clone https://github.com/triggerdotdev/jsonhero-web.git
 ```
 
 Or if you've forked the repository:

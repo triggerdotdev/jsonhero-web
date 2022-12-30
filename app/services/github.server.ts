@@ -1,7 +1,7 @@
 export async function getStarCount(): Promise<number | undefined> {
   try {
     const response = await fetch(
-      `https://api.github.com/repos/apihero-run/jsonhero-web`,
+      `https://api.github.com/repos/triggerdotdev/jsonhero-web`,
       {
         headers: {
           accept: "application/json",

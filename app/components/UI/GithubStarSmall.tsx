@@ -12,7 +12,7 @@ export function GithubStarSmall({ className }: GithubStarSmallProps) {
 
   return (
     <a
-      href="https://github.com/apihero-run/jsonhero-web"
+      href="https://github.com/triggerdotdev/jsonhero-web"
       target="_blank"
       className="flex p-1 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition hover:cursor-pointer"
     >
