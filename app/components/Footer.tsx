@@ -69,7 +69,7 @@ function WorkflowFooterBanner() {
       target="_blank"
       className="hover:underline flex group hover:cursor-pointer text-slate-900 dark:text-white transition items-center"
     >
-      Create Zapier-like workflows in code.
+      Automate complex workflows with code.
       <span className="pl-0.5 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
         Check it out
       </span>
