@@ -4,7 +4,7 @@ First of all, thanks for considering contributing to this project! If you have a
 
 JSON Hero is a Typescript React application built with [remix.run](https://remix.run), with support for deploying to Cloudflare workers.
 
-To get started with contributing, please read our [Development guide](https://github.com/apihero-run/jsonhero-web/blob/main/DEVELOPMENT.md) first to get JSON Hero running locally.
+To get started with contributing, please read our [Development guide](https://github.com/triggerdotdev/jsonhero-web/blob/main/DEVELOPMENT.md) first to get JSON Hero running locally.
 
 ### Running tests
 
@@ -28,14 +28,14 @@ Make sure to run the `npm lint` command to ensure there are no Typescript compil
 
 ### Pull Requests
 
-Please open a Pull Request against the `main` branch in the `apihero-run/jsonhero-web` repository. We will aim to address all newly opened PRs by the following Friday. If you haven't opened a Pull Request before, please check out GitHub's [Pull Request documentation](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests)
+Please open a Pull Request against the `main` branch in the `triggerdotdev/jsonhero-web` repository. We will aim to address all newly opened PRs by the following Friday. If you haven't opened a Pull Request before, please check out GitHub's [Pull Request documentation](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests)
 
 ### Other JSON Hero projects
 
-If you'd like to contribute to the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=JSONHero.jsonhero-vscode), please see the [apihero-run/vscode-extension](https://github.com/apihero-run/vscode-extension) repo.
+If you'd like to contribute to the [VSCode extension](https://marketplace.visualstudio.com/items?itemName=JSONHero.jsonhero-vscode), please see the [triggerdotdev/vscode-extension](https://github.com/triggerdotdev/vscode-extension) repo.
 
-For issues related to the JSON Schema inference, please check out [apihero-run/schema-infer](https://github.com/apihero-run/schema-infer).
+For issues related to the JSON Schema inference, please check out [triggerdotdev/schema-infer](https://github.com/triggerdotdev/schema-infer).
 
-The "Smart Preview" feature is in-part powered by the [@jsonhero/json-infer-types](https://github.com/apihero-run/json-infer-types) project.
+The "Smart Preview" feature is in-part powered by the [@jsonhero/json-infer-types](https://github.com/triggerdotdev/json-infer-types) project.
 
-If it's related to the Search functionality, please see the [apihero-run/fuzzy-json-search](https://github.com/apihero-run/fuzzy-json-search) repo.
+If it's related to the Search functionality, please see the [triggerdotdev/fuzzy-json-search](https://github.com/triggerdotdev/fuzzy-json-search) repo.
