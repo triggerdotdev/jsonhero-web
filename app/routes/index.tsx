@@ -13,8 +13,6 @@ import {
 } from "../services/toast.server";
 import { json, useLoaderData } from "remix";
 import ToastPopover from "../components/UI/ToastPopover";
-import { HomeApiHeroBanner } from "~/components/Home/HomeApiHeroBanner";
-import { HomeWorkflowBanner } from "~/components/Home/HomeWorkflowBanner";
 import { HomeTriggerDevBanner } from "~/components/Home/HomeTriggerDevBanner";
 
 type LoaderData = { toastMessage?: ToastMessage };
