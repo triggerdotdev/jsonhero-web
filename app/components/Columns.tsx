@@ -27,7 +27,7 @@ function ColumnsElement({ columns }: { columns: ColumnDefinition[] }) {
   }, [highlightedPath, json]);
 
   return (
-    <div className="columns flex flex-grow overflow-x-auto no-scrollbar focus:outline-none">
+    <div className="columns flex flex-grow overflow-x-auto focus:outline-none no-scrollbar">
       {columns.map((column) => {
         return (
           <Column
