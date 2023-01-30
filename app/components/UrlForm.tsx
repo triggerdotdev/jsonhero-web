@@ -16,7 +16,7 @@ export function UrlForm({ className }: UrlFormProps) {
           type="text"
           name="jsonUrl"
           id="jsonUrl"
-          className="block flex-grow text-base text-slate-200 placeholder:text-slate-300 bg-slate-800 border border-slate-600 rounded-l-sm py-2 px-3 transition duration-300 focus:ring-indigo-500 focus:border-indigo-500"
+          className="block flex-grow text-base text-slate-200 placeholder:text-slate-300 bg-slate-900/40 border border-slate-600 rounded-l-sm py-2 px-3 transition duration-300 focus:ring-indigo-500 focus:border-indigo-500"
           placeholder="Enter a JSON URL or paste in JSON here..."
         />
         <button

@@ -28,8 +28,8 @@ export function HomeHeroSection() {
           </ExtraLargeTitle>
           <SmallSubtitle className="text-slate-200 mb-8">
             Stop staring at thousand line JSON files in your editor and start
-            staring at thousand line JSON files in your browser. With a few nice
-            features to help make it not <em>the worst</em>.
+            staring at thousand line JSON files in the world's best JSON viewer.
+            With a few nice features to help make it not <em>the worst</em>.
           </SmallSubtitle>
           <NewFile />
         </div>

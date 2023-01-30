@@ -67,13 +67,14 @@ function WorkflowFooterBanner() {
     <a
       href="https://trigger.dev"
       target="_blank"
-      className="hover:underline flex group hover:cursor-pointer text-slate-900 dark:text-white transition items-center"
+      className="hover:underline text-sm lg:text-md whitespace-nowrap flex group hover:cursor-pointer text-slate-900 dark:text-white transition items-center"
     >
-      Automate complex workflows with code.
-      <span className="pl-0.5 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
-        Check it out
+      <span className="hidden lg:flex"> Trigger.dev -&nbsp;</span> Effortless
+      automation built for developers.
+      <span className="pl-0.5 font-extrabold text-transparent whitespace-nowrap bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
+        Sign up now
       </span>
-      <ArrowRightIcon className="ml-1 h-4 w-4 text-base text-slate-900 dark:text-white transition" />
+      <ArrowRightIcon className="ml-1 h-2 w-2 text-base text-slate-900 dark:text-white transition" />
     </a>
   );
 }

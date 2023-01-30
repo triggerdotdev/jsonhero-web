@@ -11,14 +11,14 @@ export function HomeTriggerDevBanner() {
             <TriggerDevLogo className="w-64"></TriggerDevLogo>
           </a>
           <p className="text-white md:text-xl text-sm">
-            Create Zapier-like workflows in code.
+            Effortless automation built for developers.
           </p>
           <a
             href="https://trigger.dev"
             target="_blank"
             className="flex items-center justify-center w-full px-3 py-2 mt-2 text-center text-md md:text-xl text-slate-800 font-bold bg-lime-500 rounded shadow-md hover:bg-lime-400 transition"
           >
-            Check it out <ArrowSmRightIcon className="w-6 h-6 ml-1" />
+            Sign up <ArrowSmRightIcon className="w-6 h-6 ml-1" />
           </a>
         </div>
         <a
