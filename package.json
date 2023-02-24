@@ -89,9 +89,6 @@
     "typescript": "^4.6.x",
     "wrangler": "^2.4.3"
   },
-  "engines": {
-    "node": ">=14"
-  },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
