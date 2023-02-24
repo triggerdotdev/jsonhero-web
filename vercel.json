@@ -3,7 +3,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "http://localhost:8787/$1"
+      "dest": "http://127.0.0.1:8787/$1"
     }
   ]
 }
