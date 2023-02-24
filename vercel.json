@@ -2,6 +2,7 @@
   "version": 2,
   "routes": [
     {
+      "src": "/(.*)",
       "dest": "http://localhost:8787/$1"
     }
   ]
