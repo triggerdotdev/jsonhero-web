@@ -1,6 +1,6 @@
 ## ⚡️ JSON Hero Contributing Guide
 
-First of all, thanks for considering contributing to this project! If you have any questions please don't hesitate to reach out to [eric@jsonhero.io](mailto:eric@jsonhero.io) or join us on [Discord](https://discord.gg/ZQq6Had5nP).
+First of all, thanks for considering contributing to this project! If you have any questions please don't hesitate to reach out to [eric@jsonhero.io](mailto:eric@jsonhero.io) or join us on [Discord](https://discord.gg/JtBAxBr2m3).
 
 JSON Hero is a Typescript React application built with [remix.run](https://remix.run), with support for deploying to Cloudflare workers.
 

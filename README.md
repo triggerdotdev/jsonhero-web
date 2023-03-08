@@ -4,8 +4,7 @@
 
 # Brought to you by Trigger.dev
 
-JSON Hero was created and is maintained by the team behind [Trigger.dev](https://trigger.dev). With Trigger.dev you can trigger workflows from APIs, on a schedule, or on demand. We make API calls easy with authentication handled for you, and you can add durable delays that survive server restarts. 
-
+JSON Hero was created and is maintained by the team behind [Trigger.dev](https://trigger.dev). With Trigger.dev you can trigger workflows from APIs, on a schedule, or on demand. We make API calls easy with authentication handled for you, and you can add durable delays that survive server restarts.
 
 # JSON Hero
 
@@ -127,7 +126,7 @@ Easily see all the related values across your entire JSON document for a specifi
 
 Have a bug or a feature request? Feel free to [open a new issue](https://github.com/triggerdotdev/jsonhero-web/issues).
 
-You can also join our [Discord channel](https://discord.gg/ZQq6Had5nP) to hang out and discuss anything you'd like.
+You can also join our [Discord channel](https://discord.gg/JtBAxBr2m3) to hang out and discuss anything you'd like.
 
 ## Developing
 

@@ -37,7 +37,7 @@ export function HomeFooter({ maxWidth = "1150px" }: HomeFooterProps) {
             </a>
           </li>
           <li className="ml-2 hover:cursor-pointer">
-            <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
+            <a href="https://discord.gg/JtBAxBr2m3" target="_blank">
               <DiscordIcon />
             </a>
           </li>

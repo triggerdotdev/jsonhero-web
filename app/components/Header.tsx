@@ -82,7 +82,7 @@ export function Header() {
           </a>
         </li>
         <li className="opacity-90 transition hover:cursor-pointer hover:opacity-100">
-          <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
+          <a href="https://discord.gg/JtBAxBr2m3" target="_blank">
             <DiscordIconTransparent />
           </a>
         </li>

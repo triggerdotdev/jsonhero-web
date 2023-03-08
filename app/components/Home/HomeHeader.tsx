@@ -46,7 +46,7 @@ export function HomeHeader({ fixed }: { fixed?: boolean }) {
           </a>
         </li>
         <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
-          <a href="https://discord.gg/ZQq6Had5nP" target="_blank">
+          <a href="https://discord.gg/JtBAxBr2m3" target="_blank">
             <DiscordIconTransparent />
           </a>
         </li>

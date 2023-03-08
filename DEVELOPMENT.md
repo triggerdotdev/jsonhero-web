@@ -1,6 +1,6 @@
 ## 👩🏽‍💻 JSON Hero Local Development Guide
 
-Welcome to JSON Hero development and thanks for being here! If you'd like to run JSON Hero locally, please use the following guide to get started. If you have any issues with this guide please feel free to email me at [eric@jsonhero.io](mailto:eric@jsonhero.io) or come leave a message in our open [Discord Channel](https://discord.gg/ZQq6Had5nP).
+Welcome to JSON Hero development and thanks for being here! If you'd like to run JSON Hero locally, please use the following guide to get started. If you have any issues with this guide please feel free to email me at [eric@jsonhero.io](mailto:eric@jsonhero.io) or come leave a message in our open [Discord Channel](https://discord.gg/JtBAxBr2m3).
 
 For more information about contributing to JSON Hero please see the [Contributing doc](https://github.com/triggerdotdev/jsonhero-web/blob/main/CONTRIBUTING.md).
 
