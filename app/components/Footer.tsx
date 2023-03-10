@@ -8,6 +8,8 @@ import { ThemeModeToggler } from "./ThemeModeToggle";
 import { GithubStarSmall } from "./UI/GithubStarSmall";
 import { IndentPreference } from "~/components/IndentPreference";
 import { ArrowRightIcon } from "@heroicons/react/outline";
+import TriggerDevLogoImageDark from "~/assets/images/trigger-dev-logo-dark.png";
+import TriggerDevLogoImage from "~/assets/images/trigger-dev-logo.png";
 
 export function Footer() {
   const { minimal } = useJsonDoc();
@@ -67,14 +69,29 @@ function WorkflowFooterBanner() {
     <a
       href="https://trigger.dev"
       target="_blank"
-      className="hover:underline text-sm lg:text-md whitespace-nowrap flex group hover:cursor-pointer text-slate-900 dark:text-white transition items-center"
+      className="group  text-md  lg:text-md whitespace-nowrap flex group hover:cursor-pointer transition items-center"
     >
-      <span className="hidden lg:flex"> Trigger.dev -&nbsp;</span> Effortless
-      automation built for developers.
-      <span className="pl-0.5 font-extrabold text-transparent whitespace-nowrap bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500">
-        Sign up now
+      <div className="dark:hidden">
+        <TriggerDevLogoDark className="flex w-24 mr-2 mt-0.5" />
+      </div>
+      <div className="dark:block hidden">
+        <TriggerDevLogo className="flex w-24 mr-2 mt-0.5" />
+      </div>
+      <span className="lg:block hidden  text-slate-700 group-hover:text-slate-900 dark:text-slate-200 dark:group-hover:text-slate-100 transition">
+        Create reliable workflows in code:
       </span>
-      <ArrowRightIcon className="ml-1 h-2 w-2 text-base text-slate-900 dark:text-white transition" />
+      <span className="flex  items-center underline underline-offset-2 pl-0.5 font-extrabold text-purple-500 whitespace-nowrap transition group-hover:text-purple-600 dark:group-hover:text-purple-400">
+        Check it out
+      </span>
+      <ArrowRightIcon className="ml-1 h-3 w-3 text-base text-purple-500 whitespace-nowrap group-hover:text-purple-600 dark:group-hover:text-purple-400 transition" />
     </a>
   );
+}
+
+function TriggerDevLogoDark({ className }: { className: string }) {
+  return <img src={TriggerDevLogoImageDark} className={className} />;
+}
+
+function TriggerDevLogo({ className }: { className: string }) {
+  return <img src={TriggerDevLogoImage} className={className} />;
 }
