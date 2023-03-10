@@ -80,7 +80,7 @@ function WorkflowFooterBanner() {
       <span className="lg:block hidden  text-slate-700 group-hover:text-slate-900 dark:text-slate-200 dark:group-hover:text-slate-100 transition">
         Create reliable workflows in code:
       </span>
-      <span className="flex  items-center underline underline-offset-2 pl-0.5 font-extrabold text-purple-500 whitespace-nowrap transition group-hover:text-purple-600 dark:group-hover:text-purple-400">
+      <span className="flex  items-center underline underline-offset-2 pl-1 font-extrabold text-purple-500 whitespace-nowrap transition group-hover:text-purple-600 dark:group-hover:text-purple-400">
         Check it out
       </span>
       <ArrowRightIcon className="ml-1 h-3 w-3 text-base text-purple-500 whitespace-nowrap group-hover:text-purple-600 dark:group-hover:text-purple-400 transition" />
