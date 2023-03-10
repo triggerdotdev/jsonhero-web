@@ -72,7 +72,7 @@ function WorkflowFooterBanner() {
       className="group  text-md  lg:text-md whitespace-nowrap flex group hover:cursor-pointer transition items-center"
     >
       <div className="dark:hidden">
-        <TriggerDevLogoDark className="flex w-24 mr-2 mt-0.5" />
+        <TriggerDevLogoDark className="flex w-24 mr-2 mt-0.5 pr-1" />
       </div>
       <div className="dark:block hidden">
         <TriggerDevLogo className="flex w-24 mr-2 mt-0.5" />
