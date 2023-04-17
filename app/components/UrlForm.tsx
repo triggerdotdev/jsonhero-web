@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Form } from "remix";
+import { Form, useTransition } from "remix";
 
 export type UrlFormProps = {
   className?: string;
 };
 
 export function UrlForm({ className }: UrlFormProps) {
+  const transition = useTransition();
   const [inputValue, setInputValue] = useState("");
 
-  const isButtonDisabled = !inputValue.length;
+  const isNotIdle = transition.state !== "idle";
+  const isButtonDisabled = !inputValue.length || isNotIdle;
 
   return (
     <Form
@@ -34,7 +36,7 @@ export function UrlForm({ className }: UrlFormProps) {
           }`}
           disabled={isButtonDisabled}
         >
-          Go
+          {isNotIdle ? "..." : "Go"}
         </button>
       </div>
     </Form>
