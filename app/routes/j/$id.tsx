@@ -212,7 +212,7 @@ export default function JsonDocumentRoute() {
                   </div>
                   <div className="h-screen flex flex-col sm:overflow-hidden">
                     {!loaderData.minimal && <Header />}
-                    <div className="bg-slate-50 flex-grow transition dark:bg-slate-900">
+                    <div className="bg-slate-50 flex-grow transition dark:bg-slate-900 overflow-y-auto">
                       <div className="main-container flex justify-items-stretch h-full">
                         <SideBar />
                         <JsonView>
