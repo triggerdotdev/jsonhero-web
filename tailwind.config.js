@@ -20,7 +20,7 @@ module.exports = {
     extend: {
       height: {
         viewerHeight: "calc(100vh - 146px)",
-        inspectorHeight: "calc(100vh - 70px)",
+        inspectorHeight: "calc(100vh - 72px)",
         jsonViewerHeight: "calc(100vh - 106px)",
         viewerHeightMinimal: "calc(100vh - 106px)",
         inspectorHeightMinimal: "calc(100vh - 30px)",
