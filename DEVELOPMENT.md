@@ -76,9 +76,7 @@ You should now be able to access your local JSON Hero server on [localhost:8787]
 
 ### Previewing URLs
 
-We currently use [Peekalink](https://www.peekalink.io) to power some of the Preview URL functionality. This feature is disabled unless there is a valid `PEEKALINK_API_KEY` environment variable set in your `.env` file created above.
-
-If you'd like to enable this functionality locally, signup for Peekalink and set the `PEEKALINK_API_KEY`
+We currently use [OpenGraph Ninja](https://opengraph.ninja/) to power some of the Preview URL functionality.
 
 ### Deploying to Cloudflare
 
