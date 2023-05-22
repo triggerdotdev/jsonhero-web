@@ -77,7 +77,7 @@ export async function getUriPreview(uri: string): Promise<PreviewResult> {
     return createPreviewJson(url.href, jsonBody);
   }
 
-  return await getOpenGraphNinja(`${url.hostname}${url.pathname}${url.search}`);
+  return await getOpenGraphNinja(url.href);
 }
 
 type HeadInfo = {
