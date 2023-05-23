@@ -102,6 +102,10 @@ type BlurAction = {
   type: "BLUR";
 };
 
+type CollapseAllNodesAction = {
+  type: "COLLAPSE_ALL_NODES"
+};
+
 type TreeAction =
   | ToggleNodeAction
   | MoveNodeAction
@@ -111,7 +115,8 @@ type TreeAction =
   | MoveLeftAction
   | RestoreStateAction
   | ExpandAllOnPathAction
-  | BlurAction;
+  | BlurAction
+  | CollapseAllNodesAction;
 
 function expandNode<T extends { id: string; children?: T[] }>(
   state: TreeState<T>,
@@ -224,6 +229,14 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
               return collapseNode<T>(state, action.id);
             }
           }
+        }
+        case "COLLAPSE_ALL_NODES": {
+          // Reduce from the right, so that the
+          // focusedNodeId is set to the top-level node.
+          return state.items.reduceRight(
+            (nextState, item) => collapseNode<T>(nextState, item.id),
+            state
+          );
         }
         case "FOCUS_NODE": {
           const itemIndex = state.items.findIndex(({ id }) => id === action.id);
@@ -653,10 +666,14 @@ function createTreeProps<T extends { id: string; children?: T[] }>(
         }
         case "Left":
         case "ArrowLeft": {
-          dispatch({
-            type: "MOVE_LEFT",
-            source: e.nativeEvent,
-          });
+          if (e.altKey) {
+            dispatch({ type: "COLLAPSE_ALL_NODES" });
+          } else {
+            dispatch({
+              type: "MOVE_LEFT",
+              source: e.nativeEvent,
+            });
+          }
           e.preventDefault();
 
           break;
