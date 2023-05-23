@@ -2,6 +2,8 @@ import {
   PreviewImage,
   PreviewJson,
   PreviewResult,
+  OpenGraphPreviewData,
+  OpenGraphPreviewDataError
 } from "~/components/Preview/Types/preview.types";
 import safeFetch from "~/utilities/safeFetch";
 import { fetchProxy } from "./apihero.server";
@@ -14,25 +16,29 @@ const imageContentTypes = [
   "image/svg+xml",
 ];
 
-async function getPeekalink(link: string): Promise<PreviewResult> {
-  if (typeof PEEKALINK_API_KEY === "undefined") {
-    return { error: "Preview unavailable" };
-  }
-
-  const response = await fetchProxy("https://api.peekalink.io/", {
-    method: "POST",
-    headers: {
-      "X-API-Key": PEEKALINK_API_KEY,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({ link }),
-  });
+async function getOpenGraphNinja(link: string): Promise<PreviewResult> {
+  const response = await fetchProxy(`https://opengraph.ninja/api/v1?url=${link}`);
 
   if (response.ok) {
-    const result = await response.json();
-
-    return result;
+    const body: OpenGraphPreviewData = await response.json();
+    return {
+      url: body.requestUrl,
+      contentType: 'html',
+      mimeType: 'text/html',
+      title: body.title,
+      description: body.description,
+      icon: { url: body.details.favicon ?? '' },
+      image: {
+        url: body.image?.url ?? '',
+        alt: body.image?.alt
+      }
+    };
   } else {
+    const body: OpenGraphPreviewDataError = await response.json();
+
+    // Log the error instead of propagating the internal error to the UI
+    console.log(`OpenGraph Ninja failed to get preview data: ${body.error}`);
+
     return { error: "No preview available for this URL" };
   }
 }
@@ -71,9 +77,7 @@ export async function getUriPreview(uri: string): Promise<PreviewResult> {
     return createPreviewJson(url.href, jsonBody);
   }
 
-  const peekalinkResult = await getPeekalink(url.href);
-
-  return peekalinkResult;
+  return await getOpenGraphNinja(url.href);
 }
 
 type HeadInfo = {
