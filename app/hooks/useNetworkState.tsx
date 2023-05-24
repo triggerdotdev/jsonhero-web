@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export function useNetworkState() {
     const [isOnline, setIsOnline] = useState(window.navigator.onLine);
-    const callbackRef = useRef < () => void> ();
+    const callbackRef = useRef<() => void>();
 
     const on = () => {
         setIsOnline(true);

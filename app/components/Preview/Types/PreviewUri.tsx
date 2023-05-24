@@ -1,5 +1,4 @@
 import { JSONStringType } from "@jsonhero/json-infer-types/lib/@types";
-import { useEffect } from "react";
 import { useFetcher } from "remix";
 import { Body } from "~/components/Primitives/Body";
 import { useNetworkState } from "~/hooks/useNetworkState";
@@ -14,14 +13,11 @@ export type PreviewUriProps = {
 
 export function PreviewUri(props: PreviewUriProps) {
   const { isOnline, onceOnline } = useNetworkState();
-  const previewFetcher = useFetcher < PreviewResult > ();
+  const previewFetcher = useFetcher<PreviewResult>();
+  const encodedUri = encodeURIComponent(props.value);
+  const load = () => previewFetcher.load(`/actions/getPreview/${encodedUri}`);
 
-  useEffect(() => {
-    const encodedUri = encodeURIComponent(props.value);
-    const load = () => previewFetcher.load(`/actions/getPreview/${encodedUri}`);
-
-    isOnline ? load() : onceOnline(load);
-  }, [props.value]);
+  isOnline ? load() : onceOnline(load);
 
   return (
     <div>
