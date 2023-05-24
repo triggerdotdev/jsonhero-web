@@ -28,14 +28,15 @@ export const loader: LoaderFunction = async ({ params }) => {
       },
     });
   } catch {
-    const result = { error: "Unable to preview this URL" };
-
-    return new Response(JSON.stringify(result), {
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": "public, max-age=3600",
-      },
-    });
+    return new Response(
+      JSON.stringify({ error: "Unable to preview this URL" }),
+      {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "public, max-age=3600",
+        },
+      }
+    );
   }
 };
 
