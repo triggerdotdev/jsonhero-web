@@ -3,29 +3,41 @@ import invariant from "tiny-invariant";
 import { getUriPreview } from "~/services/uriPreview.server";
 
 export const loader: LoaderFunction = async ({ params }) => {
-  invariant(params.url, "expected params.url");
+  try {
+    invariant(params.url, "expected params.url");
 
-  const decoded = decodeURIComponent(params.url);
+    const decoded = decodeURIComponent(params.url);
 
-  const earlyReturn = earlyRespondIfHomepagePreviewUri(decoded);
+    const earlyReturn = earlyRespondIfHomepagePreviewUri(decoded);
 
-  if (earlyReturn) {
-    return new Response(JSON.stringify(earlyReturn), {
+    if (earlyReturn) {
+      return new Response(JSON.stringify(earlyReturn), {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "public, max-age=3600",
+        },
+      });
+    }
+
+    const result = await getUriPreview(decoded);
+
+    return new Response(JSON.stringify(result), {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         "Cache-Control": "public, max-age=3600",
       },
     });
+  } catch {
+    return new Response(
+      JSON.stringify({ error: "Unable to preview this URL" }),
+      {
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "public, max-age=3600",
+        },
+      }
+    );
   }
-
-  const result = await getUriPreview(decoded);
-
-  return new Response(JSON.stringify(result), {
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
-    },
-  });
 };
 
 function earlyRespondIfHomepagePreviewUri(uri: string) {
