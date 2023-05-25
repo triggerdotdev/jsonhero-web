@@ -96,6 +96,21 @@ export function CodeEditor(opts: CodeEditorProps) {
     }
   }, [selection, view, setSelectionRef.current]);
 
+  useEffect(() => {
+    const listener = (event: WindowEventMap["keydown"]) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "a") {
+        event.preventDefault();
+        view?.dispatch({ selection: { anchor: 0, head: state?.doc.length } });
+      }
+    };
+
+    window.addEventListener("keydown", listener);
+
+    return () => {
+      window.removeEventListener("keydown", listener);
+    };
+  }, [view, state]);
+
   const { minimal } = useJsonDoc();
 
   return (
