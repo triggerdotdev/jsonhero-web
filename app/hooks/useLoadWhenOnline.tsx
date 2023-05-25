@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export function useLoadWhenOnline(callback: () => void, ...deps: unknown[]) {
+export function useLoadWhenOnline(callback: () => void, deps: unknown[] = []) {
     const callbackRef = useRef <() => void>(callback);
 
     useEffect(() => {

@@ -17,7 +17,7 @@ export function PreviewUri(props: PreviewUriProps) {
   const encodedUri = encodeURIComponent(props.value);
   const load = () => previewFetcher.load(`/actions/getPreview/${encodedUri}`);
 
-  useLoadWhenOnline(load, encodedUri);
+  useLoadWhenOnline(load, [encodedUri]);
 
   return (
     <div>
