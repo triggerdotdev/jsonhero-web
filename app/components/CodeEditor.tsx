@@ -6,6 +6,7 @@ import {
   ViewUpdate,
 } from "@uiw/react-codemirror";
 import { useRef, useEffect } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { useJsonDoc } from "~/hooks/useJsonDoc";
 import { getEditorSetup } from "~/utilities/codeMirrorSetup";
 import { darkTheme, lightTheme } from "~/utilities/codeMirrorTheme";
@@ -96,20 +97,14 @@ export function CodeEditor(opts: CodeEditorProps) {
     }
   }, [selection, view, setSelectionRef.current]);
 
-  useEffect(() => {
-    const listener = (event: WindowEventMap["keydown"]) => {
-      if ((event.ctrlKey || event.metaKey) && event.key === "a") {
-        event.preventDefault();
-        view?.dispatch({ selection: { anchor: 0, head: state?.doc.length } });
-      }
-    };
-
-    window.addEventListener("keydown", listener);
-
-    return () => {
-      window.removeEventListener("keydown", listener);
-    };
-  }, [view, state]);
+  useHotkeys(
+    "ctrl+a,meta+a",
+    (e) => {
+      e.preventDefault();
+      view?.dispatch({ selection: { anchor: 0, head: state?.doc.length } });
+    },
+    [view, state]
+  );
 
   const { minimal } = useJsonDoc();
 
