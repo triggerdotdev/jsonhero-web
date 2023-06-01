@@ -10,6 +10,7 @@ import { useJsonDoc } from "~/hooks/useJsonDoc";
 import { getEditorSetup } from "~/utilities/codeMirrorSetup";
 import { darkTheme, lightTheme } from "~/utilities/codeMirrorTheme";
 import { useTheme } from "./ThemeProvider";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export type CodeEditorProps = {
   content: string;
@@ -97,6 +98,16 @@ export function CodeEditor(opts: CodeEditorProps) {
   }, [selection, view, setSelectionRef.current]);
 
   const { minimal } = useJsonDoc();
+
+  useHotkeys(
+   "ctrl+a,meta+a,command+a",
+   (e) => {
+     e.preventDefault();
+     view?.dispatch({ selection: { anchor: 0, head: state?.doc.length } });
+   },
+   [view, state]
+ );
+
 
   return (
     <div>
