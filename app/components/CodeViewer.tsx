@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import { getViewerSetup } from "~/utilities/codeMirrorSetup";
 import { darkTheme, lightTheme } from "~/utilities/codeMirrorTheme";
 import { useTheme } from "./ThemeProvider";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export function CodeViewer({ code, lang }: { code: string; lang?: "json" }) {
   const editor = useRef(null);
@@ -16,7 +17,7 @@ export function CodeViewer({ code, lang }: { code: string; lang?: "json" }) {
 
   const [theme] = useTheme();
 
-  const { setContainer } = useCodeMirror({
+  const { setContainer, view, state } = useCodeMirror({
     container: editor.current,
     extensions,
     value: code,
@@ -32,6 +33,15 @@ export function CodeViewer({ code, lang }: { code: string; lang?: "json" }) {
       setContainer(editor.current);
     }
   }, [editor.current]);
+
+  useHotkeys(
+    "ctrl+a,meta+a,command+a",
+    (e) => {
+      e.preventDefault();
+      view?.dispatch({ selection: { anchor: 0, head: state?.doc.length } });
+    },
+    [view, state]
+  );
 
   return (
     <div>

@@ -15,7 +15,8 @@ import { getPreviewSetup } from "~/utilities/codeMirrorSetup";
 import { lightTheme, darkTheme } from "~/utilities/codeMirrorTheme";
 import { CopyTextButton } from "./CopyTextButton";
 import { useTheme } from "./ThemeProvider";
-import {usePreferences} from '~/components/PreferencesProvider'
+import {usePreferences} from '~/components/PreferencesProvider';
+import { useHotkeys } from "react-hotkeys-hook";
 
 export type JsonPreviewProps = {
   json: unknown;
@@ -56,7 +57,7 @@ export function JsonPreview({ json, highlightPath }: JsonPreviewProps) {
 
   const [theme] = useTheme();
 
-  const { setContainer, view } = useCodeMirror({
+  const { setContainer, view, state } = useCodeMirror({
     container: editor.current,
     extensions,
     value: jsonMapped.json,
@@ -91,6 +92,15 @@ export function JsonPreview({ json, highlightPath }: JsonPreviewProps) {
 
     view.dispatch(transactionSpec);
   }, [view, highlighting, jsonMapped, highlightPath]);
+
+  useHotkeys(
+    "ctrl+a,meta+a,command+a",
+    (e) => {
+      e.preventDefault();
+      view?.dispatch({ selection: { anchor: 0, head: state?.doc.length } });
+    },
+    [view, state]
+  );
 
   const [hovering, setHovering] = useState(false);
 
