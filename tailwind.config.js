@@ -36,4 +36,14 @@ module.exports = {
     outline: ["focus"],
   },
   plugins: [require("@tailwindcss/forms"), require("tailwindcss-radix")()],
+   purge: {
+    content: [
+
+      "./app/tailwind.css",
+    ],
+    options: {
+      // add "${eyeIcon}" to the "excluded" or "external" list
+      external: ["${eyeIcon}"],
+    },
+  },
 };

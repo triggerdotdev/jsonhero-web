@@ -1,7 +1,7 @@
 import { ArrowCircleDownIcon } from "@heroicons/react/outline";
 import { useCallback, useRef } from "react";
 import { useDropzone } from "react-dropzone";
-import { Form, useSubmit } from "remix";
+import { Form, useSubmit } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
 export function DragAndDropForm() {

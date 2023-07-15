@@ -1,5 +1,5 @@
 import { hydrate } from "react-dom";
-import { RemixBrowser } from "remix";
+import { RemixBrowser } from "@remix-run/react";
 import { load } from "fathom-client";
 
 hydrate(<RemixBrowser />, document);

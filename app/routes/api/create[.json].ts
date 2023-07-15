@@ -1,4 +1,4 @@
-import { ActionFunction, json, LoaderFunction } from "remix";
+import { ActionFunction, json, LoaderFunction } from "@remix-run/cloudflare";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
 import { createFromRawJson, CreateJsonOptions } from "~/jsonDoc.server";
@@ -50,7 +50,7 @@ export const action: ActionFunction = async ({ request, context }) => {
 
   url.searchParams.delete("utm_source");
 
-  context.waitUntil(
+ context.waitUntil(
     sendEvent({
       type: "create",
       from: "url",

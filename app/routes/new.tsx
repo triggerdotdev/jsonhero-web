@@ -1,4 +1,4 @@
-import { json, LoaderFunction, redirect } from "remix";
+import { LoaderFunction, redirect } from "@remix-run/cloudflare";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
 import {

@@ -1,4 +1,4 @@
-import { createCookieSessionStorage, Session } from "remix";
+import { createCookieSessionStorage, Session } from "@remix-run/cloudflare";
 
 export type ToastMessage = {
   message: string;

@@ -1,4 +1,4 @@
-import { ActionFunction, json } from "remix";
+import { ActionFunction, json } from "@remix-run/cloudflare";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
 import { updateDocument } from "~/jsonDoc.server";

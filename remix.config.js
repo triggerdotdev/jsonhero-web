@@ -1,12 +1,11 @@
-/**
- * @type {import('@remix-run/dev/config').AppConfig}
- */
+/** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
-  appDirectory: "app",
-  assetsBuildDirectory: "public/build",
-  publicPath: "/build/",
-  serverBuildTarget: "cloudflare-workers",
-  serverBuildPath: "build/index.js",
-  devServerBroadcastDelay: 1000,
-  ignoredRouteFiles: [".*"],
+  publicPath: "/build/", // default value, can be removed
+  serverBuildPath: "build/index.js", // default value, can be removed
+  serverConditions: ["worker"],
+  serverDependenciesToBundle: "all",
+  serverMainFields: ["browser", "module", "main"],
+  serverMinify: true,
+  serverModuleFormat: "esm",
+  serverPlatform: "neutral",
 };

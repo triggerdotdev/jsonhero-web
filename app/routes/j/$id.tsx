@@ -1,13 +1,10 @@
 import {
-  ActionFunction,
-  LoaderFunction,
-  MetaFunction,
   Outlet,
-  redirect,
   useLoaderData,
   useLocation,
   useParams,
-} from "remix";
+} from "@remix-run/react";
+import {ActionFunction,LoaderFunction,MetaFunction,redirect} from "@remix-run/cloudflare"
 import invariant from "tiny-invariant";
 import { deleteDocument, getDocument, JSONDocument } from "~/jsonDoc.server";
 import { JsonDocProvider } from "~/hooks/useJsonDoc";

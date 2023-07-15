@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from "remix";
+import { createCookieSessionStorage } from "@remix-run/cloudflare";
 
 import { Theme, isTheme } from "~/components/ThemeProvider";
 

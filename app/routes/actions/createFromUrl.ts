@@ -1,5 +1,5 @@
-import { redirect } from "remix";
-import type { ActionFunction, LoaderFunction } from "remix";
+import { redirect } from "@remix-run/cloudflare";
+import type { ActionFunction, LoaderFunction } from "@remix-run/cloudflare";
 import invariant from "tiny-invariant";
 import { createFromUrl, createFromUrlOrRawJson } from "~/jsonDoc.server";
 import { sendEvent } from "~/graphJSON.server";
