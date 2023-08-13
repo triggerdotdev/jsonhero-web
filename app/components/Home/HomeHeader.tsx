@@ -30,18 +30,14 @@ export function HomeHeader({ fixed }: { fixed?: boolean }) {
         </a>
         <p className="text-slate-200">
           <span className="hidden lg:inline-block ">
-            - Our Background Jobs framework for Next.js,
+            - Our background jobs framework for Next.js, is now available!
           </span>{" "}
-          <span className="hidden md:inline-block">
-            is now in private beta.
-          </span>{" "}
-          Get your early access code{" "}
           <a
             className="underline hover:opacity-90 cursor-pointer text-lime-400"
             target="_blank"
-            href="https://bcymafitv0e.typeform.com/to/QQnotGJM#source=jsonhero-home"
+            href="https://cloud.trigger.dev"
           >
-            here
+            Sign up here
           </a>
           .
         </p>
@@ -53,7 +49,7 @@ export function HomeHeader({ fixed }: { fixed?: boolean }) {
         <ol className="flex items-center gap-2 sm:pr-4 pr-2">
           <Popover>
             <PopoverTrigger>
-              <button className="hidden md:block bg-lime-500 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
+              <button className="hidden md:block bg-lime-400 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
                 Try now
               </button>
             </PopoverTrigger>
