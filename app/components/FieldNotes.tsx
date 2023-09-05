@@ -1,32 +1,28 @@
-import { Body } from "./Primitives/Body";
+import { Title } from "./Primitives/Title";
 import { useState } from "react";
 
 export function FieldNotes() {
 
-    const [value, setValue] = useState("");
+  const [value, setValue] = useState("");
 
-    function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-        setValue(event.target.value);
-    }
+  function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    setValue(event.target.value);
+  }
 
-    return (
-        <div>
-            <Body>Test</Body>
-            <textarea
-                value={value}
-                onChange={handleChange}
-                style={{
-                    fontFamily: "monospace",
-                    color: "white",
-                    backgroundColor: "#101728",
-                    border: "1px solid #FF0000",
-                    width: "100%",
-                    height: "200px",
-                    padding: "10px",
-                    outline: "none"
-                }}
-            />
-        </div>
-    );
+  return (
+    <div className="my-4">
+      <Title className="mb-2 text-slate-700 transition dark:text-slate-400">
+        Notes
+      </Title>
+
+      <textarea
+        value={value}
+        onChange={handleChange}
+        className="w-full h-48 px-3 py-2 text-base placeholder-gray-600 border text-white bg-slate-900 border-slate-600 focus:ring-1 focus:ring-indigo-600 focus:border-indigo-600"
+        style={{resize: "none"}}
+        placeholder="Add some notes here... (not saved across refreshes or between devices)"
+      />
+    </div>
+  );
 }
  
