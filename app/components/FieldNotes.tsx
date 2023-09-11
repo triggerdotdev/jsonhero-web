@@ -1,4 +1,5 @@
 import { Title } from "./Primitives/Title";
+import { Body } from "./Primitives/Body";
 import { useState, useEffect } from "react";
 import { useJsonColumnViewState } from "~/hooks/useJsonColumnView";
 
@@ -19,15 +20,53 @@ export function FieldNotes() {
   const selectedNodeId: string = getSelectedNodeId();
 
   useEffect(() => {
-    console.log("New node selected!!!!");
     setNote(notes[selectedNodeId] || "");
   }, [selectedNodeId]);
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     notes[selectedNodeId] = event.target.value;
-    console.log(notes);
     setNote(event.target.value);
   }
+
+  function exportNotes() {
+    const jsonData = JSON.stringify(notes);
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "jsonheroSavedNotes.json";
+    link.click();
+
+    URL.revokeObjectURL(url);
+  }
+
+  function importNotes() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.onchange = (event) => {
+      const target = event.target as HTMLInputElement;
+      const files = target.files;
+      if (!files || files.length === 0) {
+        return;
+      }
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result;
+        if (!result) {
+          return;
+        }
+        notes = JSON.parse(result as string);
+        console.log(notes[selectedNodeId] || "");
+        setNote(notes[selectedNodeId] || "");
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  }
+
 
   return (
     <div className="my-4">
@@ -42,6 +81,25 @@ export function FieldNotes() {
         style={{resize: "none"}}
         placeholder="Add some notes here... (not saved across refreshes or between devices)"
       />
+
+      {/* Notes exporting */}
+      <div className="flex flex-row bg-slate-700 text-white rounded focus:outline-none focus:shadow-outline w-fit">
+        <div className="px-1 my-1 border-r-slate-800 border-r-2">
+          <button className="p-1 hover:bg-slate-600"
+            onClick={exportNotes}
+          >
+            <Body>Export Notes</Body>
+          </button>
+        </div>
+
+        <button className="p-1 m-1 hover:bg-slate-600"
+          onClick={importNotes}
+        >
+          <Body>Import Notes</Body>
+        </button>
+
+        
+      </div>
     </div>
   );
 }
