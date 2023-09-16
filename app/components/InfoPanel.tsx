@@ -32,7 +32,7 @@ export function InfoPanel() {
         <PropertiesValue />
 
         <ContainerInfo />
-        
+
         <RelatedValues relatedPaths={relatedPaths} />
 
         <FieldNotes />
