@@ -83,7 +83,7 @@ function WorkflowFooterBanner() {
       <span className="items-center lg:flex sm:flex hidden underline underline-offset-2 text-slate-700 group-hover:text-slate-900 dark:text-slate-300 dark:group-hover:text-slate-100 transition">
         <span className="lg:block hidden">the&nbsp;</span>background jobs
         <span className="lg:block hidden">&nbsp;framework&nbsp;</span> for
-        Next.js
+        Typescript
         <ArrowRightIcon className="ml-1 h-3 w-3  text-base text-green-900 dark:text-green-500 whitespace-nowrap group-hover:text-green-900 dark:group-hover:text-green-400 transition" />
       </span>
     </a>

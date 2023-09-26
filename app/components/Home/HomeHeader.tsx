@@ -30,14 +30,14 @@ export function HomeHeader({ fixed }: { fixed?: boolean }) {
         </a>
         <p className="text-slate-200">
           <span className="hidden lg:inline-block ">
-            - Our background jobs framework for Next.js, is now available!
+            - our background jobs framework for Typescript.
           </span>{" "}
           <a
             className="underline hover:opacity-90 cursor-pointer text-lime-400"
             target="_blank"
             href="https://cloud.trigger.dev"
           >
-            Sign up here
+            Try for free
           </a>
           .
         </p>
