@@ -183,3 +183,25 @@ test("It should order object keys in a similar order as the first object in an a
 }"
 `);
 });
+
+test("It should not convert an array to an object in nested arrays", () => {
+  const json = {
+    data: [
+      [1],
+      [2]
+    ],
+  };
+
+  expect(JSON.stringify(stableJson(json), null, 2)).toMatchInlineSnapshot(`
+"{
+  \\"data\\": [
+    [
+      1
+    ],
+    [
+      2
+    ]
+  ]
+}"
+`);
+});

@@ -7,6 +7,11 @@ export function stableJson(json: unknown, keyOrder: string[] = []): unknown {
     const keyOrder = Object.keys(json[0]);
     return json.map((c) => stableJson(c, keyOrder));
   }
+
+  if (Array.isArray(json)) {
+    return json.map((c) => stableJson(c));
+  }
+
   if (typeof json === "object" && json !== null && keyOrder.length > 0) {
     const keys = Object.keys(json);
     const sortedKeys = keys.sort((a, b) => {
@@ -24,10 +29,6 @@ export function stableJson(json: unknown, keyOrder: string[] = []): unknown {
       result[key] = stableJson((json as Record<string, unknown>)[key]);
     }
     return result;
-  }
-
-  if (Array.isArray(json)) {
-    return json.map((c) => stableJson(c));
   }
 
   if (typeof json === "object" && json !== null) {
