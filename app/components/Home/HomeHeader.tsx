@@ -11,45 +11,29 @@ import {
   PopoverTrigger,
 } from "../UI/Popover";
 import TriggerDevLogoImage from "~/assets/images/trigger-dev-logo.png";
+import { LogoTriggerdotdev } from "../Icons/LogoTriggerdotdev";
 
 export function HomeHeader({ fixed }: { fixed?: boolean }) {
   return (
     <header
       className={`${
         fixed ? "fixed" : ""
-      } z-20 flex h-[82px]  bg-indigo-700 flex-col`}
+      } z-20 flex h-12 justify-center  bg-indigo-700 flex-col`}
     >
-      <div className="flex h-8 bg-slate-900 w-full items-center justify-center text-base sm:text-lg ">
-        <a
-          href="https://trigger.dev"
-          target="_blank"
-          aria-label="Trigger.dev logo"
-          className=" cursor-pointer "
-        >
-          <TriggerDevLogo className={"h-4 px-1 mt-0.5"} />
-        </a>
-        <p className="text-slate-200">
-          <span className="hidden lg:inline-block ">
-            - our background jobs framework for Typescript.
-          </span>{" "}
-          <a
-            className="underline hover:opacity-90 cursor-pointer text-lime-400"
-            target="_blank"
-            href="https://cloud.trigger.dev"
-          >
-            Try for free
-          </a>
-          .
-        </p>
-      </div>
       <div className="flex items-center justify-between w-screen px-4">
-        <div className="flex w-28 sm:w-44 mr-3">
-          <Logo />
+        <div className="flex gap-1 sm:gap-2 h-8 justify-center items-center">
+          <div className="w-24 sm:w-40">
+            <Logo />
+          </div>
+          <p className="text-slate-200 text-sm sm:text-base font-sans">by</p>
+          <a className="group" target="_blank" href="https://cloud.trigger.dev">
+            <LogoTriggerdotdev className="w-16 sm:w-28 opacity-90 group-hover:opacity-100  transition duration-300" />
+          </a>
         </div>
-        <ol className="flex items-center gap-2 sm:pr-4 pr-2">
+        <ol className="flex items-center gap-2 sm:pr-4">
           <Popover>
             <PopoverTrigger>
-              <button className="hidden md:block bg-lime-400 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
+              <button className=" bg-lime-400 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
                 Try now
               </button>
             </PopoverTrigger>
@@ -62,20 +46,20 @@ export function HomeHeader({ fixed }: { fixed?: boolean }) {
             </PopoverContent>
           </Popover>
 
-          <li className="hover:cursor-pointer">
+          <li className="hover:cursor-pointer hidden sm:block">
             <GithubStar />
           </li>
-          <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
+          <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition hidden sm:block">
             <a href="mailto:hello@jsonhero.io">
               <EmailIconTransparent />
             </a>
           </li>
-          <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
+          <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition hidden sm:block">
             <a href="https://discord.gg/JtBAxBr2m3" target="_blank">
               <DiscordIconTransparent />
             </a>
           </li>
-          <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition">
+          <li className="hover:cursor-pointer opacity-90 hover:opacity-100 transition hidden sm:block">
             <a href="https://twitter.com/triggerdotdev" target="_blank">
               <TwitterIcon />
             </a>
