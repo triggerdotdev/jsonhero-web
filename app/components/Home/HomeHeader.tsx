@@ -21,19 +21,17 @@ export function HomeHeader({ fixed }: { fixed?: boolean }) {
       } z-20 flex h-12 justify-center  bg-indigo-700 flex-col`}
     >
       <div className="flex items-center justify-between w-screen px-4">
-        <div className="flex gap-1 sm:gap-2 h-8 justify-center items-center">
-          <div className="w-24 sm:w-40">
+        <div className="flex gap-1 sm:gap-1.5 h-8 justify-center items-center">
+          <div className="w-24 sm:w-32">
             <Logo />
           </div>
-          <p className="text-slate-200 text-sm sm:text-base font-sans">by</p>
-          <a className="group" target="_blank" href="https://cloud.trigger.dev">
-            <LogoTriggerdotdev className="w-16 sm:w-28 opacity-90 group-hover:opacity-100  transition duration-300" />
-          </a>
+          <p className="text-slate-300 text-sm sm:text-base font-sans">by</p>
+          <LogoTriggerdotdev className="pt-0.5 w-16 sm:w-24 opacity-80 hover:opacity-100 transition duration-300" />
         </div>
         <ol className="flex items-center gap-2 sm:pr-4">
           <Popover>
             <PopoverTrigger>
-              <button className=" bg-lime-400 text-slate-900 text-lg font-bold px-2 py-0.5 rounded-sm uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
+              <button className=" bg-lime-400 text-slate-900 text-lg font-bold px-2 py-0.5 rounded uppercase whitespace-nowrap cursor-pointer opacity-90 hover:opacity-100 transition">
                 Try now
               </button>
             </PopoverTrigger>
@@ -68,8 +66,4 @@ export function HomeHeader({ fixed }: { fixed?: boolean }) {
       </div>
     </header>
   );
-}
-
-function TriggerDevLogo({ className }: { className: string }) {
-  return <img src={TriggerDevLogoImage} className={className} />;
 }

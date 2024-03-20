@@ -1,7 +1,12 @@
-<p align="center">
-<img width="300" src="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/8aaa6f22-d600-4f26-cda9-c9f040863400/public"/>
-</p>
+<div align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/4a157bda-2a99-4ac3-6bc7-be08b4a46600/public">
+  <source media="(prefers-color-scheme: light)" srcset="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/31447544-b16f-49dd-c206-74b1802c6700/public">
+  <img width=200 alt="Trigger.dev logo" src="https://imagedelivery.net/3TbraffuDZ4aEf8KWOmI_w/4a157bda-2a99-4ac3-6bc7-be08b4a46600/public">
+</picture>
+</div>
 
+</br>
 <p align="center">
   <a href="https://console.algora.io/org/triggerdotdev/bounties?status=open"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconsole.algora.io%2Fapi%2Fshields%2Ftriggerdotdev%2Fbounties%3Fstatus%3Dopen" alt="Open Bounties" /></a>
   <a href="https://console.algora.io/org/triggerdotdev/bounties?status=completed"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fconsole.algora.io%2Fapi%2Fshields%2Ftriggerdotdev%2Fbounties%3Fstatus%3Dcompleted" alt="Rewarded Bounties" /></a>

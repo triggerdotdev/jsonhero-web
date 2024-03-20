@@ -30,7 +30,7 @@ export function SearchBar() {
         className="focus:outline-none focus-visible:outline-none"
         onClick={() => setIsOpen(true)}
       >
-        <div className="flex justify-between items-center group w-44 py-[3px] rounded-sm bg-slate-300 transition hover:bg-slate-400 hover:bg-opacity-50 dark:bg-slate-800 dark:text-slate-400 hover:cursor-pointer hover:dark:bg-slate-700 hover:dark:bg-opacity-70">
+        <div className="flex justify-between items-center group w-44 py-[3px] rounded bg-slate-300 transition hover:bg-slate-400 hover:bg-opacity-50 dark:bg-slate-800 dark:text-slate-400 hover:cursor-pointer hover:dark:bg-slate-700 hover:dark:bg-opacity-70">
           <div className="flex items-center pl-1">
             <SearchIcon className="w-4 h-4 mr-1" />
             <Body>Search…</Body>

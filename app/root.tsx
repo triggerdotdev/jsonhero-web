@@ -24,7 +24,7 @@ export const meta: MetaFunction = ({ location }) => {
   const description =
     "JSON Hero makes reading and understand JSON files easy by giving you a clean and beautiful UI packed with extra features.";
   return {
-    title: "JSON Viewer - JSON Hero",
+    title: "JSON Hero - a beautiful JSON viewer for the web",
     viewport: "width=device-width,initial-scale=1",
     description,
     "og:image": `https://jsonhero.io${openGraphImage}`,
@@ -44,7 +44,7 @@ import styles from "./tailwind.css";
 import { getThemeSession } from "./theme.server";
 import { getStarCount } from "./services/github.server";
 import { StarCountProvider } from "./components/StarCountProvider";
-import {PreferencesProvider} from '~/components/PreferencesProvider'
+import { PreferencesProvider } from "~/components/PreferencesProvider";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];

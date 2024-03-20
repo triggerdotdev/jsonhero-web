@@ -1,5 +1,3 @@
-import { Link } from "remix";
-
 export function LogoTriggerdotdev({
   className,
   width = "100%",
@@ -8,7 +6,7 @@ export function LogoTriggerdotdev({
   width?: string;
 }) {
   return (
-    <Link to="https://trigger.dev/" aria-label="Trigger.dev">
+    <a href="https://trigger.dev/" aria-label="Trigger.dev">
       <svg
         className={`${className}`}
         width={width}
@@ -67,6 +65,6 @@ export function LogoTriggerdotdev({
           fill="#E2E8F0"
         />
       </svg>
-    </Link>
+    </a>
   );
 }
