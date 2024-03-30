@@ -6,6 +6,7 @@ import { ContainerInfo } from "./ContainerInfo";
 import { useSelectedInfo } from "~/hooks/useSelectedInfo";
 import { useRelatedPaths } from "~/hooks/useRelatedPaths";
 import { useJsonDoc } from "~/hooks/useJsonDoc";
+import { FieldNotes } from "./FieldNotes";
 
 export function InfoPanel() {
   const { minimal } = useJsonDoc();
@@ -33,6 +34,9 @@ export function InfoPanel() {
         <ContainerInfo />
 
         <RelatedValues relatedPaths={relatedPaths} />
+
+        <FieldNotes />
+        
       </div>
     </>
   );
