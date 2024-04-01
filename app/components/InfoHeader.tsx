@@ -59,7 +59,7 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
   return (
     <div className="mb-4 pb-4">
       <div 
-        className="flex items-center"
+        className="relative flex items-center"
         onMouseEnter={() => setHoveringKey(true)}
         onMouseLeave={() => setHoveringKey(false)}
       >
@@ -68,7 +68,7 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
             }`}>
           { selectedName ?? "nothing" }
         </Title>
-        <div className={`flex justify-end h-full w-fit transition ${
+        <div className={`absolute top-0 right-8 flex justify-end h-full w-fit transition ${
             hoveringKey ? "opacity-100" : "opacity-0"
           }`}>
           <CopyPathButton
