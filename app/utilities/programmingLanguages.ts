@@ -1,16 +1,20 @@
 import { PathComponent } from "@jsonhero/path"
 
-export const enum languages {
+export enum languages {
     javascript = "javascript",
     python = "python"
 }
 
-export const get_path_value = (language: languages, paths: PathComponent[]): string => {
+export const defaultLangauge = languages.javascript
+
+export const getPathValue = (language: languages, variableName: string, useOptChaining: boolean, paths: PathComponent[]): string => {
+    const path_base = variableName
     switch(language) {
         case languages.python:
-            return paths.slice(1).map(p => p.isArray ? `[${p.toString()}]` : `["${p.toString()}"]`).join("")
+            return `${path_base}${paths.slice(1).map(p => p.isArray ? `[${p.toString()}]` : `["${p.toString()}"]`).join("")}`
         case languages.javascript:
         default:
-            return paths.slice(1).map(p => p.isArray ? `[${p.toString()}]` : `.${p.toString()}`).join("")
+            return `${path_base}${paths.slice(1).map(p => p.isArray ? `${useOptChaining ? "?[" : "["}${p.toString()}]` : `${useOptChaining ? "?." : "."}${p.toString()}`).join("")}`
     }
 }
+
