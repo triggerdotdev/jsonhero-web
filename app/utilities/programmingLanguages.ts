@@ -5,6 +5,11 @@ export enum languages {
     python = "python"
 }
 
+export const canUseOptChaining = {
+    [languages.javascript]: true,
+    [languages.python]: false,
+}
+
 export const defaultLangauge = languages.javascript
 
 export const getPathValue = (language: languages, variableName: string, useOptChaining: boolean, paths: PathComponent[]): string => {
