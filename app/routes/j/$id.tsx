@@ -36,6 +36,7 @@ import {
   setErrorMessage,
   setSuccessMessage,
 } from "~/services/toast.server";
+import { getRandomUserAgent } from '~/utilities/getRandomUserAgent'
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   invariant(params.id, "expected params.id");
@@ -54,7 +55,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   if (doc.type == "url") {
     console.log(`Fetching ${doc.url}...`);
 
-    const jsonResponse = await safeFetch(doc.url);
+    const jsonResponse = await safeFetch(doc.url, {
+      headers: {
+        "User-Agent": getRandomUserAgent(),
+      },
+    });
 
     if (!jsonResponse.ok) {
       console.log(
