@@ -161,7 +161,7 @@ export const meta: MetaFunction = ({
 }) => {
   let title = "JSON Hero";
 
-  if (data) {
+  if (data?.doc?.title) {
     title += ` - ${data.doc.title}`;
   }
 
