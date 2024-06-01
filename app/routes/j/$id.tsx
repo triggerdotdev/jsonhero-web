@@ -3,7 +3,7 @@ import {
   LoaderFunction,
   MetaFunction,
   Outlet,
-  redirect,
+  redirect, ThrownResponse, useCatch,
   useLoaderData,
   useLocation,
   useParams,
@@ -57,18 +57,16 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     const jsonResponse = await safeFetch(doc.url);
 
     if (!jsonResponse.ok) {
-      console.log(
-        `Failed to fetch ${doc.url}: ${jsonResponse.status} (${jsonResponse.statusText})`
-      );
+      const jsonResponseText = await jsonResponse.text();
+      const error = `Failed to fetch ${doc.url}. HTTP status: ${jsonResponse.status} (${jsonResponseText}})`;
+      console.error(error);
 
-      throw new Response(jsonResponse.statusText, {
+      throw new Response(error, {
         status: jsonResponse.status,
       });
     }
 
     const json = await jsonResponse.json();
-
-    console.log(`Fetched ${doc.url} with json, returning...`);
 
     return {
       doc,
@@ -245,7 +243,10 @@ export default function JsonDocumentRoute() {
 }
 
 export function CatchBoundary() {
+  const error = useCatch();
   const params = useParams();
+  console.log("error", error)
+
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-[rgb(56,52,139)]">
       <div className="w-2/3">
@@ -254,7 +255,7 @@ export function CatchBoundary() {
             <Logo />
           </div>
           <PageNotFoundTitle className="text-center leading-tight">
-            404
+            {error.status}
           </PageNotFoundTitle>
         </div>
         <div className="text-center leading-snug text-white">
@@ -262,7 +263,11 @@ export function CatchBoundary() {
             <b>Sorry</b>! Something went wrong...
           </ExtraLargeTitle>
           <SmallSubtitle className="text-slate-200 mb-8">
-            We couldn't find the page <b>'https://jsonhero.io/j/{params.id}</b>'
+            {error.data || (
+              error.status === 404
+                ? <>We couldn't find the page <b>'https://jsonhero.io/j/{params.id}'</b></>
+                : "Unknown error occurred."
+            )}
           </SmallSubtitle>
           <a
             href="/"
