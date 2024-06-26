@@ -1,4 +1,4 @@
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 
 export function Logo({
   className,

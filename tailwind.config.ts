@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from "tailwindcss";
+
+export default {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
@@ -32,8 +34,5 @@ module.exports = {
       },
     },
   },
-  variants: {
-    outline: ["focus"],
-  },
   plugins: [require("@tailwindcss/forms"), require("tailwindcss-radix")()],
-};
+} satisfies Config;

@@ -1,8 +1,8 @@
-import { createCookieSessionStorage } from "remix";
+import { createCookieSessionStorage } from "@remix-run/cloudflare";
 
 import { Theme, isTheme } from "~/components/ThemeProvider";
 
-const sessionSecret = SESSION_SECRET;
+const sessionSecret = "SESSION_SECRET";
 
 const themeStorage = createCookieSessionStorage({
   cookie: {

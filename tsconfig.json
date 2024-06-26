@@ -2,10 +2,12 @@
   "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "types": ["@remix-run/node", "vite/client"],
+    "module": "ESNext",
     "isolatedModules": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "target": "ES2019",
     "strict": true,

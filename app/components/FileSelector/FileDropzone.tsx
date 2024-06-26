@@ -1,5 +1,5 @@
 import { FunctionComponent, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone-esm";
 import { DocumentDownloadIcon } from "@heroicons/react/outline";
 
 export const FileDropzone: FunctionComponent = ({ children }) => {

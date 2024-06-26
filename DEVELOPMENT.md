@@ -56,19 +56,13 @@ First, install npm dependencies:
 npm install
 ```
 
-Run the following command to create the `.env` file with a new `SESSION_SECRET` environment variable:
+Run the following command to create the `.dev.vars` file with a new `SESSION_SECRET` environment variable:
 
 ```bash
-echo "SESSION_SECRET=$(openssl rand -hex 32)" > .env
+echo "SESSION_SECRET=$(openssl rand -hex 32)" > .dev.vars
 ```
 
-Then, run `npm run build` or `npm run dev` to build.
-
-Start the development server:
-
-```bash
-npm start
-```
+Then, run `npm run dev` to build and run.
 
 You should now be able to access your local JSON Hero server on [localhost:8787](http://localhost:8787)
 

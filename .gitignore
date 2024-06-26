@@ -3,7 +3,8 @@ node_modules
 /.cache
 /build
 /public/build
-.env
+/.wrangler
+.dev.vars
 /app/tailwind.css
 /jsonDocs
 .DS_Store

@@ -1,4 +1,4 @@
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 import { DiscordIcon } from "../Icons/DiscordIcon";
 import { EmailIcon } from "../Icons/EmailIcon";
 import { GithubIcon } from "../Icons/GithubIcon";

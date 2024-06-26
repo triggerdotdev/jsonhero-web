@@ -1,37 +1,33 @@
 name = "jsonhero-io"
-type = "javascript"
-compatibility_date = "2022-02-01"
+compatibility_date = "2024-06-26"
+main = "dist/worker.js"
 
-account_id = "0e405dda228e3448f1366acb0bc341ef"
-workers_dev = true
-
-kv_namespaces = [ 
-  { binding = "DOCUMENTS", id = "8c6a9a71fc504abdaaa7aa409c7b2abd" }
-]
-
-[vars]
-GRAPH_JSON_COLLECTION = "jsonhero-dev"
-
-[site]
-bucket = "./public"
-entry-point = "."
-
-[build]
-command = "npm run build:worker"
-watch_dir = "build/index.js"
-
-[build.upload]
-format="service-worker"
-
-[env.production]
 route = "jsonhero.io/*"
-zone_id = "af3c12add61e94b88b3d2cbfb6f65782"
+account_id = "0e405dda228e3448f1366acb0bc341ef"
 kv_namespaces = [ 
   { binding = "DOCUMENTS", id = "e517c369774a443eba95afff9128f7b6" }
 ]
 
-[env.production.vars]
+[site]
+bucket = "./public"
+
+[build]
+watch_dir = "build/index.js"
+
+[dev]
+port = 8002
+
+[vars]
 GRAPH_JSON_COLLECTION = "jsonhero-prod"
+
+[env.dev]
+account_id = "c974caaaa18255c03f1771097bade662"
+kv_namespaces = [ 
+  { binding = "DOCUMENTS", id = "a90ce96eb26c4989a1232db27e864ed6" }
+]
+
+[env.dev.vars]
+GRAPH_JSON_COLLECTION = "jsonhero-dev"
 
 # Secrets
 # [SESSION_STORAGE]

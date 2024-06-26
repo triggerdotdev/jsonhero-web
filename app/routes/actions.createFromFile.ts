@@ -1,4 +1,4 @@
-import { ActionFunction, redirect } from "remix";
+import { ActionFunction, redirect } from "@remix-run/server-runtime";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
 import { createFromRawJson } from "~/jsonDoc.server";
@@ -8,7 +8,11 @@ type CreateFromFileError = {
   rawJson?: boolean;
 };
 
-export const action: ActionFunction = async ({ request, context }) => {
+export const action: ActionFunction = async ({
+  request,
+  context,
+}): Promise<Response> => {
+  const documents = context.cloudflare.env.DOCUMENTS;
   const formData = await request.formData();
   const filename = formData.get("filename");
   const rawJson = formData.get("rawJson");
@@ -25,11 +29,10 @@ export const action: ActionFunction = async ({ request, context }) => {
   invariant(typeof filename === "string", "filename must be a string");
   invariant(typeof rawJson === "string", "rawJson must be a string");
 
-  const doc = await createFromRawJson(filename, rawJson);
+  const doc = await createFromRawJson(documents, filename, rawJson);
 
   const url = new URL(request.url);
-
-  context.waitUntil(
+  context.cloudflare.ctx.waitUntil(
     sendEvent({
       type: "create",
       from: "file",

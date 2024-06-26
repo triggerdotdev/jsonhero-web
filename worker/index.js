@@ -1,6 +1,6 @@
 import { createEventHandler } from "@remix-run/cloudflare-workers";
 
-import * as build from "../build";
+import * as build from "../build/server";
 
 addEventListener(
   "fetch",

@@ -29,25 +29,27 @@ export type CreateJsonOptions = {
 export type JSONDocument = RawJsonDocument | UrlJsonDocument;
 
 export async function createFromUrlOrRawJson(
+  documents: KVNamespace,
   urlOrJson: string,
   title?: string
 ): Promise<JSONDocument | undefined> {
   if (isUrl(urlOrJson)) {
-    return createFromUrl(new URL(urlOrJson), title);
+    return createFromUrl(documents, new URL(urlOrJson), title);
   }
 
   if (isJSON(urlOrJson)) {
-    return createFromRawJson("Untitled", urlOrJson);
+    return createFromRawJson(documents, "Untitled", urlOrJson);
   }
 
   // Wrapper for createFromRawJson to handle XML
   // TODO ? change from urlOrJson to urlOrJsonOrXml
   if (isXML(urlOrJson)) {
-    return createFromRawXml("Untitled", urlOrJson);
+    return createFromRawXml(documents, "Untitled", urlOrJson);
   }
 }
 
 export async function createFromUrl(
+  documents: KVNamespace,
   url: URL,
   title?: string,
   options?: CreateJsonOptions
@@ -59,7 +61,12 @@ export async function createFromUrl(
       throw new Error(`Failed to injest ${url.href}`);
     }
 
-    return createFromRawJson(title || url.href, await response.text(), options);
+    return createFromRawJson(
+      documents,
+      title || url.href,
+      await response.text(),
+      options
+    );
   }
 
   const docId = createId();
@@ -72,7 +79,7 @@ export async function createFromUrl(
     readOnly: options?.readOnly ?? false,
   };
 
-  await DOCUMENTS.put(docId, JSON.stringify(doc), {
+  await documents.put(docId, JSON.stringify(doc), {
     expirationTtl: options?.ttl ?? undefined,
     metadata: options?.metadata ?? undefined,
   });
@@ -81,6 +88,7 @@ export async function createFromUrl(
 }
 
 export async function createFromRawJson(
+  documents: KVNamespace,
   filename: string,
   contents: string,
   options?: CreateJsonOptions
@@ -95,7 +103,8 @@ export async function createFromRawJson(
   };
 
   JSON.parse(contents);
-  await DOCUMENTS.put(docId, JSON.stringify(doc), {
+
+  await documents.put(docId, JSON.stringify(doc), {
     expirationTtl: options?.ttl ?? undefined,
     metadata: options?.metadata ?? undefined,
   });
@@ -104,9 +113,10 @@ export async function createFromRawJson(
 }
 
 export async function getDocument(
+  documents: KVNamespace,
   slug: string
 ): Promise<JSONDocument | undefined> {
-  const doc = await DOCUMENTS.get(slug);
+  const doc = await documents.get(slug);
 
   if (!doc) return;
 
@@ -114,22 +124,26 @@ export async function getDocument(
 }
 
 export async function updateDocument(
+  documents: KVNamespace,
   slug: string,
   title: string
 ): Promise<JSONDocument | undefined> {
-  const document = await getDocument(slug);
+  const document = await getDocument(documents, slug);
 
   if (!document) return;
 
   const updated = { ...document, title };
 
-  await DOCUMENTS.put(slug, JSON.stringify(updated));
+  await documents.put(slug, JSON.stringify(updated));
 
   return updated;
 }
 
-export async function deleteDocument(slug: string): Promise<void> {
-  await DOCUMENTS.delete(slug);
+export async function deleteDocument(
+  documents: KVNamespace,
+  slug: string
+): Promise<void> {
+  await documents.delete(slug);
 }
 
 function createId(): string {

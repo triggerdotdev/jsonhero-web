@@ -1,7 +1,7 @@
 import { ArrowCircleDownIcon } from "@heroicons/react/outline";
 import { useCallback, useRef } from "react";
-import { useDropzone } from "react-dropzone";
-import { Form, useSubmit } from "remix";
+import { useDropzone } from "react-dropzone-esm";
+import { Form, useSubmit } from "@remix-run/react";
 import invariant from "tiny-invariant";
 
 export function DragAndDropForm() {
@@ -59,7 +59,7 @@ export function DragAndDropForm() {
     maxFiles: 1,
     maxSize: 1024 * 1024 * 1,
     multiple: false,
-    accept: "application/json",
+    accept: { "application/json": [".json"] },
   });
 
   return (

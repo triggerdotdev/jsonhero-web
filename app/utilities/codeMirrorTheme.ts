@@ -1,6 +1,7 @@
 import { EditorView } from "@codemirror/view";
-import { Extension } from "@codemirror/state";
-import { HighlightStyle, tags as t } from "@codemirror/highlight";
+import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
+import { tags as t } from "@lezer/highlight";
+import { Extension } from "@uiw/react-codemirror";
 
 export function darkTheme(): Extension {
   const chalky = "#e5c07b",
@@ -141,7 +142,7 @@ export function darkTheme(): Extension {
     { tag: t.invalid, color: invalid },
   ]);
 
-  return [jsonHeroEditorTheme, jsonHeroHighlightStyle];
+  return [jsonHeroEditorTheme, syntaxHighlighting(jsonHeroHighlightStyle)];
 }
 
 export function lightTheme(): Extension {
@@ -283,5 +284,5 @@ export function lightTheme(): Extension {
     { tag: t.invalid, color: invalid },
   ]);
 
-  return [jsonHeroEditorTheme, jsonHeroHighlightStyle];
+  return [jsonHeroEditorTheme, syntaxHighlighting(jsonHeroHighlightStyle)];
 }

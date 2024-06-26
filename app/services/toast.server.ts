@@ -1,4 +1,4 @@
-import { createCookieSessionStorage, Session } from "remix";
+import { createCookieSessionStorage, Session } from "@remix-run/cloudflare";
 
 export type ToastMessage = {
   message: string;
@@ -16,7 +16,7 @@ export const { commitSession, getSession } = createCookieSessionStorage({
     httpOnly: true,
     sameSite: "lax",
     maxAge: ONE_YEAR,
-    secrets: [SESSION_SECRET],
+    secrets: ["SESSION_SECRET"],
     secure: true,
   },
 });

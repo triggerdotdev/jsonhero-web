@@ -1,13 +1,15 @@
 import {
-  ActionFunction,
   LoaderFunction,
+  ActionFunction,
+  redirect,
+} from "@remix-run/server-runtime";
+import {
   MetaFunction,
   Outlet,
-  redirect,
   useLoaderData,
   useLocation,
   useParams,
-} from "remix";
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { deleteDocument, getDocument, JSONDocument } from "~/jsonDoc.server";
 import { JsonDocProvider } from "~/hooks/useJsonDoc";
@@ -37,10 +39,10 @@ import {
   setSuccessMessage,
 } from "~/services/toast.server";
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+export const loader: LoaderFunction = async ({ context, params, request }) => {
   invariant(params.id, "expected params.id");
-
-  const doc = await getDocument(params.id);
+  const documents = context.cloudflare.env.DOCUMENTS;
+  const doc = await getDocument(documents, params.id);
 
   if (!doc) {
     throw new Response("Not Found", {
@@ -86,7 +88,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   }
 };
 
-export const action: ActionFunction = async ({ request, params }) => {
+export const action: ActionFunction = async ({ context, request, params }) => {
   // Return if the request is not a DELETE
   if (request.method !== "DELETE") {
     return;
@@ -96,7 +98,8 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   const toastCookie = await getSession(request.headers.get("cookie"));
 
-  const document = await getDocument(params.id);
+  const documents = context.cloudflare.env.DOCUMENTS;
+  const document = await getDocument(documents, params.id);
 
   if (!document) {
     setErrorMessage(toastCookie, "Document not found", "Error");
@@ -110,7 +113,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     return redirect(`/j/${params.id}`);
   }
 
-  await deleteDocument(params.id);
+  await deleteDocument(documents, params.id);
 
   setSuccessMessage(toastCookie, "Document deleted successfully", "Success");
 
@@ -165,11 +168,11 @@ export const meta: MetaFunction = ({
     title += ` - ${data.doc.title}`;
   }
 
-  return {
-    title,
-    "og:title": title,
-    robots: "noindex,nofollow",
-  };
+  return [
+    { title },
+    { property: "og:title", content: title },
+    { robots: "noindex,nofollow" },
+  ];
 };
 
 export default function JsonDocumentRoute() {

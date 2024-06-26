@@ -1,6 +1,8 @@
 import { LargeTitle } from "~/components/Primitives/LargeTitle";
 import { Body } from "~/components/Primitives/Body";
-import { TerminalIcon } from "@heroicons/react/outline";
+import { 
+  TerminalIcon
+} from "@heroicons/react/outline";
 
 export default function TerminalViewPage() {
   return (

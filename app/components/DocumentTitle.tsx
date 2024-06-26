@@ -1,6 +1,6 @@
 import { PencilAltIcon } from "@heroicons/react/outline";
 import { useEffect, useRef, useState } from "react";
-import { useFetcher } from "remix";
+import { useFetcher } from "@remix-run/react";
 import { match } from "ts-pattern";
 import { useJsonDoc } from "~/hooks/useJsonDoc";
 

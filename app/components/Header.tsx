@@ -1,7 +1,6 @@
 import { ShareIcon, PlusIcon, TrashIcon } from "@heroicons/react/outline";
 import { DocumentTitle } from "./DocumentTitle";
 import { DiscordIconTransparent } from "./Icons/DiscordIconTransparent";
-import { EmailIconTransparent } from "./Icons/EmailIconTransparent";
 import { GithubStar } from "./UI/GithubStar";
 import { Logo } from "./Icons/Logo";
 import { Share } from "./Share";
@@ -12,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "./UI/Popover";
-import { Form } from "remix";
+import { Form } from "@remix-run/react";
 import { useJsonDoc } from "~/hooks/useJsonDoc";
 import { LogoTriggerdotdev } from "./Icons/LogoTriggerdotdev";
 
