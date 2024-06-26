@@ -59,8 +59,8 @@ export function LogoTriggerdotdev({
           fill="#E2E8F0"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M8.32238 9.89169L13.6403 0.682007L26.8195 23.5069H0.461029L5.77893 14.2969L9.54072 16.4686L7.9849 19.1632H19.2957L13.6403 9.3691L12.0845 12.0637L8.32238 9.89169Z"
           fill="#E2E8F0"
         />

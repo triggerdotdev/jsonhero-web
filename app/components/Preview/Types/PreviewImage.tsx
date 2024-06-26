@@ -1,7 +1,7 @@
 import { formatBytes } from "~/utilities/formatter";
 import { PreviewBox } from "../PreviewBox";
 import { PreviewProperties, PreviewProperty } from "../PreviewProperties";
-import { PreviewImage } from "./preview.types";
+import type { PreviewImage } from "./preview.types";
 
 export type PreviewImageProps = {
   info: PreviewImage;

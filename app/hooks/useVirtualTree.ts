@@ -7,9 +7,9 @@ import React, {
   useEffect,
   useRef,
 } from "react";
-import { useVirtual, VirtualItem } from "react-virtual";
+import { useVirtualizer, VirtualItem } from "@tanstack/react-virtual";
 
-type UseVirtualOptions<R> = Parameters<typeof useVirtual>[0];
+type UseVirtualOptions<R> = Parameters<typeof useVirtualizer>[0];
 
 export type UseVirtualTreeOptions<
   T extends { id: string; children?: T[] },
@@ -103,7 +103,7 @@ type BlurAction = {
 };
 
 type CollapseAllNodesAction = {
-  type: "COLLAPSE_ALL_NODES"
+  type: "COLLAPSE_ALL_NODES";
 };
 
 type TreeAction =
@@ -530,28 +530,31 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
     }
   }, [options.persistState, options.id, dispatch, isStateRestored.current]);
 
-  const rowVirtualizer = useVirtual({
-    size: state.items.length,
-    parentRef: options.parentRef,
-    estimateSize: options.estimateSize,
-    overscan: options.overscan,
-    initialRect: options.initialRect,
-    useObserver: options.useObserver,
+  const rowVirtualizer = useVirtualizer({
+    ...options,
+    count: state.items.length,
+    // parentRef: options.parentRef,
+    // estimateSize: options.estimateSize,
+    // overscan: options.overscan,
+    // initialRect: options.initialRect,
+    // useObserver: options.useObserver,
   });
 
-  const allVirtualNodes = rowVirtualizer.virtualItems.map((virtualItem) => {
-    const treeItem = state.items[virtualItem.index];
+  const allVirtualNodes = rowVirtualizer
+    .getVirtualItems()
+    .map((virtualItem) => {
+      const treeItem = state.items[virtualItem.index];
 
-    return {
-      node: treeItem.node,
-      depth: treeItem.depth,
-      size: virtualItem.size,
-      start: virtualItem.start,
-      virtualItem,
-      getItemProps: createItemProps(treeItem, virtualItem, state, dispatch),
-      isCollapsed: treeItem.isCollapsed,
-    };
-  });
+      return {
+        node: treeItem.node,
+        depth: treeItem.depth,
+        size: virtualItem.size,
+        start: virtualItem.start,
+        virtualItem,
+        getItemProps: createItemProps(treeItem, virtualItem, state, dispatch),
+        isCollapsed: treeItem.isCollapsed,
+      };
+    });
 
   const toggleNode = useCallback(
     (id: string, source?: KeyboardEvent | MouseEvent) => {
@@ -594,7 +597,7 @@ export function useVirtualTree<T extends { id: string; children?: T[] }, R>(
 
   return {
     nodes: allVirtualNodes,
-    totalSize: rowVirtualizer.totalSize,
+    totalSize: rowVirtualizer.getTotalSize(),
     toggleNode,
     focusNode,
     focusFirst,

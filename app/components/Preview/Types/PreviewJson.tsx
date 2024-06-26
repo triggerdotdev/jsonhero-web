@@ -4,7 +4,7 @@ import { CopyTextButton } from "~/components/CopyTextButton";
 import { OpenInNewWindow } from "~/components/OpenInWindow";
 import { Body } from "~/components/Primitives/Body";
 import { PreviewBox } from "../PreviewBox";
-import { PreviewJson } from "./preview.types";
+import type { PreviewJson } from "./preview.types";
 
 export function PreviewJson({ preview }: { preview: PreviewJson }) {
   const [hovering, setHovering] = useState(false);

@@ -1,4 +1,4 @@
-import { json, LoaderFunction, redirect } from "remix";
+import { json, LoaderFunction, redirect } from "@remix-run/server-runtime";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
 import {
@@ -43,9 +43,15 @@ export let loader: LoaderFunction = async ({ request, context }) => {
 
     invariant(jsonURL, "url must be a valid URL");
 
-    const doc = await createFromUrl(jsonURL, title ?? jsonURL.href, options);
+    const documents = context.cloudflare.env.DOCUMENTS;
+    const doc = await createFromUrl(
+      documents,
+      jsonURL,
+      title ?? jsonURL.href,
+      options
+    );
 
-    context.waitUntil(
+    context.cloudflare.ctx.waitUntil(
       sendEvent({
         type: "create",
         from: "url",
@@ -65,7 +71,7 @@ export let loader: LoaderFunction = async ({ request, context }) => {
       options
     );
 
-    context.waitUntil(
+    context.cloudflare.ctx.waitUntil(
       sendEvent({
         type: "create",
         from: "base64",

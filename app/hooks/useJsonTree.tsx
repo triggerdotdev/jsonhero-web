@@ -58,7 +58,8 @@ export function useJsonTree(options: JsonTreeOptions): UseJsonTreeInstance {
   const tree = useVirtualTree({
     id: doc.id,
     nodes: jsonNodes,
-    parentRef,
+    count: 0,
+    getScrollElement: () => parentRef.current,
     estimateSize: useCallback((index) => 32, []),
     initialRect,
     overscan: options.overscan,

@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Form, useTransition } from "remix";
+import { Form, useNavigation } from "@remix-run/react";
 
 export type UrlFormProps = {
   className?: string;
 };
 
 export function UrlForm({ className }: UrlFormProps) {
-  const transition = useTransition();
+  const navigation = useNavigation();
   const [inputValue, setInputValue] = useState("");
 
-  const isNotIdle = transition.state !== "idle";
+  const isNotIdle = navigation.state !== "idle";
   const isButtonDisabled = !inputValue.length || isNotIdle;
 
   return (

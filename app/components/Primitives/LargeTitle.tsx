@@ -1,6 +1,6 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactNode } from "react";
 
-export const LargeTitle: FunctionComponent<{ className?: string }> = ({
+export const LargeTitle: FunctionComponent<{ className?: string, children?: ReactNode }> = ({
   className,
   children,
 }) => {

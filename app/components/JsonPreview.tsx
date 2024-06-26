@@ -1,4 +1,4 @@
-import { RangeSetBuilder } from "@codemirror/rangeset";
+import { RangeSetBuilder } from "@codemirror/state";
 import { JSONHeroPath } from "@jsonhero/path";
 import {
   useCodeMirror,

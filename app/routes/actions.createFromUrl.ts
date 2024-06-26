@@ -1,5 +1,5 @@
-import { redirect } from "remix";
-import type { ActionFunction, LoaderFunction } from "remix";
+import { redirect } from "@remix-run/server-runtime";
+import type { ActionFunction, LoaderFunction } from "@remix-run/server-runtime";
 import invariant from "tiny-invariant";
 import { createFromUrl, createFromUrlOrRawJson } from "~/jsonDoc.server";
 import { sendEvent } from "~/graphJSON.server";
@@ -7,7 +7,7 @@ import {
   commitSession,
   getSession,
   setErrorMessage,
-} from "../../services/toast.server";
+} from "../services/toast.server";
 
 type CreateFromUrlError = {
   jsonUrl?: boolean;
@@ -29,7 +29,8 @@ export let action: ActionFunction = async ({ request, context }) => {
   invariant(typeof jsonUrl === "string", "jsonUrl must be a string");
 
   try {
-    const doc = await createFromUrlOrRawJson(jsonUrl, title);
+    const documents = context.cloudflare.env.DOCUMENTS;
+    const doc = await createFromUrlOrRawJson(documents, jsonUrl, title);
 
     if (!doc) {
       setErrorMessage(
@@ -45,7 +46,7 @@ export let action: ActionFunction = async ({ request, context }) => {
 
     const requestUrl = new URL(request.url);
 
-    context.waitUntil(
+    context.cloudflare.ctx.waitUntil(
       sendEvent({
         type: "create",
         from: "urlOrJson",
@@ -81,9 +82,10 @@ export let loader: LoaderFunction = async ({ request, context }) => {
 
   invariant(jsonURL, "jsonUrl must be a valid URL");
 
-  const doc = await createFromUrl(jsonURL, jsonURL.href);
+  const documents = context.cloudflare.env.DOCUMENTS;
+  const doc = await createFromUrl(documents, jsonURL, jsonURL.href);
 
-  context.waitUntil(
+  context.cloudflare.ctx.waitUntil(
     sendEvent({
       type: "create",
       from: "url",

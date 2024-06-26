@@ -1,4 +1,4 @@
-import { ChevronRightIcon, EyeIcon } from "@heroicons/react/outline";
+import { ChevronRightIcon } from "@heroicons/react/outline";
 import { useMemo } from "react";
 import { useJsonColumnViewAPI } from "~/hooks/useJsonColumnView";
 import { ColumnViewNode, IconComponent } from "~/useColumnView";

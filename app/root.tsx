@@ -1,15 +1,16 @@
+import { LoaderFunction } from "@remix-run/server-runtime";
+
 import {
   Links,
   LiveReload,
-  LoaderFunction,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
   useLocation,
-} from "remix";
-import type { MetaFunction } from "remix";
+} from "@remix-run/react";
+import type { MetaFunction } from "@remix-run/react";
 import clsx from "clsx";
 import {
   NonFlashOfWrongThemeEls,
@@ -23,24 +24,27 @@ import openGraphImage from "~/assets/images/opengraph.png";
 export const meta: MetaFunction = ({ location }) => {
   const description =
     "JSON Hero makes reading and understand JSON files easy by giving you a clean and beautiful UI packed with extra features.";
-  return {
-    title: "JSON Hero - a beautiful JSON viewer for the web",
-    viewport: "width=device-width,initial-scale=1",
-    description,
-    "og:image": `https://jsonhero.io${openGraphImage}`,
-    "og:url": `https://jsonhero.io${location.pathname}`,
-    "og:title": "JSON Hero - A beautiful JSON viewer",
-    "og:description": description,
-    "twitter:image": `https://jsonhero.io${openGraphImage}`,
-    "twitter:card": "summary_large_image",
-    "twitter:creator": "@json_hero",
-    "twitter:site": "@json_hero",
-    "twitter:title": "JSON Hero",
-    "twitter:description": description,
-  };
+  return [
+    { title: "JSON Hero - a beautiful JSON viewer for the web" },
+    { viewport: "width=device-width,initial-scale=1" },
+    { name: "description", content: description },
+    { property: "og:image", content: `https://jsonhero.io${openGraphImage}` },
+    { property: "og:url", content: `https://jsonhero.io${location.pathname}` },
+    { property: "og:title", content: "JSON Hero - A beautiful JSON viewer" },
+    { property: "og:description", content: description },
+    {
+      property: "twitter:image",
+      content: `https://jsonhero.io${openGraphImage}`,
+    },
+    { property: "twitter:card", content: "summary_large_image" },
+    { property: "twitter:creator", content: "@json_hero" },
+    { property: "twitter:site", content: "@json_hero" },
+    { property: "twitter:title", content: "JSON Hero" },
+    { property: "twitter:description", content: description },
+  ];
 };
 
-import styles from "./tailwind.css";
+import styles from "./tailwind.css?url";
 import { getThemeSession } from "./theme.server";
 import { getStarCount } from "./services/github.server";
 import { StarCountProvider } from "./components/StarCountProvider";
@@ -94,7 +98,6 @@ function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );

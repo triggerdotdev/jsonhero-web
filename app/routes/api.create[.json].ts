@@ -1,4 +1,8 @@
-import { ActionFunction, json, LoaderFunction } from "remix";
+import {
+  ActionFunction,
+  json,
+  LoaderFunction,
+} from "@remix-run/server-runtime";
 import invariant from "tiny-invariant";
 import { sendEvent } from "~/graphJSON.server";
 import { createFromRawJson, CreateJsonOptions } from "~/jsonDoc.server";
@@ -45,12 +49,19 @@ export const action: ActionFunction = async ({ request, context }) => {
     options.readOnly = readOnly;
   }
 
-  const doc = await createFromRawJson(title, JSON.stringify(content), options);
+  const documents = context.cloudflare.env.DOCUMENTS;
+
+  const doc = await createFromRawJson(
+    documents,
+    title,
+    JSON.stringify(content),
+    options
+  );
   url.pathname = `/j/${doc.id}`;
 
   url.searchParams.delete("utm_source");
 
-  context.waitUntil(
+  context.cloudflare.ctx.waitUntil(
     sendEvent({
       type: "create",
       from: "url",

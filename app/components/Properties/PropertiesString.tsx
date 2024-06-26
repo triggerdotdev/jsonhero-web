@@ -33,7 +33,7 @@ export function PropertiesString({ type }: { type: JSONStringType }) {
   }
 }
 
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { inferTemporal } from "~/utilities/inferredTemporal";
 
 function PropertiesJwt({

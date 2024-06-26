@@ -19,7 +19,7 @@ import { getComponentSlices, getStringSlices } from "~/utilities/search";
 import classnames from "~/utilities/classnames";
 import { iconForValue } from "~/utilities/icons";
 import { useRef, useCallback } from "react";
-import { useVirtual } from "react-virtual";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import { truncate } from "lodash-es";
 import { JSONHeroPath } from "@jsonhero/path";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -49,11 +49,12 @@ export function SearchPalette({
 
   const listRef = useRef<HTMLElement>(null);
 
-  const rowVirtualizer = useVirtual({
-    size: (searchState.results ?? []).length,
-    parentRef: listRef,
+  const rowVirtualizer = useVirtualizer({
+    count: (searchState.results ?? []).length,
     estimateSize: useCallback(() => 70, []),
-    overscan: 6,
+    getScrollElement: () => {
+      return listRef.current
+    }
   });
 
   function comboboxReducer(
@@ -79,7 +80,6 @@ export function SearchPalette({
   const cb = useCombobox({
     items: searchState.results ?? [],
     stateReducer: comboboxReducer,
-    circularNavigation: false,
     scrollIntoView: () => {},
     onSelectedItemChange: ({ selectedItem }) => {
       if (selectedItem) {
@@ -106,7 +106,7 @@ export function SearchPalette({
   return (
     <>
       <div
-        {...cb.getComboboxProps()}
+        {...cb.getMenuProps()}
         className="max-h-[60vh] px-4 pt-4 overflow-hidden"
       >
         <label
@@ -159,10 +159,10 @@ export function SearchPalette({
         >
           <li
             key="total-size"
-            style={{ height: rowVirtualizer.totalSize }}
+            style={{ height: rowVirtualizer.getTotalSize() }}
             className="mb-[1rem]"
           />
-          {rowVirtualizer.virtualItems.map((virtualRow) => {
+          {rowVirtualizer.getVirtualItems().map((virtualRow) => {
             const result = (searchState.results ?? [])[virtualRow.index];
 
             return (

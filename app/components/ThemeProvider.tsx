@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import type { Dispatch, ReactNode, SetStateAction } from "react";
-import { useFetcher } from "remix";
+import { useFetcher } from "@remix-run/react";
 
 export type Theme = "dark" | "light";
 
