@@ -17,6 +17,7 @@ import { CopyTextButton } from "./CopyTextButton";
 import { useTheme } from "./ThemeProvider";
 import {usePreferences} from '~/components/PreferencesProvider';
 import { useHotkeys } from "react-hotkeys-hook";
+import { CopySingleLineTextButton } from './CopySingleLineTextButton';
 
 export type JsonPreviewProps = {
   json: unknown;
@@ -30,6 +31,10 @@ export function JsonPreview({ json, highlightPath }: JsonPreviewProps) {
   const jsonMapped = useMemo(() => {
     return jsonMap.stringify(json, null, preferences?.indent || 2);
   }, [json, preferences]);
+
+  const jsonMappedSingleLine = useMemo(() => {
+    return jsonMap.stringify(json);
+  }, [json]);
 
   const lines: LineRange | undefined = useMemo(() => {
     if (!highlightPath) {
@@ -116,6 +121,10 @@ export function JsonPreview({ json, highlightPath }: JsonPreviewProps) {
           hovering ? "opacity-100" : "opacity-0"
         }`}
       >
+        <CopySingleLineTextButton
+          value={jsonMappedSingleLine.json}
+          className="bg-slate-200 hover:bg-slate-300 h-fit mr-1 px-2 py-0.5 rounded-sm transition hover:cursor-pointer dark:text-white dark:bg-slate-700 dark:hover:bg-slate-600"
+        ></CopySingleLineTextButton>
         <CopyTextButton
           value={jsonMapped.json}
           className="bg-slate-200 hover:bg-slate-300 h-fit mr-1 px-2 py-0.5 rounded-sm transition hover:cursor-pointer dark:text-white dark:bg-slate-700 dark:hover:bg-slate-600"
