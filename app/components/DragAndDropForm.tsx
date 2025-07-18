@@ -1,14 +1,14 @@
 import { ArrowCircleDownIcon } from "@heroicons/react/outline";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Form, useSubmit } from "remix";
 import invariant from "tiny-invariant";
-
+import ToastPopover from "./UI/ToastPopover";
 export function DragAndDropForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const filenameInputRef = useRef<HTMLInputElement>(null);
   const rawJsonInputRef = useRef<HTMLInputElement>(null);
-
+  const [error, setError] = useState<string | null>(null);
   const submit = useSubmit();
 
   const onDrop = useCallback(
@@ -60,6 +60,10 @@ export function DragAndDropForm() {
     maxSize: 1024 * 1024 * 1,
     multiple: false,
     accept: "application/json",
+    onDropRejected: (fileRejections) => {
+      setError(fileRejections[0].errors[0].message);
+      setTimeout(() => setError(null), 4000);
+    },
   });
 
   return (
@@ -85,6 +89,14 @@ export function DragAndDropForm() {
         <input type="hidden" name="filename" ref={filenameInputRef} />
         <input type="hidden" name="rawJson" ref={rawJsonInputRef} />
       </div>
+      {error && (
+        <ToastPopover
+          message={error}
+          title="Error"
+          type="error"
+          key={Date.now()}
+        />
+      )}
     </Form>
   );
 }
