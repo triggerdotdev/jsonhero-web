@@ -64,6 +64,12 @@ Send your JSON to JSON Hero in a variety of ways
   }
   ```
 
+- Viewing a json file in the browser? Use this bookmarklet to open JSON Hero with file contents:
+
+  ```javascript
+  javascript:(function(){try{const o=window.location.href;window.open(`https://jsonhero.io/new?url=${o}`)}catch(o){console.log(o)}}());
+  ```
+
 ### Column view
 
 Inspired by macOS Finder, Column View is a new way to browse a JSON document.
