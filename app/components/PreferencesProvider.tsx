@@ -1,16 +1,21 @@
 import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState} from 'react';
+import { languages } from '~/utilities/programmingLanguages';
 
 interface Preferences {
   indent: number;
+  language: languages;
 }
 
 const PreferencesDefaults: Preferences = {
   indent: 2,
+  language: languages.javascript
 };
 
+type PartialPreferences = Partial<Preferences>;
+
 type PreferencesContextType = [
-  Preferences | undefined,
-  Dispatch<SetStateAction<Preferences | undefined>>
+  PartialPreferences,
+  Dispatch<SetStateAction<PartialPreferences>>
 ];
 
 const PreferencesContext = createContext<PreferencesContextType | undefined>(undefined);
@@ -30,7 +35,7 @@ export function PreferencesProvider({
 }: {
   children: ReactNode;
 }) {
-  const [preferences, setPreferences] = useState<Preferences>();
+  const [preferences, setPreferences] = useState<PartialPreferences>(PreferencesDefaults);
 
   useEffect(() => {
     const preferences = loadPreferences();
@@ -39,7 +44,7 @@ export function PreferencesProvider({
 
   useEffect(() => {
     if (preferences === undefined) return;
-    savePreferences(preferences);
+    savePreferences(preferences as Preferences);
   }, [preferences]);
 
   return (

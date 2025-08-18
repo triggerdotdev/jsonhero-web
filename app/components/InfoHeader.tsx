@@ -10,6 +10,7 @@ import { concatenated, getHierarchicalTypes } from "~/utilities/dataType";
 import { formatRawValue } from "~/utilities/formatter";
 import { isNullable } from "~/utilities/nullable";
 import { CopyTextButton } from "./CopyTextButton";
+import { CopyPathButton } from "./CopyPathButton";
 import { Body } from "./Primitives/Body";
 import { LargeMono } from "./Primitives/LargeMono";
 import { Title } from "./Primitives/Title";
@@ -45,7 +46,8 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
     return isNullable(relatedPaths, json);
   }, [relatedPaths, json]);
 
-  const [hovering, setHovering] = useState(false);
+  const [hoveringKey, setHoveringKey] = useState(false);
+  const [hoveringValue, setHoveringValue] = useState(false);
   console.warn(selectedInfo);
 
   const newPath = formattedSelectedInfo.replace(/^#/, "$").replace(/\//g, ".");
@@ -56,10 +58,24 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
 
   return (
     <div className="mb-4 pb-4">
-      <div className="flex items-center">
-        <Title className="flex-1 mr-2 overflow-hidden overflow-ellipsis break-words text-slate-700 transition dark:text-slate-200">
+      <div 
+        className="relative flex items-center"
+        onMouseEnter={() => setHoveringKey(true)}
+        onMouseLeave={() => setHoveringKey(false)}
+      >
+        <Title className={`flex-1 mr-2 overflow-hidden overflow-ellipsis break-words text-slate-700 transition dark:text-slate-200 ${
+              hoveringKey ? "bg-slate-100 dark:bg-slate-700" : "bg-transparent"
+            }`}>
           { selectedName ?? "nothing" }
         </Title>
+        <div className={`absolute top-0 right-8 flex justify-end h-full w-fit transition ${
+            hoveringKey ? "opacity-100" : "opacity-0"
+          }`}>
+          <CopyPathButton
+            className="bg-slate-200 hover:bg-slate-300 h-fit mr-1 px-2 py-0.5 rounded-sm transition hover:cursor-pointer dark:text-white dark:bg-slate-600 dark:hover:bg-slate-500"
+            heroPathComponents={selectedHeroPath.components}
+          />
+        </div>
         <div>
           <ValueIcon
             monochrome
@@ -70,13 +86,13 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
       </div>
       <div
         className="relative w-full h-full"
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
+        onMouseEnter={() => setHoveringValue(true)}
+        onMouseLeave={() => setHoveringValue(false)}
       >
         {isSelectedLeafNode && (
           <LargeMono
             className={`z-10 py-1 mb-1 text-slate-800 overflow-ellipsis break-words transition rounded-sm dark:text-slate-300 ${
-              hovering ? "bg-slate-100 dark:bg-slate-700" : "bg-transparent"
+              hoveringValue ? "bg-slate-100 dark:bg-slate-700" : "bg-transparent"
             }`}
           >
             {selectedNode.name === "$ref" && checkPathExists(json, newPath) ? (
@@ -90,7 +106,7 @@ export function InfoHeader({ relatedPaths }: InfoHeaderProps) {
         )}
         <div
           className={`absolute top-1 right-0 flex justify-end h-full w-fit transition ${
-            hovering ? "opacity-100" : "opacity-0"
+            hoveringValue ? "opacity-100" : "opacity-0"
           }`}
         >
           <CopyTextButton
