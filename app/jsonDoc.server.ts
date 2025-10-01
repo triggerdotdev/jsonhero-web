@@ -45,6 +45,15 @@ export async function createFromUrlOrRawJson(
   if (isXML(urlOrJson)) {
     return createFromRawXml("Untitled", urlOrJson);
   }
+
+  try {
+    JSON.parse(urlOrJson);
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Invalid JSON format";
+    throw new Error(`Invalid JSON syntax: ${errorMessage}`);
+  }
+
+  return undefined;
 }
 
 export async function createFromUrl(
@@ -158,7 +167,7 @@ function isJSON(possibleJson: string): boolean {
   try {
     JSON.parse(possibleJson);
     return true;
-  } catch (e: any) {
-    throw new Error(e.message);
+  } catch {
+    return false;
   }
 }

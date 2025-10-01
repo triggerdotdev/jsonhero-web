@@ -58,7 +58,11 @@ export let action: ActionFunction = async ({ request, context }) => {
     return redirect(`/j/${doc.id}`);
   } catch (e) {
     if (e instanceof Error) {
-      setErrorMessage(toastCookie, e.message, "Something went wrong");
+      if (e.message.includes("Invalid JSON syntax")) {
+        setErrorMessage(toastCookie, "Invalid JSON", e.message);
+      } else {
+        setErrorMessage(toastCookie, e.message, "Something went wrong");
+      }
     } else {
       setErrorMessage(toastCookie, "Unknown error", "Something went wrong");
     }
