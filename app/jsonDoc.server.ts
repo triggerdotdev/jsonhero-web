@@ -165,8 +165,7 @@ function isJSON(possibleJson: string): boolean {
   try {
     JSON.parse(possibleJson);
     return true;
-  } catch (e: any) {
-    const errorMessage = e instanceof Error ? e.message : "Invalid JSON format";
-    throw new Error(`JSON validation failed: ${errorMessage}`);
+  } catch {
+    return false;
   }
 }
