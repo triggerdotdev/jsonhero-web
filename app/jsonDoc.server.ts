@@ -86,6 +86,14 @@ export async function createFromRawJson(
   options?: CreateJsonOptions
 ): Promise<JSONDocument> {
   const docId = createId();
+  
+  try {
+    JSON.parse(contents);
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Invalid JSON format";
+    throw new Error(`JSON parsing failed: ${errorMessage}`);
+  }
+
   const doc: JSONDocument = {
     id: docId,
     type: <const>"raw",
@@ -94,7 +102,6 @@ export async function createFromRawJson(
     readOnly: options?.readOnly ?? false,
   };
 
-  JSON.parse(contents);
   await DOCUMENTS.put(docId, JSON.stringify(doc), {
     expirationTtl: options?.ttl ?? undefined,
     metadata: options?.metadata ?? undefined,
@@ -159,6 +166,7 @@ function isJSON(possibleJson: string): boolean {
     JSON.parse(possibleJson);
     return true;
   } catch (e: any) {
-    throw new Error(e.message);
+    const errorMessage = e instanceof Error ? e.message : "Invalid JSON format";
+    throw new Error(`JSON validation failed: ${errorMessage}`);
   }
 }
