@@ -7,7 +7,7 @@ import {
 import { useJsonDoc } from "~/hooks/useJsonDoc";
 import { JsonTreeViewNode, useJsonTreeViewContext } from "~/hooks/useJsonTree";
 import { VirtualNode } from "~/hooks/useVirtualTree";
-import { CopySelectedNodeShortcut } from "./CopySelectedNode";
+import { CopySelectedNodeShortcut, CopySelectedNodePathShortcut } from "./CopySelectedNode";
 import { Body } from "./Primitives/Body";
 import { Mono } from "./Primitives/Mono";
 
@@ -84,6 +84,7 @@ export function JsonTreeView() {
   return (
     <>
       <CopySelectedNodeShortcut />
+      <CopySelectedNodePathShortcut />
       <div
         className="text-white w-full"
         ref={parentRef}
