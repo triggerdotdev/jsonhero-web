@@ -4,6 +4,7 @@ import {
   ArrowRightIcon,
   PencilAltIcon,
   CheckIcon,
+  ClipboardCopyIcon,
 } from "@heroicons/react/outline";
 import { ColumnViewNode } from "~/useColumnView";
 import { Body } from "./Primitives/Body";
@@ -12,9 +13,16 @@ import {
   useJsonColumnViewState,
 } from "../hooks/useJsonColumnView";
 import { useHotkeys } from "react-hotkeys-hook";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { useJson } from '~/hooks/useJson';
 import { JSONHeroPath } from '@jsonhero/path';
+import { formatPath, PathFormat } from "../utilities/pathFormatter";
+import {
+  Popover,
+  PopoverArrow,
+  PopoverContent,
+  PopoverTrigger,
+} from "./UI/Popover";
 
 export function PathBar() {
   const [isEditable, setIsEditable] = useState(false);
@@ -125,12 +133,60 @@ export function PathBarLink({
           />
         );
       })}
+      <CopyPathButton selectedPath={selectedNodes.at(-1)?.id} />
       <button
         className="flex ml-auto justify-center items-center w-[26px] h-[26px] hover:bg-slate-300 dark:text-slate-400 dark:hover:bg-white dark:hover:bg-opacity-[10%]"
         onClick={enableEdit}>
         <PencilAltIcon className='h-5' />
       </button>
     </div>
+  );
+}
+
+export function CopyPathButton({ selectedPath }: { selectedPath?: string }) {
+  const [copied, setCopied] = useState<PathFormat | null>(null);
+
+  const copyAs = useCallback(
+    (format: PathFormat) => {
+      if (!selectedPath) {
+        return;
+      }
+      navigator.clipboard.writeText(formatPath(selectedPath, format));
+      setCopied(format);
+      setTimeout(() => setCopied(null), 1500);
+    },
+    [selectedPath]
+  );
+
+  if (!selectedPath) {
+    return null;
+  }
+
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <button
+          title="Copy path"
+          className="flex justify-center items-center w-[26px] h-[26px] hover:bg-slate-300 dark:text-slate-400 dark:hover:bg-white dark:hover:bg-opacity-[10%]">
+          <ClipboardCopyIcon className='h-5' />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent side="bottom" sideOffset={8} align="end">
+        <div className="flex flex-col bg-slate-700 rounded-sm overflow-hidden shadow-lg">
+          <button
+            className="flex items-center px-3 py-2 text-left text-sm text-slate-200 hover:bg-slate-600 transition whitespace-nowrap"
+            onClick={() => copyAs("jsonpath")}>
+            {copied === "jsonpath" ? "Copied!" : "Copy as JSONPath"}
+          </button>
+          <button
+            className="flex items-center px-3 py-2 text-left text-sm text-slate-200 hover:bg-slate-600 transition whitespace-nowrap"
+            onClick={() => copyAs("js")}>
+            {copied === "js" ? "Copied!" : "Copy as JavaScript"}
+          </button>
+        </div>
+        <PopoverArrow className="fill-current text-slate-700" />
+      </PopoverContent>
+    </Popover>
   );
 }
 
