@@ -1,0 +1,6 @@
+@JsonHero.Api_HostAddress = http://localhost:5299
+
+GET {{JsonHero.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/JsonHero.Api.props" />
+</Project>
