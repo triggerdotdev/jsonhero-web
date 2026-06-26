@@ -12,11 +12,13 @@ import { HomeSection } from "./HomeSection";
 const json = {
   id: "a1c33bd1-0528-4de3-a745-44d95e7ac3d8",
   title: "JSON Hero is a tool for JSON",
-  thumbnail: "https://media.giphy.com/media/13CoXDiaCcCoyk/giphy-downsized.gif",
+  // Replaced Giphy CDN URL with local placeholder — media.giphy.com is unreliable in China
+  thumbnail: "/home/sample-thumbnail.webp",
   createdAt: "2022-02-01T02:25:41-05:00",
   tint: "#EAB308",
-  webpages: "https://www.theonion.com/",
-  youtube: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  // Replaced with China-safe example URL — theonion.com and youtube.com are blocked in China
+  webpages: "https://example.com/",
+  youtube: "https://example.com/video",
   json: "bourne",
 };
 

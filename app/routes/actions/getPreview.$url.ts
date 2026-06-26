@@ -40,6 +40,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 };
 
+// Hard-coded preview fixtures for homepage demo — uses local assets to avoid blocked CDNs in China
 function earlyRespondIfHomepagePreviewUri(uri: string) {
   if (uri === "https://www.theonion.com/") {
     return {
@@ -57,12 +58,12 @@ function earlyRespondIfHomepagePreviewUri(uri: string) {
       name: "THEONION.COM",
       trackersDetected: false,
       icon: {
-        url: "https://cdn.peekalink.io/public/images/d9062cab-500b-4677-bd51-b08dae409d3b/b2dd179e-c3b3-4635-ba66-654835ada7b8.jpg",
+        url: "/preview-fixtures/theonion-icon.jpg",
         width: 200,
         height: 200,
       },
       image: {
-        url: "https://cdn.peekalink.io/public/images/d9062cab-500b-4677-bd51-b08dae409d3b/b2dd179e-c3b3-4635-ba66-654835ada7b8.jpg",
+        url: "/preview-fixtures/theonion-preview.jpg",
         width: 200,
         height: 200,
       },
@@ -91,12 +92,12 @@ function earlyRespondIfHomepagePreviewUri(uri: string) {
       name: "RickAstleyVEVO",
       trackersDetected: true,
       icon: {
-        url: "https://cdn.peekalink.io/public/images/66282716-f48d-40a9-933c-1d174f5a3180/a4696ad6-4a09-4ae0-b03d-2abb41323422.jpg",
+        url: "/preview-fixtures/youtube-icon.jpg",
         width: 48,
         height: 48,
       },
       image: {
-        url: "https://cdn.peekalink.io/public/images/0e1781f8-75dd-4930-91f5-e5c6a93facfe/efd883f6-3194-45ca-893a-cdec077c7de9.jpe",
+        url: "/preview-fixtures/youtube-preview.jpg",
         width: 480,
         height: 360,
       },
