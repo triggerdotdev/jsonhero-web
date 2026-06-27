@@ -1,0 +1,2 @@
+var e,r,t=(e={},r=require("react"),Object.keys(r).forEach((function(t){"default"!==t&&"__esModule"!==t&&Object.defineProperty(e,t,{enumerable:!0,get:function(){return r[t]}})})),e);exports.useCallbackRef=function(e){const r=t.useRef(e);return t.useEffect((()=>{r.current=e})),t.useMemo((()=>(...e)=>{var t;return null===(t=r.current)||void 0===t?void 0:t.call(r,...e)}),[])};
+//# sourceMappingURL=index.js.map

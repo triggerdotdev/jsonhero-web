@@ -1,0 +1,1 @@
+{"version":3,"file":"has-reached-target.js","sourceRoot":"","sources":["../../src/utils/has-reached-target.ts"],"names":[],"mappings":"AAAA,MAAM,UAAU,gBAAgB,CAC9B,MAAc,EACd,MAAc,EACd,OAAe;IAEf,OAAO,CACL,CAAC,MAAM,GAAG,MAAM,IAAI,OAAO,IAAI,MAAM,CAAC;QACtC,CAAC,MAAM,GAAG,MAAM,IAAI,OAAO,IAAI,MAAM,CAAC,CACvC,CAAA;AACH,CAAC"}

@@ -1,0 +1,2 @@
+var e,n,r=(e={},n=require("react"),Object.keys(n).forEach((function(r){"default"!==r&&"__esModule"!==r&&Object.defineProperty(e,r,{enumerable:!0,get:function(){return n[r]}})})),e);function t(...e){return n=>e.forEach((e=>function(e,n){"function"==typeof e?e(n):null!=e&&(e.current=n)}(e,n)))}exports.composeRefs=t,exports.useComposedRefs=function(...e){return r.useCallback(t(...e),e)};
+//# sourceMappingURL=index.js.map

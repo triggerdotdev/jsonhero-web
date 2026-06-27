@@ -1,0 +1,15 @@
+import { mix } from "./mix";
+import { progress } from "./progress";
+export function fillOffset(offset, remaining) {
+    const min = offset[offset.length - 1];
+    for (let i = 1; i <= remaining; i++) {
+        const offsetProgress = progress(0, remaining, i);
+        offset.push(mix(min, 1, offsetProgress));
+    }
+}
+export function defaultOffset(length) {
+    const offset = [0];
+    fillOffset(offset, length - 1);
+    return offset;
+}
+//# sourceMappingURL=offset.js.map

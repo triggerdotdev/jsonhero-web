@@ -1,0 +1,55 @@
+{
+  "name": "hey-listen",
+  "version": "1.0.8",
+  "description": "Warning and invariant dev-ex messaging.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/hey-listen.es.js",
+  "jsnext:main": "dist/hey-listen.es.js",
+  "scripts": {
+    "test": "jest",
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "prepublishOnly": "npm run test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Popmotion/hey-listen.git"
+  },
+  "keywords": [
+    "warning",
+    "invariant"
+  ],
+  "author": "Matt Perry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Popmotion/hey-listen/issues"
+  },
+  "homepage": "https://github.com/Popmotion/hey-listen#readme",
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/node": "^10.0.6",
+    "jest": "^24.7.1",
+    "rollup": "^1.9.2",
+    "rollup-plugin-typescript2": "^0.14.0",
+    "rollup-plugin-uglify": "^3.0.0",
+    "ts-jest": "^22.4.5",
+    "typescript": "^2.8.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json",
+      "node"
+    ],
+    "transform": {
+      "\\.(ts)$": "../node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/_tests/.*\\.(ts|js)$",
+    "rootDir": "src"
+  },
+  "prettier": {
+    "singleQuote": true
+  }
+}

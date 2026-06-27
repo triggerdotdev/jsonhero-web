@@ -1,0 +1,2 @@
+import{useLayoutEffect as t}from"@radix-ui/react-use-layout-effect";import*as e from"react";const r=e["useId".toString()]||(()=>{});let n=0;export function useId(o){const[u,i]=e.useState(r());return t((()=>{o||i((t=>null!=t?t:String(n++)))}),[o]),o||(u?`radix-${u}`:"")}export function IdProvider({children:t}){return e.useEffect((()=>{0}),[]),/*#__PURE__*/e.createElement(e.Fragment,null,t)}
+//# sourceMappingURL=index.module.js.map

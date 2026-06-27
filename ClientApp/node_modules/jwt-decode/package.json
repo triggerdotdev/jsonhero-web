@@ -1,0 +1,46 @@
+{
+    "name": "jwt-decode",
+    "version": "3.1.2",
+    "description": "Decode JWT tokens, mostly useful for browser applications.",
+    "main": "build/jwt-decode.cjs.js",
+    "module": "build/jwt-decode.esm.js",
+    "types": "index.d.ts",
+    "keywords": [
+        "jwt",
+        "browser"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/auth0/jwt-decode"
+    },
+    "url": "https://github.com/auth0/jwt-decode/issues",
+    "homepage": "https://github.com/auth0/jwt-decode#readme",
+    "scripts": {
+        "dev": "rollup -m -c",
+        "build": "rimraf build && rollup -m -c --environment NODE_ENV:production",
+        "test": "mocha"
+    },
+    "author": "Jose F. Romaniello <jfromaniello@gmail.com> (http://joseoncode.com)",
+    "contributors": [
+        "Sam Bellen <sam.bellen@auth0.com>"
+    ],
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^15.0.0",
+        "@rollup/plugin-node-resolve": "^9.0.0",
+        "expect.js": "~0.2.0",
+        "mocha": "^8.1.3",
+        "rimraf": "^2.2.8",
+        "rollup": "^2.26.11",
+        "rollup-plugin-livereload": "^2.0.0",
+        "rollup-plugin-serve": "^1.0.4",
+        "rollup-plugin-sourcemaps": "^0.6.2",
+        "rollup-plugin-terser": "^7.0.2",
+        "uglify-js": "^2.8.29"
+    },
+    "files": [
+        "build/",
+        "index.d.ts"
+    ]
+}

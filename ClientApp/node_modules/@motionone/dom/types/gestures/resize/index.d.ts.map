@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/gestures/resize/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,iBAAiB,EAAE,MAAM,aAAa,CAAA;AAG/C,OAAO,EAAE,aAAa,EAAE,MAAM,SAAS,CAAA;AAEvC,wBAAgB,MAAM,CAAC,QAAQ,EAAE,aAAa,CAAC,MAAM,CAAC,GAAG,YAAY,CAAA;AACrE,wBAAgB,MAAM,CACpB,MAAM,EAAE,iBAAiB,EACzB,QAAQ,EAAE,aAAa,CAAC,OAAO,CAAC,GAC/B,YAAY,CAAA"}

@@ -1,0 +1,2 @@
+var e,t,n=require("@radix-ui/react-use-callback-ref").useCallbackRef,r=(e={},t=require("react"),Object.keys(t).forEach((function(n){"default"!==n&&"__esModule"!==n&&Object.defineProperty(e,n,{enumerable:!0,get:function(){return t[n]}})})),e);exports.useEscapeKeydown=function(e){const t=n(e);r.useEffect((()=>{const e=e=>{"Escape"===e.key&&t(e)};return document.addEventListener("keydown",e),()=>document.removeEventListener("keydown",e)}),[t])};
+//# sourceMappingURL=index.js.map

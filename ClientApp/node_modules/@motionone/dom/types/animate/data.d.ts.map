@@ -1,0 +1,1 @@
+{"version":3,"file":"data.d.ts","sourceRoot":"","sources":["../../src/animate/data.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,UAAU,CAAA;AACpD,OAAO,EAAE,WAAW,EAAE,MAAM,kBAAkB,CAAA;AAI9C,wBAAgB,gBAAgB,CAAC,OAAO,EAAE,OAAO,GAAG,oBAAoB,CASvE;AAED,wBAAgB,cAAc,CAC5B,YAAY,EAAE,GAAG,CAAC,MAAM,EAAE,WAAW,CAAC,EACtC,IAAI,EAAE,MAAM,eAOb"}

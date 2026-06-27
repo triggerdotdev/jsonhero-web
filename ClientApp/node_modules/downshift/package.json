@@ -1,0 +1,194 @@
+{
+  "name": "downshift",
+  "version": "6.1.12",
+  "description": "🏎 A set of primitives to build simple, flexible, WAI-ARIA compliant React autocomplete, combobox or select dropdown components.",
+  "main": "dist/downshift.cjs.js",
+  "react-native": "dist/downshift.native.cjs.js",
+  "module": "dist/downshift.esm.js",
+  "typings": "typings/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "npm run build:web --silent && npm run build:native --silent",
+    "build:web": "kcd-scripts build --bundle --p-react --no-clean --size-snapshot",
+    "build:native": "cross-env BUILD_REACT_NATIVE=true BUILD_FILENAME_SUFFIX=.native kcd-scripts build --bundle cjs --no-clean",
+    "lint": "kcd-scripts lint",
+    "test": "kcd-scripts test",
+    "test:cover": "kcd-scripts test --coverage",
+    "test:ssr": "kcd-scripts test --config other/ssr/jest.config.js --no-watch",
+    "test:update": "npm run test:cover -s -- --updateSnapshot",
+    "test:ts": "tsc --noEmit -p ./tsconfig.json",
+    "test:flow": "flow",
+    "test:flow:coverage": "flow-coverage-report",
+    "test:build": "jest --config other/misc-tests/jest.config.js",
+    "// FIXME: test:build": "jest --projects other/misc-tests other/react-native",
+    "test:cypress:dev": "npm-run-all --parallel --race docs:dev cy:open",
+    "pretest:cypress": "npm run docs:build --silent",
+    "test:cypress": "start-server-and-test docs:serve http://localhost:6006 cy:run",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "build-and-test": "npm run build -s && npm run test:build -s",
+    "docs:build": "docusaurus build",
+    "docs:dev": "docusaurus start",
+    "docs:serve": "docusaurus serve --port 6006",
+    "docs:clear": "docusaurus clear",
+    "setup": "npm install && npm run validate",
+    "validate": "kcd-scripts validate lint,build-and-test,test:cover,test:ts,test:flow:coverage,test:ssr,test:cypress"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "kcd-scripts pre-commit"
+    }
+  },
+  "files": [
+    "dist",
+    "typings",
+    "preact",
+    "flow-typed"
+  ],
+  "keywords": [
+    "enhanced input",
+    "react",
+    "autocomplete",
+    "autosuggest",
+    "typeahead",
+    "dropdown",
+    "select",
+    "combobox",
+    "omnibox",
+    "accessibility",
+    "WAI-ARIA",
+    "multiselect",
+    "multiple selection"
+  ],
+  "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=16.12.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.14.8",
+    "compute-scroll-into-view": "^1.0.17",
+    "prop-types": "^15.7.2",
+    "react-is": "^17.0.2",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/helpers": "^7.14.8",
+    "@cypress/webpack-preprocessor": "^5.12.2",
+    "@docusaurus/core": "^2.0.1",
+    "@docusaurus/module-type-aliases": "^2.0.1",
+    "@docusaurus/preset-classic": "^2.0.1",
+    "@mdx-js/react": "^1.6.22",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@testing-library/cypress": "^8.0.0",
+    "@testing-library/dom": "^8.1.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/preact": "^2.0.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.1",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^26.0.24",
+    "@types/react": "^17.0.15",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "babel-plugin-macros": "^3.1.0",
+    "babel-plugin-no-side-effect-class-properties": "0.0.7",
+    "babel-preset-react-native": "^4.0.1",
+    "buble": "^0.20.0",
+    "cpy-cli": "^3.1.1",
+    "cross-env": "^7.0.3",
+    "cypress": "^10.3.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-react": "7.24.0",
+    "flow-bin": "^0.156.0",
+    "flow-coverage-report": "^0.8.0",
+    "get-pkg-repo": "4.1.1",
+    "kcd-scripts": "^11.2.0",
+    "node-polyfill-webpack-plugin": "^2.0.0",
+    "npm-run-all": "^4.1.5",
+    "preact": "^10.5.14",
+    "prism-react-renderer": "^1.3.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-native": "^0.68.0",
+    "react-test-renderer": "^17.0.2",
+    "serve": "^12.0.0",
+    "start-server-and-test": "^1.13.1",
+    "typescript": "^4.3.5"
+  },
+  "eslintConfig": {
+    "settings": {
+      "import/no-unresolved": [
+        2,
+        {
+          "ignore": [
+            "^@theme"
+          ]
+        }
+      ],
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ]
+        }
+      }
+    },
+    "extends": "./node_modules/kcd-scripts/eslint.js",
+    "rules": {
+      "react/jsx-indent": "off",
+      "react/prop-types": "off",
+      "max-lines-per-function": "off",
+      "jsx-a11y/label-has-for": "off",
+      "jsx-a11y/label-has-associated-control": "off",
+      "jsx-a11y/autocomplete-valid": "off",
+      "testing-library/prefer-user-event": "off",
+      "testing-library/no-node-access": "off",
+      "testing-library/no-container": "off",
+      "testing-library/render-result-naming-convention": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "cypress/**/*.js"
+        ],
+        "rules": {
+          "testing-library/prefer-screen-queries": "off",
+          "testing-library/await-async-query": "off"
+        }
+      }
+    ]
+  },
+  "eslintIgnore": [
+    "node_modules",
+    "coverage",
+    "dist",
+    ".docusaurus",
+    "build",
+    "typings",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/downshift-js/downshift.git"
+  },
+  "bugs": {
+    "url": "https://github.com/downshift-js/downshift/issues"
+  },
+  "homepage": "https://downshift-js.com",
+  "flow-coverage-report": {
+    "includeGlob": [
+      "test/**/*.js"
+    ],
+    "threshold": 90,
+    "type": [
+      "text"
+    ]
+  }
+}

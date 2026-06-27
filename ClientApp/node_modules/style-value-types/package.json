@@ -1,0 +1,72 @@
+{
+  "name": "style-value-types",
+  "version": "5.0.0",
+  "description": "Parsers, transformers and tests for special value types, eg: %, hex codes etc.",
+  "main": "dist/valueTypes.cjs.js",
+  "types": "lib/index.d.ts",
+  "module": "dist/es/index.mjs",
+  "jsnext:main": "dist/es/index.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/es/index.mjs",
+      "require": "./dist/valueTypes.cjs.js",
+      "default": "./dist/valueTypes.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p . && rollup -c && yarn measure",
+    "watch": "rollup -c -w",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts}'",
+    "test": "jest --maxWorkers=2",
+    "measure": "gzip -c dist/style-value-types.min.js | wc -c",
+    "prepublishOnly": "npm run test && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Popmotion/popmotion/tree/master/packages/style-value-types"
+  },
+  "keywords": [
+    "css",
+    "svg",
+    "hex",
+    "rgba",
+    "hsla"
+  ],
+  "author": "Matt Perry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Popmotion/popmotion/issues"
+  },
+  "homepage": "https://popmotion.io",
+  "devDependencies": {
+    "@types/jest": "^23.1.1",
+    "webpack": "^3.12.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "\\.(ts)$": "../../../node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/_tests/.*\\.(ts|tsx|js)$",
+    "rootDir": "src",
+    "testURL": "http://localhost/"
+  },
+  "unpkg": "./dist/style-value-types.min.js",
+  "prettier": {
+    "parser": "typescript",
+    "singleQuote": true
+  },
+  "dependencies": {
+    "hey-listen": "^1.0.8",
+    "tslib": "^2.1.0"
+  }
+}

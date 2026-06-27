@@ -1,0 +1,1 @@
+{"version":3,"file":"keyframes.d.ts","sourceRoot":"","sources":["../../../src/animate/utils/keyframes.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,uBAAuB,EAAE,aAAa,EAAE,MAAM,kBAAkB,CAAA;AAE9E,wBAAgB,gBAAgB,CAC9B,SAAS,EAAE,uBAAuB,EAAE,EACpC,gBAAgB,EAAE,MAAM,MAAM,GAAG,MAAM,GACtC,aAAa,EAAE,CAQjB;AAED,eAAO,MAAM,aAAa,cACb,uBAAuB,GAAG,uBAAuB,EAAE,KAC7D,uBAAuB,EAC0B,CAAA"}

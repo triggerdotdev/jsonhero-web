@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "noUnusedLocals": true,
+    "target": "es5",
+    "rootDir": "src",
+    "outDir": "lib",
+    "watch": false,
+    "baseUrl": "src/",
+    "alwaysStrict": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": false,
+    "noUnusedParameters": true,
+    "lib": ["es5", "es6", "dom"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["**/*.test.ts"]
+}

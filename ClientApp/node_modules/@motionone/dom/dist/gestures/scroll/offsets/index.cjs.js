@@ -1,0 +1,57 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var utils = require('@motionone/utils');
+var inset = require('./inset.cjs.js');
+var presets = require('./presets.cjs.js');
+var offset = require('./offset.cjs.js');
+
+const point = { x: 0, y: 0 };
+function resolveOffsets(container, info, options) {
+    let { offset: offsetDefinition = presets.ScrollOffset.All } = options;
+    const { target = container, axis = "y" } = options;
+    const lengthLabel = axis === "y" ? "height" : "width";
+    const inset$1 = target !== container ? inset.calcInset(target, container) : point;
+    /**
+     * Measure the target and container. If they're the same thing then we
+     * use the container's scrollWidth/Height as the target, from there
+     * all other calculations can remain the same.
+     */
+    const targetSize = target === container
+        ? { width: container.scrollWidth, height: container.scrollHeight }
+        : { width: target.clientWidth, height: target.clientHeight };
+    const containerSize = {
+        width: container.clientWidth,
+        height: container.clientHeight,
+    };
+    /**
+     * Reset the length of the resolved offset array rather than creating a new one.
+     * TODO: More reusable data structures for targetSize/containerSize would also be good.
+     */
+    info[axis].offset.length = 0;
+    /**
+     * Populate the offset array by resolving the user's offset definition into
+     * a list of pixel scroll offets.
+     */
+    let hasChanged = !info[axis].interpolate;
+    const numOffsets = offsetDefinition.length;
+    for (let i = 0; i < numOffsets; i++) {
+        const offset$1 = offset.resolveOffset(offsetDefinition[i], containerSize[lengthLabel], targetSize[lengthLabel], inset$1[axis]);
+        if (!hasChanged && offset$1 !== info[axis].interpolatorOffsets[i]) {
+            hasChanged = true;
+        }
+        info[axis].offset[i] = offset$1;
+    }
+    /**
+     * If the pixel scroll offsets have changed, create a new interpolator function
+     * to map scroll value into a progress.
+     */
+    if (hasChanged) {
+        info[axis].interpolate = utils.interpolate(utils.defaultOffset(numOffsets), info[axis].offset);
+        info[axis].interpolatorOffsets = [...info[axis].offset];
+    }
+    info[axis].progress = info[axis].interpolate(info[axis].current);
+}
+
+exports.resolveOffsets = resolveOffsets;

@@ -1,0 +1,56 @@
+<!-- <?xml version = "1.0"?>
+<!DOCTYPE ORDERFILE [
+<!ELEMENT ORDERFILE (CUSTOMER)*>
+<!ELEMENT CUSTOMER (NAME, DATE, ORDERS)>
+<!ELEMENT NAME (LAST-NAME, FIRST-NAME)>
+<!ELEMENT LAST-NAME (#PCDATA)>
+<!ELEMENT FIRST-NAME (#PCDATA)>
+<!ELEMENT DATE (#PCDATA)>
+<!ELEMENT ORDERS (ITEM)*>
+<!ELEMENT ITEM (PRODUCT, NUMBER, (PRICE | CHARGEACCT | SAMPLE))>
+<!ELEMENT PRODUCT (#PCDATA)>
+<!ELEMENT NUMBER (#PCDATA)>
+<!ELEMENT PRICE (#PCDATA)>
+<!ELEMENT CHARGEACCT (#PCDATA)>
+<!ELEMENT SAMPLE (#PCDATA)>
+]> -->
+<ORDERFILE>
+  <CUSTOMER>
+    <NAME gender="female">
+      <LAST-NAME>Smith</LAST-NAME>
+      <FIRST-NAME>Sam</FIRST-NAME>
+    </NAME>
+    <DATE>October 15, 2001</DATE>
+    <ORDERS>
+      <ITEM>
+        <PRODUCT>Tomatoes</PRODUCT>
+        <NUMBER>8</NUMBER>
+        <PRICE>1.25</PRICE>
+      </ITEM>
+      <ITEM>
+        <PRODUCT>Apples</PRODUCT>
+        <NUMBER>12</NUMBER>
+        <PRICE>2.50</PRICE>
+      </ITEM>
+      <ITEM>
+        <PRODUCT>Bananas</PRODUCT>
+        <NUMBER>6</NUMBER>
+        <PRICE>.50</PRICE>
+      </ITEM>
+    </ORDERS>
+  </CUSTOMER>
+  <CUSTOMER gender="male">
+    <NAME>
+      <LAST-NAME>Snead</LAST-NAME>
+      <FIRST-NAME>Todd</FIRST-NAME>
+    </NAME>
+    <DATE>October 17, 2001</DATE>
+    <ORDERS>
+      <ITEM>
+        <PRODUCT>Slicer/Dicer</PRODUCT>
+        <NUMBER>1</NUMBER>
+        <CHARGEACCT>1234-5678-3456-7890</CHARGEACCT>
+      </ITEM>
+    </ORDERS>
+  </CUSTOMER>
+</ORDERFILE>

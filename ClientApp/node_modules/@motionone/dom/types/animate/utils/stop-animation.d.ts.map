@@ -1,0 +1,1 @@
+{"version":3,"file":"stop-animation.d.ts","sourceRoot":"","sources":["../../../src/animate/utils/stop-animation.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,sBAAsB,EAAE,MAAM,kBAAkB,CAAA;AAE9D,MAAM,WAAW,gBAAgB;IAC/B,YAAY,EAAE,YAAY,CAAA;IAC1B,MAAM,EAAE,YAAY,CAAA;CACrB;AAED,wBAAgB,aAAa,CAC3B,SAAS,CAAC,EAAE,sBAAsB,EAClC,WAAW,UAAO,QAanB"}

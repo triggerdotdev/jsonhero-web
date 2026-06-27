@@ -1,0 +1,1 @@
+{"version":3,"file":"feature-detection.d.ts","sourceRoot":"","sources":["../../../src/animate/utils/feature-detection.ts"],"names":[],"mappings":"AAqBA,UAAU,YAAY;IACpB,mBAAmB,EAAE,MAAM,OAAO,CAAA;IAClC,KAAK,EAAE,MAAM,OAAO,CAAA;IACpB,gBAAgB,EAAE,MAAM,OAAO,CAAA;IAC/B,QAAQ,EAAE,MAAM,OAAO,CAAA;CACxB;AAED,eAAO,MAAM,QAAQ,cAAqB,CAAA"}

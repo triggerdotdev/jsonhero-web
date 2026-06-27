@@ -1,0 +1,55 @@
+{
+    "name": "@types/react-dom",
+    "version": "17.0.26",
+    "description": "TypeScript definitions for react-dom",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react-dom",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Asana",
+            "url": "https://asana.com"
+        },
+        {
+            "name": "AssureSign",
+            "url": "http://www.assuresign.com"
+        },
+        {
+            "name": "Microsoft",
+            "url": "https://microsoft.com"
+        },
+        {
+            "name": "MartynasZilinskas",
+            "githubUsername": "MartynasZilinskas",
+            "url": "https://github.com/MartynasZilinskas"
+        },
+        {
+            "name": "Josh Rutherford",
+            "githubUsername": "theruther4d",
+            "url": "https://github.com/theruther4d"
+        },
+        {
+            "name": "Jessica Franco",
+            "githubUsername": "Jessidhia",
+            "url": "https://github.com/Jessidhia"
+        },
+        {
+            "name": "Sebastian Silbermann",
+            "githubUsername": "eps1lon",
+            "url": "https://github.com/eps1lon"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/react-dom"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "peerDependencies": {
+        "@types/react": "^17.0.0"
+    },
+    "typesPublisherContentHash": "b56951f05a09d12f1b2c6ed6ab2cc3bd61c30cf50a852369f37ffe2db62bcc16",
+    "typeScriptVersion": "5.0"
+}

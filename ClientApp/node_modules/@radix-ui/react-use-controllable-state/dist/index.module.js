@@ -1,0 +1,2 @@
+import{useCallbackRef as e}from"@radix-ui/react-use-callback-ref";import*as t from"react";export function useControllableState({prop:o,defaultProp:r,onChange:n=(()=>{})}){const[a,u]=function({defaultProp:o,onChange:r}){const n=t.useState(o),[a]=n,u=t.useRef(a),c=e(r);return t.useEffect((()=>{u.current!==a&&(c(a),u.current=a)}),[a,u,c]),n}({defaultProp:r,onChange:n}),c=void 0!==o,f=c?o:a,l=e(n);return[f,t.useCallback((e=>{if(c){const t=e,r="function"==typeof e?t(o):e;r!==o&&l(r)}else u(e)}),[c,o,u,l])]}
+//# sourceMappingURL=index.module.js.map

@@ -1,0 +1,20 @@
+{
+    "name": "@types/color-name",
+    "version": "2.0.0",
+    "description": "TypeScript definitions for color-name",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/color-name",
+    "license": "MIT",
+    "contributors": [],
+    "type": "module",
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/color-name"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "8f5649d599a1698519e33daa42a33717ed4715dac04907590a11f91fb0bde6e7",
+    "typeScriptVersion": "4.8"
+}

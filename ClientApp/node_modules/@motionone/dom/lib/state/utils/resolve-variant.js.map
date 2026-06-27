@@ -1,0 +1,1 @@
+{"version":3,"file":"resolve-variant.js","sourceRoot":"","sources":["../../../src/state/utils/resolve-variant.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAE,MAAM,cAAc,CAAA;AAExC,MAAM,UAAU,cAAc,CAC5B,UAA8B,EAC9B,QAAmB;IAEnB,IAAI,SAAS,CAAC,UAAU,CAAC,EAAE;QACzB,OAAO,UAAU,CAAA;KAClB;SAAM,IAAI,UAAU,IAAI,QAAQ,EAAE;QACjC,OAAO,QAAQ,CAAC,UAAU,CAAC,CAAA;KAC5B;AACH,CAAC"}

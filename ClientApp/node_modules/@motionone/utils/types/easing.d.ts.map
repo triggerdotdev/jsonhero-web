@@ -1,0 +1,1 @@
+{"version":3,"file":"easing.d.ts","sourceRoot":"","sources":["../src/easing.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,cAAc,EAAE,MAAM,kBAAkB,CAAA;AAIzD,wBAAgB,mBAAmB,CACjC,MAAM,EAAE,MAAM,GAAG,MAAM,EAAE,EACzB,CAAC,EAAE,MAAM,GACR,MAAM,CAAA;AACT,wBAAgB,mBAAmB,CACjC,MAAM,EAAE,cAAc,GAAG,cAAc,EAAE,EACzC,CAAC,EAAE,MAAM,GACR,cAAc,CAAA"}

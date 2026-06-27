@@ -1,0 +1,22 @@
+{
+  "name": "@motionone/utils",
+  "version": "10.18.0",
+  "description": "A collection of utility functions for animations.",
+  "license": "MIT",
+  "author": "Matt Perry",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "types/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "rimraf lib dist types && tsc -p . && rollup -c",
+    "test": "jest --coverage --config jest.config.js",
+    "dev": "concurrently -c blue,red -n tsc,rollup --kill-others \"tsc --watch -p . --preserveWatchOutput\" \"rollup --c --watch --no-watch.clearScreen\""
+  },
+  "dependencies": {
+    "@motionone/types": "^10.17.1",
+    "hey-listen": "^1.0.8",
+    "tslib": "^2.3.1"
+  },
+  "gitHead": "f357769434210262a664b8b736b61e1a615e95a7"
+}
