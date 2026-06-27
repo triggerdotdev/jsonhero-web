@@ -11,4 +11,12 @@ node_modules
 .mf
 /meta.json
 /stats.html
-public/entry.worker.js
+public/entry.worker.jsbackend/JsonHero.Api.Tests/bin/
+backend/JsonHero.Api.Tests/obj/
+backend/JsonHero.Api/bin/
+backend/JsonHero.Api/obj/
+ClientApp/node_modules/
+ClientApp/dist/
+=== .gitignore updated ===
+backend/**/bin/
+backend/**/obj/
